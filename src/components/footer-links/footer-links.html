@@ -1,0 +1,57 @@
+<!-- There's a previous page so it's the home-->
+<ion-buttons text-center no-margin no-padding *ngIf="!previousPage">
+        <button *ngIf="nextPage"
+                class="home-button"
+                color="dark"
+                ion-button
+                small
+                round
+                padding-horizontal
+                (click)="openPage(nextPage)">
+            <span>Let's get started!</span>
+        </button>
+</ion-buttons>
+<!-- If there's a previous page so it's not the home-->
+<ion-buttons *ngIf="previousPage" ion-row no-margin no-padding justify-content-between align-items-center>
+
+    <ion-col col-auto no-padding no-margin>
+        <button *ngIf="previousPage"
+                color="dark"
+                ion-button
+                small
+                round
+                icon-only
+                no-margin
+                no-padding
+                (click)="openPage(previousPage)">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+    </ion-col>
+
+    <ion-col col-auto no-padding no-margin>
+        <a *ngIf="tutorialUrl"
+           ion-button
+           round
+           padding
+           color="dark"
+           text-wrap href="{{tutorialUrl}}"
+           target="_blank">
+            Read this tutorial<br/>online on Dashing D3
+        </a>
+    </ion-col>
+
+    <ion-col col-auto no-padding no-margin>
+        <button *ngIf="nextPage"
+                color="dark"
+                ion-button
+                small
+                round
+                icon-only
+                no-margin
+                no-padding
+                (click)="openPage(nextPage)">
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+    </ion-col>
+
+</ion-buttons>

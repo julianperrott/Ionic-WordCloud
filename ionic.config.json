@@ -1,0 +1,8 @@
+{
+  "name": "d3-ionic-examples",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

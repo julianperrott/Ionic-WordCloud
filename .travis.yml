@@ -1,0 +1,43 @@
+env:
+  global:
+    - GITHUB_REPO: proustibat/d3js-ionic
+    - secure: "E88hDHzpU7/DcNJeQo2psKxTJxZ4o0DPBcz3DQgjAfrwtzvv85XTQMkl9YgEzVsLkD/lX/KSaoiNV2//pZN8aLfOsbNHrmW5Iihqn4B4IrTxYzmNvNmset01HEUmzuCblSVvqD3RSxkVh2Tq48zfbOaGW0bECPmtaskoxBW4vypBIVH/Nck6YSEe0KAuDvWOmuO6S80RsZ5kIywZizNU1QwXQqyLxUgM4HsC4JDNA6d+F0v/rRfviWUaccBbcyQmjpH5oJ4arJ1WKsCGx0C3yUc0tHfI3jkpxXlD3LpW82EHYrv0YTuEvKnIVPX9xc/dQtlq8V89AUPwIlgG8Y8IpayNHyPGf25FSQnteTSQk8q6nYU0Fm3MiRshryBeiGs3+SoNGqpTpqz0wsBjSgUqjaEY76hLsFsxnOVeFk2eVf6SWBpI+mNUXDA97+ajKN0eqzJeSqioNyQs9PZRPl3rrktMxs/hSyeju50K9s1bR90D3cDy3RVepQ6Qsa5Lzt+KX+I1ypD1w60MDSgwFIISkDHqJ2mhnriqXLspk5yNe/OrxMo1grgLkqbjTX17GxtGzKCjRyO3CYWODdaGjcugr6wVZrj4UCtLxEGJtN6MXblV8zbjf0B7K6fzwfuu+9FsBnmaLcm06Tp4alUCYOs+mA2+VSTJO5mVA5jDsSLe+8I="
+    # generate token at https://github.com/settings/tokens/new
+    # generate secure with travis encrypt -r username/repository GH_TOKEN=[the token you created before]
+
+
+
+language: node_js
+node_js: '8'
+cache: npm
+
+# create a user token here: https://sonarcloud.io/account/security
+# run `travis encrypt your-token-here`
+# paste secure token below
+addons:
+  sonarcloud:
+    organization: proustibat-github
+    token:
+      secure: "K8aOT5z1xZ26HTsoh3nQaY5Q6TQIDKP+vZViTaCkpXfOMHQcRh38HMEzcw06/EZZ6wKWlDqiGF0erCr6mafKTcbEatBVkcfhoUUAd7OJVfUoNDrzDDqpnCbywxQEg6qKWIlhIHDjEih5trA/Am5AIXt/s8Md/7GlYAoDcuNHTg/vaFMLXXIjfqAvkULigXk25V76z2PGouRUZOwmh4Gh6OXmuEEcc9t2cMm9VlquMmKKzypHWs++PXMk0+0gMrvL4LZNqRt3uBAQl25yNsxRZvzQjboa1NIOGhnUyMKpTKTXm4xygzK0uqabKpcoveuD5RVwlgkFtov6WpONyYZcsGf3AL/UYjbRbCgT8GHTpa2T92Dw6Ps9kcZlcu585uAOanarfjBweLKeT5mRma2k9BD8i2WesbBOfYXMToyV+CgkBtQKdUKCw4qV7Tm2LXuFsBl21BM+qtzienuiDiq455eqsgCnQJ0dwp3mCwpU+H19Vh5aGZvz7sm8AjtE+gbcFG+hYVkmkOFTQS5n/r8nEr0l+IrQGDuKjMiTvjQsMulM8adZfq7f+q5QHvVm6JzAQFGIi4JkK4e7zSqkXDVKJHPVjW4qdKUHn4SCeY5DG8fpFxS4PVbDz/GH/6j7SGuJPRURTLDoJ2PywOsDexyM1OVSzOoPQPdxqB6AyaG8fxQ="
+
+before_install:
+- npm install -g ionic@3.19.0 cordova@8.0.0
+
+install:
+- npm install
+- ionic cordova platform add android
+
+script:
+- npm run tslint:codeclimate
+- npm run lint
+- ionic cordova build android
+- bash sonar.sh
+- npm run typedoc
+
+# Here we want to check out where we are.
+# We only want to update Github Pages if we're building
+# the master branch of the original repository, so we
+# have to check $TRAVIS_PULL_REQUEST and $TRAVIS_BRANCH.
+# If we are here, we run bash deploy.sh
+after_success:
+ - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy.sh

@@ -1,0 +1,50 @@
+<ion-header>
+    <common-header>D3.js with Ionic</common-header>
+</ion-header>
+
+<ion-content>
+
+    <h1 no-margin>Dynamic SVG Coordinate Space</h1>
+
+    <div padding-horizontal padding-bottom>
+        <p padding-top>How to make the SVG Coordinate Space scale up and/or down to fit the data?</p>
+        <p padding-bottom>Basically we have to change the width and height value of the SVG container to fit the max X and the max Y where the shapes will be drawn.: </p>
+        <textarea ion-prism="javascript">
+            let svgContainer = d3.select( '#dynamicSvg' ).append( 'svg' )
+                // dynamically change the width and height attributes
+                // of the SVG Container/Viewport according to the data
+                .attr( 'width', max.x )
+                .attr( 'height', max.y )
+                .style( 'border', '1px solid black' );
+        </textarea>
+
+        <p padding-top>What are max.x and max.y ?</p>
+        <p padding-bottom>It comes from the getMaxSVG method that does what follows: </p>
+        <textarea ion-prism="javascript">
+            /**
+             * The max x-coordinate and max y-coordinate will be the bottom right hand point of the rectangle
+             * @param data
+             * @param { string } xKey the x key property to loop through the data
+             * @param { string } yKey the y key property to loop through the data
+             * @param { string } wKey the width key property to loop through the data
+             * @param { string } hKey the height key property to loop through the data
+             * @returns { {x: number, y: number} }
+             */
+            getMaxSVG( data:any, xKey:string, yKey:string, wKey:string, hKey:string ): { x:number, y:number } {
+                let max = { x:0, y:0 };
+                data.forEach( item => {
+                    max.x = Math.max( item[ xKey ] + item[wKey], max.x );
+                    max.y = Math.max( item[ yKey ] + item[hKey], max.y );
+                });
+                return max;
+            }
+        </textarea>
+
+        <p padding-top>Result:</p>
+        <div id="dynamicSvg"></div>
+    </div>
+
+
+    <footer-links color="dark" no-margin tutorialUrl="https://www.dashingd3js.com/dynamic-svg-coordinate-space"></footer-links>
+
+</ion-content>

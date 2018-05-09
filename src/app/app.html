@@ -1,0 +1,15 @@
+<ion-menu persistent="true" [content]="content" (ionClose)="sideMenu.collapseAllOptions()">
+    <ion-header>
+        <ion-toolbar color="white">
+            <ion-title>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+        <side-menu-content [settings]="sideMenuSettings" [options]="options" (selectOption)="selectOption($event)"></side-menu-content>
+    </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content></ion-nav>
+
+
