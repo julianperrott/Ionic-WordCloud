@@ -4,7 +4,6 @@ import * as D3 from 'd3';
 
 declare var d3: any;
 
-
 @Component({
   selector: 'word-cloud',
   template: '<div class="word-cloud">{{text}}</div>'
@@ -36,9 +35,22 @@ export class WordCloudComponent implements OnInit {
 
   ngOnInit() {
     let cls = this;
-    this.data = this.wordData.data.split(' ').map(function(d) {
-      return {text: d, size: cls.getRandom()};
-    });
+
+    var ignoreWords = ['the','to','a','it','and','on','so','be','of','is','i'];
+
+    var counts = this.wordData.data.split(/[ ,.]+/)
+      .map(function(word){ return word.toLowerCase()})
+      .filter(function(word) { return ignoreWords.indexOf(word)===-1 && word.length>2;})
+      .reduce(function(count, word) {
+        count[word] = count.hasOwnProperty(word) ? count[word] + 1 : 1;
+        return count;
+      }, {});
+
+      this.data = Object.keys(counts)
+      .filter(function(key){ return counts[key] >1 ;})
+      .map(function(key){
+        return {text: key, size: counts[key]*20};
+      });
 
     this.setup();
     this.buildSVG();
@@ -84,7 +96,7 @@ export class WordCloudComponent implements OnInit {
   }
 
   private populate() {
-    let fontFace: string = (this.wordData.settings.fontFace == null) ? 'Roboto' : this.wordData.settings.fontFace;
+    let fontFace: string = (this.wordData.settings.fontFace == null) ? 'Impact' : this.wordData.settings.fontFace;
     let fontWeight: string = (this.wordData.settings.fontWeight == null) ? 'normal' : this.wordData.settings.fontWeight;
     let spiralType: string = (this.wordData.settings.spiral == null) ? 'archimedean' : this.wordData.settings.spiral;
 
@@ -92,7 +104,7 @@ export class WordCloudComponent implements OnInit {
       .size([this.width, this.height])
       .words(this.data)
       .padding(5)
-      .rotate(() => (~~(Math.random() * 2) * 90))
+      .rotate(() => (~~(Math.random() * 6) -3) * 30)
       .font(fontFace)
       .fontWeight(fontWeight)
       .fontSize(d => (d.size))
@@ -104,6 +116,13 @@ export class WordCloudComponent implements OnInit {
   }
 
   private drawWordCloud(words) {
+
+    var color = D3.scaleLinear()
+      .domain([-1, 0, 1])
+      .range([0,1,2]);
+
+
+
     this.svg
         .selectAll('text')
         .data(words)
@@ -111,7 +130,7 @@ export class WordCloudComponent implements OnInit {
         .append('text')
         .style('font-size', d => d.size + 'px')
         .style('fill', (d, i) => {
-          return this.fillScale(i);
+          return "hsl(" + Math.random() * 360 + ",100%,50%)";
         })
         .attr('text-anchor', 'middle')
         .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')

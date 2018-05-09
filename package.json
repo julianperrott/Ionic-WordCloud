@@ -38,6 +38,7 @@
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
+    "count-words-array": "^1.0.11",
     "d3": "^4.12.2",
     "d3-array": "^1.2.1",
     "d3-axis": "^1.0.8",

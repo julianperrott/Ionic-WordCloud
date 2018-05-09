@@ -1,0 +1,43 @@
+
+
+F:\GitHub\Ionic-WordCloud>ionic build
+Error: Cannot find module 'F:\GitHub\Ionic-WordCloud\node_modules\@ionic\app-scripts'
+    at Function.Module._resolveFilename (module.js:555:15)
+    at Function.Module._load (module.js:482:25)
+    at Module.require (module.js:604:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Users\jp\AppData\Roaming\npm\node_modules\ionic\node_modules\@ionic\cli-utils\lib\ionic-angular\app-scripts.js:9:16)
+    at Generator.next (<anonymous>)
+    at C:\Users\jp\AppData\Roaming\npm\node_modules\ionic\node_modules\tslib\tslib.js:107:75
+    at new Promise (<anonymous>)
+    at Object.__awaiter (C:\Users\jp\AppData\Roaming\npm\node_modules\ionic\node_modules\tslib\tslib.js:103:16)
+    at Object.importAppScripts (C:\Users\jp\AppData\Roaming\npm\node_modules\ionic\node_modules\@ionic\cli-utils\lib\ionic-angular\app-scripts.js:7:20)
+[ERROR] Error with .\node_modules\ionic-angular\package.json file: FILE_NOT_FOUND
+[ERROR] Error with .\node_modules\@ionic\app-scripts\package.json file: FILE_NOT_FOUND
+
+F:\GitHub\Ionic-WordCloud>npm i
+
+---------------------------------------------------------------------------------------------
+
+gyp verb check python checking for Python executable "python2" in the PATH
+gyp verb `which` failed Error: not found: python2
+
+
+try: npm install --global --production windows-build-tools
+
+https://www.python.org/downloads/release/python-2715/
+Windows x86-64 MSI installer
+
+Add path to Environment variable: path
+---------------------------------------------------------------------------------------------
+
+
+
+  Building solution configuration "Release|x64".
+MSBUILD : error MSB3428: Could not load the Visual C++ component "VCBuild.exe". To fix this, 1) install the .NET Framework 2.0 SDK, 2) install Microsoft Visual Studio 2005 or 3) add the location of t
+he component to the system path if it is installed elsewhere.  [F:\GitHub\Ionic-WordCloud\node_modules\node-sass\build\binding.sln]
+Done Building Project "F:\GitHub\Ionic-WordCloud\node_modules\node-sass\build\binding.sln" (default targets) -- FAILED.
+
+npm install --global --production windows-build-tools
+
+---------------------------------------------------------------------------------------------
