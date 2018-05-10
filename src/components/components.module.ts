@@ -4,14 +4,18 @@ import { FooterLinksComponent } from './footer-links/footer-links';
 import { ExpandableComponent } from './expandable/expandable';
 import { WordCloudComponent } from './word-cloud/word-cloud';
 @NgModule({
-    declarations: [CommonHeaderComponent,
-    FooterLinksComponent,
-    ExpandableComponent,
-    WordCloudComponent],
+    declarations: [
+        CommonHeaderComponent,
+        FooterLinksComponent,
+        ExpandableComponent,
+        WordCloudComponent
+    ],
     imports: [],
-    exports: [CommonHeaderComponent,
-    FooterLinksComponent,
-    ExpandableComponent,
-    WordCloudComponent]
+    exports: [
+        CommonHeaderComponent,
+        FooterLinksComponent,
+        ExpandableComponent,
+        WordCloudComponent
+    ]
 })
 export class ComponentsModule {}
