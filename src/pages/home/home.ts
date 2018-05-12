@@ -9,6 +9,7 @@ import * as unfluff from 'unfluff';
     selector: 'page-home',
     templateUrl: 'home.html'
 })
+
 export class HomePage {
     data = Data;
 
@@ -16,7 +17,7 @@ export class HomePage {
         this.createCircles();
 
         const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-        const requesturl = 'http://www.bbc.co.uk/news/uk-44070304';
+        const requesturl = 'https://www.usatoday.com/story/news/world/2018/05/12/north-korea-nuclear-weapons-donald-trump-kim-jong-un-summit/602736002/';
         fetch(proxyurl + requesturl)
             .then(response => response.text())
             .then(text => {

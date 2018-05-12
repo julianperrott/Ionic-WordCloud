@@ -1,5 +1,9 @@
 import {Component, Renderer2, ViewChild} from '@angular/core';
 
+import { PopoverController } from 'ionic-angular';
+
+import { PopoverPage } from '../../pages/popover/popover';
+
 @Component({
     selector: 'common-header',
     templateUrl: 'common-header.html'
@@ -10,7 +14,7 @@ export class CommonHeaderComponent {
 
     defaultTitle = 'D3.js with Ionic';
 
-    constructor(private renderer: Renderer2) {
+    constructor(private renderer: Renderer2, public popoverCtrl: PopoverController) {
 
     }
 
@@ -21,5 +25,12 @@ export class CommonHeaderComponent {
         }
 
     }
+
+    presentPopover(myEvent) {
+        let popover = this.popoverCtrl.create(PopoverPage);
+        popover.present({
+          ev: myEvent
+        });
+      }
 
 }

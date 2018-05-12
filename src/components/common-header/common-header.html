@@ -1,8 +1,18 @@
 <ion-navbar>
+
     <button ion-button menuToggle icon-only>
         <ion-icon name='menu'></ion-icon>
     </button>
 
-    <ion-title #ref><img class="logo" src="assets/imgs/logo.png" alt="logo" /><ng-content></ng-content></ion-title>
-</ion-navbar>
+    <ion-title #ref>
+        <img class="logo" src="assets/imgs/logo.png" alt="logo" />
+        <ng-content></ng-content>
+    </ion-title>
 
+    <ion-buttons end>
+        <button ion-button icon-only (click)="presentPopover($event)">
+            <ion-icon name="more"></ion-icon>
+        </button>
+    </ion-buttons>
+
+</ion-navbar>

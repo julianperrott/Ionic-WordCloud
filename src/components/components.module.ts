@@ -3,6 +3,7 @@ import { CommonHeaderComponent } from './common-header/common-header';
 import { FooterLinksComponent } from './footer-links/footer-links';
 import { ExpandableComponent } from './expandable/expandable';
 import { WordCloudComponent } from './word-cloud/word-cloud';
+
 @NgModule({
     declarations: [
         CommonHeaderComponent,
