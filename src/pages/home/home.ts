@@ -22,7 +22,7 @@ export class HomePage {
             .then(text => {
                 console.log(text);
 
-                this.data ={
+                this.data = {
                     data: unfluff(text, 'en').text,
                     settings: {
                         minFontSize: 10,
@@ -31,7 +31,8 @@ export class HomePage {
                         spiralType : 'archimedean',
                         fontWeight: 'bolder',
                     }
-            }});
+            };
+        });
     }
 
     createCircles(): void {
