@@ -7,16 +7,32 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>PopoverPage</ion-title>
+    <ion-title>Word Cloud Settings</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
-    <button ion-button icon-only (click)="doSomething()">
-        <ion-icon name="more">DoSomethinf</ion-icon>
-    </button>
 
+    <ion-list>
+      <ion-item>
+        <ion-range min="1" step="-1" max=300 snaps="false" [(ngModel)]="fontScale">
+          <ion-label range-left>A</ion-label>
+          <ion-label range-right class="small-text">A</ion-label>
+        </ion-range>
+      </ion-item>
+
+
+
+
+    </ion-list>
+
+    <div text-center>
+    <button ion-button icon-only (click)="update()">
+        &nbsp;Refresh<ion-icon name="refresh"></ion-icon>
+      </button>
+    </div>
+      
 </ion-content>

@@ -7,6 +7,15 @@ export class ConfigurationService {
     // Observable string sources
     static configurationChangeSource = new Subject<string>();
 
+    static settings = {
+        minFontSize: 10,
+        maxFontSize: 300,
+        fontFace: 'Impact',
+        spiralType : 'archimedean',
+        fontWeight: 'bolder',
+        fontScale: 70
+    }
+
     // Observable string streams
     configurationChanged$ = ConfigurationService.configurationChangeSource.asObservable();
 
