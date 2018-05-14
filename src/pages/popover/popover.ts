@@ -16,10 +16,12 @@ import { ConfigurationService }     from '../../app/configuration.service';
 })
 export class PopoverPage {
 
-  fontScale = 70;
+  fontScale = -1;
+  fontFace = ""
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private configurationService: ConfigurationService) {
     this.fontScale = ConfigurationService.settings.fontScale;
+    this.fontFace  = ConfigurationService.settings.fontFace;
   }
 
   ionViewDidLoad() {
@@ -28,9 +30,9 @@ export class PopoverPage {
 
   update(){
     ConfigurationService.settings.fontScale = this.fontScale;
+    ConfigurationService.settings.fontFace = this.fontFace;
 
-
-    this.configurationService.configurationChanged("banana");
+    this.configurationService.configurationChanged("");
   }
 
 }

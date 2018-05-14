@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Word Cloud Settings</ion-title>
+    <ion-title>Stylings</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,6 +25,27 @@
       </ion-item>
 
 
+        <ion-item>
+          <ion-label>Font</ion-label>
+          <ion-select [(ngModel)]="fontFace" (ionChange)="update()">
+            <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
+            <ion-option value="Arvo">Arvo</ion-option>
+            <ion-option value="IndieFlower">Indie Flower</ion-option>
+            <ion-option value="Impact">Impact</ion-option>
+            <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
+            <ion-option value="Lato">Lato</ion-option>
+            <ion-option value="OldStandardTT">Old Standard TT</ion-option>
+            <ion-option value="OpenSans">Open Sans</ion-option>
+            <ion-option value="Pacifico">Pacifico</ion-option>
+            <ion-option value="PermanentMarker">Permanent Marker</ion-option>
+            <ion-option value="RussoOne">Russo One</ion-option>
+            <ion-option value="TitanOne">Titan One</ion-option>
+            <ion-option value="Ubuntu">Ubuntu</ion-option>
+            <ion-option value="Vollkorn">Vollkorn</ion-option>
+            
+
+          </ion-select>
+        </ion-item>
 
 
     </ion-list>

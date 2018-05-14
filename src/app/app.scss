@@ -47,3 +47,78 @@ h3, h5, h6 {
   padding: $heading-padding $content-padding;
 }
 
+
+@font-face{
+  font-family: Pacifico;
+  src: url('../assets/fonts/Pacifico.woff2')
+  }
+
+  @font-face{
+    font-family: AbrilFatFace;
+    src: url('../assets/fonts/AbrilFatFace.woff2')
+  }
+  @font-face{
+    font-family: Arvo;
+    src: url('../assets/fonts/Arvo.woff2')
+  }
+  @font-face{
+    font-family: IndieFlower;
+    src: url('../assets/fonts/IndieFlower.woff2')
+  }
+  @font-face{
+    font-family: JosenfinSlab;
+    src: url('../assets/fonts/JosenfinSlab.woff2')
+  }
+  @font-face{
+    font-family: Lato;
+    src: url('../assets/fonts/Lato.woff2')
+  }
+  @font-face{
+    font-family: OldStandardTT;
+    src: url('../assets/fonts/OldStandardTT.woff2')
+  }
+  @font-face{
+    font-family: OpenSans;
+    src: url('../assets/fonts/OpenSans.woff2')
+  }
+  @font-face{
+    font-family: PermanentMarker;
+    src: url('../assets/fonts/PermanentMarker.woff2')
+  }
+  @font-face{
+    font-family: RussoOne;
+    src: url('../assets/fonts/RussoOne.woff2')
+  }
+  @font-face{
+    font-family: TitanOne;
+    src: url('../assets/fonts/TitanOne.woff2')
+  }
+  @font-face{
+    font-family: Ubuntu;
+    src: url('../assets/fonts/Ubuntu.woff2')
+  }
+   @font-face{
+    font-family: Vollkorn;
+    src: url('../assets/fonts/Vollkorn.woff2')
+  }
+
+.alert-radio-group > button:nth-child(1){font-family: AbrilFatFace !important}
+.alert-radio-group > button:nth-child(2){font-family: Arvo  !important}
+.alert-radio-group > button:nth-child(3){font-family: IndieFlower !important}
+.alert-radio-group > button:nth-child(4){font-family: Impact !important}
+.alert-radio-group > button:nth-child(5){font-family: JosenfinSlab !important}
+.alert-radio-group > button:nth-child(6){font-family:  Lato !important}
+.alert-radio-group > button:nth-child(7){font-family: OldStandardTT !important}
+.alert-radio-group > button:nth-child(8){font-family: OpenSans !important}
+.alert-radio-group > button:nth-child(9){font-family: Pacifico !important}
+.alert-radio-group > button:nth-child(10){font-family: PermanentMarker !important}
+.alert-radio-group > button:nth-child(11){font-family: RussoOne !important}
+.alert-radio-group > button:nth-child(12){font-family: TitanOne !important}
+.alert-radio-group > button:nth-child(13){font-family: Ubuntu !important}
+.alert-radio-group > button:nth-child(14){font-family: Vollkorn !important}
+
+text.shadow {
+  stroke: rgba(80, 80, 80, .2);
+  stroke-width: 2.5px;
+}
+

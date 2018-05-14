@@ -1,28 +1,12 @@
 <ion-header>
-    <common-header>Ionic wordcloud</common-header>
+    <common-header>URL Word Cloud</common-header>
 </ion-header>
 
 <ion-content no-padding no-margin>
 
-<word-cloud [wordData]="data"></word-cloud>
+    <ion-item>
+        <ion-input type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()"></ion-input>
+    </ion-item>
 
-{{ data.data }}
-
-Circles    
-<div id="circles"></div>
-
-<svg width="660" height="220" style="outline: 1px solid red; font-size: 2em; overflow: visible;">  
-    <text x="120" y="80" font-family="myriad pro">This text is Myriad Pro</text>  
-    <text x="120" y="120" font-family="myriad pro" font-stretch="condensed">This text is Myriad Pro condensed</text>  
-    <text x="120" y="160" font-family="myriad pro" font-stretch="expanded">This text is Myriad Pro expanded</text>  
- </svg>
-
- <svg width="660" height="220" style="outline: 1px solid red; font-size: 2em; overflow: visible;">  
-    <text x="120" y="100" font-family="baskerville">Baskerville xx</text>  
-    <text x="300" y="100" font-family="futura">xx Futura</text>  
-    <text x="120" y="130" font-family="baskerville">Baskerville xx</text>  
-    <text x="300" y="130" font-family="futura" font-size-adjust="0.42">xx Futura</text>  
-  </svg>
+    <word-cloud [wordData]="data"></word-cloud>
 </ion-content>
-
-

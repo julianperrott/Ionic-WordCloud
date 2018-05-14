@@ -10,7 +10,7 @@ export class ConfigurationService {
     static settings = {
         minFontSize: 10,
         maxFontSize: 300,
-        fontFace: 'Impact',
+        fontFace: 'TitanOne',
         spiralType : 'archimedean',
         fontWeight: 'bolder',
         fontScale: 70
