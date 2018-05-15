@@ -8,7 +8,7 @@ declare var d3: any;
 
 @Component({
     selector: 'word-cloud',
-    template: '<div class="word-cloud"></div> {{words}}<hr/>',
+    templateUrl: 'word-cloud.html',
     providers: [ConfigurationService]
 })
 export class WordCloudComponent implements OnChanges {
@@ -174,19 +174,19 @@ export class WordCloudComponent implements OnChanges {
         feMerge.append('feMergeNode').attr('in', 'glow');
 
 
-        var xxx = this.svg
+        var enter = this.svg
             .selectAll('text')
             .data(words)
             .enter();
 
-            xxx.append('text')
+            enter.append('text')
             .style('font-size', d => d.size + 'px')
             .style(
                 'font-family',
                 d => (d.fontFace = ConfigurationService.settings.fontFace)
             )
             .style('fill', (d, i) => {
-                return 'hsl(' + d.color * 1000 + ',100%,50%)';
+                return 'hsl(' + d.color * 360 + ',100%,50%)';
             })
             .attr('text-anchor', 'middle')
             .attr(
@@ -198,9 +198,12 @@ export class WordCloudComponent implements OnChanges {
                 return d.text;
             });
 
-          xxx
+            
+            enter
             .append('text')
             .style('font-size', d => d.size + 'px')
+            .style('stroke', d => 'rgba(255,255,255, 1)')
+            .style('stroke-width', d => '1px')
             .style(
                 'font-family',
                 d => (d.fontFace = ConfigurationService.settings.fontFace)
@@ -209,7 +212,6 @@ export class WordCloudComponent implements OnChanges {
                 return 'hsl(' +  d.color * 360 + ',100%,50%)';
             })
             .attr('text-anchor', 'middle')
-            .attr('class', 'shadow')
             .attr(
                 'transform',
                 d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
@@ -217,6 +219,8 @@ export class WordCloudComponent implements OnChanges {
             .text(d => {
                 return d.text;
             });
+
+
 
 
     }
