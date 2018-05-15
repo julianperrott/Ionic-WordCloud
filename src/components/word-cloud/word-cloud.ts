@@ -72,7 +72,8 @@ export class WordCloudComponent implements OnChanges {
                     text: key,
                     size:
                         counts[key] *
-                        (shortestAxis / ConfigurationService.settings.fontScale)
+                        (shortestAxis / ConfigurationService.settings.fontScale),
+                    color: Math.random()
                 };
             })
             .sort(function(a, b) {
@@ -154,10 +155,50 @@ export class WordCloudComponent implements OnChanges {
     }
 
     private drawWordCloud(words) {
-        this.svg
+
+        var defs = this.svg.append('defs');
+
+        var filter = defs.append('filter')
+            .attr('id', 'glow')
+            .attr('x', '-30%')
+            .attr('y', '-30%')
+            .attr('width', '160%')
+            .attr('height', '160%');
+        filter
+            .append('feGaussianBlur')
+            .attr('stdDeviation', '10 10')
+            .attr('result', 'glow');
+
+        var feMerge = filter.append('feMerge');
+        feMerge.append('feMergeNode').attr('in', 'glow');
+        feMerge.append('feMergeNode').attr('in', 'glow');
+
+
+        var xxx = this.svg
             .selectAll('text')
             .data(words)
-            .enter()
+            .enter();
+
+            xxx.append('text')
+            .style('font-size', d => d.size + 'px')
+            .style(
+                'font-family',
+                d => (d.fontFace = ConfigurationService.settings.fontFace)
+            )
+            .style('fill', (d, i) => {
+                return 'hsl(' + d.color * 1000 + ',100%,50%)';
+            })
+            .attr('text-anchor', 'middle')
+            .attr(
+                'transform',
+                d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
+            )
+            .attr('filter', 'url(#glow)')
+            .text(d => {
+                return d.text;
+            });
+
+          xxx
             .append('text')
             .style('font-size', d => d.size + 'px')
             .style(
@@ -165,27 +206,18 @@ export class WordCloudComponent implements OnChanges {
                 d => (d.fontFace = ConfigurationService.settings.fontFace)
             )
             .style('fill', (d, i) => {
-                return 'hsl(' + Math.random() * 360 + ',100%,50%)';
+                return 'hsl(' +  d.color * 360 + ',100%,50%)';
             })
             .attr('text-anchor', 'middle')
+            .attr('class', 'shadow')
             .attr(
                 'transform',
                 d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
             )
-            .attr('class', 'shadow')
             .text(d => {
                 return d.text;
             });
 
-        var defs = this.svg.select('text');
 
-        var filter = defs.append('filter').attr('id', 'glow');
-        filter
-            .append('feGaussianBlur')
-            .attr('stdDeviation', '3.5')
-            .attr('result', 'coloredBlur');
-        var feMerge = filter.append('feMerge');
-        feMerge.append('feMergeNode').attr('in', 'coloredBlur');
-        feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
     }
 }
