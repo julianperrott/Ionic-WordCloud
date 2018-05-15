@@ -36,6 +36,14 @@ export class WordCloudComponent implements OnChanges {
         });
     }
 
+    download(){
+        let link = document.createElement('a')
+        link.href = 'data:application/octet-stream;base64,' + btoa(D3.select('div.word-cloud').html());
+        link.download = "viz.svg";
+        document.body.appendChild(link)
+        link.click()
+    }
+
     ngOnChanges() {
         if (this.lastdata === this.wordData) {
             return;
@@ -113,6 +121,7 @@ export class WordCloudComponent implements OnChanges {
 
         this.svg = D3.select('div.word-cloud')
             .append('svg')
+            .attr("xmlns", "http://www.w3.org/2000/svg")
             .attr('width', this.width - this.margin.left - this.margin.right)
             .attr('height', this.height - this.margin.top - this.margin.bottom)
             .append('g')
