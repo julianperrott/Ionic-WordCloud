@@ -16,52 +16,62 @@
 <ion-content>
 
 
-  <ion-item>
-    <ion-label>Theme</ion-label>
-    <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect">
-      <ion-option *ngFor="let th of themes" [value] = "th">{{th.name}}</ion-option>
-    </ion-select>
-  </ion-item>
-
-
-    <ion-list>
-      <ion-item>
-        <ion-range min="1" step="-1" max=300 snaps="false" [(ngModel)]="theme.fontScale">
-          <ion-label range-left>A</ion-label>
-          <ion-label range-right class="small-text">A</ion-label>
-        </ion-range>
-      </ion-item>
-
-
-        <ion-item>
-          <ion-label>Font</ion-label>
-          <ion-select [(ngModel)]="theme.fontFace" (ionChange)="update()">
-            <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
-            <ion-option value="Arvo">Arvo</ion-option>
-            <ion-option value="IndieFlower">Indie Flower</ion-option>
-            <ion-option value="Impact">Impact</ion-option>
-            <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
-            <ion-option value="Lato">Lato</ion-option>
-            <ion-option value="OldStandardTT">Old Standard TT</ion-option>
-            <ion-option value="OpenSans">Open Sans</ion-option>
-            <ion-option value="Pacifico">Pacifico</ion-option>
-            <ion-option value="PermanentMarker">Permanent Marker</ion-option>
-            <ion-option value="RussoOne">Russo One</ion-option>
-            <ion-option value="TitanOne">Titan One</ion-option>
-            <ion-option value="Ubuntu">Ubuntu</ion-option>
-            <ion-option value="Vollkorn">Vollkorn</ion-option>
-            
-
-          </ion-select>
-        </ion-item>
-
-
-    </ion-list>
-
-    <div text-center>
-    <button ion-button icon-only (click)="update()">
-        &nbsp;Refresh<ion-icon name="refresh"></ion-icon>
-      </button>
+    <div ion-item>
+        <ion-icon name="wifi" item-start color="primary"></ion-icon>
+      <ion-label>Theme</ion-label>
+      <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect">
+        <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
+      </ion-select>
     </div>
-      
+
+
+
+    <div ion-item>
+        <ion-icon name="wifi" item-start color="primary"></ion-icon>
+        
+      <ion-label>Font</ion-label>
+      <ion-select [(ngModel)]="localTheme.fontFace" (ionChange)="update()">
+        <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
+        <ion-option value="Arvo">Arvo</ion-option>
+        <ion-option value="IndieFlower">Indie Flower</ion-option>
+        <ion-option value="Impact">Impact</ion-option>
+        <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
+        <ion-option value="Lato">Lato</ion-option>
+        <ion-option value="OldStandardTT">Old Standard TT</ion-option>
+        <ion-option value="OpenSans">Open Sans</ion-option>
+        <ion-option value="Pacifico">Pacifico</ion-option>
+        <ion-option value="PermanentMarker">Permanent Marker</ion-option>
+        <ion-option value="RussoOne">Russo One</ion-option>
+        <ion-option value="TitanOne">Titan One</ion-option>
+        <ion-option value="Ubuntu">Ubuntu</ion-option>
+        <ion-option value="Vollkorn">Vollkorn</ion-option>
+
+
+      </ion-select>
+    </div>
+
+    
+   
+      <button ion-item>
+        
+          <ion-icon name="star" item-start></ion-icon>
+          
+          <label>
+          Button Item</label>
+          <button ion-button  (click)="smaller()" >
+              <ion-icon name="refresh"></ion-icon>
+          </button>
+          Button Item2
+          <button ion-button  (click)="bigger()" >
+              <ion-icon name="refresh"></ion-icon>
+          </button>
+        </button>
+
+  <div text-center>
+    <button ion-button icon-only (click)="update()">
+      &nbsp;Refresh
+      <ion-icon name="refresh"></ion-icon>
+    </button>
+  </div>
+
 </ion-content>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ConfigurationService }     from '../../app/configuration.service';
+import { ConfigurationService } from '../../app/configuration.service';
 /**
  * Generated class for the PopoverPage page.
  *
@@ -17,23 +17,26 @@ import { ConfigurationService }     from '../../app/configuration.service';
 export class PopoverPage {
 
   themes = [];
-  theme = { fontScale: 0, fontFace: ""};
+  theme = {};
+  localTheme = { fontScale: 0, fontFace: "" };
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private configurationService: ConfigurationService) {
     this.themes = ConfigurationService.themes;
-    this.theme = ConfigurationService.settings;
+    for (var property in ConfigurationService.settings) {
+      this.localTheme[property] = ConfigurationService.settings[property];
+    }
+    this.themes.filter(t => t.name === ConfigurationService.settings.name).forEach(t => this.theme = t);
   }
 
-  ionViewDidLoad() {
-    
+  update() {
+    for (let property in this.localTheme) {
+      ConfigurationService.settings[property] = this.localTheme[property];
     }
-
-  update(){
     this.configurationService.configurationChanged("");
   }
 
-  themeChanged(){
-    this.configurationService.setTheme(this.theme);
+  themeChanged() {
+    for (var property in this.theme) { this.localTheme[property] = this.theme[property]; }
+    this.update();
   }
-
 }

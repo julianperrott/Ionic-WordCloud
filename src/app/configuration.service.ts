@@ -108,11 +108,4 @@ export class ConfigurationService {
     configurationChanged(name: string) {
         ConfigurationService.configurationChangeSource.next(name);
     }
-
-    public setTheme(theme){
-        for (var property in theme) {
-            ConfigurationService.settings[property] = theme[property];
-        }
-        ConfigurationService.configurationChangeSource.next("");
-    }
 }
