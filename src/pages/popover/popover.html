@@ -16,9 +16,17 @@
 <ion-content>
 
 
+  <ion-item>
+    <ion-label>Theme</ion-label>
+    <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect">
+      <ion-option *ngFor="let th of themes" [value] = "th">{{th.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+
     <ion-list>
       <ion-item>
-        <ion-range min="1" step="-1" max=300 snaps="false" [(ngModel)]="fontScale">
+        <ion-range min="1" step="-1" max=300 snaps="false" [(ngModel)]="theme.fontScale">
           <ion-label range-left>A</ion-label>
           <ion-label range-right class="small-text">A</ion-label>
         </ion-range>
@@ -27,7 +35,7 @@
 
         <ion-item>
           <ion-label>Font</ion-label>
-          <ion-select [(ngModel)]="fontFace" (ionChange)="update()">
+          <ion-select [(ngModel)]="theme.fontFace" (ionChange)="update()">
             <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
             <ion-option value="Arvo">Arvo</ion-option>
             <ion-option value="IndieFlower">Indie Flower</ion-option>

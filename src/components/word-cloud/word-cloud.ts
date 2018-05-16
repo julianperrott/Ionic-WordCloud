@@ -4,6 +4,8 @@ import { ConfigurationService } from '../../app/configuration.service';
 
 import * as D3 from 'd3';
 
+import * as canvg from 'canvg';
+
 declare var d3: any;
 
 @Component({
@@ -36,7 +38,21 @@ export class WordCloudComponent implements OnChanges {
         });
     }
 
-    download(){
+    downloadAsPng() {
+        let canvas = document.getElementById('canvasId') as HTMLCanvasElement;
+        let svgHtml = document.getElementById('word-cloud').innerHTML.trim();
+        canvg(canvas, svgHtml, undefined);
+
+        let url = canvas.toDataURL('image/png');
+        let link = document.createElement('a');
+
+        link.href = url;
+        link.download = 'name.png';
+        document.body.appendChild(link);
+        link.click();
+    }
+    
+    downloadAsSvg() {
         let link = document.createElement('a')
         link.href = 'data:application/octet-stream;base64,' + btoa(D3.select('div.word-cloud').html());
         link.download = "viz.svg";
@@ -80,7 +96,8 @@ export class WordCloudComponent implements OnChanges {
                     text: key,
                     size:
                         counts[key] *
-                        (shortestAxis / ConfigurationService.settings.fontScale),
+                        (shortestAxis /
+                            ConfigurationService.settings.fontScale),
                     color: Math.random()
                 };
             })
@@ -121,7 +138,7 @@ export class WordCloudComponent implements OnChanges {
 
         this.svg = D3.select('div.word-cloud')
             .append('svg')
-            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .attr('xmlns', 'http://www.w3.org/2000/svg')
             .attr('width', this.width - this.margin.left - this.margin.right)
             .attr('height', this.height - this.margin.top - this.margin.bottom)
             .append('g')
@@ -149,7 +166,7 @@ export class WordCloudComponent implements OnChanges {
 
         d3.layout
             .cloud()
-            .size([this.width,  this.height])
+            .size([this.width, this.height])
             .words(this.data)
             .padding(3)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
@@ -165,9 +182,12 @@ export class WordCloudComponent implements OnChanges {
 
     private drawWordCloud(words) {
 
+        let settings = ConfigurationService.settings;
+
         var defs = this.svg.append('defs');
 
-        var filter = defs.append('filter')
+        var filter = defs
+            .append('filter')
             .attr('id', 'glow')
             .attr('x', '-30%')
             .attr('y', '-30%')
@@ -178,21 +198,23 @@ export class WordCloudComponent implements OnChanges {
             .attr('stdDeviation', '10 10')
             .attr('result', 'glow');
 
-        var feMerge = filter.append('feMerge');
-        feMerge.append('feMergeNode').attr('in', 'glow');
-        feMerge.append('feMergeNode').attr('in', 'glow');
-
+        var feMerge = filter.append('feMerge'); // glow count
+        for (let i = 0; i < settings.glowCount; i++) {
+            feMerge.append('feMergeNode').attr('in', 'glow');
+            feMerge.append('feMergeNode').attr('in', 'glow');
+        }
 
         var enter = this.svg
             .selectAll('text')
             .data(words)
             .enter();
 
-            enter.append('text')
+        enter
+            .append('text')
             .style('font-size', d => d.size + 'px')
             .style(
                 'font-family',
-                d => (d.fontFace = ConfigurationService.settings.fontFace)
+                d => (d.fontFace = settings.fontFace)
             )
             .style('fill', (d, i) => {
                 return 'hsl(' + d.color * 360 + ',100%,50%)';
@@ -207,18 +229,23 @@ export class WordCloudComponent implements OnChanges {
                 return d.text;
             });
 
-            
-            enter
+        enter
             .append('text')
             .style('font-size', d => d.size + 'px')
-            .style('stroke', d => 'rgba(255,255,255, 1)')
-            .style('stroke-width', d => '1px')
+            .style('stroke', d => settings.strokeColour) // stroke colour
+            .style('stroke-opacity', d => settings.strokeOpacity) //  stroke opacity
+            .style('stroke-width', d => {
+                let scale = ~~(d.size/settings.strokeScale);
+                scale = scale<settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+                return scale+"px";
+            }
+            ) // stroke size divider + min width
             .style(
                 'font-family',
-                d => (d.fontFace = ConfigurationService.settings.fontFace)
+                d => (d.fontFace = settings.fontFace) // font face
             )
             .style('fill', (d, i) => {
-                return 'hsl(' +  d.color * 360 + ',100%,50%)';
+                return 'hsl(' + d.color * 360 + ',100%, '+settings.lightness+')';
             })
             .attr('text-anchor', 'middle')
             .attr(
@@ -228,9 +255,5 @@ export class WordCloudComponent implements OnChanges {
             .text(d => {
                 return d.text;
             });
-
-
-
-
     }
 }
