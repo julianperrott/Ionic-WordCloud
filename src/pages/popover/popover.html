@@ -50,28 +50,28 @@
       </ion-select>
     </div>
 
-    
-   
-      <button ion-item>
-        
-          <ion-icon name="star" item-start></ion-icon>
-          
-          <label>
-          Button Item</label>
-          <button ion-button  (click)="smaller()" >
-              <ion-icon name="refresh"></ion-icon>
-          </button>
-          Button Item2
-          <button ion-button  (click)="bigger()" >
-              <ion-icon name="refresh"></ion-icon>
-          </button>
-        </button>
-
-  <div text-center>
-    <button ion-button icon-only (click)="update()">
-      &nbsp;Refresh
-      <ion-icon name="refresh"></ion-icon>
-    </button>
-  </div>
+      <div ion-item>
+        <ion-icon name="star" item-start></ion-icon>
+        <div>
+          <ion-grid style="padding-left: 0px !important;">
+            <ion-row > 
+              <ion-col style="padding-left: 0px !important">
+                <div style="color: #999">Font Size</div>
+              </ion-col>
+              <ion-col>
+                
+              </ion-col>
+              <ion-col>
+                  <button ion-button round small (click)="smaller()" style="margin: 0px !important">
+                      -
+                  </button>
+                <button ion-button round small  (click)="bigger()" style="margin: 0px !important">
+                  +
+              </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+      </div>
+    </div>
 
 </ion-content>

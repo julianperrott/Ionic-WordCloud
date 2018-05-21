@@ -39,4 +39,14 @@ export class PopoverPage {
     for (var property in this.theme) { this.localTheme[property] = this.theme[property]; }
     this.update();
   }
+
+  smaller(){
+    this.localTheme.fontScale *=1.1;
+    this.update();
+  }
+
+  bigger(){
+    this.localTheme.fontScale /=1.1;
+    this.update();
+  }
 }
