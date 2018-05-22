@@ -49,7 +49,7 @@ export class ConfigurationService {
         },
         {
             name: 'Pacifico Dark',
-            fontFace: 'Russo',
+            fontFace: 'Pacifico',
             spiralType: 'archimedean',
             fontWeight: 'bolder',
             fontScale: 70,

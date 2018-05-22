@@ -98,17 +98,26 @@ h3, h5, h6 {
     src: url('../assets/fonts/Vollkorn.woff2')
   }
 
-.alert-radio-group > button:nth-child(1){font-family: AbrilFatFace !important}
-.alert-radio-group > button:nth-child(2){font-family: Arvo  !important}
-.alert-radio-group > button:nth-child(3){font-family: IndieFlower !important}
-.alert-radio-group > button:nth-child(4){font-family: Impact !important}
-.alert-radio-group > button:nth-child(5){font-family: JosenfinSlab !important}
-.alert-radio-group > button:nth-child(6){font-family:  Lato !important}
-.alert-radio-group > button:nth-child(7){font-family: OldStandardTT !important}
-.alert-radio-group > button:nth-child(8){font-family: OpenSans !important}
-.alert-radio-group > button:nth-child(9){font-family: Pacifico !important}
-.alert-radio-group > button:nth-child(10){font-family: PermanentMarker !important}
-.alert-radio-group > button:nth-child(11){font-family: RussoOne !important}
-.alert-radio-group > button:nth-child(12){font-family: TitanOne !important}
-.alert-radio-group > button:nth-child(13){font-family: Ubuntu !important}
-.alert-radio-group > button:nth-child(14){font-family: Vollkorn !important}
+
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(1){font-family: AbrilFatFace !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(2){font-family: Arvo  !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(3){font-family: IndieFlower !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(4){font-family: Impact !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(5){font-family: JosenfinSlab !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(6){font-family:  Lato !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(7){font-family: OldStandardTT !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(8){font-family: OpenSans !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(9){font-family: Pacifico !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(10){font-family: PermanentMarker !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(11){font-family: RussoOne !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(12){font-family: TitanOne !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(13){font-family: Ubuntu !important}
+.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(14){font-family: Vollkorn !important}
+
+
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(1){font-family: TitanOne !important}
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(2){font-family: Pacifico !important}
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(3){font-family: Pacifico !important}
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(4){font-family: PermanentMarker !important}
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(5){font-family: PermanentMarker !important}
+.themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(6){font-family: JosenfinSlab !important}
