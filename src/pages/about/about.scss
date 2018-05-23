@@ -43,7 +43,8 @@ page-about {
         position: relative;
         top: 99999px;
         transform-origin: 50% 100%;
-        animation: crawl 60s linear;
+        animation: crawl 20s linear;
+        animation-iteration-count: 99;
       }
       
       .crawl > .title {
@@ -62,8 +63,8 @@ page-about {
           transform: rotateX(20deg)  translateZ(0);
         }
           100% { 
-          top: -6000px;
-          transform: rotateX(25deg) translateZ(-2500px);
+          top: -3000px;
+          transform: rotateX(22.5deg) translateZ(-1250px);
         }
       }
 }
