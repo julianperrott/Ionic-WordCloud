@@ -4,6 +4,8 @@ import { PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../../pages/popover/popover';
 
+import { ConfigurationService } from '../../app/configuration.service';
+
 @Component({
     selector: 'common-header',
     templateUrl: 'common-header.html'
@@ -12,10 +14,16 @@ export class CommonHeaderComponent {
 
     @ViewChild('ref') refIonTitle;
 
-    defaultTitle = 'D3.js with Ionic';
+    defaultTitle = '?';
 
-    constructor(private renderer: Renderer2, public popoverCtrl: PopoverController) {
+    busy:boolean = false;
+    error:boolean = false;
 
+    constructor(private renderer: Renderer2, public popoverCtrl: PopoverController, private configurationService: ConfigurationService) {
+        configurationService.busyChanged$.subscribe(v => {
+            this.busy = ConfigurationService.busy;
+            this.error = ConfigurationService.error;
+        });
     }
 
     ngAfterViewInit() {

@@ -1,25 +1,21 @@
 import { HomePage } from '../pages/home/home';
+import { AboutPage } from '../pages/about/about';
 import { MenuOptionModel } from '../components/side-menu-content/models/menu-option-model';
 export const PagesList = [
-    { component: HomePage,              title: 'Home' },
+    { component: HomePage, title: 'Home' },
+    { component: AboutPage, title: 'About' },
 ];
 
 export const Menu: MenuOptionModel[] = [
     {
-        displayName: 'Home',
+        displayName: 'Word Cloud',
         iconName: 'home',
         component: HomePage,
         selected: true
-    }, {
-        displayName: 'Beginners',
-        subItems: [{
-            displayName: 'Installation',
-            component: HomePage,
-        }]
     },  {
         displayName: 'About',
-        iconName: 'home',
-        component: HomePage,
+        iconName: 'information-circle',
+        component: AboutPage,
         selected: true
     }
 ];

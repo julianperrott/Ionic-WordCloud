@@ -5,6 +5,22 @@ import { Subject } from 'rxjs';
 export class ConfigurationService {
     // Observable string sources
     static configurationChangeSource = new Subject<string>();
+    static configurationBusySource = new Subject<string>();
+
+    static busy = true;
+    static error = false;
+    
+
+    isBusy():boolean { return ConfigurationService.busy; }
+    setBusy(state: boolean):void { 
+        ConfigurationService.busy = state; 
+        ConfigurationService.error= false;
+        ConfigurationService.configurationBusySource.next(name);
+    }
+    setError(){
+        ConfigurationService.error= true;
+        ConfigurationService.configurationBusySource.next(name);
+    }
 
     static settings = {
         name: 'Josenfin Slab',
@@ -103,6 +119,8 @@ export class ConfigurationService {
 
     // Observable string streams
     configurationChanged$ = ConfigurationService.configurationChangeSource.asObservable();
+
+    busyChanged$ = ConfigurationService.configurationBusySource.asObservable();
 
     // Service message commands
     configurationChanged(name: string) {

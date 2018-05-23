@@ -5,13 +5,14 @@
     </button>
 
     <ion-title #ref>
-        <img class="logo" src="assets/imgs/logo.png" alt="logo" />
+        <ion-spinner class="logo" [hidden]="!busy || error"></ion-spinner>
+        <img [hidden]="busy || error" class="logo" src="assets/imgs/logo3.png" alt="logo" ng-click="alert('hey')" />
+        <img [hidden]="!error" class="logo" src="assets/imgs/error.png" alt="logo" />
         <ng-content></ng-content>
     </ion-title>
 
     <ion-buttons end>
-        
-        <button ion-button icon-only (click)="presentPopover($event)">
+        <button ion-button icon-only (click)="presentPopover($event)" id="stylings">
             <ion-icon name="more"></ion-icon>
         </button>
     </ion-buttons>

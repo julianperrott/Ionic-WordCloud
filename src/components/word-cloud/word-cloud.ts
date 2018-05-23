@@ -65,6 +65,8 @@ export class WordCloudComponent implements OnChanges {
             return;
         }
 
+        this.configurationService.setBusy(true);
+
         this.setup();
         this.buildSVG();
 
@@ -115,6 +117,8 @@ export class WordCloudComponent implements OnChanges {
             .join(',');
 
         this.populate();
+
+        this.configurationService.setBusy(false);
     }
 
     private setup() {
