@@ -9,16 +9,20 @@ export class ConfigurationService {
 
     static busy = true;
     static error = false;
-    
 
-    isBusy():boolean { return ConfigurationService.busy; }
-    setBusy(state: boolean):void { 
-        ConfigurationService.busy = state; 
-        ConfigurationService.error= false;
+    isBusy(): boolean { return ConfigurationService.busy; }
+    setBusy(state: boolean): void {
+        console.log("busy " + state);
+        ConfigurationService.busy = state;
         ConfigurationService.configurationBusySource.next(name);
     }
-    setError(){
-        ConfigurationService.error= true;
+    setError() {
+        ConfigurationService.error = true;
+        ConfigurationService.configurationBusySource.next(name);
+    }
+
+    clearError() {
+        ConfigurationService.error = false;
         ConfigurationService.configurationBusySource.next(name);
     }
 

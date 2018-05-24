@@ -23,30 +23,32 @@ export class HomePage {
 
     ionViewDidLoad() {
         this.refresh();
-        this.url="";
+        this.url = "";
         this.intro();
     }
 
-    error(err){
-        alert("error caught: " +err);
-        console.log(err);
+    error(err) {
+        
+        console.log("error: " + err);
+        this.data = ""+err;
+        this.configurationService.setError();
     }
 
+    sequence = 0;
 
-    characterNumber = 0;
-
-    update(){
-        this.characterNumber++;
-        setTimeout( (cn) => {
+    update() {
+        this.sequence++;
+        setTimeout((cn) => {
             console.log(cn);
-            if (cn == this.characterNumber){
-                this.refresh();   
-            }
-        },1000,this.characterNumber);
+            if (cn == this.sequence) { this.refresh(); }
+        }, 1000, this.sequence);
     }
 
-    refresh(){
-        if(this.url.length<5){
+    refresh() {
+
+        this.configurationService.clearError();
+
+        if (this.url.length < 5) {
             this.configurationService.setBusy(false);
             return;
         }
@@ -54,46 +56,60 @@ export class HomePage {
         this.configurationService.setBusy(true);
 
         const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+
+        console.log("fetch: " + this.url);
+
+        let lastData = this.data;
+
         fetch(proxyurl + this.url)
-            .then(response => response.text(), this.error)
+            .then(response => response.text(), err => this.error)
             .then(text => {
-                console.log(text);
-                this.data = unfluff(text, 'en').text
-                if(this.data.length==0){
+                console.log("text length: " + (""+text).length);
+                let newData = unfluff(text, 'en').text;
+                if (newData.length == 0) {
                     console.log(text);
                     this.configurationService.setError();
+                    this.data = ""+text;
+                    return;
                 }
+
+                if(lastData == newData){
+                    this.configurationService.setBusy(false);
+                }
+
+                this.data = newData;
+
             }, this.error)
             .catch(this.error);
-      }
+    }
 
-      intro() {
+    intro() {
         let intro = introJs.introJs();
         intro.setOptions({
-        steps: [
-          {
-            intro: "Welcome to the App Tour !",
-          },
-          {
-            element: '.text-input',
-            intro: "Put a web page URL here.",
-            position: 'bottom'
-          },
-          {
-            intro: "A word cloud for the page will show here.",
-            position: 'centre'
-          },
-          {
-            element: '#stylings',
-            intro: "Click here to change the style of the word cloud.",
-            position: 'bottom'
-          },
-          {
-            intro: "Enjoy !",
-            position: 'centre'
-          },
-        ]
+            steps: [
+                {
+                    intro: "Welcome to the App Tour !",
+                },
+                {
+                    element: '.text-input',
+                    intro: "Put a web page URL here.",
+                    position: 'bottom'
+                },
+                {
+                    intro: "A word cloud for the page will show here.",
+                    position: 'centre'
+                },
+                {
+                    element: '#stylings',
+                    intro: "Click here to change the style of the word cloud.",
+                    position: 'bottom'
+                },
+                {
+                    intro: "Enjoy !",
+                    position: 'centre'
+                },
+            ]
         });
         intro.start();
-      }
+    }
 }
