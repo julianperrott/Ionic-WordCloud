@@ -8,5 +8,6 @@
         <ion-input type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()"  id="step1"></ion-input>
     </ion-item>
 
-     <word-cloud [wordData]="data" id="step2"></word-cloud>
+     <word-cloud [wordData]="data"  id="step2"></word-cloud>
+     <link-cloud [links] = "links" id="step2"></link-cloud>
 </ion-content>

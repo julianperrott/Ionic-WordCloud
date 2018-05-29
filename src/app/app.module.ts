@@ -12,8 +12,10 @@ import { PopoverPage } from '../pages/popover/popover';
 
 import { IonPrismDirective } from 'ion-prism';
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
+import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
 import { ConfigurationService }     from '../app/configuration.service';
+import { HtmlToLinksService }     from '../app/htmlToLinks.service';
 
 @NgModule({
     declarations: [
@@ -22,6 +24,7 @@ import { ConfigurationService }     from '../app/configuration.service';
         Components,
         IonPrismDirective,
         WordCloudComponent,
+        LinkCloudComponent,
         PopoverPage
     ],
     imports: [
@@ -36,6 +39,7 @@ import { ConfigurationService }     from '../app/configuration.service';
         StatusBar,
         SplashScreen,
         ConfigurationService,
+        HtmlToLinksService,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })

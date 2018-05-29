@@ -4,7 +4,7 @@ import { ConfigurationService } from '../../app/configuration.service';
 
 import * as D3 from 'd3';
 
-import * as canvg from 'canvg';
+//import * as canvg from 'canvg';
 
 declare var d3: any;
 
@@ -39,6 +39,7 @@ export class WordCloudComponent implements OnChanges {
     }
 
     downloadAsPng() {
+        /*
         let canvas = document.getElementById('canvasId') as HTMLCanvasElement;
         let svgHtml = document.getElementById('word-cloud').innerHTML.trim();
         canvg(canvas, svgHtml, undefined);
@@ -50,6 +51,7 @@ export class WordCloudComponent implements OnChanges {
         link.download = 'name.png';
         document.body.appendChild(link);
         link.click();
+        */
     }
     
     downloadAsSvg() {

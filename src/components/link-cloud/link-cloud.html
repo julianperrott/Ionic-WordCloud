@@ -1,0 +1,11 @@
+<div *ngFor="let row of rows">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let link of row;">
+        <a href="{{link.href}}" innerHTML="{{link.text}}">
+        </a>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <hr/>
+</div>
