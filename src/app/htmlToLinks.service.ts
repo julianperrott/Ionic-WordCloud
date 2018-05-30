@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import {Tag }  from 'htmlparser';
+import {Tag,DefaultHandler,Parser }  from 'htmlparser';
 
 export interface Link {
     href: string;
     text: string;
     depth: number;
   }
-
-  declare var DefaultHandler: any;  
-  declare var Parser: any; 
 
 @Injectable()
 export class HtmlToLinksService {

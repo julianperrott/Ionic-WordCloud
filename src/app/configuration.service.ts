@@ -6,9 +6,23 @@ export class ConfigurationService {
     // Observable string sources
     static configurationChangeSource = new Subject<string>();
     static configurationBusySource = new Subject<string>();
+    static urlChangeSource = new Subject<string>();
+
+    // Observable string streams
+    configurationChanged$ = ConfigurationService.configurationChangeSource.asObservable();
+
+    UrlChangeSource$ = ConfigurationService.urlChangeSource.asObservable();
+
+    busyChanged$ = ConfigurationService.configurationBusySource.asObservable();
 
     static busy = true;
     static error = false;
+    static url = "";
+
+    // Service message commands
+    configurationChanged(name: string) {
+        ConfigurationService.configurationChangeSource.next(name);
+    }
 
     isBusy(): boolean { return ConfigurationService.busy; }
     setBusy(state: boolean): void {
@@ -19,6 +33,11 @@ export class ConfigurationService {
     setError() {
         ConfigurationService.error = true;
         ConfigurationService.configurationBusySource.next(name);
+    }
+
+    setUrl(url: string) {
+        ConfigurationService.url = url;
+        ConfigurationService.urlChangeSource.next(name);
     }
 
     clearError() {
@@ -120,14 +139,4 @@ export class ConfigurationService {
             lightness: '99%'
         }
     ];
-
-    // Observable string streams
-    configurationChanged$ = ConfigurationService.configurationChangeSource.asObservable();
-
-    busyChanged$ = ConfigurationService.configurationBusySource.asObservable();
-
-    // Service message commands
-    configurationChanged(name: string) {
-        ConfigurationService.configurationChangeSource.next(name);
-    }
 }

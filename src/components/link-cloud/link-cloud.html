@@ -1,11 +1,23 @@
+<!--
 <div *ngFor="let row of rows">
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let link of row;">
-        <a href="{{link.href}}" innerHTML="{{link.text}}">
-        </a>
+          <button ion-button round outline (click)="navigateTo(link.href)">{{link.text}}</button>
+        <!--<a href="{{link.href}}" innerHTML="{{link.text}}"> </a>-->
+        <!--
       </ion-col>
     </ion-row>
   </ion-grid>
   <hr/>
 </div>
+-->
+
+
+  <ion-grid>
+    <ion-row *ngFor="let link of sortedLinks;">
+      <ion-col >
+          <button ion-button round outline (click)="navigateTo(link.href)">{{link.text}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>>
