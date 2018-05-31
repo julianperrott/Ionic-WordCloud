@@ -17,16 +17,18 @@ export class ConfigurationService {
 
     static busy = true;
     static error = false;
-    static url = "";
+    static url = '';
 
     // Service message commands
     configurationChanged(name: string) {
         ConfigurationService.configurationChangeSource.next(name);
     }
 
-    isBusy(): boolean { return ConfigurationService.busy; }
+    isBusy(): boolean {
+        return ConfigurationService.busy;
+    }
     setBusy(state: boolean): void {
-        console.log("busy " + state);
+        console.log('busy ' + state);
         ConfigurationService.busy = state;
         ConfigurationService.configurationBusySource.next(name);
     }

@@ -49,3 +49,15 @@ error TS2451: Cannot redeclare block-scoped variable 'ngDevMode'
 npm install @angular/common@5.1.3 @angular/compiler@5.1.3 @angular/compiler-cli@5.1.3 @angular/core@5.1.3 @angular/forms@5.1.3 @angular/http@5.1.3 @angular/platform-browser@5.1.3 @angular/platform-browser-dynamic@5.1.3 @angular/platform-server@5.1.3 @angular/router@5.1.3 @angular/animations@5.1.3 --save			
 			
 ---------------------------------------------------------------------------------------------
+Without `from` option PostCSS could generate wrong source map or do not find Browserslist config
+https://stackoverflow.com/questions/48162738/without-from-option-postcss-could-generate-wrong-source-map-or-do-not-find-bro/48315414#48315414
+
+First find sass.js file under /node_modules/@ionic/app-scripts/dist/sass.js. inside search var postcssOptions and add from: undefined,
+
+Finally should be like this:
+
+var postcssOptions = {
+            from: undefined,
+            to: path_1.basename(sassConfig.outFile),
+            map: autoPrefixerMapOptions
+        };

@@ -4,10 +4,15 @@
 
 <ion-content no-padding no-margin>
 
-    <ion-item  id="step1">
-        <ion-input type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()"  id="step1"></ion-input>
-    </ion-item>
+        <ion-header>
+                <ion-navbar>
+                        <ion-input type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()"  id="step1"></ion-input>
+                    <ion-buttons end>
+                            <link-cloud [links] = "links" id="step2"></link-cloud>
+                    </ion-buttons>
+                </ion-navbar>
+            </ion-header>
 
      <word-cloud [wordData]="data"  id="step2"></word-cloud>
-     <link-cloud [links] = "links" id="step2"></link-cloud>
+     
 </ion-content>

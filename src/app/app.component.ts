@@ -12,9 +12,7 @@ import { SideMenuContentComponent } from '../components/side-menu-content/side-m
 @Component({
     templateUrl: 'app.html'
 })
-
 export class MyApp {
-
     rootPage: any = RootPage;
 
     @ViewChild(Nav) nav: Nav;
@@ -42,12 +40,16 @@ export class MyApp {
         // Name of the class to be added to the selected option. Only used when showSelectedOption is true
         selectedOptionClass: 'active-side-menu-option',
         // Vertically aligns the sub options without icons to the parent option
-        indentSubOptionsWithoutIcons: false,
+        indentSubOptionsWithoutIcons: false
     };
 
-    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-                private alertCtrl: AlertController,
-                private menuCtrl: MenuController) {
+    constructor(
+        platform: Platform,
+        statusBar: StatusBar,
+        splashScreen: SplashScreen,
+        private alertCtrl: AlertController,
+        private menuCtrl: MenuController
+    ) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             splashScreen.hide();
@@ -56,16 +58,19 @@ export class MyApp {
 
     public selectOption(option: MenuOptionModel): void {
         this.menuCtrl.close().then(() => {
-
             if (option.custom) {
-                this.alertCtrl.create({
-                    title: 'Information',
-                    message: 'You\'ve clicked a custom option!',
-                    buttons: ['Ok']
-                }).present();
+                this.alertCtrl
+                    .create({
+                        title: 'Information',
+                        message: 'You\'ve clicked a custom option!',
+                        buttons: ['Ok']
+                    })
+                    .present();
             } else {
                 // Redirect to the selected page
-                this.nav.setRoot(option.component || HomePage, { title: option.displayName });
+                this.nav.setRoot(option.component || HomePage, {
+                    title: option.displayName
+                });
             }
         });
     }

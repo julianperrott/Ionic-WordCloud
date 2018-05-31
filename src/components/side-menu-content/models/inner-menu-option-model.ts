@@ -1,8 +1,10 @@
 import { MenuOptionModel } from './menu-option-model';
 
 export class InnerMenuOptionModel {
-    public static fromMenuOptionModel(option: MenuOptionModel, parent?: InnerMenuOptionModel): InnerMenuOptionModel {
-
+    public static fromMenuOptionModel(
+        option: MenuOptionModel,
+        parent?: InnerMenuOptionModel
+    ): InnerMenuOptionModel {
         const innerMenuOptionModel = new InnerMenuOptionModel();
 
         innerMenuOptionModel.id = this.counter++;
@@ -18,9 +20,11 @@ export class InnerMenuOptionModel {
             innerMenuOptionModel.subItemsCount = option.subItems.length;
             innerMenuOptionModel.subOptions = [];
 
-            option.subItems.forEach((subItem) => {
-
-                const innerSubItem = InnerMenuOptionModel.fromMenuOptionModel(subItem, innerMenuOptionModel);
+            option.subItems.forEach(subItem => {
+                const innerSubItem = InnerMenuOptionModel.fromMenuOptionModel(
+                    subItem,
+                    innerMenuOptionModel
+                );
                 innerMenuOptionModel.subOptions.push(innerSubItem);
 
                 // Select the parent if any
@@ -29,7 +33,6 @@ export class InnerMenuOptionModel {
                     innerSubItem.parent.selected = true;
                     innerSubItem.parent.expanded = true;
                 }
-
             });
         }
 
@@ -51,5 +54,4 @@ export class InnerMenuOptionModel {
     expanded: boolean;
     subItemsCount: number;
     subOptions: InnerMenuOptionModel[];
-
 }

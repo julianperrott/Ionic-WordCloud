@@ -1,4 +1,4 @@
-import {Component, Renderer2, ViewChild} from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 
 import { PopoverController } from 'ionic-angular';
 
@@ -11,15 +11,18 @@ import { ConfigurationService } from '../../app/configuration.service';
     templateUrl: 'common-header.html'
 })
 export class CommonHeaderComponent {
-
     @ViewChild('ref') refIonTitle;
 
     defaultTitle = '?';
 
-    busy:boolean = false;
-    error:boolean = false;
+    busy = false;
+    error = false;
 
-    constructor(private renderer: Renderer2, public popoverCtrl: PopoverController, private configurationService: ConfigurationService) {
+    constructor(
+        private renderer: Renderer2,
+        public popoverCtrl: PopoverController,
+        configurationService: ConfigurationService
+    ) {
         configurationService.busyChanged$.subscribe(v => {
             this.busy = ConfigurationService.busy;
             this.error = ConfigurationService.error;
@@ -27,18 +30,21 @@ export class CommonHeaderComponent {
     }
 
     ngAfterViewInit() {
-        const titleEl = this.refIonTitle.getElementRef().nativeElement.querySelector('.toolbar-title');
+        const titleEl = this.refIonTitle
+            .getElementRef()
+            .nativeElement.querySelector('.toolbar-title');
         if (titleEl.childNodes.length === 0) {
-            this.renderer.appendChild(titleEl, this.renderer.createText(this.defaultTitle));
+            this.renderer.appendChild(
+                titleEl,
+                this.renderer.createText(this.defaultTitle)
+            );
         }
-
     }
 
     presentPopover(myEvent) {
-        let popover = this.popoverCtrl.create(PopoverPage);
+        const popover = this.popoverCtrl.create(PopoverPage);
         popover.present({
-          ev: myEvent
+            ev: myEvent
         });
-      }
-
+    }
 }

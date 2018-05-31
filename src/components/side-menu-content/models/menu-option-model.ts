@@ -1,6 +1,5 @@
 // MenuOptionModel interface
 export interface MenuOptionModel {
-
     // If the option has sub items and the iconName is null,
     // the default icon will be 'ios-arrow-down'.
     iconName?: string;

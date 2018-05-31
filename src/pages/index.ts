@@ -3,7 +3,7 @@ import { AboutPage } from '../pages/about/about';
 import { MenuOptionModel } from '../components/side-menu-content/models/menu-option-model';
 export const PagesList = [
     { component: HomePage, title: 'Home' },
-    { component: AboutPage, title: 'About' },
+    { component: AboutPage, title: 'About' }
 ];
 
 export const Menu: MenuOptionModel[] = [
@@ -12,7 +12,8 @@ export const Menu: MenuOptionModel[] = [
         iconName: 'home',
         component: HomePage,
         selected: true
-    },  {
+    },
+    {
         displayName: 'About',
         iconName: 'information-circle',
         component: AboutPage,
@@ -20,7 +21,7 @@ export const Menu: MenuOptionModel[] = [
     }
 ];
 
-export const Pages = PagesList.map((page) => {
+export const Pages = PagesList.map(page => {
     return page.component;
 });
 

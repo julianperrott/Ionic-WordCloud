@@ -1,5 +1,12 @@
 // Angular
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'; // tslint:disable-line
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    Output
+} from '@angular/core'; // tslint:disable-line
 
 // Ionic
 import { Events, Platform } from 'ionic-angular';
@@ -7,7 +14,10 @@ import { Events, Platform } from 'ionic-angular';
 // Models
 import { SideMenuSettings } from './models/side-menu-settings';
 import { MenuOptionModel } from './models/menu-option-model';
-import { SideMenuRedirectEvent, SideMenuRedirectEventData } from './models/side-menu-redirect-events';
+import {
+    SideMenuRedirectEvent,
+    SideMenuRedirectEventData
+} from './models/side-menu-redirect-events';
 import { InnerMenuOptionModel } from './models/inner-menu-option-model';
 
 @Component({
@@ -15,9 +25,7 @@ import { InnerMenuOptionModel } from './models/inner-menu-option-model';
     templateUrl: 'side-menu-content.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class SideMenuContentComponent {
-
     // Main inputs
     public menuSettings: SideMenuSettings;
     public menuOptions: MenuOptionModel[];
@@ -38,16 +46,17 @@ export class SideMenuContentComponent {
             this.collapsableItems = new Array<InnerMenuOptionModel>();
 
             // Map the options to our internal models
-            this.menuOptions.forEach((option) => {
-
-                const innerMenuOption = InnerMenuOptionModel.fromMenuOptionModel(option);
+            this.menuOptions.forEach(option => {
+                const innerMenuOption = InnerMenuOptionModel.fromMenuOptionModel(
+                    option
+                );
                 this.collapsableItems.push(innerMenuOption);
 
                 // Check if there's any option marked as selected
                 if (option.selected) {
                     this.selectedOption = innerMenuOption;
                 } else if (innerMenuOption.subItemsCount) {
-                    innerMenuOption.subOptions.forEach((subItem) => {
+                    innerMenuOption.subOptions.forEach(subItem => {
                         if (subItem.selected) {
                             this.selectedOption = subItem;
                         }
@@ -65,14 +74,18 @@ export class SideMenuContentComponent {
         }
     }
 
-    constructor(private platform: Platform,
-                private eventsCtrl: Events,
-                private cdRef: ChangeDetectorRef) {
-
+    constructor(
+        private platform: Platform,
+        private eventsCtrl: Events,
+        private cdRef: ChangeDetectorRef
+    ) {
         // Handle the redirect event
-        this.eventsCtrl.subscribe(SideMenuRedirectEvent, (data: SideMenuRedirectEventData) => {
-            this.updateSelectedOption(data);
-        });
+        this.eventsCtrl.subscribe(
+            SideMenuRedirectEvent,
+            (data: SideMenuRedirectEventData) => {
+                this.updateSelectedOption(data);
+            }
+        );
     }
 
     ngOnDestroy() {
@@ -95,13 +108,12 @@ export class SideMenuContentComponent {
 
     // Toggle the sub options of the selected item
     public toggleItemOptions(targetOption: InnerMenuOptionModel): void {
-
         if (!targetOption) return;
 
         // If the accordion mode is set to true, we need
         // to collapse all the other menu options
         if (this.menuSettings.accordionMode) {
-            this.collapsableItems.forEach((option) => {
+            this.collapsableItems.forEach(option => {
                 if (option.id !== targetOption.id) {
                     option.expanded = false;
                 }
@@ -114,13 +126,13 @@ export class SideMenuContentComponent {
 
     // Reset the entire menu
     public collapseAllOptions(): void {
-        this.collapsableItems.forEach((option) => {
+        this.collapsableItems.forEach(option => {
             if (!option.selected) {
                 option.expanded = false;
             }
 
             if (option.subItemsCount) {
-                option.subOptions.forEach((subItem) => {
+                option.subOptions.forEach(subItem => {
                     if (subItem.selected) {
                         // Expand the parent if any of
                         // its childs is selected
@@ -137,8 +149,10 @@ export class SideMenuContentComponent {
 
     // Get the proper indentation of each option
     public get subOptionIndentation(): string {
-        if (this.platform.is('ios')) return this.menuSettings.subOptionIndentation.ios;
-        if (this.platform.is('windows')) return this.menuSettings.subOptionIndentation.wp;
+        if (this.platform.is('ios'))
+            return this.menuSettings.subOptionIndentation.ios;
+        if (this.platform.is('windows'))
+            return this.menuSettings.subOptionIndentation.wp;
         return this.menuSettings.subOptionIndentation.md;
     }
 
@@ -189,19 +203,24 @@ export class SideMenuContentComponent {
 
     // Update the selected option
     private updateSelectedOption(data: SideMenuRedirectEventData): void {
-
         if (!data.displayName) {
             return;
         }
 
         let targetOption;
 
-        this.collapsableItems.forEach((option) => {
-            if (option.displayName.toLowerCase() === data.displayName.toLowerCase()) {
+        this.collapsableItems.forEach(option => {
+            if (
+                option.displayName.toLowerCase() ===
+                data.displayName.toLowerCase()
+            ) {
                 targetOption = option;
             } else if (option.subItemsCount) {
-                option.subOptions.forEach((subOption) => {
-                    if (subOption.displayName.toLowerCase() === data.displayName.toLowerCase()) {
+                option.subOptions.forEach(subOption => {
+                    if (
+                        subOption.displayName.toLowerCase() ===
+                        data.displayName.toLowerCase()
+                    ) {
                         targetOption = subOption;
                     }
                 });
@@ -246,38 +265,62 @@ export class SideMenuContentComponent {
             const defIos = this.isDefinedAndPositive(ms.itemHeight.ios);
             const defMd = this.isDefinedAndPositive(ms.itemHeight.md);
             const defWp = this.isDefinedAndPositive(ms.itemHeight.wp);
-            const heightIos = defIos ? ms.itemHeight.ios : defaultSettings.itemHeight.ios;
-            const heightMd = defMd ? ms.itemHeight.md : defaultSettings.itemHeight.md;
-            const heightWp = defWp ? ms.itemHeight.wp : defaultSettings.itemHeight.wp;
+            const heightIos = defIos
+                ? ms.itemHeight.ios
+                : defaultSettings.itemHeight.ios;
+            const heightMd = defMd
+                ? ms.itemHeight.md
+                : defaultSettings.itemHeight.md;
+            const heightWp = defWp
+                ? ms.itemHeight.wp
+                : defaultSettings.itemHeight.wp;
             ms.itemHeight.ios = heightIos;
             ms.itemHeight.md = heightMd;
             ms.itemHeight.wp = heightWp;
         }
         const shSeOpt = 'showSelectedOption';
-        ms[shSeOpt] =  this.isDefined(ms[shSeOpt]) ? ms[shSeOpt] : defaultSettings[shSeOpt];
+        ms[shSeOpt] = this.isDefined(ms[shSeOpt])
+            ? ms[shSeOpt]
+            : defaultSettings[shSeOpt];
 
         const accModOpt = 'accordionMode';
-        ms[accModOpt] = this.isDefined(ms[accModOpt]) ? ms[accModOpt] : defaultSettings[accModOpt];
+        ms[accModOpt] = this.isDefined(ms[accModOpt])
+            ? ms[accModOpt]
+            : defaultSettings[accModOpt];
 
         const arrIco = 'arrowIcon';
-        ms[arrIco] = this.isDefined(ms[arrIco]) ? ms[arrIco] : defaultSettings[arrIco];
+        ms[arrIco] = this.isDefined(ms[arrIco])
+            ? ms[arrIco]
+            : defaultSettings[arrIco];
 
         const selOptClass = 'selectedOptionClass';
-        ms[selOptClass] = this.isDefined(ms[selOptClass]) ? ms[selOptClass] : defaultSettings[selOptClass];
+        ms[selOptClass] = this.isDefined(ms[selOptClass])
+            ? ms[selOptClass]
+            : defaultSettings[selOptClass];
 
         const suOptInd = 'subOptionIndentation';
-        ms[suOptInd] = this.isDefined(ms[suOptInd]) ? ms[suOptInd] : defaultSettings[suOptInd];
+        ms[suOptInd] = this.isDefined(ms[suOptInd])
+            ? ms[suOptInd]
+            : defaultSettings[suOptInd];
 
         const indSuOptWIco = 'indentSubOptionsWithoutIcons';
-        ms[indSuOptWIco] = this.isDefined(ms[indSuOptWIco]) ? ms[indSuOptWIco] : defaultSettings[indSuOptWIco];
+        ms[indSuOptWIco] = this.isDefined(ms[indSuOptWIco])
+            ? ms[indSuOptWIco]
+            : defaultSettings[indSuOptWIco];
 
         if (!ms[suOptInd]) {
             ms[suOptInd] = defaultSettings[suOptInd];
         } else {
             const suOpInd = 'subOptionIndentation';
-            ms[suOpInd].ios = this.isDefined(ms[suOpInd].ios) ? ms[suOpInd].ios : defaultSettings[suOpInd].ios;
-            ms[suOpInd].md = this.isDefined(ms[suOpInd].md) ? ms[suOpInd].md : defaultSettings[suOpInd].md;
-            ms[suOpInd].wp = this.isDefined(ms[suOpInd].wp) ? ms[suOpInd].wp : defaultSettings[suOpInd].wp;
+            ms[suOpInd].ios = this.isDefined(ms[suOpInd].ios)
+                ? ms[suOpInd].ios
+                : defaultSettings[suOpInd].ios;
+            ms[suOpInd].md = this.isDefined(ms[suOpInd].md)
+                ? ms[suOpInd].md
+                : defaultSettings[suOpInd].md;
+            ms[suOpInd].wp = this.isDefined(ms[suOpInd].wp)
+                ? ms[suOpInd].wp
+                : defaultSettings[suOpInd].wp;
         }
     }
 

@@ -11,7 +11,7 @@ import { LinkCloudComponent } from './link-cloud/link-cloud';
         FooterLinksComponent,
         ExpandableComponent,
         WordCloudComponent,
-    LinkCloudComponent
+        LinkCloudComponent
     ],
     imports: [],
     exports: [
@@ -19,7 +19,7 @@ import { LinkCloudComponent } from './link-cloud/link-cloud';
         FooterLinksComponent,
         ExpandableComponent,
         WordCloudComponent,
-    LinkCloudComponent
+        LinkCloudComponent
     ]
 })
 export class ComponentsModule {}

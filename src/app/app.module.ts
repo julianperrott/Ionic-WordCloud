@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule, Popover } from 'ionic-angular';
+import {
+    IonicApp,
+    IonicErrorHandler,
+    IonicModule
+} from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -14,8 +18,8 @@ import { IonPrismDirective } from 'ion-prism';
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
-import { ConfigurationService }     from '../app/configuration.service';
-import { HtmlToLinksService }     from '../app/htmlToLinks.service';
+import { ConfigurationService } from '../app/configuration.service';
+import { HtmlToLinksService } from '../app/htmlToLinks.service';
 
 @NgModule({
     declarations: [

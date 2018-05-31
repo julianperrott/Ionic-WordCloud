@@ -4,9 +4,9 @@ export interface SideMenuSettings {
     arrowIcon?: string;
 
     itemHeight?: {
-        ios?: number,
-        md?: number,
-        wp?: number
+        ios?: number;
+        md?: number;
+        wp?: number;
     };
 
     showSelectedOption?: boolean;
@@ -15,8 +15,8 @@ export interface SideMenuSettings {
     indentSubOptionsWithoutIcons?: boolean;
 
     subOptionIndentation?: {
-        ios?: string,
-        md?: string,
-        wp?: string
+        ios?: string;
+        md?: string;
+        wp?: string;
     };
 }
