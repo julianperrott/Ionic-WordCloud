@@ -124,10 +124,10 @@ h3, h5, h6 {
 
 .introjs-tooltiptext{
   font-size: 200%;
-  font-family: RussoOne
+  font-family: $font-family-md-base
 }
 
-.introjs-button { font-family: RussoOne !important }
+.introjs-button { font-family: $font-family-md-base !important }
 
 .introjs-helperLayer {
     opacity: 0.5;

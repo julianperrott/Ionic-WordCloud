@@ -3,8 +3,7 @@
 </button>
 
 <div [hidden]="true">
-  <ion-select #sectionSelect [hidden]="!sortedLinks || sortedLinks.length=== 0" [(ngModel)]="href" interface="popover" (ionChange)="navigate()"
-    [selectOptions]="{ cssClass: 'linkSelect', title: 'Links'}">
+  <ion-select #sectionSelect [hidden]="!sortedLinks || sortedLinks.length=== 0" [(ngModel)]="href" interface="popover" (ionChange)="navigate()" [selectOptions]="{ cssClass: 'linkSelect', title: 'Links'}">
     <ion-option *ngFor="let link of sortedLinks;" value="{{link.href}}" [innerHtml]="link.text"></ion-option>
   </ion-select>
 
