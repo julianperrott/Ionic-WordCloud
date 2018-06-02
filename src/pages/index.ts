@@ -6,6 +6,8 @@ export const PagesList = [
     { component: AboutPage, title: 'About' }
 ];
 
+export const Pages = [HomePage, AboutPage];
+
 export const Menu: MenuOptionModel[] = [
     {
         displayName: 'Word Cloud',
@@ -20,9 +22,5 @@ export const Menu: MenuOptionModel[] = [
         selected: true
     }
 ];
-
-export const Pages = PagesList.map(page => {
-    return page.component;
-});
 
 export const RootPage = HomePage;

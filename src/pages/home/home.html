@@ -3,16 +3,17 @@
 </ion-header>
 
 <ion-content no-padding no-margin>
+    <ion-navbar>
+        <ion-item>
+            <ion-input clearInput type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()" id="step1"></ion-input>
+        </ion-item>
+        <ion-buttons end id="step2">
+            <link-cloud [links]="links"></link-cloud>
+        </ion-buttons>
+    </ion-navbar>
 
-        <ion-header>
-                <ion-navbar>
-                        <ion-input type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()"  id="step1"></ion-input>
-                    <ion-buttons end>
-                            <link-cloud [links] = "links" id="step2"></link-cloud>
-                    </ion-buttons>
-                </ion-navbar>
-            </ion-header>
-
-     <word-cloud [wordData]="data"  id="step2"></word-cloud>
-     
+    <word-cloud [wordData]="data"></word-cloud>
+    <ion-item>
+        <ion-input placeholder="Clear Input" clearInput></ion-input>
+    </ion-item>
 </ion-content>

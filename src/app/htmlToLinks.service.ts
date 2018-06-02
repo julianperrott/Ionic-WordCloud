@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 
-import {DefaultHandler, Parser, Tag }  from 'htmlparser';
+import { DefaultHandler, Parser, Tag } from 'htmlparser';
 
 export interface Link {
     href: string;
     text: string;
     depth: number;
-  }
+}
 
 @Injectable()
 export class HtmlToLinksService {
-
     links: Link[] = [];
 
     parseHtml(html: string): Link[] {
@@ -20,9 +19,8 @@ export class HtmlToLinksService {
             if (error) {
                 alert('error');
             } else {
-                this.extractLinks(dom as[Tag], 0);
+                this.extractLinks(dom as [Tag], 0);
             }
-
         }, undefined);
         const parser = new Parser(handler, undefined);
         parser.parseComplete(html);
@@ -31,17 +29,24 @@ export class HtmlToLinksService {
     }
 
     extractLinks(html: Tag[], depth: number) {
-
-        html.forEach( tag => {
-            if (tag.type === 'tag' && tag.name === 'a' && tag.attribs && tag.attribs['href']) {
-
+        html.forEach(tag => {
+            if (
+                tag.type === 'tag' &&
+                tag.name === 'a' &&
+                tag.attribs &&
+                tag.attribs['href']
+            ) {
                 const href = tag.attribs['href'];
-                const illegalStartCount = ['#', 'sms:', 'mailto'].filter( f => href.startsWith(f)).length;
+                const illegalStartCount = ['#', 'sms:', 'mailto'].filter(f =>
+                    href.startsWith(f)
+                ).length;
 
                 if (tag.children && illegalStartCount === 0) {
                     let text = this.extractText(tag.children);
-                    if (text.length === 0) { text = href; }
-                    this.links.push({ href, text, depth});
+                    if (text.length === 0) {
+                        text = href;
+                    }
+                    this.links.push({ href, text, depth });
                 }
             }
             if (tag.children) {
@@ -52,8 +57,13 @@ export class HtmlToLinksService {
 
     extractText(html: [Tag]): string {
         let text = '';
-        html.forEach( tag => {
-            const add = tag.type === 'text' ? tag.data.trim() : tag.children ? this.extractText(tag.children) : '';
+        html.forEach(tag => {
+            const add =
+                tag.type === 'text'
+                    ? tag.data.trim()
+                    : tag.children
+                        ? this.extractText(tag.children)
+                        : '';
             if (add.length > 0) {
                 text += (text.length > 0 ? ' / ' : '') + add;
             }

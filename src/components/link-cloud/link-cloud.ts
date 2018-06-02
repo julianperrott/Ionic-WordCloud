@@ -22,7 +22,7 @@ export class LinkCloudComponent implements OnChanges {
 
     doFilter() {
         this.sectionSelect.open();
-   }
+    }
 
     navigateTo(url) {
         this.configurationService.setUrl(url);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { ConfigurationService } from '../../app/configuration.service';
 /**
@@ -9,7 +9,6 @@ import { ConfigurationService } from '../../app/configuration.service';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
     selector: 'page-popover',
     templateUrl: 'popover.html'

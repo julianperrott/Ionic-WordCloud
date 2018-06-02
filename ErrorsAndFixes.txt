@@ -61,3 +61,35 @@ var postcssOptions = {
             to: path_1.basename(sassConfig.outFile),
             map: autoPrefixerMapOptions
         };
+---------------------------------------------------------------------------------------------
+[21:26:31]  typescript error
+            F:/GitHub/wc/src/app/app.module.ts(27,9): Error during template compile of 'AppModule' Function expressions
+            are not supported in decorators in 'Pages' 'Pages' contains the error at
+            F:/GitHub/wc/src/pages/index.ts(24,36) Consider changing the function expression into an exported function.
+
+export const Pages = PagesList.map(page => {
+    return page.component;
+});
+
+to
+export const Pages = [HomePage, AboutPage];            
+---------------------------------------------------------------------------------------------
+[21:30:35]  typescript error
+            Type CommonHeaderComponent in F:/GitHub/wc/src/components/common-header/common-header.ts is part of the
+            declarations of 2 modules: AppModule in F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in
+            F:/GitHub/wc/src/components/components.module.ts! Please consider moving CommonHeaderComponent in
+            F:/GitHub/wc/src/components/common-header/common-header.ts to a higher module that imports AppModule in
+            F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in F:/GitHub/wc/src/components/components.module.ts.
+            You can also create a new NgModule that exports and includes CommonHeaderComponent in
+            F:/GitHub/wc/src/components/common-header/common-header.ts then import that NgModule in AppModule in
+            F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in F:/GitHub/wc/src/components/components.module.ts.
+
+Delete
+---------------------------------------------------------------------------------------------
+Error: F:\GitHub\wc\src\pages\about\about.ts has a @IonicPage decorator, but it does not have a corresponding "NgModule" at F:\GitHub\wc\src\pages\about\about.module.ts
+    at new BuildError (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\util\errors.js:16:28)
+    at F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\deep-linking.js:57:21
+    at <anonymous>
+
+Remove @IonicPage()
+---------------------------------------------------------------------------------------------        

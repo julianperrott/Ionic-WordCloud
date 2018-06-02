@@ -19,7 +19,7 @@ export class HomePage {
     refreshLinks = true;
 
     // url = 'http://www.capita.com/about-us/case-studies/how-we-helped-a-council-to-help-children-and-families/';
-    url = 'https://www.bbc.co.uk/sport';
+    url = 'https://www.bbc.co.uk/news';
 
     constructor(
         private configurationService: ConfigurationService,
@@ -90,27 +90,30 @@ export class HomePage {
 
     handleHtml(html: string): void {
         if (this.refreshLinks) {
-            let host = this.url;
-            const startIndex = host.indexOf('//') + 2;
-            if (host.indexOf('/', startIndex) > -1) {
-                host = host.substr(0, host.indexOf('/', startIndex));
-            }
-            const links = this.htmlToLinksService.parseHtml('' + html);
-            links.forEach(f => {
-                if (f.href.indexOf(':') === -1) {
-                    if (!f.href.startsWith('/') && !f.href.startsWith('\\')) {
-                        f.href = '/' + f.href;
-                    }
-                    f.href = host + f.href;
-                }
-                console.log(f.href + ',' + f.text);
-            });
-
-            this.links = links;
+            this.RefreshLinks(html);
         }
 
         this.refreshLinks = true;
         this.handleWordData('' + html);
+    }
+
+    private RefreshLinks(html: string) {
+        let host = this.url;
+        const startIndex = host.indexOf('//') + 2;
+        if (host.indexOf('/', startIndex) > -1) {
+            host = host.substr(0, host.indexOf('/', startIndex));
+        }
+        const links = this.htmlToLinksService.parseHtml('' + html);
+        links.forEach(f => {
+            if (f.href.indexOf(':') === -1) {
+                if (!f.href.startsWith('/') && !f.href.startsWith('\\')) {
+                    f.href = '/' + f.href;
+                }
+                f.href = host + f.href;
+            }
+            console.log(f.href + ',' + f.text);
+        });
+        this.links = links;
     }
 
     handleWordData(html: string): void {
@@ -145,11 +148,17 @@ export class HomePage {
         intro.setOptions({
             steps: [
                 {
-                    intro: 'Welcome to the App Tour !'
+                    intro:
+                        "Welcome to a tour of the application, click 'Next' to start."
                 },
                 {
                     element: '.text-input',
                     intro: 'Put a web page URL here.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#step2',
+                    intro: 'Links found in the page can be nagivated to here.',
                     position: 'bottom'
                 },
                 {

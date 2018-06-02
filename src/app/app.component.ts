@@ -62,7 +62,7 @@ export class MyApp {
                 this.alertCtrl
                     .create({
                         title: 'Information',
-                        message: 'You\'ve clicked a custom option!',
+                        message: "You've clicked a custom option!",
                         buttons: ['Ok']
                     })
                     .present();
