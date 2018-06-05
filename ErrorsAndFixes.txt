@@ -74,22 +74,45 @@ export const Pages = PagesList.map(page => {
 to
 export const Pages = [HomePage, AboutPage];            
 ---------------------------------------------------------------------------------------------
-[21:30:35]  typescript error
-            Type CommonHeaderComponent in F:/GitHub/wc/src/components/common-header/common-header.ts is part of the
-            declarations of 2 modules: AppModule in F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in
-            F:/GitHub/wc/src/components/components.module.ts! Please consider moving CommonHeaderComponent in
-            F:/GitHub/wc/src/components/common-header/common-header.ts to a higher module that imports AppModule in
-            F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in F:/GitHub/wc/src/components/components.module.ts.
-            You can also create a new NgModule that exports and includes CommonHeaderComponent in
-            F:/GitHub/wc/src/components/common-header/common-header.ts then import that NgModule in AppModule in
-            F:/GitHub/wc/src/app/app.module.ts and ComponentsModule in F:/GitHub/wc/src/components/components.module.ts.
+ionic build --aot
+[09:35:38]  typescript error
+            ion-prism/index.ts(4,2): Error during template compile of 'IonPrismDirective' Function expressions are not
+            supported in decorators in 'Directive' 'Directive' contains the error at @angular/core/core.ts(404,32)
+            Consider changing the function expression into an exported function.
 
-Delete
----------------------------------------------------------------------------------------------
-Error: F:\GitHub\wc\src\pages\about\about.ts has a @IonicPage decorator, but it does not have a corresponding "NgModule" at F:\GitHub\wc\src\pages\about\about.module.ts
-    at new BuildError (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\util\errors.js:16:28)
-    at F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\deep-linking.js:57:21
-    at <anonymous>
-
-Remove @IonicPage()
+Removed import { IonPrismDirective } from 'ion-prism'; and declaration from app.module.ts
 ---------------------------------------------------------------------------------------------        
+ionic build --aot
+[09:38:07]  typescript error
+            Type CommonHeaderComponent in D:/GitHub/Ionic-WordCloud/src/components/common-header/common-header.ts is
+            part of the declarations of 2 modules: AppModule in D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and
+            ComponentsModule in D:/GitHub/Ionic-WordCloud/src/components/components.module.ts! Please consider moving
+            CommonHeaderComponent in D:/GitHub/Ionic-WordCloud/src/components/common-header/common-header.ts to a higher
+            module that imports AppModule in D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and ComponentsModule in
+            D:/GitHub/Ionic-WordCloud/src/components/components.module.ts. You can also create a new NgModule that
+            exports and includes CommonHeaderComponent in
+            D:/GitHub/Ionic-WordCloud/src/components/common-header/common-header.ts then import that NgModule in
+            AppModule in D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and ComponentsModule in
+            D:/GitHub/Ionic-WordCloud/src/components/components.module.ts.    
+
+Deleted components.module.ts
+
+---------------------------------------------------------------------------------------------                
+ionic build --aot
+[09:39:19]  typescript error
+            Type AboutPage in D:/GitHub/Ionic-WordCloud/src/pages/about/about.ts is part of the declarations of 2
+            modules: AppModule in D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and AboutPageModule in
+            D:/GitHub/Ionic-WordCloud/src/pages/about/about.module.ts! Please consider moving AboutPage in
+            D:/GitHub/Ionic-WordCloud/src/pages/about/about.ts to a higher module that imports AppModule in
+            D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and AboutPageModule in
+            D:/GitHub/Ionic-WordCloud/src/pages/about/about.module.ts. You can also create a new NgModule that exports
+            and includes AboutPage in D:/GitHub/Ionic-WordCloud/src/pages/about/about.ts then import that NgModule in
+            AppModule in D:/GitHub/Ionic-WordCloud/src/app/app.module.ts and AboutPageModule in
+            D:/GitHub/Ionic-WordCloud/src/pages/about/about.module.ts.
+
+Deleted about.module.ts 
+
+Error: D:\GitHub\Ionic-WordCloud\src\pages\about\about.ts has a @IonicPage decorator, but it does not have a corresponding "NgModule" at D:\GitHub\Ionic-WordCloud\src\pages\about\about.module.ts
+
+Removed @IonicPage() from about.ts
+---------------------------------------------------------------------------------------------     
