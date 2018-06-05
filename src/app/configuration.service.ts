@@ -3,25 +3,26 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ConfigurationService {
-    // Observable string sources
     static configurationChangeSource = new Subject<string>();
     static configurationBusySource = new Subject<string>();
     static urlChangeSource = new Subject<string>();
+    static screenshotSource = new Subject<string>();
 
-    // Observable string streams
     configurationChanged$ = ConfigurationService.configurationChangeSource.asObservable();
-
     UrlChangeSource$ = ConfigurationService.urlChangeSource.asObservable();
-
     busyChanged$ = ConfigurationService.configurationBusySource.asObservable();
+    takeScreenshot$ = ConfigurationService.screenshotSource.asObservable();
 
     static busy = true;
     static error = false;
     static url = '';
 
-    // Service message commands
     configurationChanged(name: string) {
         ConfigurationService.configurationChangeSource.next(name);
+    }
+
+    takeScreenshot(name: string) {
+        ConfigurationService.screenshotSource.next(name);
     }
 
     isBusy(): boolean {

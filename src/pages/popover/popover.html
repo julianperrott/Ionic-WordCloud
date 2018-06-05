@@ -16,60 +16,83 @@
 <ion-content>
 
 
-    <div ion-item>
-        <ion-icon name="wifi" item-start color="primary"></ion-icon>
-      <ion-label>Theme</ion-label>
-      <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
-        <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
-      </ion-select>
+  <div ion-item>
+    <ion-icon name="wifi" item-start color="primary"></ion-icon>
+    <ion-label>Theme</ion-label>
+    <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
+      <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
+    </ion-select>
+  </div>
+
+  <div ion-item>
+    <ion-icon name="wifi" item-start color="primary"></ion-icon>
+
+    <ion-label>Font</ion-label>
+    <ion-select [(ngModel)]="localTheme.fontFace" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
+      <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
+      <ion-option value="Arvo">Arvo</ion-option>
+      <ion-option value="IndieFlower">Indie Flower</ion-option>
+      <ion-option value="Impact">Impact</ion-option>
+      <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
+      <ion-option value="Lato">Lato</ion-option>
+      <ion-option value="OldStandardTT">Old Standard TT</ion-option>
+      <ion-option value="OpenSans">Open Sans</ion-option>
+      <ion-option value="Pacifico">Pacifico</ion-option>
+      <ion-option value="PermanentMarker">Permanent Marker</ion-option>
+      <ion-option value="RussoOne">Russo One</ion-option>
+      <ion-option value="TitanOne">Titan One</ion-option>
+      <ion-option value="Ubuntu">Ubuntu</ion-option>
+      <ion-option value="Vollkorn">Vollkorn</ion-option>
+
+
+    </ion-select>
+  </div>
+
+  <div ion-item>
+    <ion-icon name="star" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Font Size</div>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <button ion-button round small (click)="smaller()" style="margin: 0px !important">
+              -
+            </button>
+            <button ion-button round small (click)="bigger()" style="margin: 0px !important">
+              +
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
-
-    <div ion-item>
-        <ion-icon name="wifi" item-start color="primary"></ion-icon>
-        
-      <ion-label>Font</ion-label>
-      <ion-select [(ngModel)]="localTheme.fontFace" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
-        <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
-        <ion-option value="Arvo">Arvo</ion-option>
-        <ion-option value="IndieFlower">Indie Flower</ion-option>
-        <ion-option value="Impact">Impact</ion-option>
-        <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
-        <ion-option value="Lato">Lato</ion-option>
-        <ion-option value="OldStandardTT">Old Standard TT</ion-option>
-        <ion-option value="OpenSans">Open Sans</ion-option>
-        <ion-option value="Pacifico">Pacifico</ion-option>
-        <ion-option value="PermanentMarker">Permanent Marker</ion-option>
-        <ion-option value="RussoOne">Russo One</ion-option>
-        <ion-option value="TitanOne">Titan One</ion-option>
-        <ion-option value="Ubuntu">Ubuntu</ion-option>
-        <ion-option value="Vollkorn">Vollkorn</ion-option>
+  </div>
 
 
-      </ion-select>
+  <div ion-item>
+    <ion-icon name="star" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Screenshot</div>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="screenshot()" style="margin: 0px !important">
+              Capture
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
+  </div>
 
-      <div ion-item>
-        <ion-icon name="star" item-start></ion-icon>
-        <div>
-          <ion-grid style="padding-left: 0px !important;">
-            <ion-row > 
-              <ion-col style="padding-left: 0px !important">
-                <div style="color: #999">Font Size</div>
-              </ion-col>
-              <ion-col>
-                
-              </ion-col>
-              <ion-col>
-                  <button ion-button round small (click)="smaller()" style="margin: 0px !important">
-                      -
-                  </button>
-                <button ion-button round small  (click)="bigger()" style="margin: 0px !important">
-                  +
-              </button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-      </div>
-    </div>
 
 </ion-content>

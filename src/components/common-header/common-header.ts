@@ -1,6 +1,6 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
 
-import { PopoverController } from 'ionic-angular';
+import { Popover, PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../../pages/popover/popover';
 
@@ -17,6 +17,7 @@ export class CommonHeaderComponent {
 
     busy = false;
     error = false;
+    popover: Popover;
 
     constructor(
         private renderer: Renderer2,
@@ -26,6 +27,10 @@ export class CommonHeaderComponent {
         configurationService.busyChanged$.subscribe(v => {
             this.busy = ConfigurationService.busy;
             this.error = ConfigurationService.error;
+        });
+
+        configurationService.takeScreenshot$.subscribe(v => {
+            this.popover.dismiss();
         });
     }
 
@@ -42,8 +47,8 @@ export class CommonHeaderComponent {
     }
 
     presentPopover(myEvent) {
-        const popover = this.popoverCtrl.create(PopoverPage);
-        popover.present({
+        this.popover = this.popoverCtrl.create(PopoverPage);
+        this.popover.present({
             ev: myEvent
         });
     }

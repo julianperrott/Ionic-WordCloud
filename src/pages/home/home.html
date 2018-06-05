@@ -1,9 +1,9 @@
-<ion-header>
+<ion-header [hidden]="showOnlyWordCloud">
     <common-header>Web Page to Word Cloud</common-header>
 </ion-header>
 
 <ion-content no-padding no-margin>
-    <ion-navbar>
+    <ion-navbar [hidden]="showOnlyWordCloud">
         <ion-item>
             <ion-input clearInput type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()" id="step1"></ion-input>
         </ion-item>
@@ -13,7 +13,4 @@
     </ion-navbar>
 
     <word-cloud [wordData]="data"></word-cloud>
-    <ion-item>
-        <ion-input placeholder="Clear Input" clearInput></ion-input>
-    </ion-item>
 </ion-content>

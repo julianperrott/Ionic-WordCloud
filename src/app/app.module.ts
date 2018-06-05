@@ -21,6 +21,8 @@ import { HtmlToLinksService } from '../app/htmlToLinks.service';
 
 import { IonicPageModule } from 'ionic-angular';
 
+import { Screenshot } from '@ionic-native/screenshot';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -47,6 +49,7 @@ import { IonicPageModule } from 'ionic-angular';
         SplashScreen,
         ConfigurationService,
         HtmlToLinksService,
+        Screenshot,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })

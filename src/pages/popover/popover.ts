@@ -55,4 +55,8 @@ export class PopoverPage {
         this.localTheme.fontScale /= 1.1;
         this.update();
     }
+
+    screenshot() {
+        this.configurationService.takeScreenshot('');
+    }
 }
