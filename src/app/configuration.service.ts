@@ -49,17 +49,18 @@ export class ConfigurationService {
     }
 
     static settings = {
-        name: 'Pacifico Glow',
-        fontFace: 'Pacifico',
-        spiralType: 'archimedean',
+        name: 'Halloween',
+        fontFace: 'MetalMania',
+        spiralType: 'rectangular',
         fontWeight: 'bolder',
-        fontScale: 70,
+        fontScale: 80,
         strokeColour: 'white',
-        strokeOpacity: '1',
-        strokeScale: 20,
-        strokeMinWidth: 1,
-        glowCount: 2,
-        lightness: '50%'
+        strokeOpacity: '0.9',
+        strokeScale: 30,
+        strokeMinWidth: 0.5,
+        glowCount: 5,
+        lightness: '30%',
+        lightnessGlow: '20%'
     };
 
     static themes = [
@@ -74,7 +75,8 @@ export class ConfigurationService {
             strokeScale: 24,
             strokeMinWidth: 1,
             glowCount: 1,
-            lightness: '50%'
+            lightness: '50%',
+            lightnessGlow: '50%'
         },
         {
             name: 'Pacifico Glow',
@@ -87,7 +89,8 @@ export class ConfigurationService {
             strokeScale: 20,
             strokeMinWidth: 1,
             glowCount: 2,
-            lightness: '50%'
+            lightness: '50%',
+            lightnessGlow: '50%'
         },
         {
             name: 'Pacifico Dark',
@@ -100,7 +103,8 @@ export class ConfigurationService {
             strokeScale: 40,
             strokeMinWidth: 1,
             glowCount: 1,
-            lightness: '0%'
+            lightness: '0%',
+            lightnessGlow: '50%'
         },
         {
             name: 'Permanent Marker Black and White',
@@ -113,10 +117,11 @@ export class ConfigurationService {
             strokeScale: 40,
             strokeMinWidth: 1,
             glowCount: 1,
-            lightness: '90%'
+            lightness: '90%',
+            lightnessGlow: '50%'
         },
         {
-            name: 'Permanent Marker White',
+            name: 'Permanent Marker',
             fontFace: 'PermanentMarker',
             spiralType: 'archimedean',
             fontWeight: 'bolder',
@@ -126,7 +131,8 @@ export class ConfigurationService {
             strokeScale: 40,
             strokeMinWidth: 1,
             glowCount: 2,
-            lightness: '99%'
+            lightness: '99%',
+            lightnessGlow: '50%'
         },
         {
             name: 'Josenfin Slab',
@@ -139,7 +145,36 @@ export class ConfigurationService {
             strokeScale: 40,
             strokeMinWidth: 1,
             glowCount: 2,
-            lightness: '99%'
+            lightness: '99%',
+            lightnessGlow: '50%'
+        },
+        {
+            name: 'Halloween',
+            fontFace: 'HennyPenny',
+            spiralType: 'archimedean',
+            fontWeight: 'bolder',
+            fontScale: 80,
+            strokeColour: 'white',
+            strokeOpacity: '1',
+            strokeScale: 20,
+            strokeMinWidth: 1,
+            glowCount: 10,
+            lightness: '60%',
+            lightnessGlow: '20%'
+        },
+        {
+            name: 'Halloween II',
+            fontFace: 'MetalMania',
+            spiralType: 'archimedean',
+            fontWeight: 'bolder',
+            fontScale: 80,
+            strokeColour: 'white',
+            strokeOpacity: '0.9',
+            strokeScale: 30,
+            strokeMinWidth: 0.5,
+            glowCount: 5,
+            lightness: '30%',
+            lightnessGlow: '20%'
         }
     ];
 }
