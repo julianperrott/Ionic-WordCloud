@@ -26,7 +26,7 @@
   "typedocOptions": {
     "out": "documentation",
     "theme": "minimal",
-    "name": "D3.js Ionic",
+    "name": "WebPagetoWordCloud",
     "hideGenerator": "true",
     "readme": "README.MD",
     "mode": "file",

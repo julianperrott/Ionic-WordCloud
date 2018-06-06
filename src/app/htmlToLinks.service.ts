@@ -12,7 +12,7 @@ export interface Link {
 export class HtmlToLinksService {
     links: Link[] = [];
 
-    parseHtml(html: string): Link[] {
+    parseHtml(host: string, html: string): Link[] {
         this.links = [];
 
         const handler = new DefaultHandler((error, dom) => {
@@ -25,7 +25,26 @@ export class HtmlToLinksService {
         const parser = new Parser(handler, undefined);
         parser.parseComplete(html);
 
+        host = this.IncludeHostInHref(host);
+
         return this.links;
+    }
+
+    private IncludeHostInHref(host: string) {
+        const startIndex = host.indexOf('//') + 2;
+        if (host.indexOf('/', startIndex) > -1) {
+            host = host.substr(0, host.indexOf('/', startIndex));
+        }
+        this.links.forEach(f => {
+            if (f.href.indexOf(':') === -1) {
+                if (!f.href.startsWith('/') && !f.href.startsWith('\\')) {
+                    f.href = '/' + f.href;
+                }
+                f.href = host + f.href;
+            }
+            console.log(f.href + ',' + f.text);
+        });
+        return host;
     }
 
     extractLinks(html: Tag[], depth: number) {

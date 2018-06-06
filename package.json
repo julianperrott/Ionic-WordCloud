@@ -1,8 +1,8 @@
 {
-  "name": "d3-ionic-examples",
-  "version": "1.0.4",
-  "author": "Proustibat",
-  "homepage": "https://medium.com/@proustibat",
+  "name": "WebPagetoWordCloud",
+  "version": "1.0.0",
+  "author": "julian perrott",
+  "homepage": "http://www.codesin.net",
   "private": true,
   "scripts": {
     "tslint": "./node_modules/.bin/tslint -c tslint.json ./src/**/**/*.ts",
@@ -35,7 +35,7 @@
     "build": "0.1.4",
     "canvg": "^1.0.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
-    "cordova-android": "^7.0.0",
+    "cordova-android": "7.0.0",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -66,7 +66,7 @@
     "typedoc": "^0.10.0",
     "typescript": "^2.6.2"
   },
-  "description": "D3.js in a Ionic mobile application: examples",
+  "description": "Reads a web page and creates a word cloud of that page.",
   "cordova": {
     "plugins": {
       "cordova-plugin-device": {},

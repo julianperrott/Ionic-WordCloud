@@ -16,12 +16,13 @@ import { IonPrismDirective } from 'ion-prism';
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
-import { ConfigurationService } from '../app/configuration.service';
-import { HtmlToLinksService } from '../app/htmlToLinks.service';
+import { ConfigurationService } from './configuration.service';
+import { HtmlToLinksService } from './htmlToLinks.service';
 
 import { IonicPageModule } from 'ionic-angular';
 
 import { Screenshot } from '@ionic-native/screenshot';
+import { ScreenshotService } from './screenshot.service';
 
 @NgModule({
     declarations: [
@@ -50,7 +51,8 @@ import { Screenshot } from '@ionic-native/screenshot';
         ConfigurationService,
         HtmlToLinksService,
         Screenshot,
-        { provide: ErrorHandler, useClass: IonicErrorHandler }
+        { provide: ErrorHandler, useClass: IonicErrorHandler },
+        ScreenshotService
     ]
 })
 export class AppModule {}

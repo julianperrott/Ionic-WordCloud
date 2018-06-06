@@ -4,7 +4,7 @@ import { Link } from '../../app/htmlToLinks.service';
 
 import { ConfigurationService } from '../../app/configuration.service';
 
-import { Popover, Select } from 'ionic-angular';
+import { Select } from 'ionic-angular';
 
 @Component({
     selector: 'link-cloud',

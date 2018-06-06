@@ -8,7 +8,7 @@ import introJs from '../../../node_modules/intro.js/intro.js';
 import { ConfigurationService } from '../../app/configuration.service';
 import { HtmlToLinksService, Link } from '../../app/htmlToLinks.service';
 
-import { Screenshot } from '@ionic-native/screenshot';
+import { ScreenshotService } from '../../app/screenshot.service';
 
 @Component({
     selector: 'page-home',
@@ -16,8 +16,8 @@ import { Screenshot } from '@ionic-native/screenshot';
 })
 export class HomePage {
     @ViewChild(Content) content: Content;
-    data =
-        'How the Word Cloud Generator Works The layout algorithm for positioning page without overlap is available on GitHub under an open source license as d3-cloud. Note that this is the only the layout algorithm and any code for converting text into page and rendering the final output requires additional development. As word placement can be quite slow for more than a few hundred page, the layout algorithm can be run asynchronously, with a configurable time step size. This makes it possible to animate page as they are placed without stuttering. It is recommended to always use a time step even without animations as it prevents the browser’s event loop from blocking while placing the page. The layout algorithm itself is incredibly simple. For each word, starting with the most “important”: Attempt to place the word at some starting point: usually near the middle, or somewhere on a central horizontal line. If the word intersects with any previously placed page, move it one step along an increasing spiral. Repeat until no intersections are found The hard part is making it perform efficiently! According to Jonathan Feinberg, Wordle uses a combination of hierarchical bounding boxes and quadtrees to achieve reasonable speeds. Glyphs in JavaScript There isn’t a way to retrieve precise glyph shapes via the DOM, except perhaps for SVG fonts. Instead, we draw each word to a hidden canvas element, and retrieve the pixel data. Retrieving the pixel data separately for each word is expensive, so we draw as many page as possible and then retrieve their pixels in a batch operation. clouds and Masks My initial implementation performed collision detection using cloud masks. Once a word is placed, it doesnt move, so we can copy it to the appropriate position in a larger cloud representing the whole placement area.The advantage of this is that collision detection only involves comparing a candidate cloud with the relevant area of this larger cloud, rather than comparing with each previous word separately.Somewhat surprisingly, a simple low-level hack made a tremendous difference: when constructing the cloud I compressed blocks of 32 1-bit pixels into 32-bit integers, thus reducing the number of checks (and memory) by 32 times.In fact, this turned out to beat my hierarchical bounding box with quadtree implementation on everything I tried it on (even very large areas and font sizes). I think this is primarily because the cloud version only needs to perform a single collision test per candidate area, whereas the bounding box version has to compare with every other previously placed word that overlaps slightly with the candidate area.Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous cloud mask operation, which is essentially ORing a whole block.';
+    data = '';
+
     links: Link[] = [
         { href: 'https://www.bbc.co.uk/news', text: 'BBC News' } as Link,
         { href: 'https://www.bbc.co.uk/sport', text: 'BBC Sport' } as Link,
@@ -33,7 +33,7 @@ export class HomePage {
     constructor(
         private configurationService: ConfigurationService,
         private htmlToLinksService: HtmlToLinksService,
-        private screenshot: Screenshot
+        screenshot: ScreenshotService
     ) {
         configurationService.UrlChangeSource$.subscribe(v => {
             this.refreshLinks = true;
@@ -44,54 +44,17 @@ export class HomePage {
 
         configurationService.takeScreenshot$.subscribe(v => {
             this.showOnlyWordCloud = true;
-
-            setTimeout(() => {
-                this.showOnlyWordCloud = false;
-            }, 2000);
-
-            setTimeout(() => {
-                this.screenshot
-                    .save(
-                        'jpg',
-                        100,
-                        'wordCloud_' + this.js_yyyy_mm_dd_hh_mm_ss()
-                    )
-                    .then(res => {
-                        this.showOnlyWordCloud = false;
-                        alert('Image captured.');
-                    });
-            }, 1000);
+            screenshot.takeScreenshot();
         });
-    }
-
-    js_yyyy_mm_dd_hh_mm_ss() {
-        const now = new Date();
-        const year = '' + now.getFullYear();
-        let month = '' + (now.getMonth() + 1);
-        if (month.length === 1) {
-            month = '0' + month;
-        }
-        let day = '' + now.getDate();
-        if (day.length === 1) {
-            day = '0' + day;
-        }
-        let hour = '' + now.getHours();
-        if (hour.length === 1) {
-            hour = '0' + hour;
-        }
-        let minute = '' + now.getMinutes();
-        if (minute.length === 1) {
-            minute = '0' + minute;
-        }
-        let second = '' + now.getSeconds();
-        if (second.length === 1) {
-            second = '0' + second;
-        }
-        return year + month + day + '_' + hour + minute + second;
     }
 
     ionViewDidLoad() {
         this.intro();
+
+        setTimeout(() => {
+            this.data =
+                'How the Word Cloud Generator Works The layout algorithm for positioning page without overlap is available on GitHub under an open source license as d3-cloud. Note that this is the only the layout algorithm and any code for converting text into page and rendering the final output requires additional development. As word placement can be quite slow for more than a few hundred page, the layout algorithm can be run asynchronously, with a configurable time step size. This makes it possible to animate page as they are placed without stuttering. It is recommended to always use a time step even without animations as it prevents the browser’s event loop from blocking while placing the page. The layout algorithm itself is incredibly simple. For each word, starting with the most “important”: Attempt to place the word at some starting point: usually near the middle, or somewhere on a central horizontal line. If the word intersects with any previously placed page, move it one step along an increasing spiral. Repeat until no intersections are found The hard part is making it perform efficiently! According to Jonathan Feinberg, Wordle uses a combination of hierarchical bounding boxes and quadtrees to achieve reasonable speeds. Glyphs in JavaScript There isn’t a way to retrieve precise glyph shapes via the DOM, except perhaps for SVG fonts. Instead, we draw each word to a hidden canvas element, and retrieve the pixel data. Retrieving the pixel data separately for each word is expensive, so we draw as many page as possible and then retrieve their pixels in a batch operation. clouds and Masks My initial implementation performed collision detection using cloud masks. Once a word is placed, it doesnt move, so we can copy it to the appropriate position in a larger cloud representing the whole placement area.The advantage of this is that collision detection only involves comparing a candidate cloud with the relevant area of this larger cloud, rather than comparing with each previous word separately.Somewhat surprisingly, a simple low-level hack made a tremendous difference: when constructing the cloud I compressed blocks of 32 1-bit pixels into 32-bit integers, thus reducing the number of checks (and memory) by 32 times.In fact, this turned out to beat my hierarchical bounding box with quadtree implementation on everything I tried it on (even very large areas and font sizes). I think this is primarily because the cloud version only needs to perform a single collision test per candidate area, whereas the bounding box version has to compare with every other previously placed word that overlaps slightly with the candidate area.Another possibility would be to merge a word’s tree with a single large tree once it is placed. I think this operation would be fairly expensive though compared with the analagous cloud mask operation, which is essentially ORing a whole block.';
+        }, 1000);
     }
 
     error(err) {
@@ -151,31 +114,11 @@ export class HomePage {
 
     handleHtml(html: string): void {
         if (this.refreshLinks) {
-            this.RefreshLinks(html);
+            this.links = this.htmlToLinksService.parseHtml(this.url, '' + html);
         }
-
         this.refreshLinks = true;
+
         this.handleWordData('' + html);
-    }
-
-    private RefreshLinks(html: string) {
-        let host = this.url;
-        const startIndex = host.indexOf('//') + 2;
-        if (host.indexOf('/', startIndex) > -1) {
-            host = host.substr(0, host.indexOf('/', startIndex));
-        }
-        const links = this.htmlToLinksService.parseHtml('' + html);
-        links.forEach(f => {
-            if (f.href.indexOf(':') === -1) {
-                if (!f.href.startsWith('/') && !f.href.startsWith('\\')) {
-                    f.href = '/' + f.href;
-                }
-                f.href = host + f.href;
-            }
-            console.log(f.href + ',' + f.text);
-        });
-
-        this.links = links;
     }
 
     handleWordData(html: string): void {
@@ -195,23 +138,13 @@ export class HomePage {
         this.data = newData;
     }
 
-    download(html: string): void {
-        const link = document.createElement('a');
-        link.href =
-            'data:text/plain;charset=utf-8,' + encodeURIComponent('' + html);
-        link.download = 'viz.txt';
-        document.body.appendChild(link);
-        link.innerHTML = 'Download';
-        link.click();
-    }
-
     intro() {
         const intro = introJs.introJs();
         intro.setOptions({
             steps: [
                 {
                     intro:
-                        'Welcome to a tour of the application, click \'Next\' to start.'
+                        "Welcome to a tour of the application, click 'Next' to start."
                 },
                 {
                     element: '.text-input',

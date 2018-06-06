@@ -52,7 +52,11 @@ export class MyApp {
     ) {
         platform.ready().then(() => {
             statusBar.styleDefault();
-            splashScreen.hide();
+            if (splashScreen) {
+                setTimeout(() => {
+                    splashScreen.hide();
+                }, 5000);
+            }
         });
     }
 
@@ -62,7 +66,7 @@ export class MyApp {
                 this.alertCtrl
                     .create({
                         title: 'Information',
-                        message: "You've clicked a custom option!",
+                        message: 'You have clicked a custom option!',
                         buttons: ['Ok']
                     })
                     .present();
