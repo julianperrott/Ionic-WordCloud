@@ -1,23 +1,13 @@
-<!--
-  Generated template for the PopoverPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Stylings</ion-title>
+    <ion-title>Options / Actions</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content>
 
-
   <div ion-item>
-    <ion-icon name="wifi" item-start color="primary"></ion-icon>
+    <ion-icon name="color-fill" item-start color="primary"></ion-icon>
     <ion-label>Theme</ion-label>
     <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
       <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
@@ -25,31 +15,271 @@
   </div>
 
   <div ion-item>
-    <ion-icon name="wifi" item-start color="primary"></ion-icon>
+    <ion-icon name="brush" item-start color="primary"></ion-icon>
 
     <ion-label>Font</ion-label>
     <ion-select [(ngModel)]="localTheme.fontFace" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
-      <ion-option value="AbrilFatFace">Abril Fat Face</ion-option>
-      <ion-option value="Arvo">Arvo</ion-option>
-      <ion-option value="IndieFlower">Indie Flower</ion-option>
-      <ion-option value="Impact">Impact</ion-option>
-      <ion-option value="JosenfinSlab">Josenfin Slab</ion-option>
-      <ion-option value="Lato">Lato</ion-option>
-      <ion-option value="OldStandardTT">Old Standard TT</ion-option>
-      <ion-option value="OpenSans">Open Sans</ion-option>
-      <ion-option value="Pacifico">Pacifico</ion-option>
-      <ion-option value="PermanentMarker">Permanent Marker</ion-option>
-      <ion-option value="RussoOne">Russo One</ion-option>
-      <ion-option value="TitanOne">Titan One</ion-option>
-      <ion-option value="Ubuntu">Ubuntu</ion-option>
-      <ion-option value="Vollkorn">Vollkorn</ion-option>
-
-
+      <ion-option value='AbrilFatFace'>Abril Fat Face</ion-option>
+      <ion-option value='Arvo'>Arvo</ion-option>
+      <ion-option value='HennyPenny'>Henny Penny</ion-option>
+      <ion-option value='HermeneusOne'>Hermeneus One</ion-option>
+      <ion-option value='HerrVonMuellerhoff'>Herr Von Muellerhoff</ion-option>
+      <ion-option value='HoltwoodOneSC'>Holtwood One S C</ion-option>
+      <ion-option value='Homenaje'>Homenaje</ion-option>
+      <ion-option value='IBMPlexSerif'>I B M Plex Serif</ion-option>
+      <ion-option value='Imprima'>Imprima</ion-option>
+      <ion-option value='IndieFlower'>Indie Flower</ion-option>
+      <ion-option value='InknutAntiqua'>Inknut Antiqua</ion-option>
+      <ion-option value='IstokWeb'>Istok Web</ion-option>
+      <ion-option value='Italianno'>Italianno</ion-option>
+      <ion-option value='Itim'>Itim</ion-option>
+      <ion-option value='JacquesFrancois'>Jacques Francois</ion-option>
+      <ion-option value='Jaldi'>Jaldi</ion-option>
+      <ion-option value='JimNightshade'>Jim Nightshade</ion-option>
+      <ion-option value='Jomhuria'>Jomhuria</ion-option>
+      <ion-option value='JosefinSans'>Josefin Sans</ion-option>
+      <ion-option value='JosefinSlab'>Josefin Slab</ion-option>
+      <ion-option value='Judson'>Judson</ion-option>
+      <ion-option value='Katibeh'>Katibeh</ion-option>
+      <ion-option value='Kavivanar'>Kavivanar</ion-option>
+      <ion-option value='Kavoon'>Kavoon</ion-option>
+      <ion-option value='KeaniaOne'>Keania One</ion-option>
+      <ion-option value='Kenia'>Kenia</ion-option>
+      <ion-option value='Khand'>Khand</ion-option>
+      <ion-option value='Khmer'>Khmer</ion-option>
+      <ion-option value='KottaOne'>Kotta One</ion-option>
+      <ion-option value='Kreon'>Kreon</ion-option>
+      <ion-option value='Kristi'>Kristi</ion-option>
+      <ion-option value='KronaOne'>Krona One</ion-option>
+      <ion-option value='Kurale'>Kurale</ion-option>
+      <ion-option value='LaBelleAurore'>La Belle Aurore</ion-option>
+      <ion-option value='Laila'>Laila</ion-option>
+      <ion-option value='LakkiReddy'>Lakki Reddy</ion-option>
+      <ion-option value='Lancelot'>Lancelot</ion-option>
+      <ion-option value='LaoMuangDon'>Lao Muang Don</ion-option>
+      <ion-option value='LaoMuangKhong'>Lao Muang Khong</ion-option>
+      <ion-option value='LaoSansPro'>Lao Sans Pro</ion-option>
+      <ion-option value='LateefRegOT'>Lateef Reg O T</ion-option>
+      <ion-option value='Lato'>Lato</ion-option>
+      <ion-option value='LeagueScript'>League Script</ion-option>
+      <ion-option value='Lekton'>Lekton</ion-option>
+      <ion-option value='Lemon'>Lemon</ion-option>
+      <ion-option value='LibreBarcode39'>Libre Barcode39</ion-option>
+      <ion-option value='LibreBaskerville'>Libre Baskerville</ion-option>
+      <ion-option value='LibreCaslonText'>Libre Caslon Text</ion-option>
+      <ion-option value='LibreFranklin'>Libre Franklin</ion-option>
+      <ion-option value='LifeSavers'>Life Savers</ion-option>
+      <ion-option value='Limelight'>Limelight</ion-option>
+      <ion-option value='Lobster'>Lobster</ion-option>
+      <ion-option value='LobsterTwo'>Lobster Two</ion-option>
+      <ion-option value='Lohit-Tamil'>Lohit- Tamil</ion-option>
+      <ion-option value='LondrinaShadow'>Londrina Shadow</ion-option>
+      <ion-option value='LondrinaSketch'>Londrina Sketch</ion-option>
+      <ion-option value='LondrinaSolid'>Londrina Solid</ion-option>
+      <ion-option value='Macondo'>Macondo</ion-option>
+      <ion-option value='Magra'>Magra</ion-option>
+      <ion-option value='Maitree'>Maitree</ion-option>
+      <ion-option value='Mako'>Mako</ion-option>
+      <ion-option value='Mandali'>Mandali</ion-option>
+      <ion-option value='Marcellus'>Marcellus</ion-option>
+      <ion-option value='MarcellusSC'>Marcellus S C</ion-option>
+      <ion-option value='Margarine'>Margarine</ion-option>
+      <ion-option value='Marmelad'>Marmelad</ion-option>
+      <ion-option value='Martel'>Martel</ion-option>
+      <ion-option value='MartelSans'>Martel Sans</ion-option>
+      <ion-option value='Marvel'>Marvel</ion-option>
+      <ion-option value='Mate'>Mate</ion-option>
+      <ion-option value='McLaren'>Mc Laren</ion-option>
+      <ion-option value='MedievalSharp'>Medieval Sharp</ion-option>
+      <ion-option value='MeeraInimai'>Meera Inimai</ion-option>
+      <ion-option value='MeieScript'>Meie Script</ion-option>
+      <ion-option value='Merienda'>Merienda</ion-option>
+      <ion-option value='MeriendaOne'>Merienda One</ion-option>
+      <ion-option value='Merriweather'>Merriweather</ion-option>
+      <ion-option value='Metal'>Metal</ion-option>
+      <ion-option value='MetalMania'>Metal Mania</ion-option>
+      <ion-option value='Metamorphous'>Metamorphous</ion-option>
+      <ion-option value='Metrophobic'>Metrophobic</ion-option>
+      <ion-option value='Miama'>Miama</ion-option>
+      <ion-option value='Michroma'>Michroma</ion-option>
+      <ion-option value='Milonga'>Milonga</ion-option>
+      <ion-option value='MiltonianTattoo'>Miltonian Tattoo</ion-option>
+      <ion-option value='Mina-Bold'>Mina- Bold</ion-option>
+      <ion-option value='Miniver'>Miniver</ion-option>
+      <ion-option value='Mitr'>Mitr</ion-option>
+      <ion-option value='ModernAntiqua'>Modern Antiqua</ion-option>
+      <ion-option value='Mogra'>Mogra</ion-option>
+      <ion-option value='Molengo'>Molengo</ion-option>
+      <ion-option value='Molle'>Molle</ion-option>
+      <ion-option value='MonsieurLaDoulaise'>Monsieur La Doulaise</ion-option>
+      <ion-option value='Montserrat'>Montserrat</ion-option>
+      <ion-option value='Moulpali'>Moulpali</ion-option>
+      <ion-option value='MouseMemoirs'>Mouse Memoirs</ion-option>
+      <ion-option value='MrBedfort'>Mr Bedfort</ion-option>
+      <ion-option value='MrDafoe'>Mr Dafoe</ion-option>
+      <ion-option value='Mukta'>Mukta</ion-option>
+      <ion-option value='MuktaMahee'>Mukta Mahee</ion-option>
+      <ion-option value='MuktaMalar'>Mukta Malar</ion-option>
+      <ion-option value='MysteryQuest'>Mystery Quest</ion-option>
+      <ion-option value='Neucha'>Neucha</ion-option>
+      <ion-option value='Neuton'>Neuton</ion-option>
+      <ion-option value='NewRocker'>New Rocker</ion-option>
+      <ion-option value='NicoMoji'>Nico Moji</ion-option>
+      <ion-option value='Nikukyu'>Nikukyu</ion-option>
+      <ion-option value='NixieOne'>Nixie One</ion-option>
+      <ion-option value='Nobile'>Nobile</ion-option>
+      <ion-option value='Norican'>Norican</ion-option>
+      <ion-option value='NothingYouCouldDo'>Nothing You Could Do</ion-option>
+      <ion-option value='NoticiaText'>Noticia Text</ion-option>
+      <ion-option value='NotoSerif'>Noto Serif</ion-option>
+      <ion-option value='NovaScript'>Nova Script</ion-option>
+      <ion-option value='NTR'>N T R</ion-option>
+      <ion-option value='Nunito'>Nunito</ion-option>
+      <ion-option value='NunitoSans'>Nunito Sans</ion-option>
+      <ion-option value='Oldenburg'>Oldenburg</ion-option>
+      <ion-option value='OldStandardTT'>Old Standard T T</ion-option>
+      <ion-option value='OleoScriptSwashCaps'>Oleo Script Swash Caps</ion-option>
+      <ion-option value='OpenSans'>Open Sans</ion-option>
+      <ion-option value='Orbitron'>Orbitron</ion-option>
+      <ion-option value='Orienta'>Orienta</ion-option>
+      <ion-option value='OriginalSurfer'>Original Surfer</ion-option>
+      <ion-option value='OxygenMono'>Oxygen Mono</ion-option>
+      <ion-option value='Pacifico'>Pacifico</ion-option>
+      <ion-option value='Pangolin'>Pangolin</ion-option>
+      <ion-option value='Paprika'>Paprika</ion-option>
+      <ion-option value='Parisienne'>Parisienne</ion-option>
+      <ion-option value='Pavanam'>Pavanam</ion-option>
+      <ion-option value='PaytoneOne'>Paytone One</ion-option>
+      <ion-option value='Peralta'>Peralta</ion-option>
+      <ion-option value='PermanentMarker'>Permanent Marker</ion-option>
+      <ion-option value='PinyonScript'>Pinyon Script</ion-option>
+      <ion-option value='PoetsenOne'>Poetsen One</ion-option>
+      <ion-option value='PollerOne'>Poller One</ion-option>
+      <ion-option value='Pompiere'>Pompiere</ion-option>
+      <ion-option value='Ponnala'>Ponnala</ion-option>
+      <ion-option value='PontanoSans'>Pontano Sans</ion-option>
+      <ion-option value='Poppins'>Poppins</ion-option>
+      <ion-option value='PortLligatSlab'>Port Lligat Slab</ion-option>
+      <ion-option value='PostNoBillsColombo'>Post No Bills Colombo</ion-option>
+      <ion-option value='PostNoBillsJaffna'>Post No Bills Jaffna</ion-option>
+      <ion-option value='PragatiNarrow-Bold'>Pragati Narrow- Bold</ion-option>
+      <ion-option value='Preahvihear'>Preahvihear</ion-option>
+      <ion-option value='PressStart2P'>Press Start2 P</ion-option>
+      <ion-option value='Pridi-SemiBold'>Pridi- Semi Bold</ion-option>
+      <ion-option value='PrincessSofia'>Princess Sofia</ion-option>
+      <ion-option value='Prociono'>Prociono</ion-option>
+      <ion-option value='Prompt'>Prompt</ion-option>
+      <ion-option value='ProzaLibre'>Proza Libre</ion-option>
+      <ion-option value='PT_Serif-Web'>P T_ Serif- Web</ion-option>
+      <ion-option value='PTM55FT'>P T M55 F T</ion-option>
+      <ion-option value='Puritan'>Puritan</ion-option>
+      <ion-option value='Quando'>Quando</ion-option>
+      <ion-option value='Quantico'>Quantico</ion-option>
+      <ion-option value='Quicksand'>Quicksand</ion-option>
+      <ion-option value='Quintessential'>Quintessential</ion-option>
+      <ion-option value='RacingSansOne'>Racing Sans One</ion-option>
+      <ion-option value='Rakkas'>Rakkas</ion-option>
+      <ion-option value='Raleway'>Raleway</ion-option>
+      <ion-option value='Ranchers'>Ranchers</ion-option>
+      <ion-option value='Ranga'>Ranga</ion-option>
+      <ion-option value='Rationale'>Rationale</ion-option>
+      <ion-option value='Redacted'>Redacted</ion-option>
+      <ion-option value='RedactedScript'>Redacted Script</ion-option>
+      <ion-option value='RibeyeMarrow'>Ribeye Marrow</ion-option>
+      <ion-option value='Righteous'>Righteous</ion-option>
+      <ion-option value='Risque'>Risque</ion-option>
+      <ion-option value='Romanesco'>Romanesco</ion-option>
+      <ion-option value='RozhaOne'>Rozha One</ion-option>
+      <ion-option value='russoone'>russoone</ion-option>
+      <ion-option value='Ruthie'>Ruthie</ion-option>
+      <ion-option value='Sahitya'>Sahitya</ion-option>
+      <ion-option value='Saira'>Saira</ion-option>
+      <ion-option value='SairaCondensed'>Saira Condensed</ion-option>
+      <ion-option value='SairaSemiCondensed'>Saira Semi Condensed</ion-option>
+      <ion-option value='Salsa'>Salsa</ion-option>
+      <ion-option value='Sansita'>Sansita</ion-option>
+      <ion-option value='SansitaOne'>Sansita One</ion-option>
+      <ion-option value='Sarpanch'>Sarpanch</ion-option>
+      <ion-option value='Scada'>Scada</ion-option>
+      <ion-option value='Scheherazade'>Scheherazade</ion-option>
+      <ion-option value='ScopeOne'>Scope One</ion-option>
+      <ion-option value='SedgwickAve'>Sedgwick Ave</ion-option>
+      <ion-option value='SedgwickAveDisplay'>Sedgwick Ave Display</ion-option>
+      <ion-option value='Sevillana'>Sevillana</ion-option>
+      <ion-option value='SeymourOne'>Seymour One</ion-option>
+      <ion-option value='ShadowsIntoLight'>Shadows Into Light</ion-option>
+      <ion-option value='Shanti'>Shanti</ion-option>
+      <ion-option value='Share'>Share</ion-option>
+      <ion-option value='ShareTech'>Share Tech</ion-option>
+      <ion-option value='ShareTechMono'>Share Tech Mono</ion-option>
+      <ion-option value='Siemreap'>Siemreap</ion-option>
+      <ion-option value='SigmarOne'>Sigmar One</ion-option>
+      <ion-option value='SingleDay'>Single Day</ion-option>
+      <ion-option value='Sintony'>Sintony</ion-option>
+      <ion-option value='SirinStencil'>Sirin Stencil</ion-option>
+      <ion-option value='Sitara'>Sitara</ion-option>
+      <ion-option value='Slabo13px'>Slabo13px</ion-option>
+      <ion-option value='Slabo27px'>Slabo27px</ion-option>
+      <ion-option value='Snippet'>Snippet</ion-option>
+      <ion-option value='SnowburstOne'>Snowburst One</ion-option>
+      <ion-option value='SofadiOne'>Sofadi One</ion-option>
+      <ion-option value='SonsieOne'>Sonsie One</ion-option>
+      <ion-option value='SortsMillGoudy'>Sorts Mill Goudy</ion-option>
+      <ion-option value='Souliyo'>Souliyo</ion-option>
+      <ion-option value='SourceCodePro'>Source Code Pro</ion-option>
+      <ion-option value='Spectral'>Spectral</ion-option>
+      <ion-option value='SpectralSC'>Spectral S C</ion-option>
+      <ion-option value='SpicyRice'>Spicy Rice</ion-option>
+      <ion-option value='SreeKrushnadevaraya'>Sree Krushnadevaraya</ion-option>
+      <ion-option value='Sriracha'>Sriracha</ion-option>
+      <ion-option value='Stalemate'>Stalemate</ion-option>
+      <ion-option value='StintUltraCondensed'>Stint Ultra Condensed</ion-option>
+      <ion-option value='Strong'>Strong</ion-option>
+      <ion-option value='SueEllenFrancisco'>Sue Ellen Francisco</ion-option>
+      <ion-option value='SuezOne'>Suez One</ion-option>
+      <ion-option value='Sunflower-Medium'>Sunflower- Medium</ion-option>
+      <ion-option value='Sura-Bold'>Sura- Bold</ion-option>
+      <ion-option value='Suranna'>Suranna</ion-option>
+      <ion-option value='Suravaram'>Suravaram</ion-option>
+      <ion-option value='Taprom'>Taprom</ion-option>
+      <ion-option value='Tauri'>Tauri</ion-option>
+      <ion-option value='Taviraj'>Taviraj</ion-option>
+      <ion-option value='Telex'>Telex</ion-option>
+      <ion-option value='TenorSans'>Tenor Sans</ion-option>
+      <ion-option value='Tienne'>Tienne</ion-option>
+      <ion-option value='TitanOne'>Titan One</ion-option>
+      <ion-option value='TitilliumWeb'>Titillium Web</ion-option>
+      <ion-option value='Trirong'>Trirong</ion-option>
+      <ion-option value='Trochut'>Trochut</ion-option>
+      <ion-option value='Trykker'>Trykker</ion-option>
+      <ion-option value='Tuffy'>Tuffy</ion-option>
+      <ion-option value='Ubuntu'>Ubuntu</ion-option>
+      <ion-option value='UnifrakturCook-Bold'>Unifraktur Cook- Bold</ion-option>
+      <ion-option value='UnifrakturMaguntia-Book'>Unifraktur Maguntia- Book</ion-option>
+      <ion-option value='Unna'>Unna</ion-option>
+      <ion-option value='VastShadow'>Vast Shadow</ion-option>
+      <ion-option value='VesperLibre'>Vesper Libre</ion-option>
+      <ion-option value='Vibur'>Vibur</ion-option>
+      <ion-option value='Voces'>Voces</ion-option>
+      <ion-option value='Vollkorn'>Vollkorn</ion-option>
+      <ion-option value='Voltaire'>Voltaire</ion-option>
+      <ion-option value='VT323'>VT323</ion-option>
+      <ion-option value='Wallpoet'>Wallpoet</ion-option>
+      <ion-option value='Warnes'>Warnes</ion-option>
+      <ion-option value='Wellfleet'>Wellfleet</ion-option>
+      <ion-option value='WireOne'>Wire One</ion-option>
+      <ion-option value='YaldeviColombo'>Yaldevi Colombo</ion-option>
+      <ion-option value='YanoneKaffeesatz'>Yanone Kaffeesatz</ion-option>
+      <ion-option value='Yantramanav'>Yantramanav</ion-option>
+      <ion-option value='YatraOne'>Yatra One</ion-option>
+      <ion-option value='Yesteryear'>Yesteryear</ion-option>
+      <ion-option value='ZillaSlab'>Zilla Slab</ion-option>
+      
     </ion-select>
   </div>
 
   <div ion-item>
-    <ion-icon name="star" item-start></ion-icon>
+    <ion-icon name="build" item-start></ion-icon>
     <div>
       <ion-grid style="padding-left: 0px !important;">
         <ion-row>
@@ -60,12 +290,15 @@
 
           </ion-col>
           <ion-col>
-            <button ion-button round small (click)="smaller()" style="margin: 0px !important">
+              <ion-buttons end>
+            <button color="primary" outline ion-button round small (click)="smaller()" style="margin: 0px !important">
               -
             </button>
-            <button ion-button round small (click)="bigger()" style="margin: 0px !important">
+            
+            <button color="primary" outline ion-button round small (click)="bigger()" style="margin: 0px !important">
               +
             </button>
+          </ion-buttons>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -74,7 +307,7 @@
 
 
   <div ion-item>
-    <ion-icon name="star" item-start></ion-icon>
+    <ion-icon name="videocam" item-start></ion-icon>
     <div>
       <ion-grid style="padding-left: 0px !important;">
         <ion-row>
@@ -85,9 +318,11 @@
 
           </ion-col>
           <ion-col>
-            <button ion-button (click)="screenshot()" style="margin: 0px !important">
+              <ion-buttons end>
+            <button outline color="primary" round small ion-button (click)="screenshot()" style="margin: 0px !important">
               Capture
             </button>
+            </ion-buttons>
           </ion-col>
         </ion-row>
       </ion-grid>

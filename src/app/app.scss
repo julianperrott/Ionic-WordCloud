@@ -43,76 +43,1537 @@ h3, h5, h6 {
   padding: $heading-padding $content-padding;
 }
 
-
 @font-face{
+  font-family: AbrilFatFace;
+  src: url('../assets/fonts/AbrilFatFace.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(1){font-family: AbrilFatFace !important}
+  
+  @font-face{
+  font-family: Arvo;
+  src: url('../assets/fonts/Arvo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(2){font-family: Arvo !important}
+  
+  @font-face{
+  font-family: HennyPenny;
+  src: url('../assets/fonts/HennyPenny.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(3){font-family: HennyPenny !important}
+  
+  @font-face{
+  font-family: HermeneusOne;
+  src: url('../assets/fonts/HermeneusOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(4){font-family: HermeneusOne !important}
+  
+  @font-face{
+  font-family: HerrVonMuellerhoff;
+  src: url('../assets/fonts/HerrVonMuellerhoff.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(5){font-family: HerrVonMuellerhoff !important}
+  
+  @font-face{
+  font-family: HoltwoodOneSC;
+  src: url('../assets/fonts/HoltwoodOneSC.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(6){font-family: HoltwoodOneSC !important}
+  
+  @font-face{
+  font-family: Homenaje;
+  src: url('../assets/fonts/Homenaje.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(7){font-family: Homenaje !important}
+  
+  @font-face{
+  font-family: IBMPlexSerif;
+  src: url('../assets/fonts/IBMPlexSerif.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(8){font-family: IBMPlexSerif !important}
+  
+  @font-face{
+  font-family: Imprima;
+  src: url('../assets/fonts/Imprima.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(9){font-family: Imprima !important}
+  
+  @font-face{
+  font-family: IndieFlower;
+  src: url('../assets/fonts/IndieFlower.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(10){font-family: IndieFlower !important}
+  
+  @font-face{
+  font-family: InknutAntiqua;
+  src: url('../assets/fonts/InknutAntiqua.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(11){font-family: InknutAntiqua !important}
+  
+  @font-face{
+  font-family: IstokWeb;
+  src: url('../assets/fonts/IstokWeb.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(12){font-family: IstokWeb !important}
+  
+  @font-face{
+  font-family: Italianno;
+  src: url('../assets/fonts/Italianno.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(13){font-family: Italianno !important}
+  
+  @font-face{
+  font-family: Itim;
+  src: url('../assets/fonts/Itim.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(14){font-family: Itim !important}
+  
+  @font-face{
+  font-family: JacquesFrancois;
+  src: url('../assets/fonts/JacquesFrancois.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(15){font-family: JacquesFrancois !important}
+  
+  @font-face{
+  font-family: Jaldi;
+  src: url('../assets/fonts/Jaldi.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(16){font-family: Jaldi !important}
+  
+  @font-face{
+  font-family: JimNightshade;
+  src: url('../assets/fonts/JimNightshade.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(17){font-family: JimNightshade !important}
+  
+  @font-face{
+  font-family: Jomhuria;
+  src: url('../assets/fonts/Jomhuria.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(18){font-family: Jomhuria !important}
+  
+  @font-face{
+  font-family: JosefinSans;
+  src: url('../assets/fonts/JosefinSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(19){font-family: JosefinSans !important}
+  
+  @font-face{
+  font-family: JosefinSlab;
+  src: url('../assets/fonts/JosefinSlab.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(20){font-family: JosefinSlab !important}
+  
+  @font-face{
+  font-family: Judson;
+  src: url('../assets/fonts/Judson.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(21){font-family: Judson !important}
+  
+  @font-face{
+  font-family: Katibeh;
+  src: url('../assets/fonts/Katibeh.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(22){font-family: Katibeh !important}
+  
+  @font-face{
+  font-family: Kavivanar;
+  src: url('../assets/fonts/Kavivanar.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(23){font-family: Kavivanar !important}
+  
+  @font-face{
+  font-family: Kavoon;
+  src: url('../assets/fonts/Kavoon.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(24){font-family: Kavoon !important}
+  
+  @font-face{
+  font-family: KeaniaOne;
+  src: url('../assets/fonts/KeaniaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(25){font-family: KeaniaOne !important}
+  
+  @font-face{
+  font-family: Kenia;
+  src: url('../assets/fonts/Kenia.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(26){font-family: Kenia !important}
+  
+  @font-face{
+  font-family: Khand;
+  src: url('../assets/fonts/Khand.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(27){font-family: Khand !important}
+  
+  @font-face{
+  font-family: Khmer;
+  src: url('../assets/fonts/Khmer.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(28){font-family: Khmer !important}
+  
+  @font-face{
+  font-family: KottaOne;
+  src: url('../assets/fonts/KottaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(29){font-family: KottaOne !important}
+  
+  @font-face{
+  font-family: Kreon;
+  src: url('../assets/fonts/Kreon.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(30){font-family: Kreon !important}
+  
+  @font-face{
+  font-family: Kristi;
+  src: url('../assets/fonts/Kristi.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(31){font-family: Kristi !important}
+  
+  @font-face{
+  font-family: KronaOne;
+  src: url('../assets/fonts/KronaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(32){font-family: KronaOne !important}
+  
+  @font-face{
+  font-family: Kurale;
+  src: url('../assets/fonts/Kurale.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(33){font-family: Kurale !important}
+  
+  @font-face{
+  font-family: LaBelleAurore;
+  src: url('../assets/fonts/LaBelleAurore.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(34){font-family: LaBelleAurore !important}
+  
+  @font-face{
+  font-family: Laila;
+  src: url('../assets/fonts/Laila.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(35){font-family: Laila !important}
+  
+  @font-face{
+  font-family: LakkiReddy;
+  src: url('../assets/fonts/LakkiReddy.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(36){font-family: LakkiReddy !important}
+  
+  @font-face{
+  font-family: Lancelot;
+  src: url('../assets/fonts/Lancelot.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(37){font-family: Lancelot !important}
+  
+  @font-face{
+  font-family: LaoMuangDon;
+  src: url('../assets/fonts/LaoMuangDon.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(38){font-family: LaoMuangDon !important}
+  
+  @font-face{
+  font-family: LaoMuangKhong;
+  src: url('../assets/fonts/LaoMuangKhong.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(39){font-family: LaoMuangKhong !important}
+  
+  @font-face{
+  font-family: LaoSansPro;
+  src: url('../assets/fonts/LaoSansPro.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(40){font-family: LaoSansPro !important}
+  
+  @font-face{
+  font-family: LateefRegOT;
+  src: url('../assets/fonts/LateefRegOT.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(41){font-family: LateefRegOT !important}
+  
+  @font-face{
+  font-family: Lato;
+  src: url('../assets/fonts/Lato.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(42){font-family: Lato !important}
+  
+  @font-face{
+  font-family: LeagueScript;
+  src: url('../assets/fonts/LeagueScript.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(43){font-family: LeagueScript !important}
+  
+  @font-face{
+  font-family: Lekton;
+  src: url('../assets/fonts/Lekton.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(44){font-family: Lekton !important}
+  
+  @font-face{
+  font-family: Lemon;
+  src: url('../assets/fonts/Lemon.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(45){font-family: Lemon !important}
+  
+  @font-face{
+  font-family: LibreBarcode39;
+  src: url('../assets/fonts/LibreBarcode39.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(46){font-family: LibreBarcode39 !important}
+  
+  @font-face{
+  font-family: LibreBaskerville;
+  src: url('../assets/fonts/LibreBaskerville.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(47){font-family: LibreBaskerville !important}
+  
+  @font-face{
+  font-family: LibreCaslonText;
+  src: url('../assets/fonts/LibreCaslonText.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(48){font-family: LibreCaslonText !important}
+  
+  @font-face{
+  font-family: LibreFranklin;
+  src: url('../assets/fonts/LibreFranklin.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(49){font-family: LibreFranklin !important}
+  
+  @font-face{
+  font-family: LifeSavers;
+  src: url('../assets/fonts/LifeSavers.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(50){font-family: LifeSavers !important}
+  
+  @font-face{
+  font-family: Limelight;
+  src: url('../assets/fonts/Limelight.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(51){font-family: Limelight !important}
+  
+  @font-face{
+  font-family: Lobster;
+  src: url('../assets/fonts/Lobster.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(52){font-family: Lobster !important}
+  
+  @font-face{
+  font-family: LobsterTwo;
+  src: url('../assets/fonts/LobsterTwo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(53){font-family: LobsterTwo !important}
+  
+  @font-face{
+  font-family: Lohit-Tamil;
+  src: url('../assets/fonts/Lohit-Tamil.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(54){font-family: Lohit-Tamil !important}
+  
+  @font-face{
+  font-family: LondrinaShadow;
+  src: url('../assets/fonts/LondrinaShadow.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(55){font-family: LondrinaShadow !important}
+  
+  @font-face{
+  font-family: LondrinaSketch;
+  src: url('../assets/fonts/LondrinaSketch.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(56){font-family: LondrinaSketch !important}
+  
+  @font-face{
+  font-family: LondrinaSolid;
+  src: url('../assets/fonts/LondrinaSolid.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(57){font-family: LondrinaSolid !important}
+  
+  @font-face{
+  font-family: Macondo;
+  src: url('../assets/fonts/Macondo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(58){font-family: Macondo !important}
+  
+  @font-face{
+  font-family: Magra;
+  src: url('../assets/fonts/Magra.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(59){font-family: Magra !important}
+  
+  @font-face{
+  font-family: Maitree;
+  src: url('../assets/fonts/Maitree.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(60){font-family: Maitree !important}
+  
+  @font-face{
+  font-family: Mako;
+  src: url('../assets/fonts/Mako.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(61){font-family: Mako !important}
+  
+  @font-face{
+  font-family: Mandali;
+  src: url('../assets/fonts/Mandali.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(62){font-family: Mandali !important}
+  
+  @font-face{
+  font-family: Marcellus;
+  src: url('../assets/fonts/Marcellus.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(63){font-family: Marcellus !important}
+  
+  @font-face{
+  font-family: MarcellusSC;
+  src: url('../assets/fonts/MarcellusSC.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(64){font-family: MarcellusSC !important}
+  
+  @font-face{
+  font-family: Margarine;
+  src: url('../assets/fonts/Margarine.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(65){font-family: Margarine !important}
+  
+  @font-face{
+  font-family: Marmelad;
+  src: url('../assets/fonts/Marmelad.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(66){font-family: Marmelad !important}
+  
+  @font-face{
+  font-family: Martel;
+  src: url('../assets/fonts/Martel.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(67){font-family: Martel !important}
+  
+  @font-face{
+  font-family: MartelSans;
+  src: url('../assets/fonts/MartelSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(68){font-family: MartelSans !important}
+  
+  @font-face{
+  font-family: Marvel;
+  src: url('../assets/fonts/Marvel.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(69){font-family: Marvel !important}
+  
+  @font-face{
+  font-family: Mate;
+  src: url('../assets/fonts/Mate.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(70){font-family: Mate !important}
+  
+  @font-face{
+  font-family: McLaren;
+  src: url('../assets/fonts/McLaren.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(71){font-family: McLaren !important}
+  
+  @font-face{
+  font-family: MedievalSharp;
+  src: url('../assets/fonts/MedievalSharp.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(72){font-family: MedievalSharp !important}
+  
+  @font-face{
+  font-family: MeeraInimai;
+  src: url('../assets/fonts/MeeraInimai.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(73){font-family: MeeraInimai !important}
+  
+  @font-face{
+  font-family: MeieScript;
+  src: url('../assets/fonts/MeieScript.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(74){font-family: MeieScript !important}
+  
+  @font-face{
+  font-family: Merienda;
+  src: url('../assets/fonts/Merienda.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(75){font-family: Merienda !important}
+  
+  @font-face{
+  font-family: MeriendaOne;
+  src: url('../assets/fonts/MeriendaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(76){font-family: MeriendaOne !important}
+  
+  @font-face{
+  font-family: Merriweather;
+  src: url('../assets/fonts/Merriweather.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(77){font-family: Merriweather !important}
+  
+  @font-face{
+  font-family: Metal;
+  src: url('../assets/fonts/Metal.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(78){font-family: Metal !important}
+  
+  @font-face{
+  font-family: MetalMania;
+  src: url('../assets/fonts/MetalMania.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(79){font-family: MetalMania !important}
+  
+  @font-face{
+  font-family: Metamorphous;
+  src: url('../assets/fonts/Metamorphous.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(80){font-family: Metamorphous !important}
+  
+  @font-face{
+  font-family: Metrophobic;
+  src: url('../assets/fonts/Metrophobic.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(81){font-family: Metrophobic !important}
+  
+  @font-face{
+  font-family: Miama;
+  src: url('../assets/fonts/Miama.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(82){font-family: Miama !important}
+  
+  @font-face{
+  font-family: Michroma;
+  src: url('../assets/fonts/Michroma.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(83){font-family: Michroma !important}
+  
+  @font-face{
+  font-family: Milonga;
+  src: url('../assets/fonts/Milonga.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(84){font-family: Milonga !important}
+  
+  @font-face{
+  font-family: MiltonianTattoo;
+  src: url('../assets/fonts/MiltonianTattoo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(85){font-family: MiltonianTattoo !important}
+  
+  @font-face{
+  font-family: Mina-Bold;
+  src: url('../assets/fonts/Mina-Bold.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(86){font-family: Mina-Bold !important}
+  
+  @font-face{
+  font-family: Miniver;
+  src: url('../assets/fonts/Miniver.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(87){font-family: Miniver !important}
+  
+  @font-face{
+  font-family: Mitr;
+  src: url('../assets/fonts/Mitr.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(88){font-family: Mitr !important}
+  
+  @font-face{
+  font-family: ModernAntiqua;
+  src: url('../assets/fonts/ModernAntiqua.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(89){font-family: ModernAntiqua !important}
+  
+  @font-face{
+  font-family: Mogra;
+  src: url('../assets/fonts/Mogra.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(90){font-family: Mogra !important}
+  
+  @font-face{
+  font-family: Molengo;
+  src: url('../assets/fonts/Molengo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(91){font-family: Molengo !important}
+  
+  @font-face{
+  font-family: Molle;
+  src: url('../assets/fonts/Molle.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(92){font-family: Molle !important}
+  
+  @font-face{
+  font-family: MonsieurLaDoulaise;
+  src: url('../assets/fonts/MonsieurLaDoulaise.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(93){font-family: MonsieurLaDoulaise !important}
+  
+  @font-face{
+  font-family: Montserrat;
+  src: url('../assets/fonts/Montserrat.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(94){font-family: Montserrat !important}
+  
+  @font-face{
+  font-family: Moulpali;
+  src: url('../assets/fonts/Moulpali.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(95){font-family: Moulpali !important}
+  
+  @font-face{
+  font-family: MouseMemoirs;
+  src: url('../assets/fonts/MouseMemoirs.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(96){font-family: MouseMemoirs !important}
+  
+  @font-face{
+  font-family: MrBedfort;
+  src: url('../assets/fonts/MrBedfort.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(97){font-family: MrBedfort !important}
+  
+  @font-face{
+  font-family: MrDafoe;
+  src: url('../assets/fonts/MrDafoe.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(98){font-family: MrDafoe !important}
+  
+  @font-face{
+  font-family: Mukta;
+  src: url('../assets/fonts/Mukta.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(99){font-family: Mukta !important}
+  
+  @font-face{
+  font-family: MuktaMahee;
+  src: url('../assets/fonts/MuktaMahee.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(100){font-family: MuktaMahee !important}
+  
+  @font-face{
+  font-family: MuktaMalar;
+  src: url('../assets/fonts/MuktaMalar.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(101){font-family: MuktaMalar !important}
+  
+  @font-face{
+  font-family: MysteryQuest;
+  src: url('../assets/fonts/MysteryQuest.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(102){font-family: MysteryQuest !important}
+  
+  @font-face{
+  font-family: Neucha;
+  src: url('../assets/fonts/Neucha.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(103){font-family: Neucha !important}
+  
+  @font-face{
+  font-family: Neuton;
+  src: url('../assets/fonts/Neuton.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(104){font-family: Neuton !important}
+  
+  @font-face{
+  font-family: NewRocker;
+  src: url('../assets/fonts/NewRocker.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(105){font-family: NewRocker !important}
+  
+  @font-face{
+  font-family: NicoMoji;
+  src: url('../assets/fonts/NicoMoji.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(106){font-family: NicoMoji !important}
+  
+  @font-face{
+  font-family: Nikukyu;
+  src: url('../assets/fonts/Nikukyu.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(107){font-family: Nikukyu !important}
+  
+  @font-face{
+  font-family: NixieOne;
+  src: url('../assets/fonts/NixieOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(108){font-family: NixieOne !important}
+  
+  @font-face{
+  font-family: Nobile;
+  src: url('../assets/fonts/Nobile.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(109){font-family: Nobile !important}
+  
+  @font-face{
+  font-family: Norican;
+  src: url('../assets/fonts/Norican.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(110){font-family: Norican !important}
+  
+  @font-face{
+  font-family: NothingYouCouldDo;
+  src: url('../assets/fonts/NothingYouCouldDo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(111){font-family: NothingYouCouldDo !important}
+  
+  @font-face{
+  font-family: NoticiaText;
+  src: url('../assets/fonts/NoticiaText.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(112){font-family: NoticiaText !important}
+  
+  @font-face{
+  font-family: NotoSerif;
+  src: url('../assets/fonts/NotoSerif.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(113){font-family: NotoSerif !important}
+  
+  @font-face{
+  font-family: NovaScript;
+  src: url('../assets/fonts/NovaScript.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(114){font-family: NovaScript !important}
+  
+  @font-face{
+  font-family: NTR;
+  src: url('../assets/fonts/NTR.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(115){font-family: NTR !important}
+  
+  @font-face{
+  font-family: Nunito;
+  src: url('../assets/fonts/Nunito.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(116){font-family: Nunito !important}
+  
+  @font-face{
+  font-family: NunitoSans;
+  src: url('../assets/fonts/NunitoSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(117){font-family: NunitoSans !important}
+  
+  @font-face{
+  font-family: Oldenburg;
+  src: url('../assets/fonts/Oldenburg.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(118){font-family: Oldenburg !important}
+  
+  @font-face{
+  font-family: OldStandardTT;
+  src: url('../assets/fonts/OldStandardTT.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(119){font-family: OldStandardTT !important}
+  
+  @font-face{
+  font-family: OleoScriptSwashCaps;
+  src: url('../assets/fonts/OleoScriptSwashCaps.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(120){font-family: OleoScriptSwashCaps !important}
+  
+  @font-face{
+  font-family: OpenSans;
+  src: url('../assets/fonts/OpenSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(121){font-family: OpenSans !important}
+  
+  @font-face{
+  font-family: Orbitron;
+  src: url('../assets/fonts/Orbitron.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(122){font-family: Orbitron !important}
+  
+  @font-face{
+  font-family: Orienta;
+  src: url('../assets/fonts/Orienta.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(123){font-family: Orienta !important}
+  
+  @font-face{
+  font-family: OriginalSurfer;
+  src: url('../assets/fonts/OriginalSurfer.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(124){font-family: OriginalSurfer !important}
+  
+  @font-face{
+  font-family: OxygenMono;
+  src: url('../assets/fonts/OxygenMono.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(125){font-family: OxygenMono !important}
+  
+  @font-face{
   font-family: Pacifico;
   src: url('../assets/fonts/Pacifico.woff2')
   }
-
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(126){font-family: Pacifico !important}
+  
   @font-face{
-    font-family: AbrilFatFace;
-    src: url('../assets/fonts/AbrilFatFace.woff2')
+  font-family: Pangolin;
+  src: url('../assets/fonts/Pangolin.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(127){font-family: Pangolin !important}
+  
   @font-face{
-    font-family: Arvo;
-    src: url('../assets/fonts/Arvo.woff2')
+  font-family: Paprika;
+  src: url('../assets/fonts/Paprika.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(128){font-family: Paprika !important}
+  
   @font-face{
-    font-family: IndieFlower;
-    src: url('../assets/fonts/IndieFlower.woff2')
+  font-family: Parisienne;
+  src: url('../assets/fonts/Parisienne.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(129){font-family: Parisienne !important}
+  
   @font-face{
-    font-family: JosenfinSlab;
-    src: url('../assets/fonts/JosenfinSlab.woff2')
+  font-family: Pavanam;
+  src: url('../assets/fonts/Pavanam.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(130){font-family: Pavanam !important}
+  
   @font-face{
-    font-family: Lato;
-    src: url('../assets/fonts/Lato.woff2')
+  font-family: PaytoneOne;
+  src: url('../assets/fonts/PaytoneOne.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(131){font-family: PaytoneOne !important}
+  
   @font-face{
-    font-family: OldStandardTT;
-    src: url('../assets/fonts/OldStandardTT.woff2')
+  font-family: Peralta;
+  src: url('../assets/fonts/Peralta.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(132){font-family: Peralta !important}
+  
   @font-face{
-    font-family: OpenSans;
-    src: url('../assets/fonts/OpenSans.woff2')
+  font-family: PermanentMarker;
+  src: url('../assets/fonts/PermanentMarker.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(133){font-family: PermanentMarker !important}
+  
   @font-face{
-    font-family: PermanentMarker;
-    src: url('../assets/fonts/PermanentMarker.woff2')
+  font-family: PinyonScript;
+  src: url('../assets/fonts/PinyonScript.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(134){font-family: PinyonScript !important}
+  
   @font-face{
-    font-family: RussoOne;
-    src: url('../assets/fonts/RussoOne.woff2')
+  font-family: PoetsenOne;
+  src: url('../assets/fonts/PoetsenOne.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(135){font-family: PoetsenOne !important}
+  
   @font-face{
-    font-family: TitanOne;
-    src: url('../assets/fonts/TitanOne.woff2')
+  font-family: PollerOne;
+  src: url('../assets/fonts/PollerOne.woff2')
   }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(136){font-family: PollerOne !important}
+  
   @font-face{
-    font-family: Ubuntu;
-    src: url('../assets/fonts/Ubuntu.woff2')
+  font-family: Pompiere;
+  src: url('../assets/fonts/Pompiere.woff2')
   }
-   @font-face{
-    font-family: Vollkorn;
-    src: url('../assets/fonts/Vollkorn.woff2')
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(137){font-family: Pompiere !important}
+  
+  @font-face{
+  font-family: Ponnala;
+  src: url('../assets/fonts/Ponnala.woff2')
   }
-
-
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(1){font-family: AbrilFatFace !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(2){font-family: Arvo  !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(3){font-family: IndieFlower !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(4){font-family: Impact !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(5){font-family: JosenfinSlab !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(6){font-family:  Lato !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(7){font-family: OldStandardTT !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(8){font-family: OpenSans !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(9){font-family: Pacifico !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(10){font-family: PermanentMarker !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(11){font-family: RussoOne !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(12){font-family: TitanOne !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(13){font-family: Ubuntu !important}
-.fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(14){font-family: Vollkorn !important}
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(138){font-family: Ponnala !important}
+  
+  @font-face{
+  font-family: PontanoSans;
+  src: url('../assets/fonts/PontanoSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(139){font-family: PontanoSans !important}
+  
+  @font-face{
+  font-family: Poppins;
+  src: url('../assets/fonts/Poppins.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(140){font-family: Poppins !important}
+  
+  @font-face{
+  font-family: PortLligatSlab;
+  src: url('../assets/fonts/PortLligatSlab.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(141){font-family: PortLligatSlab !important}
+  
+  @font-face{
+  font-family: PostNoBillsColombo;
+  src: url('../assets/fonts/PostNoBillsColombo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(142){font-family: PostNoBillsColombo !important}
+  
+  @font-face{
+  font-family: PostNoBillsJaffna;
+  src: url('../assets/fonts/PostNoBillsJaffna.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(143){font-family: PostNoBillsJaffna !important}
+  
+  @font-face{
+  font-family: PragatiNarrow-Bold;
+  src: url('../assets/fonts/PragatiNarrow-Bold.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(144){font-family: PragatiNarrow-Bold !important}
+  
+  @font-face{
+  font-family: Preahvihear;
+  src: url('../assets/fonts/Preahvihear.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(145){font-family: Preahvihear !important}
+  
+  @font-face{
+  font-family: PressStart2P;
+  src: url('../assets/fonts/PressStart2P.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(146){font-family: PressStart2P !important}
+  
+  @font-face{
+  font-family: Pridi-SemiBold;
+  src: url('../assets/fonts/Pridi-SemiBold.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(147){font-family: Pridi-SemiBold !important}
+  
+  @font-face{
+  font-family: PrincessSofia;
+  src: url('../assets/fonts/PrincessSofia.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(148){font-family: PrincessSofia !important}
+  
+  @font-face{
+  font-family: Prociono;
+  src: url('../assets/fonts/Prociono.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(149){font-family: Prociono !important}
+  
+  @font-face{
+  font-family: Prompt;
+  src: url('../assets/fonts/Prompt.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(150){font-family: Prompt !important}
+  
+  @font-face{
+  font-family: ProzaLibre;
+  src: url('../assets/fonts/ProzaLibre.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(151){font-family: ProzaLibre !important}
+  
+  @font-face{
+  font-family: PT_Serif-Web;
+  src: url('../assets/fonts/PT_Serif-Web.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(152){font-family: PT_Serif-Web !important}
+  
+  @font-face{
+  font-family: PTM55FT;
+  src: url('../assets/fonts/PTM55FT.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(153){font-family: PTM55FT !important}
+  
+  @font-face{
+  font-family: Puritan;
+  src: url('../assets/fonts/Puritan.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(154){font-family: Puritan !important}
+  
+  @font-face{
+  font-family: Quando;
+  src: url('../assets/fonts/Quando.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(155){font-family: Quando !important}
+  
+  @font-face{
+  font-family: Quantico;
+  src: url('../assets/fonts/Quantico.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(156){font-family: Quantico !important}
+  
+  @font-face{
+  font-family: Quicksand;
+  src: url('../assets/fonts/Quicksand.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(157){font-family: Quicksand !important}
+  
+  @font-face{
+  font-family: Quintessential;
+  src: url('../assets/fonts/Quintessential.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(158){font-family: Quintessential !important}
+  
+  @font-face{
+  font-family: RacingSansOne;
+  src: url('../assets/fonts/RacingSansOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(159){font-family: RacingSansOne !important}
+  
+  @font-face{
+  font-family: Rakkas;
+  src: url('../assets/fonts/Rakkas.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(160){font-family: Rakkas !important}
+  
+  @font-face{
+  font-family: Raleway;
+  src: url('../assets/fonts/Raleway.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(161){font-family: Raleway !important}
+  
+  @font-face{
+  font-family: Ranchers;
+  src: url('../assets/fonts/Ranchers.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(162){font-family: Ranchers !important}
+  
+  @font-face{
+  font-family: Ranga;
+  src: url('../assets/fonts/Ranga.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(163){font-family: Ranga !important}
+  
+  @font-face{
+  font-family: Rationale;
+  src: url('../assets/fonts/Rationale.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(164){font-family: Rationale !important}
+  
+  @font-face{
+  font-family: Redacted;
+  src: url('../assets/fonts/Redacted.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(165){font-family: Redacted !important}
+  
+  @font-face{
+  font-family: RedactedScript;
+  src: url('../assets/fonts/RedactedScript.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(166){font-family: RedactedScript !important}
+  
+  @font-face{
+  font-family: RibeyeMarrow;
+  src: url('../assets/fonts/RibeyeMarrow.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(167){font-family: RibeyeMarrow !important}
+  
+  @font-face{
+  font-family: Righteous;
+  src: url('../assets/fonts/Righteous.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(168){font-family: Righteous !important}
+  
+  @font-face{
+  font-family: Risque;
+  src: url('../assets/fonts/Risque.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(169){font-family: Risque !important}
+  
+  @font-face{
+  font-family: Romanesco;
+  src: url('../assets/fonts/Romanesco.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(170){font-family: Romanesco !important}
+  
+  @font-face{
+  font-family: RozhaOne;
+  src: url('../assets/fonts/RozhaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(171){font-family: RozhaOne !important}
+  
+  @font-face{
+  font-family: russoone;
+  src: url('../assets/fonts/russoone.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(172){font-family: russoone !important}
+  
+  @font-face{
+  font-family: Ruthie;
+  src: url('../assets/fonts/Ruthie.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(173){font-family: Ruthie !important}
+  
+  @font-face{
+  font-family: Sahitya;
+  src: url('../assets/fonts/Sahitya.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(174){font-family: Sahitya !important}
+  
+  @font-face{
+  font-family: Saira;
+  src: url('../assets/fonts/Saira.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(175){font-family: Saira !important}
+  
+  @font-face{
+  font-family: SairaCondensed;
+  src: url('../assets/fonts/SairaCondensed.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(176){font-family: SairaCondensed !important}
+  
+  @font-face{
+  font-family: SairaSemiCondensed;
+  src: url('../assets/fonts/SairaSemiCondensed.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(177){font-family: SairaSemiCondensed !important}
+  
+  @font-face{
+  font-family: Salsa;
+  src: url('../assets/fonts/Salsa.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(178){font-family: Salsa !important}
+  
+  @font-face{
+  font-family: Sansita;
+  src: url('../assets/fonts/Sansita.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(179){font-family: Sansita !important}
+  
+  @font-face{
+  font-family: SansitaOne;
+  src: url('../assets/fonts/SansitaOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(180){font-family: SansitaOne !important}
+  
+  @font-face{
+  font-family: Sarpanch;
+  src: url('../assets/fonts/Sarpanch.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(181){font-family: Sarpanch !important}
+  
+  @font-face{
+  font-family: Scada;
+  src: url('../assets/fonts/Scada.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(182){font-family: Scada !important}
+  
+  @font-face{
+  font-family: Scheherazade;
+  src: url('../assets/fonts/Scheherazade.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(183){font-family: Scheherazade !important}
+  
+  @font-face{
+  font-family: ScopeOne;
+  src: url('../assets/fonts/ScopeOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(184){font-family: ScopeOne !important}
+  
+  @font-face{
+  font-family: SedgwickAve;
+  src: url('../assets/fonts/SedgwickAve.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(185){font-family: SedgwickAve !important}
+  
+  @font-face{
+  font-family: SedgwickAveDisplay;
+  src: url('../assets/fonts/SedgwickAveDisplay.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(186){font-family: SedgwickAveDisplay !important}
+  
+  @font-face{
+  font-family: Sevillana;
+  src: url('../assets/fonts/Sevillana.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(187){font-family: Sevillana !important}
+  
+  @font-face{
+  font-family: SeymourOne;
+  src: url('../assets/fonts/SeymourOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(188){font-family: SeymourOne !important}
+  
+  @font-face{
+  font-family: ShadowsIntoLight;
+  src: url('../assets/fonts/ShadowsIntoLight.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(189){font-family: ShadowsIntoLight !important}
+  
+  @font-face{
+  font-family: Shanti;
+  src: url('../assets/fonts/Shanti.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(190){font-family: Shanti !important}
+  
+  @font-face{
+  font-family: Share;
+  src: url('../assets/fonts/Share.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(191){font-family: Share !important}
+  
+  @font-face{
+  font-family: ShareTech;
+  src: url('../assets/fonts/ShareTech.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(192){font-family: ShareTech !important}
+  
+  @font-face{
+  font-family: ShareTechMono;
+  src: url('../assets/fonts/ShareTechMono.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(193){font-family: ShareTechMono !important}
+  
+  @font-face{
+  font-family: Siemreap;
+  src: url('../assets/fonts/Siemreap.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(194){font-family: Siemreap !important}
+  
+  @font-face{
+  font-family: SigmarOne;
+  src: url('../assets/fonts/SigmarOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(195){font-family: SigmarOne !important}
+  
+  @font-face{
+  font-family: SingleDay;
+  src: url('../assets/fonts/SingleDay.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(196){font-family: SingleDay !important}
+  
+  @font-face{
+  font-family: Sintony;
+  src: url('../assets/fonts/Sintony.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(197){font-family: Sintony !important}
+  
+  @font-face{
+  font-family: SirinStencil;
+  src: url('../assets/fonts/SirinStencil.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(198){font-family: SirinStencil !important}
+  
+  @font-face{
+  font-family: Sitara;
+  src: url('../assets/fonts/Sitara.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(199){font-family: Sitara !important}
+  
+  @font-face{
+  font-family: Slabo13px;
+  src: url('../assets/fonts/Slabo13px.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(200){font-family: Slabo13px !important}
+  
+  @font-face{
+  font-family: Slabo27px;
+  src: url('../assets/fonts/Slabo27px.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(201){font-family: Slabo27px !important}
+  
+  @font-face{
+  font-family: Snippet;
+  src: url('../assets/fonts/Snippet.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(202){font-family: Snippet !important}
+  
+  @font-face{
+  font-family: SnowburstOne;
+  src: url('../assets/fonts/SnowburstOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(203){font-family: SnowburstOne !important}
+  
+  @font-face{
+  font-family: SofadiOne;
+  src: url('../assets/fonts/SofadiOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(204){font-family: SofadiOne !important}
+  
+  @font-face{
+  font-family: SonsieOne;
+  src: url('../assets/fonts/SonsieOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(205){font-family: SonsieOne !important}
+  
+  @font-face{
+  font-family: SortsMillGoudy;
+  src: url('../assets/fonts/SortsMillGoudy.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(206){font-family: SortsMillGoudy !important}
+  
+  @font-face{
+  font-family: Souliyo;
+  src: url('../assets/fonts/Souliyo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(207){font-family: Souliyo !important}
+  
+  @font-face{
+  font-family: SourceCodePro;
+  src: url('../assets/fonts/SourceCodePro.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(208){font-family: SourceCodePro !important}
+  
+  @font-face{
+  font-family: Spectral;
+  src: url('../assets/fonts/Spectral.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(209){font-family: Spectral !important}
+  
+  @font-face{
+  font-family: SpectralSC;
+  src: url('../assets/fonts/SpectralSC.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(210){font-family: SpectralSC !important}
+  
+  @font-face{
+  font-family: SpicyRice;
+  src: url('../assets/fonts/SpicyRice.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(211){font-family: SpicyRice !important}
+  
+  @font-face{
+  font-family: SreeKrushnadevaraya;
+  src: url('../assets/fonts/SreeKrushnadevaraya.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(212){font-family: SreeKrushnadevaraya !important}
+  
+  @font-face{
+  font-family: Sriracha;
+  src: url('../assets/fonts/Sriracha.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(213){font-family: Sriracha !important}
+  
+  @font-face{
+  font-family: Stalemate;
+  src: url('../assets/fonts/Stalemate.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(214){font-family: Stalemate !important}
+  
+  @font-face{
+  font-family: StintUltraCondensed;
+  src: url('../assets/fonts/StintUltraCondensed.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(215){font-family: StintUltraCondensed !important}
+  
+  @font-face{
+  font-family: Strong;
+  src: url('../assets/fonts/Strong.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(216){font-family: Strong !important}
+  
+  @font-face{
+  font-family: SueEllenFrancisco;
+  src: url('../assets/fonts/SueEllenFrancisco.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(217){font-family: SueEllenFrancisco !important}
+  
+  @font-face{
+  font-family: SuezOne;
+  src: url('../assets/fonts/SuezOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(218){font-family: SuezOne !important}
+  
+  @font-face{
+  font-family: Sunflower-Medium;
+  src: url('../assets/fonts/Sunflower-Medium.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(219){font-family: Sunflower-Medium !important}
+  
+  @font-face{
+  font-family: Sura-Bold;
+  src: url('../assets/fonts/Sura-Bold.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(220){font-family: Sura-Bold !important}
+  
+  @font-face{
+  font-family: Suranna;
+  src: url('../assets/fonts/Suranna.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(221){font-family: Suranna !important}
+  
+  @font-face{
+  font-family: Suravaram;
+  src: url('../assets/fonts/Suravaram.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(222){font-family: Suravaram !important}
+  
+  @font-face{
+  font-family: Taprom;
+  src: url('../assets/fonts/Taprom.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(223){font-family: Taprom !important}
+  
+  @font-face{
+  font-family: Tauri;
+  src: url('../assets/fonts/Tauri.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(224){font-family: Tauri !important}
+  
+  @font-face{
+  font-family: Taviraj;
+  src: url('../assets/fonts/Taviraj.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(225){font-family: Taviraj !important}
+  
+  @font-face{
+  font-family: Telex;
+  src: url('../assets/fonts/Telex.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(226){font-family: Telex !important}
+  
+  @font-face{
+  font-family: TenorSans;
+  src: url('../assets/fonts/TenorSans.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(227){font-family: TenorSans !important}
+  
+  @font-face{
+  font-family: Tienne;
+  src: url('../assets/fonts/Tienne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(228){font-family: Tienne !important}
+  
+  @font-face{
+  font-family: TitanOne;
+  src: url('../assets/fonts/TitanOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(229){font-family: TitanOne !important}
+  
+  @font-face{
+  font-family: TitilliumWeb;
+  src: url('../assets/fonts/TitilliumWeb.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(230){font-family: TitilliumWeb !important}
+  
+  @font-face{
+  font-family: Trirong;
+  src: url('../assets/fonts/Trirong.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(231){font-family: Trirong !important}
+  
+  @font-face{
+  font-family: Trochut;
+  src: url('../assets/fonts/Trochut.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(232){font-family: Trochut !important}
+  
+  @font-face{
+  font-family: Trykker;
+  src: url('../assets/fonts/Trykker.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(233){font-family: Trykker !important}
+  
+  @font-face{
+  font-family: Tuffy;
+  src: url('../assets/fonts/Tuffy.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(234){font-family: Tuffy !important}
+  
+  @font-face{
+  font-family: Ubuntu;
+  src: url('../assets/fonts/Ubuntu.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(235){font-family: Ubuntu !important}
+  
+  @font-face{
+  font-family: UnifrakturCook-Bold;
+  src: url('../assets/fonts/UnifrakturCook-Bold.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(236){font-family: UnifrakturCook-Bold !important}
+  
+  @font-face{
+  font-family: UnifrakturMaguntia-Book;
+  src: url('../assets/fonts/UnifrakturMaguntia-Book.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(237){font-family: UnifrakturMaguntia-Book !important}
+  
+  @font-face{
+  font-family: Unna;
+  src: url('../assets/fonts/Unna.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(238){font-family: Unna !important}
+  
+  @font-face{
+  font-family: VastShadow;
+  src: url('../assets/fonts/VastShadow.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(239){font-family: VastShadow !important}
+  
+  @font-face{
+  font-family: VesperLibre;
+  src: url('../assets/fonts/VesperLibre.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(240){font-family: VesperLibre !important}
+  
+  @font-face{
+  font-family: Vibur;
+  src: url('../assets/fonts/Vibur.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(241){font-family: Vibur !important}
+  
+  @font-face{
+  font-family: Voces;
+  src: url('../assets/fonts/Voces.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(242){font-family: Voces !important}
+  
+  @font-face{
+  font-family: Vollkorn;
+  src: url('../assets/fonts/Vollkorn.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(243){font-family: Vollkorn !important}
+  
+  @font-face{
+  font-family: Voltaire;
+  src: url('../assets/fonts/Voltaire.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(244){font-family: Voltaire !important}
+  
+  @font-face{
+  font-family: VT323;
+  src: url('../assets/fonts/VT323.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(245){font-family: VT323 !important}
+  
+  @font-face{
+  font-family: Wallpoet;
+  src: url('../assets/fonts/Wallpoet.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(246){font-family: Wallpoet !important}
+  
+  @font-face{
+  font-family: Warnes;
+  src: url('../assets/fonts/Warnes.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(247){font-family: Warnes !important}
+  
+  @font-face{
+  font-family: Wellfleet;
+  src: url('../assets/fonts/Wellfleet.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(248){font-family: Wellfleet !important}
+  
+  @font-face{
+  font-family: WireOne;
+  src: url('../assets/fonts/WireOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(249){font-family: WireOne !important}
+  
+  @font-face{
+  font-family: YaldeviColombo;
+  src: url('../assets/fonts/YaldeviColombo.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(250){font-family: YaldeviColombo !important}
+  
+  @font-face{
+  font-family: YanoneKaffeesatz;
+  src: url('../assets/fonts/YanoneKaffeesatz.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(251){font-family: YanoneKaffeesatz !important}
+  
+  @font-face{
+  font-family: Yantramanav;
+  src: url('../assets/fonts/Yantramanav.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(252){font-family: Yantramanav !important}
+  
+  @font-face{
+  font-family: YatraOne;
+  src: url('../assets/fonts/YatraOne.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(253){font-family: YatraOne !important}
+  
+  @font-face{
+  font-family: Yesteryear;
+  src: url('../assets/fonts/Yesteryear.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(254){font-family: Yesteryear !important}
+  
+  @font-face{
+  font-family: ZillaSlab;
+  src: url('../assets/fonts/ZillaSlab.woff2')
+  }
+  .fontFaceSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(255){font-family: ZillaSlab !important}
+  
+  
 
 
 .themeSelect > .alert-wrapper > div > .alert-radio-group > button:nth-child(1){font-family: TitanOne !important }

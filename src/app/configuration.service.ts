@@ -49,17 +49,17 @@ export class ConfigurationService {
     }
 
     static settings = {
-        name: 'Josenfin Slab',
-        fontFace: 'JosenfinSlab',
+        name: 'Pacifico Glow',
+        fontFace: 'Pacifico',
         spiralType: 'archimedean',
         fontWeight: 'bolder',
         fontScale: 70,
         strokeColour: 'white',
         strokeOpacity: '1',
-        strokeScale: 40,
+        strokeScale: 20,
         strokeMinWidth: 1,
         glowCount: 2,
-        lightness: '99%'
+        lightness: '50%'
     };
 
     static themes = [

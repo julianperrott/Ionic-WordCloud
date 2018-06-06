@@ -26,7 +26,6 @@ export class HomePage {
     ];
     refreshLinks = false;
 
-    // url = 'http://www.capita.com/about-us/case-studies/how-we-helped-a-council-to-help-children-and-families/';
     url = '';
     lastUrl = '';
     showOnlyWordCloud = false;
@@ -47,10 +46,14 @@ export class HomePage {
             this.showOnlyWordCloud = true;
 
             setTimeout(() => {
+                this.showOnlyWordCloud = false;
+            }, 2000);
+
+            setTimeout(() => {
                 this.screenshot
                     .save(
                         'jpg',
-                        80,
+                        100,
                         'wordCloud_' + this.js_yyyy_mm_dd_hh_mm_ss()
                     )
                     .then(res => {
@@ -208,7 +211,7 @@ export class HomePage {
             steps: [
                 {
                     intro:
-                        "Welcome to a tour of the application, click 'Next' to start."
+                        'Welcome to a tour of the application, click \'Next\' to start.'
                 },
                 {
                     element: '.text-input',
