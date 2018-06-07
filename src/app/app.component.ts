@@ -55,7 +55,7 @@ export class MyApp {
             if (splashScreen) {
                 setTimeout(() => {
                     splashScreen.hide();
-                }, 5000);
+                }, 30000);
             }
         });
     }
