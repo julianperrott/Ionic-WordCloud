@@ -1591,7 +1591,32 @@ h3, h5, h6 {
   font-family: $font-family-md-base
 }
 
-.introjs-button { font-family: $font-family-md-base !important }
+.introjs-button { 
+  font-family: $font-family-md-base !important;
+  border-radius: 12px !important;
+  margin-left: 20px !important;
+  background-image: none !important;
+  color: white !important;
+  text-shadow: none !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+}
+
+.introjs-skipbutton { 
+  background-color: red !important;
+}
+
+.introjs-prevbutton { 
+  background-color: #606060 !important;
+}
+
+.introjs-nextbutton{
+  background-color: green !important;
+}
+
+.introjs-donebutton {
+   background-color: green !important;
+}
 
 .introjs-helperLayer {
     opacity: 0.5;
@@ -1600,6 +1625,17 @@ h3, h5, h6 {
 .introjs-overlay {
   opacity: 0.2 !important;
 }
+
+.introjs-tooltip {
+  border-radius: 20px !important
+}
+
+.introjs-disabled {
+  //visibility: hidden !important;
+  background-color:#f4f4f4 !important;
+  color: lightgray !important;
+}
+
 
 .linkSelect * { 
   font-size: small

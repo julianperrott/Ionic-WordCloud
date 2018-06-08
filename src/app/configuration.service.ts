@@ -49,18 +49,18 @@ export class ConfigurationService {
     }
 
     static settings = {
-        name: 'Halloween',
-        fontFace: 'MetalMania',
-        spiralType: 'rectangular',
+        name: 'Pacifico Glow',
+        fontFace: 'Pacifico',
+        spiralType: 'archimedean',
         fontWeight: 'bolder',
-        fontScale: 80,
+        fontScale: 70,
         strokeColour: 'white',
-        strokeOpacity: '0.9',
-        strokeScale: 30,
-        strokeMinWidth: 0.5,
-        glowCount: 5,
-        lightness: '30%',
-        lightnessGlow: '20%'
+        strokeOpacity: '1',
+        strokeScale: 20,
+        strokeMinWidth: 1,
+        glowCount: 2,
+        lightness: '50%',
+        lightnessGlow: '50%'
     };
 
     static themes = [
