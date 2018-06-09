@@ -8,7 +8,7 @@ import { MyApp } from './app.component';
 import { Pages } from '../pages/index';
 import { Components } from '../components/index';
 
-import { PopoverPage } from '../pages/popover/popover';
+import { PopoverPage } from '../components/popover/popover';
 
 import { AboutPage } from '../pages/about/about';
 
@@ -16,13 +16,13 @@ import { IonPrismDirective } from 'ion-prism';
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
-import { ConfigurationService } from './configuration.service';
-import { HtmlToLinksService } from './htmlToLinks.service';
+import { ConfigurationService } from '../services/configuration.service';
+import { HtmlToLinksService } from '../services/htmlToLinks.service';
 
 import { IonicPageModule } from 'ionic-angular';
 
 import { Screenshot } from '@ionic-native/screenshot';
-import { ScreenshotService } from './screenshot.service';
+import { ScreenshotService } from '../services/screenshot.service';
 
 @NgModule({
     declarations: [

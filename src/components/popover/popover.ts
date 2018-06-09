@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { ConfigurationService } from '../../app/configuration.service';
+import { ConfigurationService } from '../../services/configuration.service';
 /**
  * Generated class for the PopoverPage page.
  *

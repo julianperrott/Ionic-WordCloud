@@ -2,9 +2,9 @@ import { Component, Renderer2, ViewChild } from '@angular/core';
 
 import { Popover, PopoverController } from 'ionic-angular';
 
-import { PopoverPage } from '../../pages/popover/popover';
+import { PopoverPage } from '../popover/popover';
 
-import { ConfigurationService } from '../../app/configuration.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
     selector: 'common-header',
@@ -25,8 +25,8 @@ export class CommonHeaderComponent {
         configurationService: ConfigurationService
     ) {
         configurationService.busyChanged$.subscribe(v => {
-            this.busy = ConfigurationService.busy;
-            this.error = ConfigurationService.error;
+            this.busy = configurationService.busy;
+            this.error = configurationService.error;
         });
 
         configurationService.takeScreenshot$.subscribe(v => {

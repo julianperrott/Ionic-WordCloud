@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 
-import { Link } from '../../app/htmlToLinks.service';
+import { Link } from '../../services/htmlToLinks.service';
 
-import { ConfigurationService } from '../../app/configuration.service';
+import { ConfigurationService } from '../../services/configuration.service';
 
 import { Select } from 'ionic-angular';
 
