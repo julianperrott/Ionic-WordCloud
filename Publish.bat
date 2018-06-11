@@ -9,4 +9,4 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ionic-wordcloud
 zipalign -v -f 4 app-release-unsigned.apk ionic-wordcloud.apk
 del app-release-unsigned.apk
 dir
-cd f:\github\wc
+type cd f:\github\wc

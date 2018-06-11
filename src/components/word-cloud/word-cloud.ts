@@ -101,7 +101,7 @@ export class WordCloudComponent implements OnChanges {
             this.width > this.height ? this.height : this.width;
 
         this.data = Object.keys(counts)
-            .map(function(key) {
+            .map(key => {
                 return {
                     text: key,
                     size:
@@ -185,11 +185,11 @@ export class WordCloudComponent implements OnChanges {
 
     private populate() {
         const fontWeight: string =
-        this.configurationService.settings.fontWeight == null
+            this.configurationService.settings.fontWeight == null
                 ? 'normal'
                 : this.configurationService.settings.fontWeight;
         const spiralType: string =
-        this.configurationService.settings.spiralType == null
+            this.configurationService.settings.spiralType == null
                 ? 'archimedean'
                 : this.configurationService.settings.spiralType;
 
