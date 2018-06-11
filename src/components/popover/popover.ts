@@ -32,6 +32,10 @@ export class PopoverPage {
             .forEach(t => (this.theme = t));
     }
 
+    hello() {
+        alert('hi');
+    }
+
     update() {
         for (const property in this.localTheme) {
             ConfigurationService.settings[property] = this.localTheme[property];

@@ -24,6 +24,8 @@ import { IonicPageModule } from 'ionic-angular';
 import { Screenshot } from '@ionic-native/screenshot';
 import { ScreenshotService } from '../services/screenshot.service';
 
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -51,6 +53,7 @@ import { ScreenshotService } from '../services/screenshot.service';
         ConfigurationService,
         HtmlToLinksService,
         Screenshot,
+        ScreenOrientation,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         ScreenshotService
     ]

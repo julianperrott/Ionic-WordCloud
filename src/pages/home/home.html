@@ -1,5 +1,5 @@
 <ion-header [hidden]="showOnlyWordCloud">
-    <common-header>Web Page to Word Cloud</common-header>
+    <common-header>Web Word Cloud</common-header>
 </ion-header>
 
 <ion-content no-padding no-margin>
@@ -12,10 +12,6 @@
         </ion-buttons>
     </ion-navbar>
 
-    <word-cloud [wordData]="data"></word-cloud>
-
-    <div>
-        {{data}}
-    </div>
+    <word-cloud id="cloud" [wordData]="data"></word-cloud>
 
 </ion-content>

@@ -6,16 +6,19 @@ export class Intro {
     static options = {
         steps: [
             {
+                element: '#cloud',
                 intro:
-                    '<b>Welcome to the App !</b> <hr/> Click <b><i>Next</i></b> to learn what you can do with it ...'
+                    '<b>Welcome to the App !</b> <hr/> Click <b><i>Next</i></b> to learn what you can do with it ...',
+                position: 'left'
             },
             {
                 element: '.text-input',
                 intro:
                     '<b>Web Page address ...</b><hr/>Simply type or paste a web page address in this text box !',
-                position: 'bottom'
+                position: 'right'
             },
             {
+                element: '#cloud',
                 intro:
                     '<b>The Word Cloud ...</b><hr/>The word cloud for the page will show here.<hr/>If there is not a lot of text on the page, perhaps navigate to one of the links on the page. ',
                 position: 'centre'
@@ -24,13 +27,13 @@ export class Intro {
                 element: '#step2',
                 intro:
                     '<b>Page Links ...</b><hr/>Some web pages contain lots of links.<hr/>Click here to see them and choose one to navigate to.',
-                position: 'bottom'
+                position: 'left'
             },
             {
                 element: '#stylings',
                 intro:
-                    '<b>Options & Actions ...</b><hr/> Click here to change the style of the word cloud.<hr/>You can also take a screenshot which will be put in your pictures folder.',
-                position: 'bottom'
+                    '<b>Options & Actions ...</b><hr/> Click here to change the style of the word cloud.<hr/>You can also take a screenshot which will appear in your pictures folder.',
+                position: 'left'
             },
             {
                 intro:
@@ -41,8 +44,10 @@ export class Intro {
     };
 
     start() {
-        const intro = introJs.introJs();
-        intro.setOptions(Intro.options);
-        intro.start();
+        setTimeout(() => {
+            const intro = introJs.introJs();
+            intro.setOptions(Intro.options);
+            intro.start();
+        }, 1000);
     }
 }

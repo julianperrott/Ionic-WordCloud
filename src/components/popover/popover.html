@@ -9,7 +9,7 @@
   <div ion-item>
     <ion-icon name="color-fill" item-start color="primary"></ion-icon>
     <ion-label>Theme</ion-label>
-    <ion-select [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
+    <ion-select interface="action-sheet" [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
       <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
     </ion-select>
   </div>
@@ -18,8 +18,8 @@
     <ion-icon name="brush" item-start color="primary"></ion-icon>
 
     <ion-label>Font</ion-label>
-    <ion-select [(ngModel)]="localTheme.fontFace" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
-      <ion-option value='AbrilFatFace'>Abril Fat Face</ion-option>
+    <ion-select [(ngModel)]="localTheme.fontFace" interface="action-sheet" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
+      <!-- <ion-option  value='AbrilFatFace'>Abril Fat Face</ion-option> -->
       <ion-option value='Arvo'>Arvo</ion-option>
       <ion-option value='HennyPenny'>Henny Penny</ion-option>
       <ion-option value='HermeneusOne'>Hermeneus One</ion-option>

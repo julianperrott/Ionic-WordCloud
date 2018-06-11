@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="jperrott.ionic.wordcloud" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Web Page to Word Cloud</name>
+    <name>Web Word Cloud</name>
     <description>Reads a web page and creates a word cloud of that page.</description>
     <author email="julian_perrott@hotmail.com.com" href="http://www.codesin.net">CodesIn.Net</author>
     <content src="index.html" />
@@ -86,4 +86,5 @@
     <plugin name="com.darktalker.cordova.screenshot" spec="^0.1.6" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="^4.5.4" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
 </widget>

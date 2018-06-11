@@ -91,7 +91,7 @@ export class WordCloudComponent implements OnChanges {
 
         if (Object.keys(counts).length < 50) {
             ignoreWords = [];
-            counts = this.countWords(ignoreWords, 0);
+            counts = this.countWords(ignoreWords, 2);
         }
 
         const scale =
