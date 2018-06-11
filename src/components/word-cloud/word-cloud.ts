@@ -108,7 +108,7 @@ export class WordCloudComponent implements OnChanges {
                         counts[key] *
                         scale *
                         (shortestAxis /
-                            ConfigurationService.settings.fontScale),
+                            this.configurationService.settings.fontScale),
                     color: Math.random()
                 };
             })
@@ -185,13 +185,13 @@ export class WordCloudComponent implements OnChanges {
 
     private populate() {
         const fontWeight: string =
-            ConfigurationService.settings.fontWeight == null
+        this.configurationService.settings.fontWeight == null
                 ? 'normal'
-                : ConfigurationService.settings.fontWeight;
+                : this.configurationService.settings.fontWeight;
         const spiralType: string =
-            ConfigurationService.settings.spiralType == null
+        this.configurationService.settings.spiralType == null
                 ? 'archimedean'
-                : ConfigurationService.settings.spiralType;
+                : this.configurationService.settings.spiralType;
 
         d3.layout
             .cloud()
@@ -199,7 +199,7 @@ export class WordCloudComponent implements OnChanges {
             .words(this.data)
             .padding(3)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
-            .font(ConfigurationService.settings.fontFace)
+            .font(this.configurationService.settings.fontFace)
             .fontWeight(fontWeight)
             .fontSize(d => d.size)
             .spiral(spiralType)
@@ -210,7 +210,7 @@ export class WordCloudComponent implements OnChanges {
     }
 
     private drawWordCloud(words) {
-        const settings = ConfigurationService.settings;
+        const settings = this.configurationService.settings;
 
         const defs = this.svg.append('defs');
 

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
+import { Themes } from '../../theme/Themes';
+
 /**
  * Generated class for the PopoverPage page.
  *
@@ -23,12 +25,12 @@ export class PopoverPage {
         public navParams: NavParams,
         private configurationService: ConfigurationService
     ) {
-        this.themes = ConfigurationService.themes;
-        for (const property in ConfigurationService.settings) {
-            this.localTheme[property] = ConfigurationService.settings[property];
+        this.themes = Themes.items;
+        for (const property in configurationService.settings) {
+            this.localTheme[property] = configurationService.settings[property];
         }
         this.themes
-            .filter(t => t.name === ConfigurationService.settings.name)
+            .filter(t => t.name === configurationService.settings.name)
             .forEach(t => (this.theme = t));
     }
 
@@ -38,7 +40,7 @@ export class PopoverPage {
 
     update() {
         for (const property in this.localTheme) {
-            ConfigurationService.settings[property] = this.localTheme[property];
+            this.configurationService.settings[property] = this.localTheme[property];
         }
         this.configurationService.configurationChanged('');
     }
