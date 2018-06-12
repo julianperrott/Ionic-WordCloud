@@ -28,12 +28,18 @@ export class WordCloudComponent implements OnChanges {
     private width: number; // Component width
     private height: number; // Component height
     tempData = [];
+    platformReady = false;
 
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
-        private platform: Platform
+        platform: Platform
     ) {
+        platform.ready().then(() => {
+            this.platformReady = true;
+            this.forceRedraw();
+        });
+
         configurationService.configurationChanged$.subscribe(v => {
             this.forceRedraw();
         });
@@ -75,6 +81,10 @@ export class WordCloudComponent implements OnChanges {
     ngOnChanges() {
         if (this.lastdata === this.wordData) {
             this.configurationService.setBusy(false);
+            return;
+        }
+
+        if (!this.platformReady) {
             return;
         }
 
@@ -138,14 +148,6 @@ export class WordCloudComponent implements OnChanges {
                 this.splashScreen.hide();
             }, 100);
         }
-
-        this.platform.ready().then(() => {
-            if (this.splashScreen) {
-                setTimeout(() => {
-                    this.splashScreen.hide();
-                }, 100);
-            }
-        });
     }
 
     private setup() {

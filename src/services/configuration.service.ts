@@ -3,10 +3,6 @@ import { Subject } from 'rxjs';
 import { Link } from './htmlToLinks.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
-interface Action<T> {
-    (item: T): void;
-}
-
 @Injectable()
 export class ConfigurationService {
     configurationChangeSource = new Subject<any>();
