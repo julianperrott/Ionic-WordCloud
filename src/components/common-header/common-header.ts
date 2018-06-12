@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, Input, Renderer2, ViewChild } from '@angular/core';
 
 import { Popover, PopoverController } from 'ionic-angular';
 
@@ -12,6 +12,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 export class CommonHeaderComponent {
     @ViewChild('ref') refIonTitle;
+    @Input() showButtons;
 
     defaultTitle = '?';
 
