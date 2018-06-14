@@ -124,10 +124,22 @@ export class WordCloudComponent implements OnChanges {
             })
             .sort(function(a, b) {
                 return a.size === b.size ? 0 : a.size > b.size ? -1 : 1;
-            })
-            .filter(function(value, i) {
-                return i < 250;
             });
+
+        for (let i = 0; i < 10; i++) {
+            this.data.forEach(d => {
+                this.data.push({
+                    isPadding: true,
+                    text: '' + i + d.text,
+                    size:
+                        1 *
+                        scale *
+                        (shortestAxis /
+                            this.configurationService.settings.fontScale),
+                    color: d.color
+                });
+            });
+        }
 
         this.words = this.data
             .map(function(v) {
@@ -195,23 +207,30 @@ export class WordCloudComponent implements OnChanges {
                 ? 'archimedean'
                 : this.configurationService.settings.spiralType;
 
+        this.addSVGFilter();
+
         d3.layout
             .cloud()
             .size([this.width, this.height])
             .words(this.data)
-            .padding(3)
+
+            .padding(2)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
             .font(this.configurationService.settings.fontFace)
             .fontWeight(fontWeight)
             .fontSize(d => d.size)
             .spiral(spiralType)
-            .on('end', () => {
-                this.drawWordCloud(this.data);
+            .on('word', c => {
+                this.drawWordCloud(
+                    [c].filter(
+                        d => d.x !== undefined && d.y !== undefined
+                    )
+                );
             })
             .start();
     }
 
-    private drawWordCloud(words) {
+    private addSVGFilter() {
         const settings = this.configurationService.settings;
 
         const defs = this.svg.append('defs');
@@ -233,9 +252,14 @@ export class WordCloudComponent implements OnChanges {
             feMerge.append('feMergeNode').attr('in', 'glow');
             feMerge.append('feMergeNode').attr('in', 'glow');
         }
+    }
+
+    private drawWordCloud(words) {
+
+        const settings = this.configurationService.settings;
 
         const enter = this.svg
-            .selectAll('text')
+            .selectAll('g')
             .data(words)
             .enter();
 

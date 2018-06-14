@@ -19,6 +19,7 @@ export class PopoverPage {
     themes = [];
     theme = {};
     localTheme = { fontScale: 0, fontFace: '' };
+    themeChangeInProgress = false;
 
     constructor(
         public navCtrl: NavController,
@@ -34,22 +35,29 @@ export class PopoverPage {
             .forEach(t => (this.theme = t));
     }
 
-    hello() {
-        alert('hi');
-    }
-
     update() {
+        if (this.themeChangeInProgress) {
+            return;
+        }
+
         for (const property in this.localTheme) {
-            this.configurationService.settings[property] = this.localTheme[property];
+            this.configurationService.settings[property] = this.localTheme[
+                property
+            ];
         }
         this.configurationService.configurationChanged('');
     }
 
     themeChanged() {
+        this.themeChangeInProgress = true;
         for (const property in this.theme) {
             this.localTheme[property] = this.theme[property];
         }
-        this.update();
+
+        setTimeout(() => {
+            this.themeChangeInProgress = false;
+            this.update();
+        }, 100);
     }
 
     smaller() {

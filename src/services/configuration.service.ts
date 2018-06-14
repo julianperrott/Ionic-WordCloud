@@ -43,7 +43,7 @@ export class ConfigurationService {
 
         setTimeout(() => {
             this.configurationChangeSource.next(name);
-        }, 5000);
+        }, 100);
     }
 
     takeScreenshot(name: string) {
