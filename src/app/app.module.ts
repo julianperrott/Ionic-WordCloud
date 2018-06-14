@@ -26,6 +26,8 @@ import { ScreenshotService } from '../services/screenshot.service';
 
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
+import { ColorPicker } from '../components/color-picker/color-picker';
+
 @NgModule({
     declarations: [
         MyApp,
@@ -35,7 +37,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
         WordCloudComponent,
         LinkCloudComponent,
         PopoverPage,
-        AboutPage
+        AboutPage,
+        ColorPicker
     ],
     imports: [
         BrowserModule,
@@ -43,10 +46,11 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
             menuType: 'push'
         }),
         IonicPageModule.forChild(AboutPage),
-        IonicPageModule.forChild(PopoverPage)
+        IonicPageModule.forChild(PopoverPage),
+        IonicPageModule.forChild(ColorPicker)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker],
     providers: [
         StatusBar,
         SplashScreen,

@@ -1,0 +1,19 @@
+<ion-header>
+    <common-header>Background Colour</common-header>
+</ion-header>
+<ion-content id="colorPicker" style="width: 100%">
+    <canvas #palette style="background:white;" class='center'></canvas>
+    <canvas #chooser style="background:white; margin-top: 20px; margin-bottom: 20px;" class='center'>
+    </canvas>
+
+    <ion-row style="margin-bottom: 10px;">
+        <ion-col width-25></ion-col>
+        <ion-col width-25 style="text-align: right">
+            <button class="introjs-button warningButton" ion-button>Cancel</button>
+        </ion-col>
+        <ion-col width-25 style="text-align: left">
+            <button class="introjs-button successButton" ion-button>OK</button>
+        </ion-col>
+        <ion-col width-25></ion-col>
+    </ion-row>
+</ion-content>

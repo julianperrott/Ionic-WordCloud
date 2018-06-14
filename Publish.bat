@@ -6,7 +6,9 @@
 cd .\platforms\android\app\build\outputs\apk\release\
 del ionic-wordcloud.apk
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ionic-wordcloud.keystore app-release-unsigned.apk ionic-wordcloud
+pause
 zipalign -v -f 4 app-release-unsigned.apk ionic-wordcloud.apk
+pause
 del app-release-unsigned.apk
 dir
 type cd f:\github\wc

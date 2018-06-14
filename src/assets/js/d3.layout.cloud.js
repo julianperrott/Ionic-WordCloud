@@ -92,21 +92,16 @@
                 n = words.length,
                 i = -1,
                 tags = [],
-                data = words
-                  .map(function(d, i) {
-                    d.text = text.call(this, d, i);
-                    d.font = font.call(this, d, i);
-                    d.style = fontStyle.call(this, d, i);
-                    d.weight = fontWeight.call(this, d, i);
-                    d.rotate = rotate.call(this, d, i);
-                    d.size = ~~fontSize.call(this, d, i);
-                    d.padding = padding.call(this, d, i);
-                    return d;
-                  })
-                  .sort(function(a, b) {
-                  //  return b.size - a.size;
-                  });
-
+                data = words.map(function(d, i) {
+                  d.text = text.call(this, d, i);
+                  d.font = font.call(this, d, i);
+                  d.style = fontStyle.call(this, d, i);
+                  d.weight = fontWeight.call(this, d, i);
+                  d.rotate = rotate.call(this, d, i);
+                  d.size = ~~fontSize.call(this, d, i);
+                  d.padding = padding.call(this, d, i);
+                  return d;
+                });
 
               if (timer) clearInterval(timer);
               timer = setInterval(step, 0);
@@ -115,11 +110,9 @@
               return cloud;
 
               async function step() {
-
                 function sleep(ms) {
                   return new Promise(resolve => setTimeout(resolve, ms));
                 }
-                
 
                 var wordFailures = 0;
                 var localFailures = 0;
@@ -137,27 +130,25 @@
                     //alert('Failed to place: ' + d.text+" "+i);
                     i--;
                     localFailures++;
-                    if (localFailures > 5 ||d.isPadding) {
-                   
-                      if (localFailures>5){
+                    if (localFailures > 5 || d.isPadding) {
+                      if (localFailures > 5) {
                         //alert('Failed to place: ' + d.text+" "+i);
                       }
 
-                      localFailures=0;
-                
+                      localFailures = 0;
 
                       i++;
                       wordFailures++;
+
                       if (wordFailures > 50) {
                         i = n;
                       }
                     }
                   }
-                  
 
                   if (d.hasText && placedx) {
                     tags.push(d);
-                    console.log("placed "+d.text);
+                    console.log('placed ' + d.text);
                     if (bounds) cloudBounds(bounds, d);
                     else
                       bounds = [
@@ -170,7 +161,6 @@
 
                     event.call('word', cloud, d);
                     await sleep(1);
-                    
                   }
                 }
                 if (i >= n) {

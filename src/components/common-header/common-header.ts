@@ -4,6 +4,8 @@ import { Popover, PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../popover/popover';
 
+import { ColorPicker } from '../color-picker/color-picker';
+
 import { ConfigurationService } from '../../services/configuration.service';
 
 @Component({
@@ -48,7 +50,7 @@ export class CommonHeaderComponent {
     }
 
     presentPopover(myEvent) {
-        this.popover = this.popoverCtrl.create(PopoverPage);
+        this.popover = this.popoverCtrl.create(ColorPicker);
         this.popover.present({
             ev: myEvent
         });

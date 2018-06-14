@@ -126,6 +126,7 @@ export class WordCloudComponent implements OnChanges {
                 return a.size === b.size ? 0 : a.size > b.size ? -1 : 1;
             });
 
+        /*
         for (let i = 0; i < 10; i++) {
             this.data.forEach(d => {
                 this.data.push({
@@ -140,6 +141,7 @@ export class WordCloudComponent implements OnChanges {
                 });
             });
         }
+        */
 
         this.words = this.data
             .map(function(v) {
@@ -222,9 +224,7 @@ export class WordCloudComponent implements OnChanges {
             .spiral(spiralType)
             .on('word', c => {
                 this.drawWordCloud(
-                    [c].filter(
-                        d => d.x !== undefined && d.y !== undefined
-                    )
+                    [c].filter(d => d.x !== undefined && d.y !== undefined)
                 );
             })
             .start();
@@ -255,7 +255,6 @@ export class WordCloudComponent implements OnChanges {
     }
 
     private drawWordCloud(words) {
-
         const settings = this.configurationService.settings;
 
         const enter = this.svg
