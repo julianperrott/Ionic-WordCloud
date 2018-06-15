@@ -6,6 +6,8 @@ import {
     ViewChild
 } from '@angular/core';
 
+import { Events, NavParams } from 'ionic-angular';
+
 const POUCH = [
     {
         START: 'mousedown',
@@ -24,6 +26,14 @@ const POUCH = [
     templateUrl: 'color-picker.html'
 })
 export class ColorPicker {
+
+    constructor(public events: Events, navParams: NavParams) {
+        this.hexColor = navParams.get('color');
+        this.eventNameColorChanged = navParams.get('eventName');
+    }
+
+    eventNameColorChanged = 'colorChanged';
+
     @Input() hexColor: string;
 
     @Output() colorChanged = new EventEmitter<String>();
@@ -53,9 +63,15 @@ export class ColorPicker {
     chooserX: number;
 
     public ngOnInit() {
-        this.hexColor = this.hexColor !== undefined ? this.hexColor : '#0000FF';
+        this.hexColor = this.hexColor !== undefined ? this.hexColor : '#000000';
         this.colorFromChooser = this.hexColor;
         this.init();
+
+        this.drawSelector(
+            this.ctxPalette,
+            this.ctxPalette.canvas.width,
+            this.ctxPalette.canvas.height / 2
+        );
     }
 
     init() {
@@ -291,12 +307,14 @@ export class ColorPicker {
             true
         );
         this.colorChanged.emit(this.color);
+        this.events.publish(this.eventNameColorChanged, this.color);
         this.drawPalette(this.color);
     }
 
     updateColor(event, canvas, context) {
         this.color = this.getColor(event, canvas, context, false);
         this.colorChanged.emit(this.color);
+        this.events.publish(this.eventNameColorChanged, this.color);
     }
 
     getColor(event, canvas, context, fromChooser: boolean): string {

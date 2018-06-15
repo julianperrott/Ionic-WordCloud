@@ -8,6 +8,8 @@ import { ColorPicker } from '../color-picker/color-picker';
 
 import { ConfigurationService } from '../../services/configuration.service';
 
+import { Events } from 'ionic-angular';
+
 @Component({
     selector: 'common-header',
     templateUrl: 'common-header.html'
@@ -22,10 +24,13 @@ export class CommonHeaderComponent {
     error = false;
     popover: Popover;
 
+    backgroundColor: '#FF0000';
+
     constructor(
         private renderer: Renderer2,
         public popoverCtrl: PopoverController,
-        configurationService: ConfigurationService
+        configurationService: ConfigurationService,
+        public events: Events
     ) {
         configurationService.busyChanged$.subscribe(v => {
             this.busy = configurationService.busy;
@@ -35,7 +40,13 @@ export class CommonHeaderComponent {
         configurationService.takeScreenshot$.subscribe(v => {
             this.popover.dismiss();
         });
+
+        this.events.subscribe('bgColorChanged', (color) => {
+            this.backgroundColor = color;
+        });
     }
+
+
 
     ngAfterViewInit() {
         const titleEl = this.refIonTitle
@@ -50,7 +61,7 @@ export class CommonHeaderComponent {
     }
 
     presentPopover(myEvent) {
-        this.popover = this.popoverCtrl.create(ColorPicker);
+        this.popover = this.popoverCtrl.create(ColorPicker, {color: this.backgroundColor, eventName: 'bgColorChanged' });
         this.popover.present({
             ev: myEvent
         });
