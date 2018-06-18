@@ -1,2 +1,26 @@
-<div class="word-cloud" id="word-cloud" [style.background-color]="backgroundColor">
+<div *ngIf="!data.length" [style.background-color]="backgroundColor">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1516" height="719">
+        <g transform="translate(763,374)">
+            <defs>
+                <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="10 10" result="glow"></feGaussianBlur>
+                    <feMerge>
+                        <feMergeNode in="glow"></feMergeNode>
+                        <feMergeNode in="glow"></feMergeNode>
+                        <feMergeNode in="glow"></feMergeNode>
+                        <feMergeNode in="glow"></feMergeNode>
+                    </feMerge>
+                </filter>
+            </defs>
+            <text text-anchor="middle" transform="translate(-161,95)rotate(0)" filter="url(#glow)" style="font-size: 128px; font-family: Pacifico; fill: rgb(235, 255, 0);">web</text>
+            <text text-anchor="middle" transform="translate(95,111)rotate(60)" filter="url(#glow)" style="font-size: 96px; font-family: Pacifico; fill: rgb(255, 0, 5);">word</text>
+            <text text-anchor="middle" transform="translate(183,-143)rotate(-60)" filter="url(#glow)" style="font-size: 80px; font-family: Pacifico; fill: rgb(255, 0, 58);">cloud</text>
+            <text text-anchor="middle" transform="translate(-161,95)rotate(0)" style="font-size: 128px; stroke: white; stroke-opacity: 1; stroke-width: 6px; font-family: Pacifico; fill: rgb(235, 255, 0);">web</text>
+            <text text-anchor="middle" transform="translate(95,111)rotate(60)" style="font-size: 96px; stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico; fill: rgb(255, 0, 5);">word</text>
+            <text text-anchor="middle" transform="translate(183,-143)rotate(-60)" style="font-size: 80px; stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico; fill: rgb(255, 0, 58);">cloud</text>
+        </g>
+    </svg>
+</div>
+
+<div [hidden]="!data.length" class="word-cloud" id="word-cloud" [style.background-color]="backgroundColor">
 </div>

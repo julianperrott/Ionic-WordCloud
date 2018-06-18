@@ -16,7 +16,7 @@
     <ion-icon name="brush" item-start color="primary"></ion-icon>
 
     <ion-label>Font</ion-label>
-    <ion-select [(ngModel)]="localTheme.fontFace" interface="action-sheet" (ionChange)="update()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
+    <ion-select [(ngModel)]="localTheme.fontFace" interface="action-sheet" (ionChange)="fontChanged()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
       <!-- <ion-option  value='AbrilFatFace'>Abril Fat Face</ion-option> -->
       <ion-option value='Arvo'>Arvo</ion-option>
       <ion-option value='HennyPenny'>Henny Penny</ion-option>
@@ -275,6 +275,16 @@
 
     </ion-select>
   </div>
+
+  <div ion-item>
+      <ion-icon name="cog" item-start color="primary"></ion-icon>
+  
+      <ion-label>  Word Counting Style</ion-label>
+      <ion-select [(ngModel)]="countStyle" interface="action-sheet" (ionChange)="countStyleChanged()">
+        <ion-option value='BANDING'>Sized into pre-set size bands</ion-option>
+        <ion-option value='COUNT'>Sized by actual word occurance</ion-option>
+      </ion-select>
+    </div>
 
   <div ion-item>
     <ion-icon name="build" item-start></ion-icon>

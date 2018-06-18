@@ -52,16 +52,8 @@ export class HomePage {
     ionViewDidLoad() {
         this.intro.start();
         setTimeout(() => {
-            this.data = this.configurationService.defaultData;
-            this.redrawOnTimer(3000);
-        }, 1);
-    }
-
-    redrawOnTimer(timeout) {
-        setTimeout(() => {
-            this.data = this.data + ' x';
-            // this.redrawOnTimer(timeout);
-        }, timeout);
+            this.data = this.configurationService.defaultData + ' x';
+        }, 5000);
     }
 
     error(err) {

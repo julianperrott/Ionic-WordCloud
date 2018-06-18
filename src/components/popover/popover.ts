@@ -20,6 +20,7 @@ export class PopoverPage {
     theme = {};
     localTheme = { fontScale: 0, fontFace: '' };
     themeChangeInProgress = false;
+    countStyle = '';
 
     constructor(
         public navCtrl: NavController,
@@ -29,6 +30,7 @@ export class PopoverPage {
         events: Events,
         public viewController: ViewController
     ) {
+        this.countStyle = configurationService.countStyle;
         this.themes = Themes.items;
         for (const property in configurationService.settings) {
             this.localTheme[property] = configurationService.settings[property];
@@ -42,6 +44,11 @@ export class PopoverPage {
         });
     }
 
+    fontChanged() {
+        this.configurationService.settings['fontFace'] = this.localTheme['fontFace'];
+        this.configurationService.fontChanged('');
+    }
+
     update() {
         if (this.themeChangeInProgress) {
             return;
@@ -52,6 +59,11 @@ export class PopoverPage {
                 property
             ];
         }
+        this.configurationService.configurationChanged('');
+    }
+
+    countStyleChanged() {
+        this.configurationService.countStyle = this.countStyle;
         this.configurationService.configurationChanged('');
     }
 
