@@ -2,7 +2,6 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
-import { Events } from 'ionic-angular';
 
 import * as D3 from 'd3';
 
@@ -17,7 +16,6 @@ export class WordCloudComponent implements OnChanges {
     lastdata = '';
     data = [];
     words = '';
-    backgroundColor = '#00FF00';
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -35,8 +33,7 @@ export class WordCloudComponent implements OnChanges {
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
-        platform: Platform,
-        public events: Events
+        platform: Platform
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -45,10 +42,6 @@ export class WordCloudComponent implements OnChanges {
 
         configurationService.configurationChanged$.subscribe(v => {
             this.forceRedraw();
-        });
-
-        this.events.subscribe('bgColorChanged', (color) => {
-            this.backgroundColor = color;
         });
     }
 
