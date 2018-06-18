@@ -74,9 +74,7 @@
               padding = cloudPadding,
               spiral = archimedeanSpiral,
               words = [],
-              timeInterval = Infinity,
               event = dispatch('word', 'end'),
-              timer = null,
               random = Math.random,
               cloud = {},
               canvas = cloudCanvas;
@@ -103,8 +101,6 @@
                   return d;
                 });
 
-              if (timer) clearInterval(timer);
-              timer = setInterval(step, 0);
               step();
 
               return cloud;
@@ -117,8 +113,7 @@
                 var wordFailures = 0;
                 var localFailures = 0;
 
-                var start = Date.now();
-                while (Date.now() - start < timeInterval && ++i < n && timer) {
+                while (++i < n) {
                   var d = data[i];
                   d.x = (size[0] * (random() + 0.5)) >> 1;
                   d.y = (size[1] * (random() + 0.5)) >> 1;
@@ -148,7 +143,7 @@
 
                   if (d.hasText && placedx) {
                     tags.push(d);
-                    console.log('placed ' + d.text);
+                    //console.log('placed ' + d.text);
                     if (bounds) cloudBounds(bounds, d);
                     else
                       bounds = [
@@ -171,10 +166,6 @@
             };
 
             cloud.stop = function() {
-              if (timer) {
-                clearInterval(timer);
-                timer = null;
-              }
               return cloud;
             };
 
@@ -250,12 +241,6 @@
               }
               return false;
             }
-
-            cloud.timeInterval = function(_) {
-              return arguments.length
-                ? ((timeInterval = _ == null ? Infinity : _), cloud)
-                : timeInterval;
-            };
 
             cloud.words = function(_) {
               return arguments.length ? ((words = _), cloud) : words;

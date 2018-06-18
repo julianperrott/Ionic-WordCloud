@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
 
@@ -16,6 +16,7 @@ export class WordCloudComponent implements OnChanges {
     lastdata = '';
     data = [];
     words = '';
+    backgroundColor = '#000000';
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -33,7 +34,8 @@ export class WordCloudComponent implements OnChanges {
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
-        platform: Platform
+        platform: Platform,
+        events: Events
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -42,6 +44,10 @@ export class WordCloudComponent implements OnChanges {
 
         configurationService.configurationChanged$.subscribe(v => {
             this.forceRedraw();
+        });
+
+        events.subscribe('backgroundColour', color => {
+            this.backgroundColor = color;
         });
     }
 
@@ -151,8 +157,6 @@ export class WordCloudComponent implements OnChanges {
 
         this.populate();
 
-        this.configurationService.setBusy(false);
-
         this.hideSplashScreen();
     }
 
@@ -211,6 +215,14 @@ export class WordCloudComponent implements OnChanges {
 
         this.addSVGFilter();
 
+        this.data.forEach(d => (d.drawn = false));
+
+        let cache = [];
+
+        if (this.data.length === 0) {
+            this.configurationService.setBusy(false);
+        }
+
         d3.layout
             .cloud()
             .size([this.width, this.height])
@@ -223,9 +235,34 @@ export class WordCloudComponent implements OnChanges {
             .fontSize(d => d.size)
             .spiral(spiralType)
             .on('word', c => {
-                this.drawWordCloud(
-                    [c].filter(d => d.x !== undefined && d.y !== undefined)
+                console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
+                if (c.x !== undefined && c.y !== undefined) {
+                    cache.push(c);
+                }
+                if (cache.length === 20) {
+                    this.drawWordCloud(cache);
+                    cache = [];
+                }
+
+                c.drawn = true;
+            })
+            .on('end', () => {
+                const todo = this.data.filter(
+                    c =>
+                        (c.drawn === false || c.drawn === undefined) &&
+                        c.x !== undefined &&
+                        c.y !== undefined
                 );
+
+                console.log('End todo: ' + todo.length);
+
+                this.drawWordCloud(todo);
+                this.drawWordCloud(cache);
+                cache = [];
+
+                setTimeout(() => {
+                    this.configurationService.setBusy(false);
+                }, 100);
             })
             .start();
     }

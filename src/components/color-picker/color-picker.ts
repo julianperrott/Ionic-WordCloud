@@ -6,6 +6,8 @@ import {
     ViewChild
 } from '@angular/core';
 
+import { Events, NavParams, ViewController } from 'ionic-angular';
+
 const POUCH = [
     {
         START: 'mousedown',
@@ -42,6 +44,8 @@ export class ColorPicker {
 
     requestAnimationFrameID: number;
 
+    loadedColour: string;
+
     color: string;
 
     colorFromChooser: string;
@@ -52,8 +56,20 @@ export class ColorPicker {
 
     chooserX: number;
 
+    eventName: 'colorChanged';
+
+    constructor(
+        public events: Events,
+        public navParams: NavParams,
+        public viewController: ViewController
+    ) {
+        this.eventName = this.navParams.get('eventName');
+        this.hexColor = this.navParams.get('color');
+    }
+
     public ngOnInit() {
         this.hexColor = this.hexColor !== undefined ? this.hexColor : '#0000FF';
+        this.loadedColour = this.hexColor;
         this.colorFromChooser = this.hexColor;
         this.init();
     }
@@ -104,7 +120,7 @@ export class ColorPicker {
         console.log(pixelRatio);
 
         const width = (currentWidth * 90) / 100;
-        const height = width * 0.5;
+        const height = width * 0.3;
 
         this.ctxPalette.canvas.width = width * pixelRatio;
         this.ctxPalette.canvas.height = height * pixelRatio;
@@ -292,11 +308,13 @@ export class ColorPicker {
         );
         this.colorChanged.emit(this.color);
         this.drawPalette(this.color);
+        this.events.publish(this.eventName, this.color);
     }
 
     updateColor(event, canvas, context) {
         this.color = this.getColor(event, canvas, context, false);
         this.colorChanged.emit(this.color);
+        this.events.publish(this.eventName, this.color);
     }
 
     getColor(event, canvas, context, fromChooser: boolean): string {
@@ -338,5 +356,14 @@ export class ColorPicker {
             '0123456789ABCDEF'.charAt((n - (n % 16)) / 16) +
             '0123456789ABCDEF'.charAt(n % 16)
         );
+    }
+
+    ok() {
+        this.viewController.dismiss();
+    }
+
+    cancel() {
+        this.events.publish(this.eventName, this.loadedColour);
+        this.ok();
     }
 }

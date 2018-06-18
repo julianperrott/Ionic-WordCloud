@@ -1,5 +1,5 @@
 <ion-header>
-    <common-header>Options / Actions</common-header>
+  <common-header>Options / Actions</common-header>
 </ion-header>
 
 <ion-content>
@@ -272,7 +272,7 @@
       <ion-option value='YatraOne'>Yatra One</ion-option>
       <ion-option value='Yesteryear'>Yesteryear</ion-option>
       <ion-option value='ZillaSlab'>Zilla Slab</ion-option>
-      
+
     </ion-select>
   </div>
 
@@ -288,21 +288,43 @@
 
           </ion-col>
           <ion-col>
-              <ion-buttons end>
-            <button color="primary" outline ion-button round small (click)="smaller()" style="margin: 0px !important">
-              -
-            </button>
-            
-            <button color="primary" outline ion-button round small (click)="bigger()" style="margin: 0px !important">
-              +
-            </button>
-          </ion-buttons>
+            <ion-buttons end>
+              <button color="primary" outline ion-button round small (click)="smaller()" style="margin: 0px !important">
+                -
+              </button>
+
+              <button color="primary" outline ion-button round small (click)="bigger()" style="margin: 0px !important">
+                +
+              </button>
+            </ion-buttons>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
   </div>
 
+  <div ion-item>
+    <ion-icon name="cog" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Background Colour</div>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="selectBackgroundColour($event)" style="margin: 0px !important">
+                Select
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 
   <div ion-item>
     <ion-icon name="videocam" item-start></ion-icon>
@@ -316,10 +338,10 @@
 
           </ion-col>
           <ion-col>
-              <ion-buttons end>
-            <button outline color="primary" round small ion-button (click)="screenshot()" style="margin: 0px !important">
-              Capture
-            </button>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="screenshot()" style="margin: 0px !important">
+                Capture
+              </button>
             </ion-buttons>
           </ion-col>
         </ion-row>

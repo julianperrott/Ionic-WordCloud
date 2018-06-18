@@ -1,10 +1,8 @@
-import { Component, Input, Renderer2, ViewChild } from '@angular/core';
+import { Component, Input, NgZone, Renderer2, ViewChild } from '@angular/core';
 
 import { Popover, PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../popover/popover';
-
-import { ColorPicker } from '../color-picker/color-picker';
 
 import { ConfigurationService } from '../../services/configuration.service';
 
@@ -25,11 +23,15 @@ export class CommonHeaderComponent {
     constructor(
         private renderer: Renderer2,
         public popoverCtrl: PopoverController,
-        configurationService: ConfigurationService
+        configurationService: ConfigurationService,
+        zone: NgZone
     ) {
         configurationService.busyChanged$.subscribe(v => {
-            this.busy = configurationService.busy;
-            this.error = configurationService.error;
+            console.log('Busy is now ' + configurationService.busy);
+            zone.run(() => {
+                this.busy = configurationService.busy;
+                this.error = configurationService.error;
+            });
         });
 
         configurationService.takeScreenshot$.subscribe(v => {
@@ -50,7 +52,7 @@ export class CommonHeaderComponent {
     }
 
     presentPopover(myEvent) {
-        this.popover = this.popoverCtrl.create(ColorPicker);
+        this.popover = this.popoverCtrl.create(PopoverPage);
         this.popover.present({
             ev: myEvent
         });

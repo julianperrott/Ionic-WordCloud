@@ -9,10 +9,10 @@
     <ion-row style="margin-bottom: 10px;">
         <ion-col width-25></ion-col>
         <ion-col width-25 style="text-align: right">
-            <button class="introjs-button warningButton" ion-button>Cancel</button>
+            <button class="introjs-button warningButton" ion-button (click)="cancel()">Cancel</button>
         </ion-col>
         <ion-col width-25 style="text-align: left">
-            <button class="introjs-button successButton" ion-button>OK</button>
+            <button class="introjs-button successButton" ion-button (click)="ok()">OK</button>
         </ion-col>
         <ion-col width-25></ion-col>
     </ion-row>

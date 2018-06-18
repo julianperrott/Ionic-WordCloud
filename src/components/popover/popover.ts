@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { Themes } from '../../theme/Themes';
-
-/**
- * Generated class for the PopoverPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ColorPicker } from '../color-picker/color-picker';
+import { Events } from 'ionic-angular';
 
 @Component({
     selector: 'page-popover',
@@ -24,7 +24,10 @@ export class PopoverPage {
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
-        private configurationService: ConfigurationService
+        private configurationService: ConfigurationService,
+        public popoverCtrl: PopoverController,
+        events: Events,
+        public viewController: ViewController
     ) {
         this.themes = Themes.items;
         for (const property in configurationService.settings) {
@@ -33,6 +36,10 @@ export class PopoverPage {
         this.themes
             .filter(t => t.name === configurationService.settings.name)
             .forEach(t => (this.theme = t));
+
+        events.subscribe('backgroundColour', color => {
+            this.configurationService.backgroundColor = color;
+        });
     }
 
     update() {
@@ -72,5 +79,17 @@ export class PopoverPage {
 
     screenshot() {
         this.configurationService.takeScreenshot('');
+    }
+
+    selectBackgroundColour(myEvent) {
+        this.viewController.dismiss();
+
+        const backgroundPopover = this.popoverCtrl.create(ColorPicker, {
+            eventName: 'backgroundColour',
+            color: this.configurationService.backgroundColor
+        });
+        backgroundPopover.present({
+            ev: myEvent
+        });
     }
 }

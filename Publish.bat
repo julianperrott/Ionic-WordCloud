@@ -11,4 +11,6 @@ zipalign -v -f 4 app-release-unsigned.apk ionic-wordcloud.apk
 pause
 del app-release-unsigned.apk
 dir
-type cd f:\github\wc
+copy /y ionic-wordcloud.apk "E:\Cloud Drives\OneDrive\"
+pause
+cd f:\github\wc
