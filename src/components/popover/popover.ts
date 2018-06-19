@@ -21,6 +21,7 @@ export class PopoverPage {
     localTheme = { fontScale: 0, fontFace: '' };
     themeChangeInProgress = false;
     countStyle = '';
+    scale = 0;
 
     constructor(
         public navCtrl: NavController,
@@ -35,6 +36,8 @@ export class PopoverPage {
         for (const property in configurationService.settings) {
             this.localTheme[property] = configurationService.settings[property];
         }
+        this.scale = this.localTheme['fontScale'];
+
         this.themes
             .filter(t => t.name === configurationService.settings.name)
             .forEach(t => (this.theme = t));
@@ -45,7 +48,9 @@ export class PopoverPage {
     }
 
     fontChanged() {
-        this.configurationService.settings['fontFace'] = this.localTheme['fontFace'];
+        this.configurationService.settings['fontFace'] = this.localTheme[
+            'fontFace'
+        ];
         this.configurationService.fontChanged('');
     }
 
@@ -73,20 +78,28 @@ export class PopoverPage {
             this.localTheme[property] = this.theme[property];
         }
 
+        this.scale = this.localTheme['fontScale'];
+
         setTimeout(() => {
             this.themeChangeInProgress = false;
             this.update();
         }, 100);
     }
 
-    smaller() {
-        this.localTheme.fontScale *= 1.1;
-        this.update();
-    }
+    sequence = 0;
 
-    bigger() {
-        this.localTheme.fontScale /= 1.1;
-        this.update();
+    scaleChanged() {
+        this.localTheme['fontScale'] = this.scale;
+        this.sequence++;
+        setTimeout(
+            cn => {
+                if (cn === this.sequence) {
+                    this.update();
+                }
+            },
+            1000,
+            this.sequence
+        );
     }
 
     screenshot() {

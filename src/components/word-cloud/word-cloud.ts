@@ -155,6 +155,7 @@ export class WordCloudComponent implements OnChanges {
         const shortestAxis =
             this.width > this.height ? this.height : this.width;
 
+            console.log(this.configurationService.settings.fontScale / 100);
         this.data = counts
             .map(item => {
                 return {
@@ -162,8 +163,9 @@ export class WordCloudComponent implements OnChanges {
                     size:
                         item.size *
                         scale *
-                        (shortestAxis /
-                            this.configurationService.settings.fontScale),
+                        (shortestAxis / 70)
+                        * (this.configurationService.settings.fontScale / 100)
+                        ,
                     color: Math.random()
                 };
             })

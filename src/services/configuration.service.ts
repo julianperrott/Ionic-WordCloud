@@ -98,7 +98,7 @@ export class ConfigurationService {
         fontFace: 'Pacifico',
         spiralType: 'archimedean',
         fontWeight: 'bolder',
-        fontScale: 70,
+        fontScale: 100,
         strokeColour: 'white',
         strokeOpacity: '1',
         strokeScale: 20,
