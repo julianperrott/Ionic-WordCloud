@@ -1,1 +1,1 @@
-ionic cordova build --release android
+ionic cordova build --prod --release android
