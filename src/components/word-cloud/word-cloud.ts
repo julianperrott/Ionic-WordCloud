@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Events, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
 
@@ -16,7 +16,6 @@ export class WordCloudComponent implements OnChanges {
     lastdata = '';
     data = [];
     words = '';
-    backgroundColor = '#000000';
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -34,12 +33,13 @@ export class WordCloudComponent implements OnChanges {
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
-        platform: Platform,
-        events: Events
+        platform: Platform
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
-            this.forceRedraw();
+            if (this.data.length > 0) {
+                this.forceRedraw();
+            }
         });
 
         configurationService.configurationChanged$.subscribe(v => {
@@ -55,10 +55,6 @@ export class WordCloudComponent implements OnChanges {
             this.drawWordCloud(
                 this.data.filter(c => c.x !== undefined && c.y !== undefined)
             );
-        });
-
-        events.subscribe('backgroundColour', color => {
-            this.backgroundColor = color;
         });
     }
 
@@ -155,7 +151,7 @@ export class WordCloudComponent implements OnChanges {
         const shortestAxis =
             this.width > this.height ? this.height : this.width;
 
-            console.log(this.configurationService.settings.fontScale / 100);
+        console.log(this.configurationService.settings.fontScale / 100);
         this.data = counts
             .map(item => {
                 return {
@@ -163,9 +159,8 @@ export class WordCloudComponent implements OnChanges {
                     size:
                         item.size *
                         scale *
-                        (shortestAxis / 70)
-                        * (this.configurationService.settings.fontScale / 100)
-                        ,
+                        (shortestAxis / 70) *
+                        (this.configurationService.settings.fontScale / 100),
                     color: Math.random()
                 };
             })

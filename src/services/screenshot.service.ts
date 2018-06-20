@@ -10,9 +10,12 @@ export class ScreenshotService {
             this.screenshot
                 .save('jpg', 100, 'wordCloud_' + this.js_yyyy_mm_dd_hh_mm_ss())
                 .then(res => {
-                    alert('Image captured.');
-                });
-        }, 1000);
+                    alert('Image captured and put in Pictures folder.');
+                }
+            ).catch (err => {
+                alert('Oops... ' + err);
+             });
+        }, 1000 );
     }
 
     js_yyyy_mm_dd_hh_mm_ss() {

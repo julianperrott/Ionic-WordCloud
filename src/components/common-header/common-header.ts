@@ -12,7 +12,8 @@ import { ConfigurationService } from '../../services/configuration.service';
 })
 export class CommonHeaderComponent {
     @ViewChild('ref') refIonTitle;
-    @Input() showButtons;
+    @Input() showMenuButton;
+    @Input() showMoreButton;
 
     defaultTitle = '?';
 
@@ -35,7 +36,11 @@ export class CommonHeaderComponent {
         });
 
         configurationService.takeScreenshot$.subscribe(v => {
+            try {
             this.popover.dismiss();
+            } catch (err) {
+                console.log(err);
+            }
         });
     }
 

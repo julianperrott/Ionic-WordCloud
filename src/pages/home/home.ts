@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Content } from 'ionic-angular';
+import { Content, Events } from 'ionic-angular';
 
 import * as unfluff from 'unfluff';
 
@@ -26,19 +26,23 @@ export class HomePage {
     lastUrl = '';
     showOnlyWordCloud = false;
     redrawOn = true;
+    backgroundColor = '#000000';
 
     constructor(
         private configurationService: ConfigurationService,
         private htmlToLinksService: HtmlToLinksService,
         screenshot: ScreenshotService,
-        private intro: Intro
+        private intro: Intro,
+        events: Events
     ) {
         this.links = configurationService.defaultLinks;
 
         configurationService.UrlChangeSource$.subscribe(v => {
             this.refreshLinks = true;
             this.url = configurationService.url;
-            this.content.scrollToTop();
+            if (this.content != null) {
+                this.content.scrollToTop();
+            }
             this.redrawOn = false;
             this.refresh();
         });
@@ -46,6 +50,12 @@ export class HomePage {
         configurationService.takeScreenshot$.subscribe(v => {
             this.showOnlyWordCloud = true;
             screenshot.takeScreenshot();
+
+            setTimeout(() => { this.showOnlyWordCloud = false; }, 2000);
+        });
+
+        events.subscribe('backgroundColour', color => {
+            this.backgroundColor = color;
         });
     }
 

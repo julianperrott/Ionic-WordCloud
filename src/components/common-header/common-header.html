@@ -1,6 +1,6 @@
 <ion-navbar>
 
-    <button ion-button menuToggle icon-only *ngIf="showButtons">
+    <button ion-button menuToggle icon-only *ngIf="showMenuButton">
         <ion-icon name='menu'></ion-icon>
     </button>
 
@@ -11,7 +11,7 @@
         <ng-content></ng-content>
     </ion-title>
 
-    <ion-buttons end *ngIf="showButtons">
+    <ion-buttons end *ngIf="showMoreButton">
         <button ion-button icon-only (click)="presentPopover($event)" id="stylings">
             <ion-icon name="more"></ion-icon>
         </button>

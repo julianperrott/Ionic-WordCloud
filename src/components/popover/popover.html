@@ -277,17 +277,7 @@
   </div>
 
   <div ion-item>
-    <ion-icon name="cog" item-start color="primary"></ion-icon>
-
-    <ion-label> Word Counting Style</ion-label>
-    <ion-select [(ngModel)]="countStyle" interface="action-sheet" (ionChange)="countStyleChanged()">
-      <ion-option value='BANDING'>Sized into pre-set size bands</ion-option>
-      <ion-option value='COUNT'>Sized by actual word occurance</ion-option>
-    </ion-select>
-  </div>
-
-  <div ion-item>
-    <ion-icon name="cog" item-start></ion-icon>
+    <ion-icon name="brush" item-start></ion-icon>
     <ion-range min="0" max="300" pin="true" [(ngModel)]="scale" (ionChange)="scaleChanged()" color="secondary">
       <ion-label style="color: #999" range-left>Font Scale: {{scale}}%</ion-label>
       <ion-label range-left>&nbsp;&nbsp;&nbsp;0%</ion-label>
@@ -296,7 +286,16 @@
   </div>
 
   <div ion-item>
-    <ion-icon name="cog" item-start></ion-icon>
+    <ion-icon name="cog" item-start color="primary"></ion-icon>
+    <ion-label> Word Counting Style</ion-label>
+    <ion-select [(ngModel)]="countStyle" interface="action-sheet" (ionChange)="countStyleChanged()">
+      <ion-option value='BANDING'>Pre-set size bands</ion-option>
+      <ion-option value='COUNT'>Actual word occurance</ion-option>
+    </ion-select>
+  </div>
+
+  <div ion-item>
+    <ion-icon name="color-palette" item-start></ion-icon>
     <div>
       <ion-grid style="padding-left: 0px !important;">
         <ion-row>
@@ -319,7 +318,7 @@
   </div>
 
   <div ion-item>
-    <ion-icon name="videocam" item-start></ion-icon>
+    <ion-icon name="images" item-start></ion-icon>
     <div>
       <ion-grid style="padding-left: 0px !important;">
         <ion-row>

@@ -114,6 +114,20 @@ export class Themes {
             glowCount: 5,
             lightness: '30%',
             lightnessGlow: '20%'
+        },
+        {
+            name: 'No Glow',
+            fontFace: 'InknutAntiqua',
+            spiralType: 'archimedean',
+            fontWeight: 'bolder',
+            fontScale: 100,
+            strokeColour: 'white',
+            strokeOpacity: '0.3',
+            strokeScale: 20,
+            strokeMinWidth: 1,
+            glowCount: 0,
+            lightness: '50%',
+            lightnessGlow: '0%'
         }
     ];
-    }
+}

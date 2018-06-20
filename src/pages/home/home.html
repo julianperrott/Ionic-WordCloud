@@ -1,8 +1,8 @@
 <ion-header [hidden]="showOnlyWordCloud">
-    <common-header [showButtons]="true">Web Word Cloud</common-header>
+    <common-header [showMenuButton]="true" [showMoreButton]="true">Web Word Cloud</common-header>
 </ion-header>
 
-<ion-content no-padding no-margin>
+<ion-content no-padding no-margin [style.background-color]="backgroundColor">
     <ion-navbar [hidden]="showOnlyWordCloud">
         <ion-item>
             <ion-input clearInput type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()" id="step1"></ion-input>
