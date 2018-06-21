@@ -76,14 +76,22 @@
               words = [],
               event = dispatch('word', 'end'),
               random = Math.random,
-              cloud = {},
+              cloud = { busy: false, cancelled: false},
               canvas = cloudCanvas;
 
             cloud.canvas = function(_) {
               return arguments.length ? ((canvas = functor(_)), cloud) : canvas;
             };
 
+            cloud.abort = function() {
+              cloud.cancelled = true;
+            }
+
             cloud.start = function() {
+
+              cloud.cancelled = false;
+              cloud.busy = true;
+
               var contextAndRatio = getContext(canvas()),
                 board = zeroArray((size[0] >> 5) * size[1]),
                 bounds = null,
@@ -113,7 +121,7 @@
                 var wordFailures = 0;
                 var localFailures = 0;
 
-                while (++i < n) {
+                while (++i < n && !cloud.cancelled) {
                   var d = data[i];
                   d.x = (size[0] * (random() + 0.5)) >> 1;
                   d.y = (size[1] * (random() + 0.5)) >> 1;
@@ -158,10 +166,12 @@
                     await sleep(1);
                   }
                 }
-                if (i >= n) {
+                if (i >= n || cloud.cancelled) {
                   cloud.stop();
+                  cloud.busy = false;
                   event.call('end', cloud, tags, bounds);
                 }
+                cloud.busy = false;
               }
             };
 

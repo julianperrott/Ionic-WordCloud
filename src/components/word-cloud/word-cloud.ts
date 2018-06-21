@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
 
@@ -16,6 +16,7 @@ export class WordCloudComponent implements OnChanges {
     lastdata = '';
     data = [];
     words = '';
+    d3cloud: any;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -33,7 +34,8 @@ export class WordCloudComponent implements OnChanges {
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
-        platform: Platform
+        platform: Platform,
+        private toastCtrl: ToastController
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -56,6 +58,8 @@ export class WordCloudComponent implements OnChanges {
                 this.data.filter(c => c.x !== undefined && c.y !== undefined)
             );
         });
+
+        this.d3cloud = d3.layout.cloud();
     }
 
     forceRedraw() {
@@ -96,6 +100,16 @@ export class WordCloudComponent implements OnChanges {
             })
             .sort((a, b) => (a.size === b.size ? 0 : a.size > b.size ? -1 : 1));
 
+        if (ignoreWords.length > 0) {
+            this.toastCtrl
+                .create({
+                    message: 'Distinct words found: ' + items.length,
+                    duration: 3000,
+                    position: 'bottom'
+                })
+                .present();
+        }
+
         if (this.configurationService.countStyle === 'BANDING') {
             const wordSizes = [24, 18, 15, 10, 8, 6, 4, 3, 2];
             const capacity = [1, 2, 4, 8, 16, 32, 64, 128];
@@ -113,7 +127,7 @@ export class WordCloudComponent implements OnChanges {
                 e.size = wordSizes[band];
                 itemsInBand += scale;
 
-                console.log(e.text + ' = ' + e.size);
+                // console.log(e.text + ' = ' + e.size);
             });
         }
 
@@ -130,6 +144,14 @@ export class WordCloudComponent implements OnChanges {
             return;
         }
 
+        if (this.d3cloud.busy) {
+            this.d3cloud.abort();
+            console.log('d3cloud is busy');
+            return;
+        }
+
+        console.log('drawCloud()');
+        this.d3cloud.busy = true;
         this.configurationService.setBusy(true);
 
         this.setup();
@@ -137,14 +159,9 @@ export class WordCloudComponent implements OnChanges {
 
         this.lastdata = this.wordData;
 
-        let ignoreWords = this.configurationService.ignoreWords.split(',');
+        const ignoreWords = this.configurationService.ignoreWords.split(',');
 
-        let counts = this.countWords(ignoreWords, 3);
-
-        if (Object.keys(counts).length < 50) {
-            ignoreWords = [];
-            counts = this.countWords(ignoreWords, 2);
-        }
+        const counts = this.countWords(ignoreWords, 3);
 
         const scale = 12 / Math.max.apply(0, counts.map(key => key.size));
 
@@ -259,8 +276,7 @@ export class WordCloudComponent implements OnChanges {
             this.configurationService.setBusy(false);
         }
 
-        d3.layout
-            .cloud()
+        this.d3cloud
             .size([this.width, this.height])
             .words(this.data)
 
@@ -271,34 +287,40 @@ export class WordCloudComponent implements OnChanges {
             .fontSize(d => d.size)
             .spiral(spiralType)
             .on('word', c => {
-                // console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
-                if (c.x !== undefined && c.y !== undefined) {
-                    cache.push(c);
-                }
-                if (cache.length === 20) {
-                    this.drawWordCloud(cache);
-                    cache = [];
-                }
+                if (!this.d3cloud.cancelled) {
+                    // console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
+                    if (c.x !== undefined && c.y !== undefined) {
+                        cache.push(c);
+                    }
+                    if (cache.length === 20) {
+                        this.drawWordCloud(cache);
+                        cache = [];
+                    }
 
-                c.drawn = true;
+                    c.drawn = true;
+                }
             })
             .on('end', () => {
-                const todo = this.data.filter(
-                    c =>
-                        (c.drawn === false || c.drawn === undefined) &&
-                        c.x !== undefined &&
-                        c.y !== undefined
-                );
+                if (!this.d3cloud.cancelled) {
+                    const todo = this.data.filter(
+                        c =>
+                            (c.drawn === false || c.drawn === undefined) &&
+                            c.x !== undefined &&
+                            c.y !== undefined
+                    );
 
-                console.log('End todo: ' + todo.length);
+                    console.log('End todo: ' + todo.length);
 
-                this.drawWordCloud(todo);
-                this.drawWordCloud(cache);
-                cache = [];
+                    this.drawWordCloud(todo);
+                    this.drawWordCloud(cache);
+                    cache = [];
 
-                setTimeout(() => {
-                    this.configurationService.setBusy(false);
-                }, 100);
+                    setTimeout(() => {
+                        this.configurationService.setBusy(false);
+                    }, 100);
+                } else {
+                    this.ngOnChanges();
+                }
             })
             .start();
     }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {
     NavController,
     NavParams,
+    Platform,
     PopoverController,
     ViewController
 } from 'ionic-angular';
@@ -22,6 +23,7 @@ export class PopoverPage {
     themeChangeInProgress = false;
     countStyle = '';
     scale = 0;
+    isApp = false;
 
     constructor(
         public navCtrl: NavController,
@@ -29,7 +31,8 @@ export class PopoverPage {
         private configurationService: ConfigurationService,
         public popoverCtrl: PopoverController,
         events: Events,
-        public viewController: ViewController
+        public viewController: ViewController,
+        platform: Platform
     ) {
         this.countStyle = configurationService.countStyle;
         this.themes = Themes.items;
@@ -45,9 +48,15 @@ export class PopoverPage {
         events.subscribe('backgroundColour', color => {
             this.configurationService.backgroundColor = color;
         });
+
+        this.isApp = platform.is('core') || platform.is('mobileweb') ? false : true;
     }
 
     fontChanged() {
+        if (this.themeChangeInProgress) {
+            return;
+        }
+
         this.configurationService.settings['fontFace'] = this.localTheme[
             'fontFace'
         ];
@@ -68,6 +77,10 @@ export class PopoverPage {
     }
 
     countStyleChanged() {
+        if (this.themeChangeInProgress) {
+            return;
+        }
+
         this.configurationService.countStyle = this.countStyle;
         this.configurationService.configurationChanged('');
     }
@@ -89,6 +102,10 @@ export class PopoverPage {
     sequence = 0;
 
     scaleChanged() {
+        if (this.themeChangeInProgress) {
+            return;
+        }
+
         this.localTheme['fontScale'] = this.scale;
         this.sequence++;
         setTimeout(
@@ -107,6 +124,10 @@ export class PopoverPage {
     }
 
     selectBackgroundColour(myEvent) {
+        if (this.themeChangeInProgress) {
+            return;
+        }
+
         this.viewController.dismiss();
 
         const backgroundPopover = this.popoverCtrl.create(ColorPicker, {
