@@ -76,7 +76,7 @@
               words = [],
               event = dispatch('word', 'end'),
               random = Math.random,
-              cloud = { busy: false, cancelled: false},
+              cloud = { busy: false, cancelled: false },
               canvas = cloudCanvas;
 
             cloud.canvas = function(_) {
@@ -85,10 +85,9 @@
 
             cloud.abort = function() {
               cloud.cancelled = true;
-            }
+            };
 
             cloud.start = function() {
-
               cloud.cancelled = false;
               cloud.busy = true;
 
@@ -108,6 +107,38 @@
                   d.padding = padding.call(this, d, i);
                   return d;
                 });
+
+              var w = size[0] >> 2; // 8th
+              var h = size[1] >> 2; // 8th
+
+              /*
+              blockBoard(
+                board,
+                w, //tag.width,
+                size[0] >> 1, //tag.x,
+                size[1] >> 1, //tag.y,
+                -h >> 1, //tag.y0,
+                h >> 1 //tag.y1
+              );
+
+              blockBoard(
+                board,
+                w >> 1, //tag.width,
+                size[0] >> 1, //tag.x,
+                size[1] >> 1, //tag.y,
+                -h, //tag.y0,
+                h //tag.y1
+              );
+            */
+           
+             var boardWidth = size[0] >> 5; // divide by 32
+
+
+              for (var xx = 0; xx < size[0]>>5; xx++) { // all the way across
+                for (var yy = (size[1]>>1) + (size[1]>>2); yy < size[1]; yy++) { //     
+                  board[(yy * boardWidth) + xx] |= 0xffffffff;
+                }
+              }
 
               step();
 
@@ -224,32 +255,52 @@
                 )
                   continue;
                 // TODO only check for collisions within current bounds.
-                if (!bounds || !cloudCollide(tag, board, size[0])) {
+                if (!cloudCollide(tag, board, size[0])) {
                   if (!bounds || collideRects(tag, bounds)) {
-                    var sprite = tag.sprite,
-                      w = tag.width >> 5,
-                      sw = size[0] >> 5,
-                      lx = tag.x - (w << 4),
-                      sx = lx & 0x7f,
-                      msx = 32 - sx,
-                      h = tag.y1 - tag.y0,
-                      x = (tag.y + tag.y0) * sw + (lx >> 5),
-                      last;
-                    for (var j = 0; j < h; j++) {
-                      last = 0;
-                      for (var i = 0; i <= w; i++) {
-                        board[x + i] |=
-                          (last << msx) |
-                          (i < w ? (last = sprite[j * w + i]) >>> sx : 0);
-                      }
-                      x += sw;
-                    }
+                    fillBoard(board, tag);
                     delete tag.sprite;
                     return true;
                   }
                 }
               }
               return false;
+            }
+
+            function blockBoard(board, width, x, y, y0, y1) {
+              var rowWidth = width >> 5; // divide by 32
+              var lx = x - (width >> 1); // half way back from x
+              var startY = y + y0;
+              var boardWidth = size[0] >> 5; // divide by 32
+              var boardY = startY * boardWidth + (lx >> 5);
+              var tagHeight = y1 - y0;
+
+              for (var row = 0; row < tagHeight; row++) {
+                for (var col = 0; col <= rowWidth; col++) {
+                  board[boardY + col] |= 0xffffffff;
+                }
+                boardY += boardWidth;
+              }
+            }
+
+            function fillBoard(board, tag) {
+              var sprite = tag.sprite,
+                w = tag.width >> 5,
+                sw = size[0] >> 5,
+                lx = tag.x - (tag.width >> 1),
+                sx = lx & 0x7f,
+                msx = 32 - sx,
+                h = tag.y1 - tag.y0,
+                x = (tag.y + tag.y0) * sw + (lx >> 5),
+                last;
+              for (var j = 0; j < h; j++) {
+                last = 0;
+                for (var i = 0; i <= w; i++) {
+                  board[x + i] |=
+                    (last << msx) |
+                    (i < w ? (last = sprite[j * w + i]) >>> sx : 0);
+                }
+                x += sw;
+              }
             }
 
             cloud.words = function(_) {
@@ -429,7 +480,7 @@
                   sprite[k] |= m;
                   seen |= m;
                 }
-                if (seen) seenRow = j;
+                if (seen != 0) seenRow = j;
                 else {
                   d.y0++;
                   h--;
