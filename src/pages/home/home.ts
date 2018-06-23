@@ -51,7 +51,9 @@ export class HomePage {
             this.showOnlyWordCloud = true;
             screenshot.takeScreenshot();
 
-            setTimeout(() => { this.showOnlyWordCloud = false; }, 2000);
+            setTimeout(() => {
+                this.showOnlyWordCloud = false;
+            }, 2000);
         });
 
         events.subscribe('backgroundColour', color => {

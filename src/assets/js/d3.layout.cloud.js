@@ -108,41 +108,131 @@
                   return d;
                 });
 
-              var w = size[0] >> 2; // 8th
-              var h = size[1] >> 2; // 8th
-
-              /*
-              blockBoard(
-                board,
-                w, //tag.width,
-                size[0] >> 1, //tag.x,
-                size[1] >> 1, //tag.y,
-                -h >> 1, //tag.y0,
-                h >> 1 //tag.y1
-              );
-
-              blockBoard(
-                board,
-                w >> 1, //tag.width,
-                size[0] >> 1, //tag.x,
-                size[1] >> 1, //tag.y,
-                -h, //tag.y0,
-                h //tag.y1
-              );
-            */
-           
-             var boardWidth = size[0] >> 5; // divide by 32
-
-
-              for (var xx = 0; xx < size[0]>>5; xx++) { // all the way across
-                for (var yy = (size[1]>>1) + (size[1]>>2); yy < size[1]; yy++) { //     
-                  board[(yy * boardWidth) + xx] |= 0xffffffff;
-                }
+              var src = './assets/svg/ambulance.svg';
+              if (src) {
+                drawMask(src);
+              } else {
+                step();
               }
 
-              step();
-
               return cloud;
+
+              function drawMask(src) {
+                var myCanvas = document.getElementById('canvas');
+                myCanvas.width = size[0]; //document.width is obsolete
+                myCanvas.height = size[1]; //document.height is obsolete
+                var ctx = myCanvas.getContext('2d');
+
+                var img = new Image();
+                img.onload = function() {
+                  ctx.fillStyle = '#FFFFFF';
+                  ctx.fillRect(0, 0, size[0], size[1]);
+
+                  if (myCanvas.width > myCanvas.height) {
+                    ctx.drawImage(
+                      img,
+                      (myCanvas.width - myCanvas.height) / 2,
+                      0
+                    );
+                  } else {
+                    ctx.drawImage(
+                      img,
+                      0,
+                      (myCanvas.height - myCanvas.width) / 2
+                    );
+                  }
+
+                  var pixels2 = ctx.getImageData(0, 0, size[0], size[1]).data;
+
+                  var boardWidth = size[0] >> 5; // divide by 32
+                  for (var xx = 0; xx < size[0]; xx++) {
+                    // columns
+                    for (var yy = 0; yy < size[1]; yy++) {
+                      //for (var yy = 500; yy < 501; yy++) {
+                      //var yy = 500;
+
+                      var red = pixels2[(size[0] * yy + xx) * 4];
+                      var green = pixels2[(size[0] * yy + xx) * 4 + 1];
+                      var blue = pixels2[(size[0] * yy + xx) * 4 + 2];
+                      var alpha = pixels2[(size[0] * yy + xx) * 4 + 3];
+
+                      var isSet = red + green + blue > 0;
+
+                      /*
+                    console.log(
+                      red +
+                        ',' +
+                        green +
+                        ',' +
+                        blue +
+                        ',' +
+                        alpha +
+                        ', isset=' +
+                        isSet
+                    );
+                    */
+
+                      if (isSet) {
+                        board[yy * boardWidth + (xx >> 5)] = 0xffffffff;
+                      }
+
+                      /*
+                    if (isSet > 0) {
+                      ctx.fillStyle = '#FF0000';
+                      ctx.fillRect(xx, yy, 1, 1);
+                    } else {
+                      ctx.fillStyle = '#00FF00';
+                      ctx.fillRect(xx, yy, 1, 1);
+                    }
+                    */
+                    }
+                  }
+
+                  step();
+                };
+                img.src = src;
+              }
+
+              function simpleMask() {
+                var w = size[0] >> 2; // 8th
+                var h = size[1] >> 2; // 8th
+
+                /*
+                blockBoard(
+                  board,
+                  w, //tag.width,
+                  size[0] >> 1, //tag.x,
+                  size[1] >> 1, //tag.y,
+                  -h >> 1, //tag.y0,
+                  h >> 1 //tag.y1
+                );
+  
+                blockBoard(
+                  board,
+                  w >> 1, //tag.width,
+                  size[0] >> 1, //tag.x,
+                  size[1] >> 1, //tag.y,
+                  -h, //tag.y0,
+                  h //tag.y1
+                );
+              */
+
+                var boardWidth = size[0] >> 5; // divide by 32
+
+                /*
+                for (var xx = 0; xx < size[0] >> 5; xx++) {
+                  // all the way across
+                  for (
+                    var yy = (size[1] >> 1) + (size[1] >> 2);
+                    yy < size[1];
+                    yy++
+                  ) {
+                    //
+                    board[yy * boardWidth + xx] |= 0xffffffff;
+                  }
+                }
+                */
+              }
 
               async function step() {
                 function sleep(ms) {
