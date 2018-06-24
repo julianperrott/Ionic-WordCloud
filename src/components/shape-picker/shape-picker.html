@@ -1,0 +1,14 @@
+<ion-header>
+    <common-header>Cloud Shape</common-header>
+</ion-header>
+<ion-content style="width: 100%">
+    <ion-grid>
+        <ion-row>
+            <ion-col class="col" col-xs-3 col-sm-4 col-md-2 col-lg-2 col-xl-1 *ngFor="let icon of icons">
+
+                <i *ngIf="shape === icon" class='selected fa fa-3x fa-{{icon}}'></i>
+                <i *ngIf="shape !== icon" class='fa fa-3x fa-{{icon}}' (click)="select(icon)"></i>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -317,6 +317,29 @@
     </div>
   </div>
 
+  <div ion-item>
+    <ion-icon class="icon-control" name="images" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Cloud Shape</div>
+          </ion-col>
+          <ion-col>
+
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="cloudShape()" style="margin: 0px !important">
+                Shape
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
   <div ion-item [hidden]="!isApp">
     <ion-icon class="icon-control" name="images" item-start></ion-icon>
     <div>

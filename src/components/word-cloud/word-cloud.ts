@@ -322,7 +322,7 @@ export class WordCloudComponent implements OnChanges {
                     this.ngOnChanges();
                 }
             })
-            .start();
+            .start(this.configurationService.shape);
     }
 
     private addSVGFilter() {

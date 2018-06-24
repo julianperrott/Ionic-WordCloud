@@ -27,6 +27,7 @@ import { ScreenshotService } from '../services/screenshot.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { ColorPicker } from '../components/color-picker/color-picker';
+import { ShapePicker } from '../components/shape-picker/shape-picker';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import { ColorPicker } from '../components/color-picker/color-picker';
         LinkCloudComponent,
         PopoverPage,
         AboutPage,
-        ColorPicker
+        ColorPicker,
+        ShapePicker
     ],
     imports: [
         BrowserModule,
@@ -47,10 +49,11 @@ import { ColorPicker } from '../components/color-picker/color-picker';
         }),
         IonicPageModule.forChild(AboutPage),
         IonicPageModule.forChild(PopoverPage),
-        IonicPageModule.forChild(ColorPicker)
+        IonicPageModule.forChild(ColorPicker),
+        IonicPageModule.forChild(ShapePicker)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker],
     providers: [
         StatusBar,
         SplashScreen,

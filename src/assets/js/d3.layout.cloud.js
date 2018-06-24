@@ -87,7 +87,7 @@
               cloud.cancelled = true;
             };
 
-            cloud.start = function() {
+            cloud.start = function(shape) {
               cloud.cancelled = false;
               cloud.busy = true;
 
@@ -108,9 +108,10 @@
                   return d;
                 });
 
-              var src = './assets/vendor/fontawesome/svgs/solid/poo.svg';
-              if (src) {
-                drawMask(src);
+              if (shape.length > 0) {
+                drawMask(
+                  './assets/vendor/fontawesome/svgs/solid/' + shape + '.svg'
+                );
               } else {
                 step();
               }
