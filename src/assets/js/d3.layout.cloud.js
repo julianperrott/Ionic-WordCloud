@@ -108,7 +108,7 @@
                   return d;
                 });
 
-              var src = './assets/svg/ambulance.svg';
+              var src = './assets/vendor/fontawesome/svgs/solid/poo.svg';
               if (src) {
                 drawMask(src);
               } else {
@@ -119,8 +119,8 @@
 
               function drawMask(src) {
                 var myCanvas = document.getElementById('canvas');
-                myCanvas.width = size[0]; //document.width is obsolete
-                myCanvas.height = size[1]; //document.height is obsolete
+                myCanvas.width = size[0];
+                myCanvas.height = size[1];
                 var ctx = myCanvas.getContext('2d');
 
                 var img = new Image();
