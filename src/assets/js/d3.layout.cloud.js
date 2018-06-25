@@ -119,15 +119,18 @@
               return cloud;
 
               function drawMask(src) {
-                var myCanvas = document.getElementById('canvas');
-                myCanvas.width = size[0];
-                myCanvas.height = size[1];
+                var myCanvas = document.createElement('canvas');
+                var width = size[0];
+                var height = size[1];
+
+                myCanvas.width = width;
+                myCanvas.height = height;
                 var ctx = myCanvas.getContext('2d');
 
                 var img = new Image();
                 img.onload = function() {
                   ctx.fillStyle = '#FFFFFF';
-                  ctx.fillRect(0, 0, size[0], size[1]);
+                  ctx.fillRect(0, 0, width, height);
 
                   if (myCanvas.width > myCanvas.height) {
                     ctx.drawImage(
@@ -143,96 +146,29 @@
                     );
                   }
 
-                  var pixels2 = ctx.getImageData(0, 0, size[0], size[1]).data;
+                  var pixels2 = ctx.getImageData(0, 0, width, height).data;
 
-                  var boardWidth = size[0] >> 5; // divide by 32
-                  for (var xx = 0; xx < size[0]; xx++) {
+                  var boardWidth = width >> 5; // divide by 32
+
+                  for (var xx = 0; xx < width; xx++) {
                     // columns
-                    for (var yy = 0; yy < size[1]; yy++) {
-                      //for (var yy = 500; yy < 501; yy++) {
-                      //var yy = 500;
-
-                      var red = pixels2[(size[0] * yy + xx) * 4];
-                      var green = pixels2[(size[0] * yy + xx) * 4 + 1];
-                      var blue = pixels2[(size[0] * yy + xx) * 4 + 2];
-                      var alpha = pixels2[(size[0] * yy + xx) * 4 + 3];
+                    for (var yy = 0; yy < height; yy++) {
+                      var red = pixels2[(width * yy + xx) * 4];
+                      var green = pixels2[(width * yy + xx) * 4 + 1];
+                      var blue = pixels2[(width * yy + xx) * 4 + 2];
+                      var alpha = pixels2[(width * yy + xx) * 4 + 3];
 
                       var isSet = red + green + blue > 0;
-
-                      /*
-                    console.log(
-                      red +
-                        ',' +
-                        green +
-                        ',' +
-                        blue +
-                        ',' +
-                        alpha +
-                        ', isset=' +
-                        isSet
-                    );
-                    */
 
                       if (isSet) {
                         board[yy * boardWidth + (xx >> 5)] = 0xffffffff;
                       }
-
-                      /*
-                    if (isSet > 0) {
-                      ctx.fillStyle = '#FF0000';
-                      ctx.fillRect(xx, yy, 1, 1);
-                    } else {
-                      ctx.fillStyle = '#00FF00';
-                      ctx.fillRect(xx, yy, 1, 1);
-                    }
-                    */
                     }
                   }
 
                   step();
                 };
                 img.src = src;
-              }
-
-              function simpleMask() {
-                var w = size[0] >> 2; // 8th
-                var h = size[1] >> 2; // 8th
-
-                /*
-                blockBoard(
-                  board,
-                  w, //tag.width,
-                  size[0] >> 1, //tag.x,
-                  size[1] >> 1, //tag.y,
-                  -h >> 1, //tag.y0,
-                  h >> 1 //tag.y1
-                );
-  
-                blockBoard(
-                  board,
-                  w >> 1, //tag.width,
-                  size[0] >> 1, //tag.x,
-                  size[1] >> 1, //tag.y,
-                  -h, //tag.y0,
-                  h //tag.y1
-                );
-              */
-
-                var boardWidth = size[0] >> 5; // divide by 32
-
-                /*
-                for (var xx = 0; xx < size[0] >> 5; xx++) {
-                  // all the way across
-                  for (
-                    var yy = (size[1] >> 1) + (size[1] >> 2);
-                    yy < size[1];
-                    yy++
-                  ) {
-                    //
-                    board[yy * boardWidth + xx] |= 0xffffffff;
-                  }
-                }
-                */
               }
 
               async function step() {
@@ -253,11 +189,20 @@
 
                   if (!placedx) {
                     //alert('Failed to place: ' + d.text+" "+i);
+
+                    if (localFailures % 5 == 0) {
+                      d.size=d.size*.8;
+                      console.log('shrinking' + d.text+" "+i);
+                      delete d.sprite;
+                    }
+
                     i--;
                     localFailures++;
-                    if (localFailures > 5 || d.isPadding) {
-                      if (localFailures > 5) {
+                    if (d.size<1 || d.isPadding) {
+                      if (d.size<1) {
                         //alert('Failed to place: ' + d.text+" "+i);
+                          console.log('Failed to place: ' + d.text+" "+i);
+
                       }
 
                       localFailures = 0;
@@ -284,7 +229,7 @@
                     d.x -= size[0] >> 1;
                     d.y -= size[1] >> 1;
 
-                    event.call('word', cloud, d);
+                    event.call('word', cloud, d, i);
                     await sleep(1);
                   }
                 }
@@ -346,7 +291,7 @@
                 )
                   continue;
                 // TODO only check for collisions within current bounds.
-                if (!cloudCollide(tag, board, size[0])) {
+                if (!cloudCollide(tag, board, size[0],10) && !cloudCollide(tag, board, size[0],1)) {
                   if (!bounds || collideRects(tag, bounds)) {
                     fillBoard(board, tag);
                     delete tag.sprite;
@@ -585,7 +530,7 @@
           }
 
           // Use mask-based collision detection.
-          function cloudCollide(tag, board, sw) {
+          function cloudCollide(tag, board, sw, step) {
             sw >>= 5;
             var sprite = tag.sprite,
               w = tag.width >> 5,
@@ -595,7 +540,7 @@
               h = tag.y1 - tag.y0,
               x = (tag.y + tag.y0) * sw + (lx >> 5),
               last;
-            for (var j = 0; j < h; j++) {
+            for (var j = 0; j < h; j+=step) {
               last = 0;
               for (var i = 0; i <= w; i++) {
                 if (

@@ -1,10 +1,16 @@
 import { Component, Input, NgZone, Renderer2, ViewChild } from '@angular/core';
 
-import { Popover, PopoverController } from 'ionic-angular';
+import {
+    Events,
+    Popover,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { PopoverPage } from '../popover/popover';
 
 import { ConfigurationService } from '../../services/configuration.service';
+import { ShapePicker } from '../shape-picker/shape-picker';
 
 @Component({
     selector: 'common-header',
@@ -20,12 +26,15 @@ export class CommonHeaderComponent {
     busy = false;
     error = false;
     popover: Popover;
+    shape: '';
 
     constructor(
         private renderer: Renderer2,
         public popoverCtrl: PopoverController,
         configurationService: ConfigurationService,
-        zone: NgZone
+        zone: NgZone,
+        events: Events,
+        public viewController: ViewController
     ) {
         configurationService.busyChanged$.subscribe(v => {
             console.log('Busy is now ' + configurationService.busy);
@@ -37,10 +46,14 @@ export class CommonHeaderComponent {
 
         configurationService.takeScreenshot$.subscribe(v => {
             try {
-            this.popover.dismiss();
+                this.popover.dismiss();
             } catch (err) {
                 console.log(err);
             }
+        });
+
+        events.subscribe('shapeChanged', shape => {
+            this.shape = shape;
         });
     }
 
@@ -61,5 +74,18 @@ export class CommonHeaderComponent {
         this.popover.present({
             ev: myEvent
         });
+    }
+
+    cloudShape(myEvent) {
+        const popover = this.popoverCtrl.create(ShapePicker, {
+            shape: this.shape
+        });
+        popover.present({
+            ev: myEvent
+        });
+    }
+
+    closePopover() {
+        this.viewController.dismiss();
     }
 }

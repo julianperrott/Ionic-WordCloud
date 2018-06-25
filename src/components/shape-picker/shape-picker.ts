@@ -220,7 +220,6 @@ export class ShapePicker {
         'dove',
         'download',
         'drafting-compass',
-        'draw.',
         'drum-steelpan',
         'drum',
         'dumbbell',

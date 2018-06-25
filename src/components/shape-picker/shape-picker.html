@@ -4,10 +4,14 @@
 <ion-content style="width: 100%">
     <ion-grid>
         <ion-row>
-            <ion-col class="col" col-xs-3 col-sm-4 col-md-2 col-lg-2 col-xl-1 *ngFor="let icon of icons">
+            <ion-col class="col" col-xs-3 col-sm-4 col-md-2 col-lg-2 col-xl-1>
+                <ion-icon *ngIf="shape && shape.length>0" name="easel" style="font-size: 25px;" (click)="select('')"></ion-icon>
+                <ion-icon *ngIf="!shape || shape.length==0" name="easel" class="selected" style="font-size: 25px;"></ion-icon>
+                None
+            </ion-col>
 
-                <i *ngIf="shape === icon" class='selected fa fa-3x fa-{{icon}}'></i>
-                <i *ngIf="shape !== icon" class='fa fa-3x fa-{{icon}}' (click)="select(icon)"></i>
+            <ion-col class="col" col-xs-3 col-sm-4 col-md-2 col-lg-2 col-xl-1 *ngFor="let icon of icons">
+                <i class=' {{shape === icon?"selected":"none" }}  fa fa-3x fa-{{icon}}' (click)="select(icon)"></i>
             </ion-col>
         </ion-row>
     </ion-grid>

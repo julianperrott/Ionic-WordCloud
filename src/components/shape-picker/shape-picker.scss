@@ -1,23 +1,24 @@
 page-popover {
-    width: 100%
+  width: 100%;
+}
 
-    }
+.center {
+  padding: 0;
+  margin: auto;
+  display: block;
+  border: 1px solid lightgray;
+}
 
-    .center {
-        padding: 0;
-        margin: auto;
-        display: block;
-        border: 1px solid lightgray;
-    }    
+.col {
+  margin: 4px;
+}
 
-      .col{
-          margin: 4px;
-      }
+.selected {
+  background: red;
+  padding: 5px;
+}
 
-      .selected{
-          background: red;
-          padding: 5px;
-      }
-      i{color: black;
-        padding: 4px;
-    }
+i {
+  color: black;
+  padding: 4px;
+}

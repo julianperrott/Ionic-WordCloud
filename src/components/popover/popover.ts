@@ -11,7 +11,7 @@ import { ConfigurationService } from '../../services/configuration.service';
 import { Themes } from '../../theme/Themes';
 import { ColorPicker } from '../color-picker/color-picker';
 import { Events } from 'ionic-angular';
-import { ShapePicker } from '../shape-picker/shape-picker';
+
 
 @Component({
     selector: 'page-popover',
@@ -123,21 +123,6 @@ export class PopoverPage {
 
     screenshot() {
         this.configurationService.takeScreenshot('');
-    }
-
-    cloudShape(myEvent) {
-        if (this.themeChangeInProgress) {
-            return;
-        }
-
-        this.viewController.dismiss();
-
-        const popover = this.popoverCtrl.create(ShapePicker, {
-            shape: this.configurationService.shape
-        });
-        popover.present({
-            ev: myEvent
-        });
     }
 
     selectBackgroundColour(myEvent) {

@@ -30,6 +30,12 @@ export class Intro {
                 position: 'left'
             },
             {
+                element: '#shape',
+                intro:
+                    '<b>Cloud shape ...</b><hr/> This button allows you to change the shape of the word cloud.',
+                position: 'left'
+            },
+            {
                 element: '#stylings',
                 intro:
                     '<b>Options & Actions ...</b><hr/> This button allows you to change the style of the word cloud.<hr/>You can also take a screenshot which will appear in your pictures folder.',

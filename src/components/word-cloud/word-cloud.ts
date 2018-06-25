@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Platform, ToastController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
+import { NgZone } from '@angular/core';
 
 import * as D3 from 'd3';
 
@@ -30,12 +31,14 @@ export class WordCloudComponent implements OnChanges {
     private height: number; // Component height
     tempData = [];
     platformReady = false;
+    progress = 0;
 
     constructor(
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
         platform: Platform,
-        private toastCtrl: ToastController
+        private toastCtrl: ToastController,
+        private zone: NgZone
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -276,6 +279,8 @@ export class WordCloudComponent implements OnChanges {
             this.configurationService.setBusy(false);
         }
 
+        this.progress = 0;
+
         this.d3cloud
             .size([this.width, this.height])
             .words(this.data)
@@ -286,15 +291,28 @@ export class WordCloudComponent implements OnChanges {
             .fontWeight(fontWeight)
             .fontSize(d => d.size)
             .spiral(spiralType)
-            .on('word', c => {
+            .on('word', (c, i) => {
                 if (!this.d3cloud.cancelled) {
-                    // console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
-                    if (c.x !== undefined && c.y !== undefined) {
-                        cache.push(c);
+                    const newProgress = Math.floor(
+                        (i * 100) / this.data.length
+                    );
+                    if (newProgress > this.progress) {
+                        this.zone.run(() => {
+                            this.progress = newProgress;
+                        });
                     }
-                    if (cache.length === 20) {
-                        this.drawWordCloud(cache);
-                        cache = [];
+
+                    if (c) {
+                        // console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
+                        if (c.x !== undefined && c.y !== undefined) {
+                            cache.push(c);
+                        }
+                        if (cache.length === 20) {
+                            this.zone.run(() => {
+                                this.drawWordCloud(cache);
+                                cache = [];
+                            });
+                        }
                     }
 
                     c.drawn = true;
@@ -302,6 +320,8 @@ export class WordCloudComponent implements OnChanges {
             })
             .on('end', () => {
                 if (!this.d3cloud.cancelled) {
+                    this.progress = 100;
+
                     const todo = this.data.filter(
                         c =>
                             (c.drawn === false || c.drawn === undefined) &&

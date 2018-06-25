@@ -12,8 +12,18 @@
     </ion-title>
 
     <ion-buttons end *ngIf="showMoreButton">
+        <button ion-button (click)="cloudShape($event)" id="shape">
+            <i *ngIf="shape && shape.length > 0" class="fa fa-2x fa-{{shape}}"></i>
+            <ion-icon *ngIf="!shape || shape.length==0" name="easel" style="font-size: 25px;"></ion-icon>
+        </button>
         <button ion-button icon-only (click)="presentPopover($event)" id="stylings">
             <ion-icon name="more"></ion-icon>
+        </button>
+    </ion-buttons>
+
+    <ion-buttons end *ngIf="!showMoreButton">
+        <button ion-button icon-only (click)="closePopover()" id="stylings">
+            <ion-icon name="close"></ion-icon>
         </button>
     </ion-buttons>
 

@@ -1,4 +1,8 @@
+
+
 <div *ngIf="!data.length">
+
+
     <svg xmlns="http://www.w3.org/2000/svg" width="1516" height="719">
         <g transform="translate(763,374)">
             <defs>
@@ -26,6 +30,9 @@
 </div>
 
 <div [hidden]="!data.length" class="word-cloud" id="word-cloud">
+    <div class="progress-outer" [hidden] = "progress==100">
+            <div class="progress-inner" [style.width]="progress + '%'">
+                {{progress}}%
+            </div>
+            </div>
 </div>
-
-<canvas style="display:none" id="canvas"></canvas>
