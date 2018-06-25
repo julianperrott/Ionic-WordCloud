@@ -281,6 +281,8 @@ export class WordCloudComponent implements OnChanges {
 
         this.progress = 0;
 
+        const startTime = performance.now();
+
         this.d3cloud
             .size([this.width, this.height])
             .words(this.data)
@@ -320,6 +322,9 @@ export class WordCloudComponent implements OnChanges {
             })
             .on('end', () => {
                 if (!this.d3cloud.cancelled) {
+                    console.log(
+                        'Duration: ' + (performance.now() - startTime) / 1000
+                    );
                     this.progress = 100;
 
                     const todo = this.data.filter(

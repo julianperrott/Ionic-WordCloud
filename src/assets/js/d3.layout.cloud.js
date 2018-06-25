@@ -191,18 +191,17 @@
                     //alert('Failed to place: ' + d.text+" "+i);
 
                     if (localFailures % 5 == 0) {
-                      d.size=d.size*.8;
-                      console.log('shrinking' + d.text+" "+i);
+                      d.size = d.size * 0.8;
+                      //console.log('shrinking' + d.text+" "+i);
                       delete d.sprite;
                     }
 
                     i--;
                     localFailures++;
-                    if (d.size<1 || d.isPadding) {
-                      if (d.size<1) {
+                    if (d.size < 1 || d.isPadding) {
+                      if (d.size < 1) {
                         //alert('Failed to place: ' + d.text+" "+i);
-                          console.log('Failed to place: ' + d.text+" "+i);
-
+                        console.log('Failed to place: ' + d.text + ' ' + i);
                       }
 
                       localFailures = 0;
@@ -291,7 +290,10 @@
                 )
                   continue;
                 // TODO only check for collisions within current bounds.
-                if (!cloudCollide(tag, board, size[0],10) && !cloudCollide(tag, board, size[0],1)) {
+                if (
+                  !cloudCollide(tag, board, size[0], 10) &&
+                  !cloudCollide(tag, board, size[0], 1)
+                ) {
                   if (!bounds || collideRects(tag, bounds)) {
                     fillBoard(board, tag);
                     delete tag.sprite;
@@ -540,7 +542,7 @@
               h = tag.y1 - tag.y0,
               x = (tag.y + tag.y0) * sw + (lx >> 5),
               last;
-            for (var j = 0; j < h; j+=step) {
+            for (var j = 0; j < h; j += step) {
               last = 0;
               for (var i = 0; i <= w; i++) {
                 if (
