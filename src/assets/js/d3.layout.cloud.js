@@ -60,8 +60,8 @@
           var dispatch = require('d3-dispatch').dispatch;
 
           var cloudRadians = Math.PI / 180,
-            cw = (1 << 11) >> 5,
-            ch = 1 << 11;
+            cw = 0,
+            ch = 0;
 
           module.exports = function() {
             var size = [256, 256],
@@ -88,6 +88,14 @@
             };
 
             cloud.start = function(shape) {
+              var maxSide = size[0] >size[1]?size[0]:size[1];
+              ch = 1 << 10;
+              while(ch>maxSide){
+                ch=ch>>1;
+              }
+              cw = ch>>5;
+              //alert(cw+","+ch);
+
               cloud.cancelled = false;
               cloud.busy = true;
 
@@ -191,14 +199,14 @@
                     //alert('Failed to place: ' + d.text+" "+i);
 
                     if (localFailures % 5 == 0) {
-                      d.size = d.size * 0.8;
+                      //d.size = d.size * 0.8;
                       //console.log('shrinking' + d.text+" "+i);
-                      delete d.sprite;
+                      //delete d.sprite;
                     }
 
                     i--;
                     localFailures++;
-                    if (d.size < 1 || d.isPadding) {
+                    if (d.size < 1 || d.isPadding || localFailures>20) {
                       if (d.size < 1) {
                         //alert('Failed to place: ' + d.text+" "+i);
                         console.log('Failed to place: ' + d.text + ' ' + i);
