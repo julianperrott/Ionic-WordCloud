@@ -116,3 +116,13 @@ Error: D:\GitHub\Ionic-WordCloud\src\pages\about\about.ts has a @IonicPage decor
 
 Removed @IonicPage() from about.ts
 ---------------------------------------------------------------------------------------------     
+[15:47:06]  typescript: D:/GitHub/Ionic-WordCloud/src/app/app.component.spec.ts, line: 9
+            Cannot find name 'describe'.
+
+       L9:  describe('MyApp Component', () => {
+      L10:    let fixture;
+
+npm install --save-dev @types/jasmine   
+
+import {} from 'jasmine';
+---------------------------------------------------------------------------------------------     
