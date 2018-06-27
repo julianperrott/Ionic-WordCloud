@@ -122,7 +122,20 @@ Removed @IonicPage() from about.ts
        L9:  describe('MyApp Component', () => {
       L10:    let fixture;
 
-npm install --save-dev @types/jasmine   
+npm list jasmine
 
+npm install --save-dev @types/jasmine   
+npm install jasmine
 import {} from 'jasmine';
+---------------------------------------------------------------------------------------------     
+
+  {
+    "message": "An error was thrown in afterAll\nUncaught Error: Module build failed: Error: You may be using an old version of webpack; please check you're using at least version 4\n    at successfulTypeScriptInstance (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\instances.js:168:15)\n    at Object.getTypeScriptInstance (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\instances.js:51:12)\n    at Object.loader (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\index.js:16:41)",
+    "str": "An error was thrown in afterAll\nUncaught Error: Module build failed: Error: You may be using an old version of webpack; please check you're using at least version 4\n    at successfulTypeScriptInstance (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\instances.js:168:15)\n    at Object.getTypeScriptInstance (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\instances.js:51:12)\n    at Object.loader (F:\\GitHub\\wc\\node_modules\\ts-loader\\dist\\index.js:16:41)"
+  }
+
+  npm list webpack
+
+npm install webpack@latest
+
 ---------------------------------------------------------------------------------------------     
