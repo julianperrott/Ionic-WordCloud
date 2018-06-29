@@ -125,7 +125,7 @@ Removed @IonicPage() from about.ts
 npm list jasmine
 
 npm install --save-dev @types/jasmine   
-npm install jasmine
+npm install jasmine@latest
 import {} from 'jasmine';
 ---------------------------------------------------------------------------------------------     
 

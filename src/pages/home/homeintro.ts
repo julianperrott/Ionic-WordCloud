@@ -1,4 +1,4 @@
-import introJs from 'intro.js'
+import introJs from 'intro.js';
 import { Injectable } from '@angular/core';
 
 @Injectable()

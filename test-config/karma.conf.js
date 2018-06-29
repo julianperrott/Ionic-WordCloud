@@ -30,9 +30,7 @@ module.exports = function(config) {
 
     webpack: webpackConfig,
 
-    webpackMiddleware: {
-      stats: 'errors-only'
-    },
+    webpackMiddleware: {},
 
     webpackServer: {
       noInfo: true
