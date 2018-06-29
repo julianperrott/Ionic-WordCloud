@@ -8,12 +8,12 @@ import { HtmlToLinksService, Link } from '../../services/htmlToLinks.service';
 
 import { ScreenshotService } from '../../services/screenshot.service';
 
-import { Intro } from './intro';
+import { HomeIntro } from './HomeIntro';
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html',
-    providers: [Intro]
+    providers: [HomeIntro]
 })
 export class HomePage {
     @ViewChild(Content) content: Content;
@@ -32,7 +32,7 @@ export class HomePage {
         private configurationService: ConfigurationService,
         private htmlToLinksService: HtmlToLinksService,
         screenshot: ScreenshotService,
-        private intro: Intro,
+        private intro: HomeIntro,
         events: Events
     ) {
         this.links = configurationService.defaultLinks;

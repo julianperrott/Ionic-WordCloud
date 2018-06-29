@@ -1,6 +1,9 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AlertController, MenuController } from 'ionic-angular';
+import { SideMenuContentComponent } from '../src/components/side-menu-content/side-menu-content.component';
+
+import { Input } from '@angular/core';
 
 export class PlatformMock {
     public ready(): Promise<string> {
@@ -92,6 +95,15 @@ export class MenuControllerMock extends MenuController {
     hide() {
         return;
     }
+}
+
+export class SideMenuContentComponentMock extends SideMenuContentComponent {
+
+    @Input('settings')
+
+hide() {
+    return;
+}
 }
 
 export class NavMock {

@@ -139,3 +139,17 @@ import {} from 'jasmine';
 npm install webpack@latest
 
 ---------------------------------------------------------------------------------------------     
+Unexpected directive '' imported by the module 'DynamicTestModule'. Please add a @NgModule annotation
+
+https://stackoverflow.com/questions/43603515/uncaught-error-unexpected-directive-mycombobox-imported-by-the-module-appmod
+
+This error frequently comes up when we are not importing, providing, or declaring the angular modules, services, components properly.
+
+Make sure that we should only
+
+import modules and not the components or services
+declare components and not the modules or services.
+provide services and not components or modules.
+
+Declare correctly in TestBed
+---------------------------------------------------------------------------------------------     

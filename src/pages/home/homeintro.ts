@@ -1,8 +1,8 @@
-import introJs from '../../../node_modules/intro.js/intro.js';
+import introJs from 'intro.js'
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class Intro {
+export class HomeIntro {
     static options = {
         steps: [
             {
@@ -52,7 +52,7 @@ export class Intro {
     start() {
         setTimeout(() => {
             const intro = introJs.introJs();
-            intro.setOptions(Intro.options);
+            intro.setOptions(HomeIntro.options);
             intro.start();
         }, 1000);
     }
