@@ -153,3 +153,16 @@ provide services and not components or modules.
 
 Declare correctly in TestBed
 ---------------------------------------------------------------------------------------------     
+> ionic build --aot
+
+[12:09:09]  typescript error
+            ion-prism/index.ts(4,2): Error during template compile of 'IonPrismDirective' Function expressions are not
+            supported in decorators in 'Directive' 'Directive' contains the error at @angular/core/core.ts(404,32)
+            Consider changing the function expression into an exported function.
+
+Error: The Angular AoT build failed. See the issues above
+    at F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:237:55
+    at step (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:32:23)
+    at Object.next (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:13:53)
+    at fulfilled (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:4:58)
+---------------------------------------------------------------------------------------------   

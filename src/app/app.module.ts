@@ -12,7 +12,6 @@ import { PopoverPage } from '../components/popover/popover';
 
 import { AboutPage } from '../pages/about/about';
 
-import { IonPrismDirective } from 'ion-prism';
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
@@ -34,7 +33,6 @@ import { ShapePicker } from '../components/shape-picker/shape-picker';
         MyApp,
         Pages,
         Components,
-        IonPrismDirective,
         WordCloudComponent,
         LinkCloudComponent,
         PopoverPage,
