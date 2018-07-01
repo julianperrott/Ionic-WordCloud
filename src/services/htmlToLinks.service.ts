@@ -42,7 +42,7 @@ export class HtmlToLinksService {
                 }
                 f.href = host + f.href;
             }
-            console.log(f.href + ',' + f.text);
+            // console.log(f.href + ',' + f.text);
         });
         return host;
     }

@@ -1,10 +1,4 @@
-import {
-    Component,
-    ElementRef,
-    Input,
-    Renderer2,
-    ViewChild
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'expandable',
@@ -19,10 +13,6 @@ export class ExpandableComponent {
     @Input('showText') showBtnTxt = 'Show more';
     @Input('hideText') hideBtnTxt = 'Show less';
     @Input('btnColor') btnColor = 'dark';
-
-    constructor(public renderer: Renderer2) {
-        console.log('Hello ExpandableComponent Component');
-    }
 
     expand() {
         this.expanded = !this.expanded;

@@ -43,6 +43,20 @@ h3, h5, h6 {
   padding: $heading-padding $content-padding;
 }
 
+.toastDanger > .toast-wrapper {
+  background: red
+}
+
+.toastSuccess > .toast-wrapper {
+  background: green
+}
+
+.toast-wrapper{
+
+  border-radius: 12px !important;
+  text-align: center;
+}
+
 .fontFaceSelect > .action-sheet-wrapper > div > .action-sheet-group > button:nth-child(1) {font-weight: bold !important}
 
 @font-face{

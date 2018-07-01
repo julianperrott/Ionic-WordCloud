@@ -37,7 +37,7 @@ export class CommonHeaderComponent {
         public viewController: ViewController
     ) {
         configurationService.busyChanged$.subscribe(v => {
-            console.log('Busy is now ' + configurationService.busy);
+            // console.log('Busy is now ' + configurationService.busy);
             zone.run(() => {
                 this.busy = configurationService.busy;
                 this.error = configurationService.error;

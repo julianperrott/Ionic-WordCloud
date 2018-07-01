@@ -3,10 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Components } from '../components/index';
 
 import { MyApp } from './app.component';
 import { Pages } from '../pages/index';
-import { Components } from '../components/index';
 
 import { PopoverPage } from '../components/popover/popover';
 
@@ -17,6 +17,8 @@ import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
 
 import { ConfigurationService } from '../services/configuration.service';
 import { HtmlToLinksService } from '../services/htmlToLinks.service';
+import { HtmlToTextService } from '../services/htmlToText.service';
+import { WordsToCountService } from '../services/wordsToCountService';
 
 import { IonicPageModule } from 'ionic-angular';
 
@@ -57,10 +59,12 @@ import { ShapePicker } from '../components/shape-picker/shape-picker';
         SplashScreen,
         ConfigurationService,
         HtmlToLinksService,
+        HtmlToTextService,
         Screenshot,
         ScreenOrientation,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
-        ScreenshotService
+        ScreenshotService,
+        WordsToCountService
     ]
 })
 export class AppModule {}

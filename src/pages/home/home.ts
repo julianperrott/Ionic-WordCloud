@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { Content, Events } from 'ionic-angular';
+import { Content, Events, ToastController } from 'ionic-angular';
 
 import * as unfluff from 'unfluff';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { HtmlToLinksService, Link } from '../../services/htmlToLinks.service';
+import { HtmlToTextService } from '../../services/htmlToText.service';
+import { WordsToCountService } from '../../services/wordsToCountService';
 
 import { ScreenshotService } from '../../services/screenshot.service';
 
@@ -31,9 +33,12 @@ export class HomePage {
     constructor(
         private configurationService: ConfigurationService,
         private htmlToLinksService: HtmlToLinksService,
+        private htmlToTextService: HtmlToTextService,
         screenshot: ScreenshotService,
         private intro: HomeIntro,
-        events: Events
+        events: Events,
+        private toastCtrl: ToastController,
+        private wordsToCountService: WordsToCountService
     ) {
         this.links = configurationService.defaultLinks;
 
@@ -88,7 +93,7 @@ export class HomePage {
         this.sequence++;
         setTimeout(
             cn => {
-                console.log(cn);
+                // console.log(cn);
                 if (cn === this.sequence) {
                     this.refresh();
                 }
@@ -114,10 +119,11 @@ export class HomePage {
         this.configurationService.setBusy(true);
 
         const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-
         console.log('fetch: ' + this.url);
 
-        fetch(proxyurl + this.url)
+        fetch(proxyurl + this.url, {
+            mode: 'no-cors'
+        })
             .then(response => response.text(), err => this.error)
             .then(text => this.handleHtml('' + text), err => this.error)
             .catch(err => this.error);
@@ -134,13 +140,35 @@ export class HomePage {
 
     handleWordData(html: string): void {
         console.log('text length: ' + html.length);
-        const newData = unfluff(html, 'en').text;
+        let newData = unfluff(html, 'en').text;
 
-        if (newData.length === 0) {
-            console.log(html);
-            this.configurationService.setError();
-            this.data = '' + html;
-            return;
+        console.log('Data: ' + newData.length + ',' + newData);
+
+        let words = this.wordsToCountService.count('Data: ' + newData);
+        console.log('distinct words: ' + words.length);
+
+        if (words.length < 70) {
+            newData = this.htmlToTextService.parseHtml(html);
+            words = this.wordsToCountService.count(newData);
+
+            this.toastCtrl
+                .create({
+                    message:
+                        'Using all ' + words.length + ' words on the page.',
+                    duration: 10000,
+                    position: 'bottom',
+                    cssClass: 'toastSuccess'
+                })
+                .present();
+        } else {
+            this.toastCtrl
+                .create({
+                    message: 'Using article of ' + words.length + ' words.',
+                    duration: 10000,
+                    position: 'bottom',
+                    cssClass: 'toastSuccess'
+                })
+                .present();
         }
 
         if (this.data === newData) {

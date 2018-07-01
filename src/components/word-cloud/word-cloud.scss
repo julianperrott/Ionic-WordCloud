@@ -19,3 +19,10 @@
     border-radius: 20px;
     background-color: map-get($colors, primary);
   }
+
+.behind{
+  position: absolute;
+  left: 0;
+    top: 55px;
+    z-index: -10;
+}

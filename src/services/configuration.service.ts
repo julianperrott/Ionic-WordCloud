@@ -75,7 +75,7 @@ export class ConfigurationService {
         return this.busy;
     }
     setBusy(state: boolean): void {
-        console.log('busy ' + state);
+        // console.log('busy ' + state);
         this.busy = state;
         this.configurationBusySource.next(name);
     }

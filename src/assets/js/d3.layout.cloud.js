@@ -88,12 +88,12 @@
             };
 
             cloud.start = function(shape) {
-              var maxSide = size[0] >size[1]?size[0]:size[1];
+              var maxSide = size[0] > size[1] ? size[0] : size[1];
               ch = 1 << 10;
-              while(ch>maxSide){
-                ch=ch>>1;
+              while (ch > maxSide) {
+                ch = ch >> 1;
               }
-              cw = ch>>5;
+              cw = ch >> 5;
               //alert(cw+","+ch);
 
               cloud.cancelled = false;
@@ -128,6 +128,10 @@
 
               function drawMask(src) {
                 var myCanvas = document.createElement('canvas');
+                myCanvas.className = 'behind';
+
+                document.getElementById('word-cloud').appendChild(myCanvas);
+
                 var width = size[0];
                 var height = size[1];
 
@@ -198,15 +202,15 @@
                   if (!placedx) {
                     //alert('Failed to place: ' + d.text+" "+i);
 
-                    if (localFailures % 5 == 0) {
-                      //d.size = d.size * 0.8;
+                    if (localFailures % 10 == 0) {
+                      d.size = d.size * 0.7;
                       //console.log('shrinking' + d.text+" "+i);
-                      //delete d.sprite;
+                      delete d.sprite;
                     }
 
                     i--;
                     localFailures++;
-                    if (d.size < 1 || d.isPadding || localFailures>20) {
+                    if (d.isPadding || localFailures > 20) {
                       if (d.size < 1) {
                         //alert('Failed to place: ' + d.text+" "+i);
                         console.log('Failed to place: ' + d.text + ' ' + i);
@@ -217,7 +221,7 @@
                       i++;
                       wordFailures++;
 
-                      if (wordFailures > 50) {
+                      if (wordFailures > 500) {
                         i = n;
                       }
                     }

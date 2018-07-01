@@ -117,7 +117,7 @@ export class ColorPicker {
 
         const pixelRatio = this.getPixelRatio(this.ctxPalette);
 
-        console.log(pixelRatio);
+        // console.log(pixelRatio);
 
         const width = (currentWidth * 90) / 100;
         const height = width * 0.3;
@@ -342,9 +342,7 @@ export class ColorPicker {
         const red = imageData.data[0];
         const green = imageData.data[1];
         const blue = imageData.data[2];
-        console.log(
-            '#' + this.toHex(red) + this.toHex(green) + this.toHex(blue)
-        );
+        // console.log('#' + this.toHex(red) + this.toHex(green) + this.toHex(blue));
         return '#' + this.toHex(red) + this.toHex(green) + this.toHex(blue);
     }
 

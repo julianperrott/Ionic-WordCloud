@@ -9,8 +9,4 @@ export class AboutPage {
     busy = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad AboutPage');
-    }
 }

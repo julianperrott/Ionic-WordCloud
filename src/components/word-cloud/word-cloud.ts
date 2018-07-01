@@ -1,8 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Platform, ToastController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService } from '../../services/configuration.service';
 import { NgZone } from '@angular/core';
+import { WordsToCountService } from '../../services/wordsToCountService';
 
 import * as D3 from 'd3';
 
@@ -18,6 +19,7 @@ export class WordCloudComponent implements OnChanges {
     data = [];
     words = '';
     d3cloud: any;
+    shape;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -37,8 +39,8 @@ export class WordCloudComponent implements OnChanges {
         private configurationService: ConfigurationService,
         private splashScreen: SplashScreen,
         platform: Platform,
-        private toastCtrl: ToastController,
-        private zone: NgZone
+        private zone: NgZone,
+        private wordsToCountService: WordsToCountService
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -80,63 +82,6 @@ export class WordCloudComponent implements OnChanges {
         link.click();
     }
 
-    countWords(ignoreWords: string[], minWordLength: number): any {
-        const counts = this.wordData
-            .split(/[&\r\n'’"“”:;() ,.]+/)
-            .map(word => word.toLowerCase().trim())
-            .filter(
-                word =>
-                    ignoreWords.indexOf(word) === -1 &&
-                    word.length >= minWordLength
-            )
-            .reduce((count, word) => {
-                count[word] = count.hasOwnProperty(word) ? count[word] + 1 : 1;
-                return count;
-            }, {});
-
-        const items = Object.keys(counts)
-            .map(key => {
-                return {
-                    text: key,
-                    size: counts[key]
-                };
-            })
-            .sort((a, b) => (a.size === b.size ? 0 : a.size > b.size ? -1 : 1));
-
-        if (ignoreWords.length > 0) {
-            this.toastCtrl
-                .create({
-                    message: 'Distinct words found: ' + items.length,
-                    duration: 3000,
-                    position: 'bottom'
-                })
-                .present();
-        }
-
-        if (this.configurationService.countStyle === 'BANDING') {
-            const wordSizes = [24, 18, 15, 10, 8, 6, 4, 3, 2];
-            const capacity = [1, 2, 4, 8, 16, 32, 64, 128];
-
-            let itemsInBand = 0;
-            let band = 0;
-            const scale = 256 / items.length;
-            console.log('scale: ' + scale + ', items: ' + items.length);
-
-            items.forEach(e => {
-                if (itemsInBand >= capacity[band]) {
-                    itemsInBand = 0;
-                    band++;
-                }
-                e.size = wordSizes[band];
-                itemsInBand += scale;
-
-                // console.log(e.text + ' = ' + e.size);
-            });
-        }
-
-        return items;
-    }
-
     ngOnChanges() {
         if (this.lastdata === this.wordData) {
             this.configurationService.setBusy(false);
@@ -162,16 +107,14 @@ export class WordCloudComponent implements OnChanges {
 
         this.lastdata = this.wordData;
 
-        const ignoreWords = this.configurationService.ignoreWords.split(',');
-
-        const counts = this.countWords(ignoreWords, 3);
+        const counts = this.wordsToCountService.count(this.wordData);
 
         const scale = 12 / Math.max.apply(0, counts.map(key => key.size));
 
         const shortestAxis =
             this.width > this.height ? this.height : this.width;
 
-        console.log(this.configurationService.settings.fontScale / 100);
+        // console.log(this.configurationService.settings.fontScale / 100);
         this.data = counts
             .map(item => {
                 return {
@@ -188,22 +131,23 @@ export class WordCloudComponent implements OnChanges {
                 return a.size === b.size ? 0 : a.size > b.size ? -1 : 1;
             });
 
-        /*
-        for (let i = 0; i < 10; i++) {
+        // pad words
+        while (this.data.length < 150) {
             this.data.forEach(d => {
-                this.data.push({
-                    isPadding: true,
-                    text: '' + i + d.text,
-                    size:
-                        1 *
-                        scale *
-                        (shortestAxis /
-                            this.configurationService.settings.fontScale),
-                    color: d.color
-                });
+                if (this.data.length < 150) {
+                    this.data.push({
+                        isPadding: true,
+                        text: d.text,
+                        size:
+                            1 *
+                            scale *
+                            (shortestAxis /
+                                this.configurationService.settings.fontScale),
+                        color: d.color
+                    });
+                }
             });
         }
-        */
 
         this.words = this.data
             .map(function(v) {
@@ -271,6 +215,8 @@ export class WordCloudComponent implements OnChanges {
 
         this.addSVGFilter();
 
+        this.drawShape();
+
         this.data.forEach(d => (d.drawn = false));
 
         let cache = [];
@@ -281,7 +227,7 @@ export class WordCloudComponent implements OnChanges {
 
         this.progress = 0;
 
-        const startTime = performance.now();
+        let startTime = performance.now();
 
         this.d3cloud
             .size([this.width, this.height])
@@ -298,23 +244,31 @@ export class WordCloudComponent implements OnChanges {
                     const newProgress = Math.floor(
                         (i * 100) / this.data.length
                     );
-                    if (newProgress > this.progress) {
-                        this.zone.run(() => {
-                            this.progress = newProgress;
-                        });
-                    }
 
                     if (c) {
-                        // console.log('word: ' + c.text + ',' + c.x + ',' + c.y);
                         if (c.x !== undefined && c.y !== undefined) {
                             cache.push(c);
                         }
-                        if (cache.length === 20) {
-                            this.zone.run(() => {
-                                this.drawWordCloud(cache);
-                                cache = [];
-                            });
-                        }
+                    }
+
+                    const refreshSeconds = 1;
+                    const refreshNow =
+                        performance.now() - startTime > refreshSeconds * 1000 ||
+                        newProgress - this.progress > 5;
+
+                    // refresh if more than n seconds have elapsed
+                    if (refreshNow) {
+                        const cacheCopy = cache;
+                        cache = [];
+
+                        this.zone.run(() => {
+                            this.progress = newProgress;
+                            if (cacheCopy.length > 0) {
+                                this.drawWordCloud(cacheCopy);
+                            }
+                        });
+
+                        startTime = performance.now();
                     }
 
                     c.drawn = true;
@@ -322,9 +276,7 @@ export class WordCloudComponent implements OnChanges {
             })
             .on('end', () => {
                 if (!this.d3cloud.cancelled) {
-                    console.log(
-                        'Duration: ' + (performance.now() - startTime) / 1000
-                    );
+                    // console.log('Duration: ' + (performance.now() - startTime) / 1000);
                     this.progress = 100;
 
                     const todo = this.data.filter(
@@ -348,6 +300,78 @@ export class WordCloudComponent implements OnChanges {
                 }
             })
             .start(this.configurationService.shape);
+    }
+
+    private drawShape() {
+        if (this.configurationService.shape) {
+            const src =
+                './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg';
+            const myCanvas = document.createElement('canvas');
+            document.getElementById('word-cloud').appendChild(myCanvas);
+
+            myCanvas.width = this.width;
+            myCanvas.height = this.height;
+
+            const ctx = myCanvas.getContext('2d');
+
+            const img = new Image();
+            img.onload = () => {
+                alert('loaded');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, this.width, this.height);
+
+                if (myCanvas.width > myCanvas.height) {
+                    ctx.drawImage(
+                        img,
+                        (myCanvas.width - myCanvas.height) / 2,
+                        0
+                    );
+                } else {
+                    ctx.drawImage(
+                        img,
+                        0,
+                        (myCanvas.height - myCanvas.width) / 2
+                    );
+                }
+            };
+            img.src = src;
+        }
+    }
+
+    private drawShape2() {
+        if (this.configurationService.shape) {
+            const request = new XMLHttpRequest();
+            request.open(
+                'GET',
+                './assets/vendor/fontawesome/svgs/solid/' +
+                    this.configurationService.shape +
+                    '.svg'
+            );
+            request.setRequestHeader('Content-Type', 'image/svg+xml');
+
+            request.addEventListener('load', (event: ProgressEvent) => {
+                const response = (<XMLHttpRequest>event.target).responseText;
+                this.shape = response
+                    .replace('<path ', '<path fill="red" ')
+                    .replace(
+                        '<svg ',
+                        '<svg class="behind" width="' +
+                            this.width +
+                            '" height="' +
+                            (this.height - 30) +
+                            '" '
+                    );
+                const domParser = new DOMParser();
+                const doc = domParser.parseFromString(
+                    this.shape,
+                    'image/svg+xml'
+                );
+                const svg = doc.getElementsByTagName('svg')[0];
+
+                document.getElementById('word-cloud').appendChild(svg);
+            });
+            request.send();
+        }
     }
 
     private addSVGFilter() {
