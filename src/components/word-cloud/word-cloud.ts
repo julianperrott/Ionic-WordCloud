@@ -20,6 +20,8 @@ export class WordCloudComponent implements OnChanges {
     words = '';
     d3cloud: any;
     shape;
+    w;
+    h;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -187,18 +189,21 @@ export class WordCloudComponent implements OnChanges {
                 .remove();
         }
 
+        this.w = this.width - this.margin.left - this.margin.right;
+        this.h = this.height - this.margin.top - this.margin.bottom;
+
         this.svg = D3.select('div.word-cloud')
             .append('svg')
             .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .attr('width', this.width - this.margin.left - this.margin.right)
-            .attr('height', this.height - this.margin.top - this.margin.bottom)
+            .attr('width', this.w)
+            .attr('height',this.h )
             .append('g')
             .attr(
                 'transform',
                 'translate(' +
-                    ~~(this.width / 2) +
+                    ~~(this.w / 2) +
                     ',' +
-                    ~~(this.height / 2) +
+                    ~~(this.h / 2) +
                     ')'
             );
     }
@@ -215,8 +220,6 @@ export class WordCloudComponent implements OnChanges {
 
         this.addSVGFilter();
 
-        this.drawShape();
-
         this.data.forEach(d => (d.drawn = false));
 
         let cache = [];
@@ -230,7 +233,7 @@ export class WordCloudComponent implements OnChanges {
         let startTime = performance.now();
 
         this.d3cloud
-            .size([this.width, this.height])
+            .size([this.w, this.h])
             .words(this.data)
 
             .padding(2)
@@ -300,78 +303,6 @@ export class WordCloudComponent implements OnChanges {
                 }
             })
             .start(this.configurationService.shape);
-    }
-
-    private drawShape() {
-        if (this.configurationService.shape) {
-            const src =
-                './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg';
-            const myCanvas = document.createElement('canvas');
-            document.getElementById('word-cloud').appendChild(myCanvas);
-
-            myCanvas.width = this.width;
-            myCanvas.height = this.height;
-
-            const ctx = myCanvas.getContext('2d');
-
-            const img = new Image();
-            img.onload = () => {
-                alert('loaded');
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, this.width, this.height);
-
-                if (myCanvas.width > myCanvas.height) {
-                    ctx.drawImage(
-                        img,
-                        (myCanvas.width - myCanvas.height) / 2,
-                        0
-                    );
-                } else {
-                    ctx.drawImage(
-                        img,
-                        0,
-                        (myCanvas.height - myCanvas.width) / 2
-                    );
-                }
-            };
-            img.src = src;
-        }
-    }
-
-    private drawShape2() {
-        if (this.configurationService.shape) {
-            const request = new XMLHttpRequest();
-            request.open(
-                'GET',
-                './assets/vendor/fontawesome/svgs/solid/' +
-                    this.configurationService.shape +
-                    '.svg'
-            );
-            request.setRequestHeader('Content-Type', 'image/svg+xml');
-
-            request.addEventListener('load', (event: ProgressEvent) => {
-                const response = (<XMLHttpRequest>event.target).responseText;
-                this.shape = response
-                    .replace('<path ', '<path fill="red" ')
-                    .replace(
-                        '<svg ',
-                        '<svg class="behind" width="' +
-                            this.width +
-                            '" height="' +
-                            (this.height - 30) +
-                            '" '
-                    );
-                const domParser = new DOMParser();
-                const doc = domParser.parseFromString(
-                    this.shape,
-                    'image/svg+xml'
-                );
-                const svg = doc.getElementsByTagName('svg')[0];
-
-                document.getElementById('word-cloud').appendChild(svg);
-            });
-            request.send();
-        }
     }
 
     private addSVGFilter() {

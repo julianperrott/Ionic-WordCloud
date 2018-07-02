@@ -140,6 +140,7 @@
                 var ctx = myCanvas.getContext('2d');
 
                 var img = new Image();
+
                 img.onload = function() {
                   ctx.fillStyle = '#FFFFFF';
                   ctx.fillRect(0, 0, width, height);
@@ -162,25 +163,43 @@
 
                   var boardWidth = width >> 5; // divide by 32
 
+                  ctx.fillStyle = "rgba(255,0,0,128)";
+
                   for (var xx = 0; xx < width; xx++) {
                     // columns
                     for (var yy = 0; yy < height; yy++) {
                       var red = pixels2[(width * yy + xx) * 4];
                       var green = pixels2[(width * yy + xx) * 4 + 1];
                       var blue = pixels2[(width * yy + xx) * 4 + 2];
-                      var alpha = pixels2[(width * yy + xx) * 4 + 3];
 
                       var isSet = red + green + blue > 0;
 
                       if (isSet) {
                         board[yy * boardWidth + (xx >> 5)] = 0xffffffff;
+
+                        //ctx.fillStyle = "rgba(255,0,0,128)";
+                        //ctx.fillRect(  (xx >> 5)<<5, yy, 32, 1 );
+
+                        //ctx.fillStyle = "rgba(0,255,0,128)";
+                        //ctx.fillRect(  (xx >> 5)<<5, yy, 1, 1 );
+
                       }
                     }
                   }
 
                   step();
                 };
-                img.src = src;
+                
+
+                var request = new XMLHttpRequest();
+                request.open('GET',src);
+                request.setRequestHeader('Content-Type', 'image/svg+xml');
+                request.addEventListener('load', function (event) {
+                    var response = event.target.responseText;
+                    var svgshape = response.replace('<path ', '<path fill="black" ');
+                    img.src = "data:image/svg+xml;charset=utf-8,"+svgshape;
+                });
+                request.send();
               }
 
               async function step() {
