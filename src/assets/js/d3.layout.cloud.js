@@ -117,9 +117,7 @@
                 });
 
               if (shape.length > 0) {
-                drawMask(
-                  './assets/vendor/fontawesome/svgs/solid/' + shape + '.svg'
-                );
+                drawMask('./assets/vendor/fontawesome/svgs/solid/' + shape + '.svg');
               } else {
                 step();
               }
@@ -128,81 +126,94 @@
 
               function drawMask(src) {
                 var myCanvas = document.createElement('canvas');
-                myCanvas.className = 'behind';
+                // myCanvas.className = 'behind';
 
-                document.getElementById('word-cloud').appendChild(myCanvas);
+                //document.getElementById('word-cloud').appendChild(myCanvas);
 
-                var width = size[0];
-                var height = size[1];
-
-                myCanvas.width = width;
-                myCanvas.height = height;
+                myCanvas.width = size[0];
+                myCanvas.height = size[1];
                 var ctx = myCanvas.getContext('2d');
 
                 var img = new Image();
 
                 img.onload = function() {
+                  // make the background white
                   ctx.fillStyle = '#FFFFFF';
-                  ctx.fillRect(0, 0, width, height);
+                  ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 
-                  if (myCanvas.width > myCanvas.height) {
-                    ctx.drawImage(
-                      img,
-                      (myCanvas.width - myCanvas.height) / 2,
-                      0
-                    );
-                  } else {
-                    ctx.drawImage(
-                      img,
-                      0,
-                      (myCanvas.height - myCanvas.width) / 2
-                    );
-                  }
+                  // shape is drawn in black
+                  drawImage(myCanvas, img);
 
-                  var pixels2 = ctx.getImageData(0, 0, width, height).data;
+                  // get data
+                  var pixels2 = ctx.getImageData(0, 0, myCanvas.width, myCanvas.height).data;
 
-                  var boardWidth = width >> 5; // divide by 32
-
-                  ctx.fillStyle = "rgba(255,0,0,128)";
-
-                  for (var yy = 0; yy < height; yy++) {
-                  for (var xx = 0; xx < width; xx++) {
-                    // columns
-     
-                      var red = pixels2[(width * yy + xx) * 4];
-                      var green = pixels2[(width * yy + xx) * 4 + 1];
-                      var blue = pixels2[(width * yy + xx) * 4 + 2];
-
+                  // mask the board
+                  var boardWidth = myCanvas.width >> 5; // divide by 32
+                  for (var yy = 0; yy < myCanvas.height; yy++) {
+                    for (var xx = 0; xx < myCanvas.width; xx++) {
+                      var red = pixels2[(myCanvas.width * yy + xx) * 4];
+                      var green = pixels2[(myCanvas.width * yy + xx) * 4 + 1];
+                      var blue = pixels2[(myCanvas.width * yy + xx) * 4 + 2];
                       var isSet = red + green + blue > 0;
 
                       if (isSet) {
-                        var bit = (xx- ((xx >> 5) << 5))>>1;
-                        var val = 0x8000>>bit;
-                        //alert(bit+"-"+val.toString(2)+" "+val.toString(2).length);
-                        board[yy * boardWidth + (xx >> 5)] = board[yy * boardWidth + (xx >> 5)] | val;
-
-                        //ctx.fillStyle = "rgba(255,0,0,128)";
-                        //ctx.fillRect(  (xx >> 5)<<5, yy, 32, 1 );
-
-                        //ctx.fillStyle = "rgba(0,255,0,128)";
-                        //ctx.fillRect(  (xx >> 5)<<5, yy, 1, 1 );
-
+                        var bit = xx - ((xx >> 5) << 5);
+                        var val = 1 << (31 - bit);
+                        var boardLoc = yy * boardWidth + (xx >> 5);
+                        board[boardLoc] = board[boardLoc] | val;
                       }
                     }
                   }
-
                   step();
                 };
-                
 
+                img.src = src;
+
+                drawBackground(src);
+              }
+
+              function drawImage(myCanvas, img) {
+                var ctx = myCanvas.getContext('2d');
+                // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+                if (myCanvas.width > myCanvas.height) {
+                  var padding = 1; //Math.floor(myCanvas.height * 0.1);
+                  ctx.drawImage(img, (myCanvas.width - myCanvas.height) / 2 - padding, padding, myCanvas.height - padding - padding, myCanvas.height - padding - padding);
+                } else {
+                  var padding = 1; // Math.floor(myCanvas.width * 0.1);
+                  ctx.drawImage(img, padding, (myCanvas.height - myCanvas.width) / 2 - padding, myCanvas.width - padding - padding, myCanvas.width - padding - padding);
+                }
+              }
+
+              function drawBackground(src) {
+                //remove old image canvas
+                var lastCanvas = document.getElementById('backgroundCanvas');
+                if (lastCanvas) {
+                  lastCanvas.remove();
+                }
+
+                // create a new image canvas
+                var myCanvas = document.createElement('canvas');
+                myCanvas.className = 'behind';
+                myCanvas.id = 'backgroundCanvas';
+                document.getElementById('word-cloud').appendChild(myCanvas);
+                myCanvas.width = size[0];
+                myCanvas.height = size[1];
+
+                // create the image
+                var img = new Image();
+                img.onload = function() {
+                  drawImage(myCanvas, img);
+                };
+
+                // read svg file and set colour
                 var request = new XMLHttpRequest();
-                request.open('GET',src);
-                request.setRequestHeader('Content-Type', 'image/svg+xml');
-                request.addEventListener('load', function (event) {
-                    var response = event.target.responseText;
-                    var svgshape = response.replace('<path ', '<path fill="black" ');
-                    img.src = "data:image/svg+xml;charset=utf-8,"+svgshape;
+                request.addEventListener('load', function(event) {
+                  var response = event.target.responseText;
+                  var svgshape = response.replace('<path ', '<path fill="#200000" ');
+                  img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
                 });
+                request.open('GET', src);
+                request.setRequestHeader('Content-Type', 'image/svg+xml');
                 request.send();
               }
 
@@ -254,11 +265,7 @@
                     tags.push(d);
                     //console.log('placed ' + d.text);
                     if (bounds) cloudBounds(bounds, d);
-                    else
-                      bounds = [
-                        { x: d.x + d.x0, y: d.y + d.y0 },
-                        { x: d.x + d.x1, y: d.y + d.y1 }
-                      ];
+                    else bounds = [{ x: d.x + d.x0, y: d.y + d.y0 }, { x: d.x + d.x1, y: d.y + d.y1 }];
                     // Temporary hack
                     d.x -= size[0] >> 1;
                     d.y -= size[1] >> 1;
@@ -282,10 +289,7 @@
 
             function getContext(canvas) {
               canvas.width = canvas.height = 1;
-              var ratio = Math.sqrt(
-                canvas.getContext('2d').getImageData(0, 0, 1, 1).data.length >>
-                  2
-              );
+              var ratio = Math.sqrt(canvas.getContext('2d').getImageData(0, 0, 1, 1).data.length >> 2);
               canvas.width = (cw << 5) / ratio;
               canvas.height = ch / ratio;
 
@@ -317,18 +321,9 @@
                 tag.x = startX + dx;
                 tag.y = startY + dy;
 
-                if (
-                  tag.x + tag.x0 < 0 ||
-                  tag.y + tag.y0 < 0 ||
-                  tag.x + tag.x1 > size[0] ||
-                  tag.y + tag.y1 > size[1]
-                )
-                  continue;
+                if (tag.x + tag.x0 < 0 || tag.y + tag.y0 < 0 || tag.x + tag.x1 > size[0] || tag.y + tag.y1 > size[1]) continue;
                 // TODO only check for collisions within current bounds.
-                if (
-                  !cloudCollide(tag, board, size[0], 10) &&
-                  !cloudCollide(tag, board, size[0], 1)
-                ) {
+                if (!cloudCollide(tag, board, size[0], 10) && !cloudCollide(tag, board, size[0], 1)) {
                   if (!bounds || collideRects(tag, bounds)) {
                     fillBoard(board, tag);
                     delete tag.sprite;
@@ -368,9 +363,7 @@
               for (var j = 0; j < h; j++) {
                 last = 0;
                 for (var i = 0; i <= w; i++) {
-                  board[x + i] |=
-                    (last << msx) |
-                    (i < w ? (last = sprite[j * w + i]) >>> sx : 0);
+                  board[x + i] |= (last << msx) | (i < w ? (last = sprite[j * w + i]) >>> sx : 0);
                 }
                 x += sw;
               }
@@ -389,15 +382,11 @@
             };
 
             cloud.fontStyle = function(_) {
-              return arguments.length
-                ? ((fontStyle = functor(_)), cloud)
-                : fontStyle;
+              return arguments.length ? ((fontStyle = functor(_)), cloud) : fontStyle;
             };
 
             cloud.fontWeight = function(_) {
-              return arguments.length
-                ? ((fontWeight = functor(_)), cloud)
-                : fontWeight;
+              return arguments.length ? ((fontWeight = functor(_)), cloud) : fontWeight;
             };
 
             cloud.rotate = function(_) {
@@ -409,21 +398,15 @@
             };
 
             cloud.spiral = function(_) {
-              return arguments.length
-                ? ((spiral = spirals[_] || _), cloud)
-                : spiral;
+              return arguments.length ? ((spiral = spirals[_] || _), cloud) : spiral;
             };
 
             cloud.fontSize = function(_) {
-              return arguments.length
-                ? ((fontSize = functor(_)), cloud)
-                : fontSize;
+              return arguments.length ? ((fontSize = functor(_)), cloud) : fontSize;
             };
 
             cloud.padding = function(_) {
-              return arguments.length
-                ? ((padding = functor(_)), cloud)
-                : padding;
+              return arguments.length ? ((padding = functor(_)), cloud) : padding;
             };
 
             cloud.random = function(_) {
@@ -478,14 +461,7 @@
             while (++di < n) {
               d = data[di];
               c.save();
-              c.font =
-                d.style +
-                ' ' +
-                d.weight +
-                ' ' +
-                ~~((d.size + 1) / ratio) +
-                'px ' +
-                d.font;
+              c.font = d.style + ' ' + d.weight + ' ' + ~~((d.size + 1) / ratio) + 'px ' + d.font;
               var w = c.measureText(d.text + 'm').width * ratio,
                 h = d.size << 1;
               if (d.rotate) {
@@ -495,11 +471,7 @@
                   wsr = w * sr,
                   hcr = h * cr,
                   hsr = h * sr;
-                w =
-                  ((Math.max(Math.abs(wcr + hsr), Math.abs(wcr - hsr)) +
-                    0x1f) >>
-                    5) <<
-                  5;
+                w = ((Math.max(Math.abs(wcr + hsr), Math.abs(wcr - hsr)) + 0x1f) >> 5) << 5;
                 h = ~~Math.max(Math.abs(wsr + hcr), Math.abs(wsr - hcr));
               } else {
                 w = ((w + 0x1f) >> 5) << 5;
@@ -514,8 +486,7 @@
               c.translate((x + (w >> 1)) / ratio, (y + (h >> 1)) / ratio);
               if (d.rotate) c.rotate(d.rotate * cloudRadians);
               c.fillText(d.text, 0, 0);
-              if (d.padding)
-                (c.lineWidth = 2 * d.padding), c.strokeText(d.text, 0, 0);
+              if (d.padding) (c.lineWidth = 2 * d.padding), c.strokeText(d.text, 0, 0);
               c.restore();
               d.width = w;
               d.height = h;
@@ -528,8 +499,7 @@
               d.hasText = true;
               x += w;
             }
-            var pixels = c.getImageData(0, 0, (cw << 5) / ratio, ch / ratio)
-                .data,
+            var pixels = c.getImageData(0, 0, (cw << 5) / ratio, ch / ratio).data,
               sprite = [];
             while (--di >= 0) {
               d = data[di];
@@ -547,9 +517,7 @@
               for (var j = 0; j < h; j++) {
                 for (var i = 0; i < w; i++) {
                   var k = w32 * j + (i >> 5),
-                    m = pixels[((y + j) * (cw << 5) + (x + i)) << 2]
-                      ? 1 << (31 - (i % 32))
-                      : 0;
+                    m = pixels[((y + j) * (cw << 5) + (x + i)) << 2] ? 1 << (31 - (i % 32)) : 0;
                   sprite[k] |= m;
                   seen |= m;
                 }
@@ -580,12 +548,7 @@
             for (var j = 0; j < h; j += step) {
               last = 0;
               for (var i = 0; i <= w; i++) {
-                if (
-                  ((last << msx) |
-                    (i < w ? (last = sprite[j * w + i]) >>> sx : 0)) &
-                  board[x + i]
-                )
-                  return true;
+                if (((last << msx) | (i < w ? (last = sprite[j * w + i]) >>> sx : 0)) & board[x + i]) return true;
               }
               x += sw;
             }
@@ -602,12 +565,7 @@
           }
 
           function collideRects(a, b) {
-            return (
-              a.x + a.x1 > b[0].x &&
-              a.x + a.x0 < b[1].x &&
-              a.y + a.y1 > b[0].y &&
-              a.y + a.y0 < b[1].y
-            );
+            return a.x + a.x1 > b[0].x && a.x + a.x0 < b[1].x && a.y + a.y1 > b[0].y && a.y + a.y0 < b[1].y;
           }
 
           function archimedeanSpiral(size) {
@@ -686,8 +644,7 @@
 
             function dispatch() {
               for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
-                if (!(t = arguments[i] + '') || t in _)
-                  throw new Error('illegal type: ' + t);
+                if (!(t = arguments[i] + '') || t in _) throw new Error('illegal type: ' + t);
                 _[t] = [];
               }
               return new Dispatch(_);
@@ -705,8 +662,7 @@
                   var name = '',
                     i = t.indexOf('.');
                   if (i >= 0) (name = t.slice(i + 1)), (t = t.slice(0, i));
-                  if (t && !types.hasOwnProperty(t))
-                    throw new Error('unknown type: ' + t);
+                  if (t && !types.hasOwnProperty(t)) throw new Error('unknown type: ' + t);
                   return { type: t, name: name };
                 });
             }
@@ -722,24 +678,16 @@
 
                 // If no callback was specified, return the callback of the given type and name.
                 if (arguments.length < 2) {
-                  while (++i < n)
-                    if (
-                      (t = (typename = T[i]).type) &&
-                      (t = get(_[t], typename.name))
-                    )
-                      return t;
+                  while (++i < n) if ((t = (typename = T[i]).type) && (t = get(_[t], typename.name))) return t;
                   return;
                 }
 
                 // If a type was specified, set the callback for the given type and name.
                 // Otherwise, if a null callback was specified, remove callbacks of the given name.
-                if (callback != null && typeof callback !== 'function')
-                  throw new Error('invalid callback: ' + callback);
+                if (callback != null && typeof callback !== 'function') throw new Error('invalid callback: ' + callback);
                 while (++i < n) {
-                  if ((t = (typename = T[i]).type))
-                    _[t] = set(_[t], typename.name, callback);
-                  else if (callback == null)
-                    for (t in _) _[t] = set(_[t], typename.name, null);
+                  if ((t = (typename = T[i]).type)) _[t] = set(_[t], typename.name, callback);
+                  else if (callback == null) for (t in _) _[t] = set(_[t], typename.name, null);
                 }
 
                 return this;
@@ -751,19 +699,13 @@
                 return new Dispatch(copy);
               },
               call: function(type, that) {
-                if ((n = arguments.length - 2) > 0)
-                  for (var args = new Array(n), i = 0, n, t; i < n; ++i)
-                    args[i] = arguments[i + 2];
-                if (!this._.hasOwnProperty(type))
-                  throw new Error('unknown type: ' + type);
-                for (t = this._[type], i = 0, n = t.length; i < n; ++i)
-                  t[i].value.apply(that, args);
+                if ((n = arguments.length - 2) > 0) for (var args = new Array(n), i = 0, n, t; i < n; ++i) args[i] = arguments[i + 2];
+                if (!this._.hasOwnProperty(type)) throw new Error('unknown type: ' + type);
+                for (t = this._[type], i = 0, n = t.length; i < n; ++i) t[i].value.apply(that, args);
               },
               apply: function(type, that, args) {
-                if (!this._.hasOwnProperty(type))
-                  throw new Error('unknown type: ' + type);
-                for (var t = this._[type], i = 0, n = t.length; i < n; ++i)
-                  t[i].value.apply(that, args);
+                if (!this._.hasOwnProperty(type)) throw new Error('unknown type: ' + type);
+                for (var t = this._[type], i = 0, n = t.length; i < n; ++i) t[i].value.apply(that, args);
               }
             };
 
@@ -778,8 +720,7 @@
             function set(type, name, callback) {
               for (var i = 0, n = type.length; i < n; ++i) {
                 if (type[i].name === name) {
-                  (type[i] = noop),
-                    (type = type.slice(0, i).concat(type.slice(i + 1)));
+                  (type[i] = noop), (type = type.slice(0, i).concat(type.slice(i + 1)));
                   break;
                 }
               }
