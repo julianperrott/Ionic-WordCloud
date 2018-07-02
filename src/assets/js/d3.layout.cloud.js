@@ -176,11 +176,9 @@
                 var ctx = myCanvas.getContext('2d');
                 // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
                 if (myCanvas.width > myCanvas.height) {
-                  var padding = 1; //Math.floor(myCanvas.height * 0.1);
-                  ctx.drawImage(img, (myCanvas.width - myCanvas.height) / 2 - padding, padding, myCanvas.height - padding - padding, myCanvas.height - padding - padding);
+                  ctx.drawImage(img, (myCanvas.width - myCanvas.height) / 2, 0);
                 } else {
-                  var padding = 1; // Math.floor(myCanvas.width * 0.1);
-                  ctx.drawImage(img, padding, (myCanvas.height - myCanvas.width) / 2 - padding, myCanvas.width - padding - padding, myCanvas.width - padding - padding);
+                  ctx.drawImage(img, 0, (myCanvas.height - myCanvas.width) / 2);
                 }
               }
 
