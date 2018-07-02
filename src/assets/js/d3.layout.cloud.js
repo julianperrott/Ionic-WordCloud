@@ -165,9 +165,10 @@
 
                   ctx.fillStyle = "rgba(255,0,0,128)";
 
+                  for (var yy = 0; yy < height; yy++) {
                   for (var xx = 0; xx < width; xx++) {
                     // columns
-                    for (var yy = 0; yy < height; yy++) {
+     
                       var red = pixels2[(width * yy + xx) * 4];
                       var green = pixels2[(width * yy + xx) * 4 + 1];
                       var blue = pixels2[(width * yy + xx) * 4 + 2];
@@ -175,7 +176,10 @@
                       var isSet = red + green + blue > 0;
 
                       if (isSet) {
-                        board[yy * boardWidth + (xx >> 5)] = 0xffffffff;
+                        var bit = (xx- ((xx >> 5) << 5))>>1;
+                        var val = 0x8000>>bit;
+                        //alert(bit+"-"+val.toString(2)+" "+val.toString(2).length);
+                        board[yy * boardWidth + (xx >> 5)] = board[yy * boardWidth + (xx >> 5)] | val;
 
                         //ctx.fillStyle = "rgba(255,0,0,128)";
                         //ctx.fillRect(  (xx >> 5)<<5, yy, 32, 1 );
