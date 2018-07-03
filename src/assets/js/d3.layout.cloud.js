@@ -77,6 +77,7 @@
               event = dispatch('word', 'end'),
               random = Math.random,
               cloud = { busy: false, cancelled: false },
+              shape = undefined;
               canvas = cloudCanvas;
 
             cloud.canvas = function(_) {
@@ -87,7 +88,7 @@
               cloud.cancelled = true;
             };
 
-            cloud.start = function(shape) {
+            cloud.start = function() {
               var maxSide = size[0] > size[1] ? size[0] : size[1];
               ch = 1 << 10;
               while (ch > maxSide) {
@@ -116,27 +117,24 @@
                   return d;
                 });
 
-              if (shape.length > 0) {
-                drawMask('./assets/vendor/fontawesome/svgs/solid/' + shape + '.svg');
+              if (shape && shape() && shape().url.length > 0) {
+                drawMask();
               } else {
                 step();
               }
 
               return cloud;
 
-              function drawMask(src) {
+              function drawMask() {
                 var myCanvas = document.createElement('canvas');
-                // myCanvas.className = 'behind';
-
-                //document.getElementById('word-cloud').appendChild(myCanvas);
-
                 myCanvas.width = size[0];
                 myCanvas.height = size[1];
-                var ctx = myCanvas.getContext('2d');
 
                 var img = new Image();
 
                 img.onload = function() {
+                  var ctx = myCanvas.getContext('2d');
+
                   // make the background white
                   ctx.fillStyle = '#FFFFFF';
                   ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
@@ -167,9 +165,11 @@
                   step();
                 };
 
-                img.src = src;
+                img.src = shape().url;
 
-                drawBackground(src);
+                if (shape().showBackground){
+                  drawBackground();
+                }
               }
 
               function drawImage(myCanvas, img) {
@@ -182,35 +182,25 @@
                 }
               }
 
-              function drawBackground(src) {
-                //remove old image canvas
-                var lastCanvas = document.getElementById('backgroundCanvas');
-                if (lastCanvas) {
-                  lastCanvas.remove();
-                }
-
-                // create a new image canvas
-                var myCanvas = document.createElement('canvas');
-                myCanvas.className = 'behind';
-                myCanvas.id = 'backgroundCanvas';
-                document.getElementById('word-cloud').appendChild(myCanvas);
-                myCanvas.width = size[0];
-                myCanvas.height = size[1];
+              function drawBackground() {
+               
+                shape().canvas.width = size[0];
+                shape().canvas.height = size[1];
 
                 // create the image
                 var img = new Image();
                 img.onload = function() {
-                  drawImage(myCanvas, img);
+                  drawImage(shape().canvas, img);
                 };
 
                 // read svg file and set colour
                 var request = new XMLHttpRequest();
                 request.addEventListener('load', function(event) {
                   var response = event.target.responseText;
-                  var svgshape = response.replace('<path ', '<path fill="#200000" ');
+                  var svgshape = response.replace('<path ', '<path fill="'+shape().backgroundColour+'" ');
                   img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
                 });
-                request.open('GET', src);
+                request.open('GET', shape().url);
                 request.setRequestHeader('Content-Type', 'image/svg+xml');
                 request.send();
               }
@@ -403,6 +393,10 @@
               return arguments.length ? ((fontSize = functor(_)), cloud) : fontSize;
             };
 
+            cloud.shape = function(_) {
+              return arguments.length ? ((shape = functor(_)), cloud) : shape;
+            };
+
             cloud.padding = function(_) {
               return arguments.length ? ((padding = functor(_)), cloud) : padding;
             };
@@ -441,6 +435,10 @@
 
           function cloudPadding() {
             return 1;
+          }
+
+          function cloudShape() {
+            return undefined;
           }
 
           // Fetches a monochrome sprite bitmap for the specified text.

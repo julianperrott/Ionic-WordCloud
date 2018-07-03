@@ -29,6 +29,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
+import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { ShapePicker } from '../components/shape-picker/shape-picker';
         PopoverPage,
         AboutPage,
         ColorPicker,
-        ShapePicker
+        ShapePicker,
+        ShapePopoverPage
     ],
     imports: [
         BrowserModule,
@@ -49,11 +51,12 @@ import { ShapePicker } from '../components/shape-picker/shape-picker';
         }),
         IonicPageModule.forChild(AboutPage),
         IonicPageModule.forChild(PopoverPage),
+        IonicPageModule.forChild(ShapePopoverPage),
         IonicPageModule.forChild(ColorPicker),
         IonicPageModule.forChild(ShapePicker)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker,ShapePopoverPage],
     providers: [
         StatusBar,
         SplashScreen,

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Content, Events, ToastController } from 'ionic-angular';
+import { Content, Events, PopoverController, ToastController } from 'ionic-angular';
 
 import * as unfluff from 'unfluff';
 
@@ -11,6 +11,8 @@ import { WordsToCountService } from '../../services/wordsToCountService';
 import { ScreenshotService } from '../../services/screenshot.service';
 
 import { HomeIntro } from './HomeIntro';
+
+import { PopoverPage } from '../../components/popover/popover';
 
 @Component({
     selector: 'page-home',
@@ -38,7 +40,8 @@ export class HomePage {
         private intro: HomeIntro,
         events: Events,
         private toastCtrl: ToastController,
-        private wordsToCountService: WordsToCountService
+        private wordsToCountService: WordsToCountService,
+        public popoverCtrl: PopoverController
     ) {
         this.links = configurationService.defaultLinks;
 
@@ -176,5 +179,9 @@ export class HomePage {
         }
 
         this.data = newData;
+    }
+
+    showMore(){
+        return this.popoverCtrl.create(PopoverPage);
     }
 }

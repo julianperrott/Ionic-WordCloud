@@ -1,0 +1,33 @@
+page-popover {
+width: 100%
+
+}
+
+@media only screen and (max-width: 500px) {
+    .icon-control {
+        display: none
+    }
+
+    .item-md {
+        padding-left: 5px !important;
+    }
+}
+
+.range-md {
+    padding: 0;
+}
+
+.mySelect{
+    max-width: 80%;
+}
+
+.popover-content{
+    width: 90%  !important;
+    max-width: 600px;
+    left: 5% !important;
+    margin-right: 20px;
+}
+
+.action-sheet-container{
+    max-width: 500px;
+}

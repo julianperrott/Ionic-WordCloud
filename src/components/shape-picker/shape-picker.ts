@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
-import { Events, NavParams, ViewController } from 'ionic-angular';
+import { Events, NavParams,PopoverController, ViewController } from 'ionic-angular';
+
+import { ShapePopoverPage } from './shapePopover/shapePopover';
 
 @Component({
     selector: 'shape-picker',
@@ -8,6 +10,39 @@ import { Events, NavParams, ViewController } from 'ionic-angular';
 })
 export class ShapePicker {
     shape: string;
+    dismissed= false;
+
+    constructor(
+        public events: Events,
+        public navParams: NavParams,
+        public viewController: ViewController,
+        public popoverCtrl: PopoverController
+    ) {
+        this.shape = this.navParams.get('shape');
+    }
+
+    select(icon) {
+        this.shape = icon;
+        this.events.publish('shapeChanged', this.shape);
+        this.ok();
+    }
+
+    ok() {
+        this.viewController.dismiss();
+    }
+
+    showMore(){
+        if (!this.dismissed){
+            this.dismissed=true;
+
+            setTimeout(() => {
+                this.viewController.dismiss();
+            }, 1000);
+
+        
+        return this.popoverCtrl.create(ShapePopoverPage);
+        }
+    }
 
     icons = [
         'address-book',
@@ -752,22 +787,4 @@ export class ShapePicker {
         'x-ray',
         'yen-sign'
     ];
-
-    constructor(
-        public events: Events,
-        public navParams: NavParams,
-        public viewController: ViewController
-    ) {
-        this.shape = this.navParams.get('shape');
-    }
-
-    select(icon) {
-        this.shape = icon;
-        this.events.publish('shapeChanged', this.shape);
-        this.ok();
-    }
-
-    ok() {
-        this.viewController.dismiss();
-    }
 }

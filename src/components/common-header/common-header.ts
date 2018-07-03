@@ -7,8 +7,6 @@ import {
     ViewController
 } from 'ionic-angular';
 
-import { PopoverPage } from '../popover/popover';
-
 import { ConfigurationService } from '../../services/configuration.service';
 import { ShapePicker } from '../shape-picker/shape-picker';
 
@@ -20,6 +18,9 @@ export class CommonHeaderComponent {
     @ViewChild('ref') refIonTitle;
     @Input() showMenuButton;
     @Input() showMoreButton;
+    @Input() showCloseButton;
+    @Input() showShapeButton;
+    @Input() showMore: Function;
 
     defaultTitle = '?';
 
@@ -70,7 +71,7 @@ export class CommonHeaderComponent {
     }
 
     presentPopover(myEvent) {
-        this.popover = this.popoverCtrl.create(PopoverPage);
+        this.popover =this.showMore();
         this.popover.present({
             ev: myEvent
         });

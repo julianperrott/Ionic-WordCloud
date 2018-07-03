@@ -19,7 +19,6 @@ export class WordCloudComponent implements OnChanges {
     data = [];
     words = '';
     d3cloud: any;
-    shape;
     w;
     h;
 
@@ -232,10 +231,26 @@ export class WordCloudComponent implements OnChanges {
 
         let startTime = performance.now();
 
+
+        const lastCanvas = document.getElementById('backgroundCanvas');
+        if (lastCanvas) {
+          lastCanvas.remove();
+        }
+
+        var shape = this.configurationService.getShape();
+
+        // create a new image canvas
+        if (shape.url.length>0 && shape.showBackground){
+            shape.canvas = document.createElement('canvas');
+            shape.canvas.className = 'behind';
+            shape.canvas.id = 'backgroundCanvas';
+            document.getElementById('word-cloud').appendChild(shape.canvas);
+        }
+
         this.d3cloud
             .size([this.w, this.h])
             .words(this.data)
-
+            .shape(()=>shape)
             .padding(2)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
             .font(this.configurationService.settings.fontFace)
@@ -302,7 +317,7 @@ export class WordCloudComponent implements OnChanges {
                     this.ngOnChanges();
                 }
             })
-            .start(this.configurationService.shape);
+            .start();
     }
 
     private addSVGFilter() {

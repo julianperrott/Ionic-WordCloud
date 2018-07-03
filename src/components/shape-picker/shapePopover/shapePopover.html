@@ -1,0 +1,29 @@
+<ion-header>
+  <common-header>Options / Actions</common-header>
+</ion-header>
+
+<ion-content>
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Background</div>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="selectBackgroundColour($event)" style="margin: 0px !important">
+                Colour
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+</ion-content>

@@ -22,6 +22,7 @@ export class ConfigurationService {
     error = false;
     url = '';
     backgroundColor = '#000000';
+    shapeBackgroundColor = '#000000';
     countStyle = 'BANDING';
     shape = '';
 
@@ -49,6 +50,15 @@ export class ConfigurationService {
             this.shape = shape;
             this.configurationChanged('');
         });
+    }
+
+    getShape(){
+        return {
+            url:  this.shape && this.shape.length>0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg': '',
+            showBackground: true,
+            backgroundColour: this.shapeBackgroundColor,
+            canvas: undefined
+        };
     }
 
     fontChanged(name: string) {
