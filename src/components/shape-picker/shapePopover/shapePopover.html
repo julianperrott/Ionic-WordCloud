@@ -1,5 +1,5 @@
 <ion-header>
-  <common-header>Options / Actions</common-header>
+  <common-header [showCloseButton]="true">Shape Options</common-header>
 </ion-header>
 
 <ion-content>
@@ -25,5 +25,11 @@
       </ion-grid>
     </div>
   </div>
+
+  <ion-item>
+      <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <ion-label style="color: #999">Background Visible</ion-label>
+    <ion-toggle [(ngModel)]="backgroundVisibility" (ionChange)="onToggleBackgroundVisibility()"></ion-toggle>
+  </ion-item>
 
 </ion-content>

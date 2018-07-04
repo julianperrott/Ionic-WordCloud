@@ -77,7 +77,7 @@
               event = dispatch('word', 'end'),
               random = Math.random,
               cloud = { busy: false, cancelled: false },
-              shape = undefined;
+              shape = cloudShape;
               canvas = cloudCanvas;
 
             cloud.canvas = function(_) {
@@ -87,6 +87,47 @@
             cloud.abort = function() {
               cloud.cancelled = true;
             };
+
+            cloud.redrawBackground = function() {
+              var shapeOb = shape();
+              if (shapeOb.url.length > 0) {
+                  cloud.drawBackground();
+              }
+            }
+
+            cloud.drawImage=function(myCanvas, img) {
+              var ctx = myCanvas.getContext('2d');
+              // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+              if (myCanvas.width > myCanvas.height) {
+                ctx.drawImage(img, (myCanvas.width - myCanvas.height) / 2, 0);
+              } else {
+                ctx.drawImage(img, 0, (myCanvas.height - myCanvas.width) / 2);
+              }
+            }
+
+            cloud.drawBackground=function() {
+
+              var shapeOb = shape();
+              shapeOb.canvas.width = size[0];
+              shapeOb.canvas.height = size[1];
+
+              // create the image
+              var img = new Image();
+              img.onload = function() {
+                cloud.drawImage(shapeOb.canvas, img);
+              };
+
+              // read svg file and set colour
+              var request = new XMLHttpRequest();
+              request.addEventListener('load', function(event) {
+                var response = event.target.responseText;
+                var svgshape = response.replace('<path ', '<path fill="'+shapeOb.backgroundColour+'" ');
+                img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
+              });
+              request.open('GET', shapeOb.url);
+              request.setRequestHeader('Content-Type', 'image/svg+xml');
+              request.send();
+            }
 
             cloud.start = function() {
               var maxSide = size[0] > size[1] ? size[0] : size[1];
@@ -117,15 +158,17 @@
                   return d;
                 });
 
-              if (shape && shape() && shape().url.length > 0) {
-                drawMask();
+              var shapeOb = shape();
+              if (shapeOb.url.length > 0) {
+                drawMask(shapeOb);
+                cloud.drawBackground();
               } else {
                 step();
               }
 
               return cloud;
 
-              function drawMask() {
+              function drawMask(shapeOb) {
                 var myCanvas = document.createElement('canvas');
                 myCanvas.width = size[0];
                 myCanvas.height = size[1];
@@ -140,7 +183,7 @@
                   ctx.fillRect(0, 0, myCanvas.width, myCanvas.height);
 
                   // shape is drawn in black
-                  drawImage(myCanvas, img);
+                  cloud.drawImage(myCanvas, img);
 
                   // get data
                   var pixels2 = ctx.getImageData(0, 0, myCanvas.width, myCanvas.height).data;
@@ -165,44 +208,7 @@
                   step();
                 };
 
-                img.src = shape().url;
-
-                if (shape().showBackground){
-                  drawBackground();
-                }
-              }
-
-              function drawImage(myCanvas, img) {
-                var ctx = myCanvas.getContext('2d');
-                // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
-                if (myCanvas.width > myCanvas.height) {
-                  ctx.drawImage(img, (myCanvas.width - myCanvas.height) / 2, 0);
-                } else {
-                  ctx.drawImage(img, 0, (myCanvas.height - myCanvas.width) / 2);
-                }
-              }
-
-              function drawBackground() {
-               
-                shape().canvas.width = size[0];
-                shape().canvas.height = size[1];
-
-                // create the image
-                var img = new Image();
-                img.onload = function() {
-                  drawImage(shape().canvas, img);
-                };
-
-                // read svg file and set colour
-                var request = new XMLHttpRequest();
-                request.addEventListener('load', function(event) {
-                  var response = event.target.responseText;
-                  var svgshape = response.replace('<path ', '<path fill="'+shape().backgroundColour+'" ');
-                  img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
-                });
-                request.open('GET', shape().url);
-                request.setRequestHeader('Content-Type', 'image/svg+xml');
-                request.send();
+                img.src = shapeOb.url;
               }
 
               async function step() {

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {
     NavController,
     NavParams,
-    Platform,
     PopoverController,
     ViewController
 } from 'ionic-angular';
@@ -17,23 +16,30 @@ import { Events } from 'ionic-angular';
 })
 export class ShapePopoverPage {
     themeChangeInProgress = false;
+    backgroundVisibility = true;
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         private configurationService: ConfigurationService,
         public popoverCtrl: PopoverController,
-        events: Events,
-        public viewController: ViewController,
-        platform: Platform
+        private events: Events,
+        public viewController: ViewController
     ) {
         events.subscribe('shapeBackgroundColour', color => {
             this.configurationService.shapeBackgroundColor = color;
         });
+
+        this.backgroundVisibility=this.configurationService.showShapeBackground;
     }
 
     update() {
         this.configurationService.configurationChanged('');
+    }
+
+    onToggleBackgroundVisibility() {
+        this.configurationService.showShapeBackground =  this.backgroundVisibility;
+        this.events.publish("shapeBackgroundVisibility", this.backgroundVisibility);
     }
 
     selectBackgroundColour(myEvent) {

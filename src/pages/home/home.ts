@@ -121,11 +121,15 @@ export class HomePage {
 
         this.configurationService.setBusy(true);
 
-        const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-        console.log('fetch: ' + this.url);
+        const proxyurl = 'https://corsproxywebwordcloud.azurewebsites.net/';
+        const corsUrl = proxyurl + this.url.replace("http://","").replace("https://","")
+        console.log('fetch: ' + corsUrl);
 
-        fetch(proxyurl + this.url, {
-            mode: 'no-cors'
+
+        fetch(corsUrl, {
+            headers: {
+                "origin": "http://www.codesin.net",
+            },
         })
             .then(response => response.text(), err => this.error)
             .then(text => this.handleHtml('' + text), err => this.error)

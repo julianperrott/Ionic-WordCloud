@@ -4,6 +4,13 @@ import { Link } from './htmlToLinks.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Events } from 'ionic-angular';
 
+export interface Shape {
+    url:  string,
+    showBackground: boolean,
+    backgroundColour: string,
+    canvas: HTMLCanvasElement
+}
+
 @Injectable()
 export class ConfigurationService {
     configurationChangeSource = new Subject<any>();
@@ -22,6 +29,7 @@ export class ConfigurationService {
     error = false;
     url = '';
     backgroundColor = '#000000';
+    showShapeBackground = true;
     shapeBackgroundColor = '#000000';
     countStyle = 'BANDING';
     shape = '';
@@ -52,10 +60,10 @@ export class ConfigurationService {
         });
     }
 
-    getShape(){
+    getShape() : Shape{
         return {
             url:  this.shape && this.shape.length>0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg': '',
-            showBackground: true,
+            showBackground: this.showShapeBackground,
             backgroundColour: this.shapeBackgroundColor,
             canvas: undefined
         };

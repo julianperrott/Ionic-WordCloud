@@ -1,7 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ConfigurationService } from '../../services/configuration.service';
+import {
+    ConfigurationService,
+    Shape
+} from '../../services/configuration.service';
 import { NgZone } from '@angular/core';
 import { WordsToCountService } from '../../services/wordsToCountService';
 
@@ -41,7 +44,8 @@ export class WordCloudComponent implements OnChanges {
         private splashScreen: SplashScreen,
         platform: Platform,
         private zone: NgZone,
-        private wordsToCountService: WordsToCountService
+        private wordsToCountService: WordsToCountService,
+        events: Events
     ) {
         platform.ready().then(() => {
             this.platformReady = true;
@@ -63,6 +67,19 @@ export class WordCloudComponent implements OnChanges {
             this.drawWordCloud(
                 this.data.filter(c => c.x !== undefined && c.y !== undefined)
             );
+        });
+
+        events.subscribe('shapeBackgroundColour', color => {
+            this.removeShapeBackground();
+            const shape = this.createShape();
+            shape.backgroundColour = color;
+            this.d3cloud.shape(() => shape).redrawBackground();
+        });
+
+        events.subscribe('shapeBackgroundVisibility', visibility => {
+            document.getElementById('backgroundCanvas').classList.remove('behind');
+            document.getElementById('backgroundCanvas').classList.remove('notShown');
+            document.getElementById('backgroundCanvas').classList.add(visibility?'behind':'notShown');
         });
 
         this.d3cloud = d3.layout.cloud();
@@ -195,16 +212,36 @@ export class WordCloudComponent implements OnChanges {
             .append('svg')
             .attr('xmlns', 'http://www.w3.org/2000/svg')
             .attr('width', this.w)
-            .attr('height',this.h )
+            .attr('height', this.h)
             .append('g')
             .attr(
                 'transform',
-                'translate(' +
-                    ~~(this.w / 2) +
-                    ',' +
-                    ~~(this.h / 2) +
-                    ')'
+                'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')'
             );
+    }
+
+    private removeShapeBackground() {
+        let lastCanvas = document.getElementById('backgroundCanvas');
+        while(lastCanvas )
+        {
+            lastCanvas.remove();
+            lastCanvas = document.getElementById('backgroundCanvas');
+        }
+    }
+
+    private createShape(): Shape {
+        var shape = this.configurationService.getShape();
+
+        // create a new image canvas
+        if (shape.url.length > 0) {
+            shape.canvas = document.createElement('canvas');
+            shape.canvas.className = shape.showBackground? 'behind': 'notShown';
+            //alert(shape.canvas.className);
+            shape.canvas.id = 'backgroundCanvas';
+            document.getElementById('word-cloud').appendChild(shape.canvas);
+        }
+
+        return shape;
     }
 
     private populate() {
@@ -231,26 +268,12 @@ export class WordCloudComponent implements OnChanges {
 
         let startTime = performance.now();
 
-
-        const lastCanvas = document.getElementById('backgroundCanvas');
-        if (lastCanvas) {
-          lastCanvas.remove();
-        }
-
-        var shape = this.configurationService.getShape();
-
-        // create a new image canvas
-        if (shape.url.length>0 && shape.showBackground){
-            shape.canvas = document.createElement('canvas');
-            shape.canvas.className = 'behind';
-            shape.canvas.id = 'backgroundCanvas';
-            document.getElementById('word-cloud').appendChild(shape.canvas);
-        }
+        this.removeShapeBackground();
 
         this.d3cloud
             .size([this.w, this.h])
             .words(this.data)
-            .shape(()=>shape)
+            .shape(() => this.createShape())
             .padding(2)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
             .font(this.configurationService.settings.fontFace)
