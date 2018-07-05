@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-    NavController,
-    NavParams,
-    PopoverController,
-    ViewController
-} from 'ionic-angular';
+import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
 
 import { ConfigurationService } from '../../../services/configuration.service';
 import { ColorPicker } from '../../color-picker/color-picker';
@@ -30,7 +25,7 @@ export class ShapePopoverPage {
             this.configurationService.shapeBackgroundColor = color;
         });
 
-        this.backgroundVisibility=this.configurationService.showShapeBackground;
+        this.backgroundVisibility = this.configurationService.showShapeBackground;
     }
 
     update() {
@@ -38,8 +33,8 @@ export class ShapePopoverPage {
     }
 
     onToggleBackgroundVisibility() {
-        this.configurationService.showShapeBackground =  this.backgroundVisibility;
-        this.events.publish("shapeBackgroundVisibility", this.backgroundVisibility);
+        this.configurationService.showShapeBackground = this.backgroundVisibility;
+        this.events.publish('shapeBackgroundVisibility', this.backgroundVisibility);
     }
 
     selectBackgroundColour(myEvent) {

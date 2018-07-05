@@ -1,10 +1,7 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, HostListener, Input, OnChanges } from '@angular/core';
 import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {
-    ConfigurationService,
-    Shape
-} from '../../services/configuration.service';
+import { ConfigurationService, Shape } from '../../services/configuration.service';
 import { NgZone } from '@angular/core';
 import { WordsToCountService } from '../../services/wordsToCountService';
 
@@ -33,8 +30,8 @@ export class WordCloudComponent implements OnChanges {
         bottom: number;
         left: number;
     };
-    private width: number; // Component width
-    private height: number; // Component height
+    public width: number; // Component width
+    public height: number; // Component height
     tempData = [];
     platformReady = false;
     progress = 0;
@@ -47,6 +44,9 @@ export class WordCloudComponent implements OnChanges {
         private wordsToCountService: WordsToCountService,
         events: Events
     ) {
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
+
         platform.ready().then(() => {
             this.platformReady = true;
             if (this.data.length > 0) {
@@ -55,6 +55,8 @@ export class WordCloudComponent implements OnChanges {
         });
 
         configurationService.configurationChanged$.subscribe(v => {
+            this.width = window.innerWidth;
+            this.height = window.innerHeight;
             this.forceRedraw();
         });
 
@@ -64,9 +66,7 @@ export class WordCloudComponent implements OnChanges {
                 .select('g')
                 .selectAll('text')
                 .remove();
-            this.drawWordCloud(
-                this.data.filter(c => c.x !== undefined && c.y !== undefined)
-            );
+            this.drawWordCloud(this.data.filter(c => c.x !== undefined && c.y !== undefined));
         });
 
         events.subscribe('shapeBackgroundColour', color => {
@@ -79,10 +79,16 @@ export class WordCloudComponent implements OnChanges {
         events.subscribe('shapeBackgroundVisibility', visibility => {
             document.getElementById('backgroundCanvas').classList.remove('behind');
             document.getElementById('backgroundCanvas').classList.remove('notShown');
-            document.getElementById('backgroundCanvas').classList.add(visibility?'behind':'notShown');
+            document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
         });
 
         this.d3cloud = d3.layout.cloud();
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
     }
 
     forceRedraw() {
@@ -92,9 +98,7 @@ export class WordCloudComponent implements OnChanges {
 
     downloadAsSvg() {
         const link = document.createElement('a');
-        link.href =
-            'data:application/octet-stream;base64,' +
-            btoa(D3.select('div.word-cloud').html());
+        link.href = 'data:application/octet-stream;base64,' + btoa(D3.select('div.word-cloud').html());
         link.download = 'viz.svg';
         document.body.appendChild(link);
         link.click();
@@ -129,19 +133,14 @@ export class WordCloudComponent implements OnChanges {
 
         const scale = 12 / Math.max.apply(0, counts.map(key => key.size));
 
-        const shortestAxis =
-            this.width > this.height ? this.height : this.width;
+        const shortestAxis = this.width > this.height ? this.height : this.width;
 
         // console.log(this.configurationService.settings.fontScale / 100);
         this.data = counts
             .map(item => {
                 return {
                     text: item.text,
-                    size:
-                        item.size *
-                        scale *
-                        (shortestAxis / 70) *
-                        (this.configurationService.settings.fontScale / 100),
+                    size: item.size * scale * (shortestAxis / 70) * (this.configurationService.settings.fontScale / 100),
                     color: Math.random()
                 };
             })
@@ -156,11 +155,7 @@ export class WordCloudComponent implements OnChanges {
                     this.data.push({
                         isPadding: true,
                         text: d.text,
-                        size:
-                            1 *
-                            scale *
-                            (shortestAxis /
-                                this.configurationService.settings.fontScale),
+                        size: 1 * scale * (shortestAxis / this.configurationService.settings.fontScale),
                         color: d.color
                     });
                 }
@@ -214,29 +209,25 @@ export class WordCloudComponent implements OnChanges {
             .attr('width', this.w)
             .attr('height', this.h)
             .append('g')
-            .attr(
-                'transform',
-                'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')'
-            );
+            .attr('transform', 'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')');
     }
 
     private removeShapeBackground() {
         let lastCanvas = document.getElementById('backgroundCanvas');
-        while(lastCanvas )
-        {
+        while (lastCanvas) {
             lastCanvas.remove();
             lastCanvas = document.getElementById('backgroundCanvas');
         }
     }
 
     private createShape(): Shape {
-        var shape = this.configurationService.getShape();
+        const shape = this.configurationService.getShape();
 
         // create a new image canvas
         if (shape.url.length > 0) {
             shape.canvas = document.createElement('canvas');
-            shape.canvas.className = shape.showBackground? 'behind': 'notShown';
-            //alert(shape.canvas.className);
+            shape.canvas.className = shape.showBackground ? 'behind' : 'notShown';
+            // alert(shape.canvas.className);
             shape.canvas.id = 'backgroundCanvas';
             document.getElementById('word-cloud').appendChild(shape.canvas);
         }
@@ -245,14 +236,8 @@ export class WordCloudComponent implements OnChanges {
     }
 
     private populate() {
-        const fontWeight: string =
-            this.configurationService.settings.fontWeight == null
-                ? 'normal'
-                : this.configurationService.settings.fontWeight;
-        const spiralType: string =
-            this.configurationService.settings.spiralType == null
-                ? 'archimedean'
-                : this.configurationService.settings.spiralType;
+        const fontWeight: string = this.configurationService.settings.fontWeight == null ? 'normal' : this.configurationService.settings.fontWeight;
+        const spiralType: string = this.configurationService.settings.spiralType == null ? 'archimedean' : this.configurationService.settings.spiralType;
 
         this.addSVGFilter();
 
@@ -282,9 +267,7 @@ export class WordCloudComponent implements OnChanges {
             .spiral(spiralType)
             .on('word', (c, i) => {
                 if (!this.d3cloud.cancelled) {
-                    const newProgress = Math.floor(
-                        (i * 100) / this.data.length
-                    );
+                    const newProgress = Math.floor((i * 100) / this.data.length);
 
                     if (c) {
                         if (c.x !== undefined && c.y !== undefined) {
@@ -293,9 +276,7 @@ export class WordCloudComponent implements OnChanges {
                     }
 
                     const refreshSeconds = 1;
-                    const refreshNow =
-                        performance.now() - startTime > refreshSeconds * 1000 ||
-                        newProgress - this.progress > 5;
+                    const refreshNow = performance.now() - startTime > refreshSeconds * 1000 || newProgress - this.progress > 5;
 
                     // refresh if more than n seconds have elapsed
                     if (refreshNow) {
@@ -320,12 +301,7 @@ export class WordCloudComponent implements OnChanges {
                     // console.log('Duration: ' + (performance.now() - startTime) / 1000);
                     this.progress = 100;
 
-                    const todo = this.data.filter(
-                        c =>
-                            (c.drawn === false || c.drawn === undefined) &&
-                            c.x !== undefined &&
-                            c.y !== undefined
-                    );
+                    const todo = this.data.filter(c => (c.drawn === false || c.drawn === undefined) && c.x !== undefined && c.y !== undefined);
 
                     console.log('End todo: ' + todo.length);
 
@@ -380,19 +356,10 @@ export class WordCloudComponent implements OnChanges {
             .style('font-size', d => d.size + 'px')
             .style('font-family', d => (d.fontFace = settings.fontFace))
             .style('fill', (d, i) => {
-                return (
-                    'hsl(' +
-                    d.color * 360 +
-                    ',100%,' +
-                    settings.lightnessGlow +
-                    ')'
-                );
+                return 'hsl(' + d.color * 360 + ',100%,' + settings.lightnessGlow + ')';
             })
             .attr('text-anchor', 'middle')
-            .attr(
-                'transform',
-                d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
-            )
+            .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
             .attr('filter', 'url(#glow)')
             .text(d => {
                 return d.text;
@@ -405,10 +372,7 @@ export class WordCloudComponent implements OnChanges {
             .style('stroke-opacity', d => settings.strokeOpacity) //  stroke opacity
             .style('stroke-width', d => {
                 let scale = ~~(d.size / settings.strokeScale);
-                scale =
-                    scale < settings.strokeMinWidth
-                        ? settings.strokeMinWidth
-                        : scale;
+                scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
                 return scale + 'px';
             }) // stroke size divider + min width
             .style(
@@ -416,19 +380,10 @@ export class WordCloudComponent implements OnChanges {
                 d => (d.fontFace = settings.fontFace) // font face
             )
             .style('fill', (d, i) => {
-                return (
-                    'hsl(' +
-                    d.color * 360 +
-                    ',100%, ' +
-                    settings.lightness +
-                    ')'
-                );
+                return 'hsl(' + d.color * 360 + ',100%, ' + settings.lightness + ')';
             })
             .attr('text-anchor', 'middle')
-            .attr(
-                'transform',
-                d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')'
-            )
+            .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
             .text(d => {
                 return d.text;
             });

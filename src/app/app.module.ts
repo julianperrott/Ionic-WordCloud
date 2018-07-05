@@ -32,18 +32,7 @@ import { ShapePicker } from '../components/shape-picker/shape-picker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
 
 @NgModule({
-    declarations: [
-        MyApp,
-        Pages,
-        Components,
-        WordCloudComponent,
-        LinkCloudComponent,
-        PopoverPage,
-        AboutPage,
-        ColorPicker,
-        ShapePicker,
-        ShapePopoverPage
-    ],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
@@ -56,7 +45,7 @@ import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapeP
         IonicPageModule.forChild(ShapePicker)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker,ShapePopoverPage],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage],
     providers: [
         StatusBar,
         SplashScreen,

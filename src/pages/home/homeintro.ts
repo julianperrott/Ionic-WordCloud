@@ -7,14 +7,12 @@ export class HomeIntro {
         steps: [
             {
                 element: '#cloud',
-                intro:
-                    '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/>Click <b><i>Next</i></b> to see how it works...',
+                intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/>Click <b><i>Next</i></b> to see how it works...',
                 position: 'left'
             },
             {
                 element: '.text-input',
-                intro:
-                    '<b>Web Page address ...</b><hr/>Simply type or paste a web page address in this text box !',
+                intro: '<b>Web Page address ...</b><hr/>Simply type or paste a web page address in this text box !',
                 position: 'right'
             },
             {
@@ -25,14 +23,12 @@ export class HomeIntro {
             },
             {
                 element: '#step2',
-                intro:
-                    '<b>Page Links ...</b><hr/>Some web pages contain lots of links !<hr/>Click here to see them and choose one to navigate to.',
+                intro: '<b>Page Links ...</b><hr/>Some web pages contain lots of links !<hr/>Click here to see them and choose one to navigate to.',
                 position: 'left'
             },
             {
                 element: '#shape',
-                intro:
-                    '<b>Cloud shape ...</b><hr/> This button allows you to change the shape of the word cloud.',
+                intro: '<b>Cloud shape ...</b><hr/> This button allows you to change the shape of the word cloud.',
                 position: 'left'
             },
             {
@@ -42,18 +38,26 @@ export class HomeIntro {
                 position: 'left'
             },
             {
-                intro:
-                    '<b>Enjoy...</b> let me know what you think in the comments !',
+                intro: '<b>Enjoy...</b> let me know what you think in the comments !',
                 position: 'centre'
             }
         ]
     };
 
-    start() {
+    showIntro(onComplete: Function) {
+        const intro = introJs.introJs();
+        intro.oncomplete(() => onComplete());
+        intro.onskip(() => onComplete());
+        intro.onbeforeexit(() => onComplete());
+
+        intro.setOptions(HomeIntro.options);
+
+        intro.start();
+    }
+
+    start(onComplete: Function) {
         setTimeout(() => {
-            const intro = introJs.introJs();
-            intro.setOptions(HomeIntro.options);
-            intro.start();
+            this.showIntro(onComplete);
         }, 1000);
     }
 }

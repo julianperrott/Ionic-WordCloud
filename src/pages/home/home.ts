@@ -70,10 +70,11 @@ export class HomePage {
     }
 
     ionViewDidLoad() {
-        this.intro.start();
-        setTimeout(() => {
-            this.data = this.configurationService.defaultData + ' x';
-        }, 5000);
+        this.intro.start(() => {
+            if (this.data === '') {
+                this.data = this.configurationService.defaultData + ' x';
+            }
+        });
     }
 
     error(err) {
@@ -122,14 +123,13 @@ export class HomePage {
         this.configurationService.setBusy(true);
 
         const proxyurl = 'https://corsproxywebwordcloud.azurewebsites.net/';
-        const corsUrl = proxyurl + this.url.replace("http://","").replace("https://","")
+        const corsUrl = proxyurl + this.url.replace('http://', '').replace('https://', '');
         console.log('fetch: ' + corsUrl);
-
 
         fetch(corsUrl, {
             headers: {
-                "origin": "http://www.codesin.net",
-            },
+                origin: 'http://www.codesin.net'
+            }
         })
             .then(response => response.text(), err => this.error)
             .then(text => this.handleHtml('' + text), err => this.error)
@@ -160,8 +160,7 @@ export class HomePage {
 
             this.toastCtrl
                 .create({
-                    message:
-                        'Using all ' + words.length + ' words on the page.',
+                    message: 'Using all ' + words.length + ' words on the page.',
                     duration: 10000,
                     position: 'bottom',
                     cssClass: 'toastSuccess'
@@ -185,7 +184,7 @@ export class HomePage {
         this.data = newData;
     }
 
-    showMore(){
+    showMore() {
         return this.popoverCtrl.create(PopoverPage);
     }
 }
