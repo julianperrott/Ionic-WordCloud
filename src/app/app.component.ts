@@ -3,7 +3,7 @@ import { AlertController, MenuController, Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { Menu, PagesList, RootPage } from '../pages/index';
+import { Menu, PagesList, RootPage } from '../pages';
 import { MenuOptionModel } from '../components/side-menu-content/models/menu-option-model';
 import { SideMenuSettings } from '../components/side-menu-content/models/side-menu-settings';
 import { HomePage } from '../pages/home/home';
@@ -43,13 +43,7 @@ export class MyApp {
         indentSubOptionsWithoutIcons: false
     };
 
-    constructor(
-        platform: Platform,
-        statusBar: StatusBar,
-        splashScreen: SplashScreen,
-        private alertCtrl: AlertController,
-        private menuCtrl: MenuController
-    ) {
+    constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private alertCtrl: AlertController, private menuCtrl: MenuController) {
         platform.ready().then(() => {
             statusBar.styleDefault();
             if (splashScreen) {

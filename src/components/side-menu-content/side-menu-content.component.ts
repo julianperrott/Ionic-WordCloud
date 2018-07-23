@@ -1,12 +1,5 @@
 // Angular
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    Output
-} from '@angular/core'; // tslint:disable-line
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core'; // tslint:disable-line
 
 // Ionic
 import { Events, Platform } from 'ionic-angular';
@@ -14,10 +7,7 @@ import { Events, Platform } from 'ionic-angular';
 // Models
 import { SideMenuSettings } from './models/side-menu-settings';
 import { MenuOptionModel } from './models/menu-option-model';
-import {
-    SideMenuRedirectEvent,
-    SideMenuRedirectEventData
-} from './models/side-menu-redirect-events';
+import { SideMenuRedirectEvent, SideMenuRedirectEventData } from './models/side-menu-redirect-events';
 import { InnerMenuOptionModel } from './models/inner-menu-option-model';
 
 @Component({
@@ -47,9 +37,7 @@ export class SideMenuContentComponent {
 
             // Map the options to our internal models
             this.menuOptions.forEach(option => {
-                const innerMenuOption = InnerMenuOptionModel.fromMenuOptionModel(
-                    option
-                );
+                const innerMenuOption = InnerMenuOptionModel.fromMenuOptionModel(option);
                 this.collapsableItems.push(innerMenuOption);
 
                 // Check if there's any option marked as selected
@@ -74,18 +62,11 @@ export class SideMenuContentComponent {
         }
     }
 
-    constructor(
-        private platform: Platform,
-        private eventsCtrl: Events,
-        private cdRef: ChangeDetectorRef
-    ) {
+    constructor(private platform: Platform, private eventsCtrl: Events, private cdRef: ChangeDetectorRef) {
         // Handle the redirect event
-        this.eventsCtrl.subscribe(
-            SideMenuRedirectEvent,
-            (data: SideMenuRedirectEventData) => {
-                this.updateSelectedOption(data);
-            }
-        );
+        this.eventsCtrl.subscribe(SideMenuRedirectEvent, (data: SideMenuRedirectEventData) => {
+            this.updateSelectedOption(data);
+        });
     }
 
     ngOnDestroy() {
@@ -149,10 +130,8 @@ export class SideMenuContentComponent {
 
     // Get the proper indentation of each option
     public get subOptionIndentation(): string {
-        if (this.platform.is('ios'))
-            return this.menuSettings.subOptionIndentation.ios;
-        if (this.platform.is('windows'))
-            return this.menuSettings.subOptionIndentation.wp;
+        if (this.platform.is('ios')) return this.menuSettings.subOptionIndentation.ios;
+        if (this.platform.is('windows')) return this.menuSettings.subOptionIndentation.wp;
         return this.menuSettings.subOptionIndentation.md;
     }
 
@@ -210,17 +189,11 @@ export class SideMenuContentComponent {
         let targetOption;
 
         this.collapsableItems.forEach(option => {
-            if (
-                option.displayName.toLowerCase() ===
-                data.displayName.toLowerCase()
-            ) {
+            if (option.displayName.toLowerCase() === data.displayName.toLowerCase()) {
                 targetOption = option;
             } else if (option.subItemsCount) {
                 option.subOptions.forEach(subOption => {
-                    if (
-                        subOption.displayName.toLowerCase() ===
-                        data.displayName.toLowerCase()
-                    ) {
+                    if (subOption.displayName.toLowerCase() === data.displayName.toLowerCase()) {
                         targetOption = subOption;
                     }
                 });
@@ -265,62 +238,38 @@ export class SideMenuContentComponent {
             const defIos = this.isDefinedAndPositive(ms.itemHeight.ios);
             const defMd = this.isDefinedAndPositive(ms.itemHeight.md);
             const defWp = this.isDefinedAndPositive(ms.itemHeight.wp);
-            const heightIos = defIos
-                ? ms.itemHeight.ios
-                : defaultSettings.itemHeight.ios;
-            const heightMd = defMd
-                ? ms.itemHeight.md
-                : defaultSettings.itemHeight.md;
-            const heightWp = defWp
-                ? ms.itemHeight.wp
-                : defaultSettings.itemHeight.wp;
+            const heightIos = defIos ? ms.itemHeight.ios : defaultSettings.itemHeight.ios;
+            const heightMd = defMd ? ms.itemHeight.md : defaultSettings.itemHeight.md;
+            const heightWp = defWp ? ms.itemHeight.wp : defaultSettings.itemHeight.wp;
             ms.itemHeight.ios = heightIos;
             ms.itemHeight.md = heightMd;
             ms.itemHeight.wp = heightWp;
         }
         const shSeOpt = 'showSelectedOption';
-        ms[shSeOpt] = this.isDefined(ms[shSeOpt])
-            ? ms[shSeOpt]
-            : defaultSettings[shSeOpt];
+        ms[shSeOpt] = this.isDefined(ms[shSeOpt]) ? ms[shSeOpt] : defaultSettings[shSeOpt];
 
         const accModOpt = 'accordionMode';
-        ms[accModOpt] = this.isDefined(ms[accModOpt])
-            ? ms[accModOpt]
-            : defaultSettings[accModOpt];
+        ms[accModOpt] = this.isDefined(ms[accModOpt]) ? ms[accModOpt] : defaultSettings[accModOpt];
 
         const arrIco = 'arrowIcon';
-        ms[arrIco] = this.isDefined(ms[arrIco])
-            ? ms[arrIco]
-            : defaultSettings[arrIco];
+        ms[arrIco] = this.isDefined(ms[arrIco]) ? ms[arrIco] : defaultSettings[arrIco];
 
         const selOptClass = 'selectedOptionClass';
-        ms[selOptClass] = this.isDefined(ms[selOptClass])
-            ? ms[selOptClass]
-            : defaultSettings[selOptClass];
+        ms[selOptClass] = this.isDefined(ms[selOptClass]) ? ms[selOptClass] : defaultSettings[selOptClass];
 
         const suOptInd = 'subOptionIndentation';
-        ms[suOptInd] = this.isDefined(ms[suOptInd])
-            ? ms[suOptInd]
-            : defaultSettings[suOptInd];
+        ms[suOptInd] = this.isDefined(ms[suOptInd]) ? ms[suOptInd] : defaultSettings[suOptInd];
 
         const indSuOptWIco = 'indentSubOptionsWithoutIcons';
-        ms[indSuOptWIco] = this.isDefined(ms[indSuOptWIco])
-            ? ms[indSuOptWIco]
-            : defaultSettings[indSuOptWIco];
+        ms[indSuOptWIco] = this.isDefined(ms[indSuOptWIco]) ? ms[indSuOptWIco] : defaultSettings[indSuOptWIco];
 
         if (!ms[suOptInd]) {
             ms[suOptInd] = defaultSettings[suOptInd];
         } else {
             const suOpInd = 'subOptionIndentation';
-            ms[suOpInd].ios = this.isDefined(ms[suOpInd].ios)
-                ? ms[suOpInd].ios
-                : defaultSettings[suOpInd].ios;
-            ms[suOpInd].md = this.isDefined(ms[suOpInd].md)
-                ? ms[suOpInd].md
-                : defaultSettings[suOpInd].md;
-            ms[suOpInd].wp = this.isDefined(ms[suOpInd].wp)
-                ? ms[suOpInd].wp
-                : defaultSettings[suOpInd].wp;
+            ms[suOpInd].ios = this.isDefined(ms[suOpInd].ios) ? ms[suOpInd].ios : defaultSettings[suOpInd].ios;
+            ms[suOpInd].md = this.isDefined(ms[suOpInd].md) ? ms[suOpInd].md : defaultSettings[suOpInd].md;
+            ms[suOpInd].wp = this.isDefined(ms[suOpInd].wp) ? ms[suOpInd].wp : defaultSettings[suOpInd].wp;
         }
     }
 

@@ -78,7 +78,7 @@
               random = Math.random,
               cloud = { busy: false, cancelled: false },
               shape = cloudShape;
-              canvas = cloudCanvas;
+            canvas = cloudCanvas;
 
             cloud.canvas = function(_) {
               return arguments.length ? ((canvas = functor(_)), cloud) : canvas;
@@ -91,11 +91,11 @@
             cloud.redrawBackground = function() {
               var shapeOb = shape();
               if (shapeOb.url.length > 0) {
-                  cloud.drawBackground();
+                cloud.drawBackground();
               }
-            }
+            };
 
-            cloud.drawImage=function(myCanvas, img) {
+            cloud.drawImage = function(myCanvas, img) {
               var ctx = myCanvas.getContext('2d');
               // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
               if (myCanvas.width > myCanvas.height) {
@@ -103,10 +103,9 @@
               } else {
                 ctx.drawImage(img, 0, (myCanvas.height - myCanvas.width) / 2);
               }
-            }
+            };
 
-            cloud.drawBackground=function() {
-
+            cloud.drawBackground = function() {
               var shapeOb = shape();
               shapeOb.canvas.width = size[0];
               shapeOb.canvas.height = size[1];
@@ -121,13 +120,13 @@
               var request = new XMLHttpRequest();
               request.addEventListener('load', function(event) {
                 var response = event.target.responseText;
-                var svgshape = response.replace('<path ', '<path fill="'+shapeOb.backgroundColour+'" ');
+                var svgshape = response.replace('<path ', '<path fill="' + shapeOb.backgroundColour + '" ');
                 img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
               });
               request.open('GET', shapeOb.url);
               request.setRequestHeader('Content-Type', 'image/svg+xml');
               request.send();
-            }
+            };
 
             cloud.start = function() {
               var maxSide = size[0] > size[1] ? size[0] : size[1];

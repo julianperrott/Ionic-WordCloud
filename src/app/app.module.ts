@@ -3,10 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Components } from '../components/index';
+import { Components } from '../components';
 
 import { MyApp } from './app.component';
-import { Pages } from '../pages/index';
+import { Pages } from '../pages';
 
 import { PopoverPage } from '../components/popover/popover';
 
@@ -30,6 +30,9 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
+
+import { D3CloudFacade } from '../components/word-cloud/Style/D3CloudFacade';
+import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
@@ -56,7 +59,9 @@ import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapeP
         ScreenOrientation,
         { provide: ErrorHandler, useClass: IonicErrorHandler },
         ScreenshotService,
-        WordsToCountService
+        WordsToCountService,
+        D3CloudFacade,
+        GlowingStyle
     ]
 })
 export class AppModule {}

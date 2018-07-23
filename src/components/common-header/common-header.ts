@@ -22,7 +22,7 @@ export class CommonHeaderComponent {
     busy = false;
     error = false;
     popover: Popover;
-    shape: '';
+    shape = '';
 
     constructor(
         private renderer: Renderer2,
@@ -47,6 +47,8 @@ export class CommonHeaderComponent {
                 console.log(err);
             }
         });
+
+        this.shape = configurationService.shape;
 
         events.subscribe('shapeChanged', shape => {
             this.shape = shape;

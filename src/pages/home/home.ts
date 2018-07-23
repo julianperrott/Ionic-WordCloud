@@ -126,6 +126,15 @@ export class HomePage {
         const corsUrl = proxyurl + this.url.replace('http://', '').replace('https://', '');
         console.log('fetch: ' + corsUrl);
 
+        this.toastCtrl
+            .create({
+                message: 'Loading words from ' + this.url,
+                duration: 10000,
+                position: 'bottom',
+                cssClass: 'toastSuccess'
+            })
+            .present();
+
         fetch(corsUrl, {
             headers: {
                 origin: 'http://www.codesin.net'

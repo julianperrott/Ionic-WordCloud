@@ -49,16 +49,9 @@ export class HtmlToLinksService {
 
     extractLinks(html: Tag[], depth: number) {
         html.forEach(tag => {
-            if (
-                tag.type === 'tag' &&
-                tag.name === 'a' &&
-                tag.attribs &&
-                tag.attribs['href']
-            ) {
+            if (tag.type === 'tag' && tag.name === 'a' && tag.attribs && tag.attribs['href']) {
                 const href = tag.attribs['href'];
-                const illegalStartCount = ['#', 'sms:', 'mailto'].filter(f =>
-                    href.startsWith(f)
-                ).length;
+                const illegalStartCount = ['#', 'sms:', 'mailto'].filter(f => href.startsWith(f)).length;
 
                 if (tag.children && illegalStartCount === 0) {
                     let text = this.extractText(tag.children);
@@ -77,12 +70,7 @@ export class HtmlToLinksService {
     extractText(html: [Tag]): string {
         let text = '';
         html.forEach(tag => {
-            const add =
-                tag.type === 'text'
-                    ? tag.data.trim()
-                    : tag.children
-                        ? this.extractText(tag.children)
-                        : '';
+            const add = tag.type === 'text' ? tag.data.trim() : tag.children ? this.extractText(tag.children) : '';
             if (add.length > 0) {
                 text += (text.length > 0 ? ' / ' : '') + add;
             }

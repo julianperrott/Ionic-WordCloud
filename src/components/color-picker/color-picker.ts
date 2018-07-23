@@ -1,10 +1,4 @@
-import {
-    Component,
-    EventEmitter,
-    Input,
-    Output,
-    ViewChild
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { Events, NavParams, ViewController } from 'ionic-angular';
 
@@ -58,11 +52,7 @@ export class ColorPicker {
 
     eventName: 'colorChanged';
 
-    constructor(
-        public events: Events,
-        public navParams: NavParams,
-        public viewController: ViewController
-    ) {
+    constructor(public events: Events, public navParams: NavParams, public viewController: ViewController) {
         this.eventName = this.navParams.get('eventName');
         this.hexColor = this.navParams.get('color');
     }
@@ -93,14 +83,7 @@ export class ColorPicker {
     drawChooserSelector(ctx: CanvasRenderingContext2D, x: number) {
         this.drawPalette(this.colorFromChooser);
         ctx.beginPath();
-        ctx.arc(
-            x,
-            ctx.canvas.height / 2,
-            ctx.canvas.height / 2,
-            0,
-            2 * Math.PI,
-            false
-        );
+        ctx.arc(x, ctx.canvas.height / 2, ctx.canvas.height / 2, 0, 2 * Math.PI, false);
         ctx.fillStyle = this.colorFromChooser;
         ctx.fill();
         ctx.lineWidth = 3;
@@ -146,29 +129,15 @@ export class ColorPicker {
                 this.colorTouchEnd.emit();
                 canvasPalette.removeEventListener(pouch.MOVE, eventChangeColor);
                 this.updateColor(event, canvasPalette, this.ctxPalette);
-                this.drawSelector(
-                    this.ctxPalette,
-                    this.paletteX,
-                    this.paletteY
-                );
+                this.drawSelector(this.ctxPalette, this.paletteX, this.paletteY);
             });
         });
     }
 
     drawPalette(endColor: string) {
-        this.ctxPalette.clearRect(
-            0,
-            0,
-            this.ctxPalette.canvas.width,
-            this.ctxPalette.canvas.height
-        );
+        this.ctxPalette.clearRect(0, 0, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height);
 
-        let gradient = this.ctxPalette.createLinearGradient(
-            0,
-            0,
-            this.ctxPalette.canvas.width,
-            0
-        );
+        let gradient = this.ctxPalette.createLinearGradient(0, 0, this.ctxPalette.canvas.width, 0);
 
         // Create color gradient
         gradient.addColorStop(0, '#FFFFFF');
@@ -176,20 +145,10 @@ export class ColorPicker {
 
         // Apply gradient to canvas
         this.ctxPalette.fillStyle = gradient;
-        this.ctxPalette.fillRect(
-            0,
-            0,
-            this.ctxPalette.canvas.width,
-            this.ctxPalette.canvas.height
-        );
+        this.ctxPalette.fillRect(0, 0, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height);
 
         // Create semi transparent gradient (white -> trans. -> black)
-        gradient = this.ctxPalette.createLinearGradient(
-            0,
-            0,
-            0,
-            this.ctxPalette.canvas.height
-        );
+        gradient = this.ctxPalette.createLinearGradient(0, 0, 0, this.ctxPalette.canvas.height);
         gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
         gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0)');
         gradient.addColorStop(0.5, 'rgba(0,     0,   0, 0)');
@@ -197,12 +156,7 @@ export class ColorPicker {
 
         // Apply gradient to canvas
         this.ctxPalette.fillStyle = gradient;
-        this.ctxPalette.fillRect(
-            0,
-            0,
-            this.ctxPalette.canvas.width,
-            this.ctxPalette.canvas.height
-        );
+        this.ctxPalette.fillRect(0, 0, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height);
     }
 
     initChooser() {
@@ -227,41 +181,23 @@ export class ColorPicker {
 
         const eventChangeColorChooser = event => {
             this.updateColorChooser(event, canvasChooser, ctx);
-            this.drawSelector(
-                this.ctxPalette,
-                this.ctxPalette.canvas.width,
-                this.ctxPalette.canvas.height / 2
-            );
+            this.drawSelector(this.ctxPalette, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height / 2);
         };
 
         POUCH.forEach(pouch => {
             canvasChooser.addEventListener(pouch.START, event => {
                 this.drawChooser(ctx);
-                canvasChooser.addEventListener(
-                    pouch.MOVE,
-                    eventChangeColorChooser
-                );
+                canvasChooser.addEventListener(pouch.MOVE, eventChangeColorChooser);
                 this.updateColorChooser(event, canvasChooser, ctx);
-                this.drawSelector(
-                    this.ctxPalette,
-                    this.ctxPalette.canvas.width,
-                    this.ctxPalette.canvas.height / 2
-                );
+                this.drawSelector(this.ctxPalette, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height / 2);
             });
 
             canvasChooser.addEventListener(pouch.STOP, event => {
-                canvasChooser.removeEventListener(
-                    pouch.MOVE,
-                    eventChangeColorChooser
-                );
+                canvasChooser.removeEventListener(pouch.MOVE, eventChangeColorChooser);
                 this.updateColorChooser(event, canvasChooser, ctx);
                 this.drawChooser(ctx);
                 this.drawChooserSelector(ctx, this.chooserX);
-                this.drawSelector(
-                    this.ctxPalette,
-                    this.ctxPalette.canvas.width,
-                    this.ctxPalette.canvas.height / 2
-                );
+                this.drawSelector(this.ctxPalette, this.ctxPalette.canvas.width, this.ctxPalette.canvas.height / 2);
             });
         });
     }
@@ -289,23 +225,13 @@ export class ColorPicker {
         const dpr = window.devicePixelRatio || 1;
 
         const bsr =
-            ctx.webkitBackingStorePixelRatio ||
-            ctx.mozBackingStorePixelRatio ||
-            ctx.msBackingStorePixelRatio ||
-            ctx.oBackingStorePixelRatio ||
-            ctx.backingStorePixelRatio ||
-            1;
+            ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1;
 
         return dpr / bsr;
     }
 
     updateColorChooser(event, canvas, context) {
-        this.color = this.colorFromChooser = this.getColor(
-            event,
-            canvas,
-            context,
-            true
-        );
+        this.color = this.colorFromChooser = this.getColor(event, canvas, context, true);
         this.colorChanged.emit(this.color);
         this.drawPalette(this.color);
         this.events.publish(this.eventName, this.color);
@@ -319,14 +245,8 @@ export class ColorPicker {
 
     getColor(event, canvas, context, fromChooser: boolean): string {
         const bounding = canvas.getBoundingClientRect(),
-            touchX =
-                event.pageX ||
-                event.changedTouches[0].pageX ||
-                event.changedTouches[0].screenX,
-            touchY =
-                event.pageY ||
-                event.changedTouches[0].pageY ||
-                event.changedTouches[0].screenX;
+            touchX = event.pageX || event.changedTouches[0].pageX || event.changedTouches[0].screenX,
+            touchY = event.pageY || event.changedTouches[0].pageY || event.changedTouches[0].screenX;
 
         const x = (touchX - bounding.left) * this.getPixelRatio(context);
         const y = (touchY - bounding.top) * this.getPixelRatio(context);
@@ -350,10 +270,7 @@ export class ColorPicker {
         n = parseInt(n, 10);
         if (isNaN(n)) return '00';
         n = Math.max(0, Math.min(n, 255));
-        return (
-            '0123456789ABCDEF'.charAt((n - (n % 16)) / 16) +
-            '0123456789ABCDEF'.charAt(n % 16)
-        );
+        return '0123456789ABCDEF'.charAt((n - (n % 16)) / 16) + '0123456789ABCDEF'.charAt(n % 16);
     }
 
     ok() {

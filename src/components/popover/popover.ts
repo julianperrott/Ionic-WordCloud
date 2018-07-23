@@ -1,17 +1,10 @@
 import { Component } from '@angular/core';
-import {
-    NavController,
-    NavParams,
-    Platform,
-    PopoverController,
-    ViewController
-} from 'ionic-angular';
+import { NavController, NavParams, Platform, PopoverController, ViewController } from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { Themes } from '../../theme/Themes';
 import { ColorPicker } from '../color-picker/color-picker';
 import { Events } from 'ionic-angular';
-
 
 @Component({
     selector: 'page-popover',
@@ -42,16 +35,13 @@ export class PopoverPage {
         }
         this.scale = this.localTheme['fontScale'];
 
-        this.themes
-            .filter(t => t.name === configurationService.settings.name)
-            .forEach(t => (this.theme = t));
+        this.themes.filter(t => t.name === configurationService.settings.name).forEach(t => (this.theme = t));
 
         events.subscribe('backgroundColour', color => {
             this.configurationService.backgroundColor = color;
         });
 
-        this.isApp =
-            platform.is('core') || platform.is('mobileweb') ? false : true;
+        this.isApp = platform.is('core') || platform.is('mobileweb') ? false : true;
     }
 
     fontChanged() {
@@ -59,9 +49,7 @@ export class PopoverPage {
             return;
         }
 
-        this.configurationService.settings['fontFace'] = this.localTheme[
-            'fontFace'
-        ];
+        this.configurationService.settings['fontFace'] = this.localTheme['fontFace'];
         this.configurationService.fontChanged('');
     }
 
@@ -71,9 +59,7 @@ export class PopoverPage {
         }
 
         for (const property in this.localTheme) {
-            this.configurationService.settings[property] = this.localTheme[
-                property
-            ];
+            this.configurationService.settings[property] = this.localTheme[property];
         }
         this.configurationService.configurationChanged('');
     }

@@ -1,10 +1,7 @@
-import { HomePage } from '../pages/home/home';
-import { AboutPage } from '../pages/about/about';
+import { HomePage } from './home/home';
+import { AboutPage } from './about/about';
 import { MenuOptionModel } from '../components/side-menu-content/models/menu-option-model';
-export const PagesList = [
-    { component: HomePage, title: 'Home' },
-    { component: AboutPage, title: 'About' }
-];
+export const PagesList = [{ component: HomePage, title: 'Home' }, { component: AboutPage, title: 'About' }];
 
 export const Pages = [HomePage, AboutPage];
 

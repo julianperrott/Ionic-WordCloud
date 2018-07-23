@@ -36,17 +36,13 @@ export class LinkCloudComponent implements OnChanges {
         const rows = [];
         let row = [];
 
-        const sortedLinks = this.links.filter( x => x.text).sort(
-            (a: Link, b: Link) =>
-                  (b.text.split(' ').length > 2 ? 1 : 0) - (a.text.split(' ').length > 2 ? 1 : 0)
-                // b.text.length - a.text.length || a.text.localeCompare(b.text)
+        const sortedLinks = this.links.filter(x => x.text).sort(
+            (a: Link, b: Link) => (b.text.split(' ').length > 2 ? 1 : 0) - (a.text.split(' ').length > 2 ? 1 : 0)
+            // b.text.length - a.text.length || a.text.localeCompare(b.text)
         );
 
         const reducer = (accumulator: Link[], currentValue: Link) => {
-            if (
-                accumulator.length === 0 ||
-                accumulator[accumulator.length - 1].text !== currentValue.text
-            ) {
+            if (accumulator.length === 0 || accumulator[accumulator.length - 1].text !== currentValue.text) {
                 accumulator.push(currentValue);
             }
             return accumulator;
