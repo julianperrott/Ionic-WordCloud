@@ -2,11 +2,17 @@ import { Events } from 'ionic-angular';
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable, NgZone } from '@angular/core';
 
+declare var d3: any;
+
 @Injectable()
 export class D3CloudFacade {
-    constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {}
+    d3cloud: any;
 
-    public populate(w, h, data: any[], d3cloud: any, createShape: Function, drawWordCloud: Function) {
+    constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
+        this.d3cloud = d3.layout.cloud();
+    }
+
+    public populate(w, h, data: any[], createShape: Function, drawWordCloud: Function) {
         const fontWeight: string = this.configurationService.settings.fontWeight == null ? 'normal' : this.configurationService.settings.fontWeight;
         const spiralType: string = this.configurationService.settings.spiralType == null ? 'archimedean' : this.configurationService.settings.spiralType;
 
@@ -23,7 +29,7 @@ export class D3CloudFacade {
 
         let startTime = performance.now();
 
-        d3cloud
+        this.d3cloud
             .size([w, h])
             .words(data)
             .shape(createShape)
@@ -34,7 +40,7 @@ export class D3CloudFacade {
             .fontSize(d => d.size)
             .spiral(spiralType)
             .on('word', (c, i) => {
-                if (!d3cloud.cancelled) {
+                if (!this.d3cloud.cancelled) {
                     const newProgress = Math.floor((i * 100) / data.length);
 
                     if (c) {
@@ -66,7 +72,7 @@ export class D3CloudFacade {
                 }
             })
             .on('end', () => {
-                if (!d3cloud.cancelled) {
+                if (!this.d3cloud.cancelled) {
                     // console.log('Duration: ' + (performance.now() - startTime) / 1000);
                     this.events.publish('progressUpdate', 100);
 
@@ -86,5 +92,20 @@ export class D3CloudFacade {
                 }
             })
             .start();
+    }
+    public redrawBackground(shape) {
+        this.d3cloud.shape(() => shape).redrawBackground();
+    }
+
+    public isBusy(): boolean {
+        return this.d3cloud.busy;
+    }
+
+    public setBusy(value: boolean) {
+        this.d3cloud.busy = value;
+    }
+
+    public abort() {
+        this.d3cloud.abort();
     }
 }

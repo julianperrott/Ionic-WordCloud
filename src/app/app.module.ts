@@ -33,6 +33,7 @@ import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapeP
 
 import { D3CloudFacade } from '../components/word-cloud/Style/D3CloudFacade';
 import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
+import { BubbleMaskStyle } from '../components/word-cloud/Style/BubbleMaskStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
@@ -61,7 +62,8 @@ import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
         ScreenshotService,
         WordsToCountService,
         D3CloudFacade,
-        GlowingStyle
+        GlowingStyle,
+        BubbleMaskStyle
     ]
 })
 export class AppModule {}

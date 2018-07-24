@@ -5,10 +5,9 @@ import { ConfigurationService, Shape } from '../../services/configuration.servic
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './Style/D3CloudFacade';
 import { GlowingStyle } from './Style/GlowingStyle';
+import { BubbleMaskStyle } from './Style/BubbleMaskStyle';
 
 import * as D3 from 'd3';
-
-declare var d3: any;
 
 @Component({
     selector: 'word-cloud',
@@ -19,11 +18,10 @@ export class WordCloudComponent implements OnChanges {
     lastdata = '';
     data = [];
     words = '';
-    d3cloud: any;
     w;
     h;
     renderer: D3CloudFacade;
-    style: GlowingStyle;
+    style: BubbleMaskStyle;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -47,6 +45,7 @@ export class WordCloudComponent implements OnChanges {
         events: Events,
         private injector: Injector
     ) {
+        this.renderer = this.injector.get(D3CloudFacade);
         this.width = window.innerWidth;
         this.height = window.innerHeight;
 
@@ -79,7 +78,7 @@ export class WordCloudComponent implements OnChanges {
             this.removeShapeBackground();
             const shape = this.createShape();
             shape.backgroundColour = color;
-            this.d3cloud.shape(() => shape).redrawBackground();
+            this.renderer.redrawBackground(shape);
         });
 
         events.subscribe('progressUpdate', p => {
@@ -96,8 +95,6 @@ export class WordCloudComponent implements OnChanges {
             document.getElementById('backgroundCanvas').classList.remove('notShown');
             document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
         });
-
-        this.d3cloud = d3.layout.cloud();
     }
 
     @HostListener('window:resize', ['$event'])
@@ -129,14 +126,14 @@ export class WordCloudComponent implements OnChanges {
             return;
         }
 
-        if (this.d3cloud.busy) {
-            this.d3cloud.abort();
+        if (this.renderer.isBusy()) {
+            this.renderer.abort();
             console.log('d3cloud is busy');
             return;
         }
 
         console.log('drawCloud()');
-        this.d3cloud.busy = true;
+        this.renderer.setBusy(true);
         this.configurationService.setBusy(true);
 
         this.setup();
@@ -185,11 +182,10 @@ export class WordCloudComponent implements OnChanges {
 
         this.removeShapeBackground();
 
-        this.style = this.injector.get(GlowingStyle);
-        this.style.initialise(this.svg);
+        this.style = this.injector.get(BubbleMaskStyle);
+        this.style.initialise(this.svg, this.w, this.h);
 
-        this.renderer = this.injector.get(D3CloudFacade);
-        this.renderer.populate(this.w, this.h, this.data, this.d3cloud, () => this.createShape(), words => this.style.drawWordCloud(words));
+        this.renderer.populate(this.w, this.h, this.data, () => this.createShape(), words => this.style.drawWordCloud(words));
 
         this.hideSplashScreen();
     }
