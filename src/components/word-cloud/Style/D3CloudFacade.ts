@@ -12,7 +12,7 @@ export class D3CloudFacade {
         this.d3cloud = d3.layout.cloud();
     }
 
-    public populate(w, h, data: any[], createShape: Function, drawWordCloud: Function) {
+    public populate(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
         const fontWeight: string = this.configurationService.settings.fontWeight == null ? 'normal' : this.configurationService.settings.fontWeight;
         const spiralType: string = this.configurationService.settings.spiralType == null ? 'archimedean' : this.configurationService.settings.spiralType;
 
@@ -33,7 +33,7 @@ export class D3CloudFacade {
             .size([w, h])
             .words(data)
             .shape(createShape)
-            .padding(2)
+            .padding(padding)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
             .font(this.configurationService.settings.fontFace)
             .fontWeight(fontWeight)

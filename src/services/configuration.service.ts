@@ -71,7 +71,7 @@ export class ConfigurationService {
 
     fontChanged(name: string) {
         setTimeout(() => {
-            this.fontChangedSource.next(name);
+            this.configurationChangeSource.next(name);
         }, 100);
     }
 

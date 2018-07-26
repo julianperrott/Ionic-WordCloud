@@ -5,7 +5,7 @@ import { ConfigurationService, Shape } from '../../services/configuration.servic
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './Style/D3CloudFacade';
 import { GlowingStyle } from './Style/GlowingStyle';
-import { BubbleMaskStyle } from './Style/BubbleMaskStyle';
+import { SnowMaskStyle } from './Style/SnowMaskStyle';
 
 import * as D3 from 'd3';
 
@@ -21,7 +21,7 @@ export class WordCloudComponent implements OnChanges {
     w;
     h;
     renderer: D3CloudFacade;
-    style: BubbleMaskStyle;
+    style: GlowingStyle;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -182,10 +182,10 @@ export class WordCloudComponent implements OnChanges {
 
         this.removeShapeBackground();
 
-        this.style = this.injector.get(BubbleMaskStyle);
+        this.style = this.injector.get(GlowingStyle);
         this.style.initialise(this.svg, this.w, this.h);
 
-        this.renderer.populate(this.w, this.h, this.data, () => this.createShape(), words => this.style.drawWordCloud(words));
+        this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.drawWordCloud(words));
 
         this.hideSplashScreen();
     }

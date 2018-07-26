@@ -33,7 +33,8 @@ import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapeP
 
 import { D3CloudFacade } from '../components/word-cloud/Style/D3CloudFacade';
 import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
-import { BubbleMaskStyle } from '../components/word-cloud/Style/BubbleMaskStyle';
+import { WaterMaskStyle } from '../components/word-cloud/Style/WaterMaskStyle';
+import { SnowMaskStyle } from '../components/word-cloud/Style/SnowMaskStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
@@ -63,7 +64,8 @@ import { BubbleMaskStyle } from '../components/word-cloud/Style/BubbleMaskStyle'
         WordsToCountService,
         D3CloudFacade,
         GlowingStyle,
-        BubbleMaskStyle
+        WaterMaskStyle,
+        SnowMaskStyle
     ]
 })
 export class AppModule {}

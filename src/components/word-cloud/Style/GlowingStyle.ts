@@ -1,29 +1,32 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
+import { MaskStyleBaseClass } from './MaskStyleBaseClass';
 
 @Injectable()
-export class GlowingStyle {
-    constructor(private configurationService: ConfigurationService) {}
+export class GlowingStyle extends MaskStyleBaseClass {
+    constructor(configurationService: ConfigurationService) {
+        super(configurationService);
+    }
 
-    svg: any;
+    padding = 2;
 
-    public initialise(svg: any) {
-        this.svg = svg;
+    public initialise(svg: any, w: number, h: number) {
+        super.initialise(svg, w, h);
+        this.glowFilter();
+    }
 
-        const filter = this.svg
-            .append('defs')
-            .append('filter')
-            .attr('id', 'glow')
+    public glowFilter() {
+        this.filter
             .attr('x', '-30%')
             .attr('y', '-30%')
             .attr('width', '160%')
             .attr('height', '160%');
-        filter
+        this.filter
             .append('feGaussianBlur')
             .attr('stdDeviation', '10 10')
             .attr('result', 'glow');
 
-        const feMerge = filter.append('feMerge'); // glow count
+        const feMerge = this.filter.append('feMerge'); // glow count
         for (let i = 0; i < this.configurationService.settings.glowCount; i++) {
             feMerge.append('feMergeNode').attr('in', 'glow');
             feMerge.append('feMergeNode').attr('in', 'glow');
@@ -33,46 +36,21 @@ export class GlowingStyle {
     public drawWordCloud(words) {
         const settings = this.configurationService.settings;
 
-        const enter = this.svg
-            .selectAll('g')
-            .data(words)
-            .enter();
+        this.drawWordsIn(words, '#wwwwords', (w, d) => {
+            this.colorHsl(w, d);
+            this.setFilter(w, 'wwwfilter');
+        });
 
-        enter
-            .append('text')
-            .style('font-size', d => d.size + 'px')
-            .style('font-family', d => (d.fontFace = settings.fontFace))
-            .style('fill', (d, i) => {
-                return 'hsl(' + d.color * 360 + ',100%,' + settings.lightnessGlow + ')';
-            })
-            .attr('text-anchor', 'middle')
-            .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
-            .attr('filter', 'url(#glow)')
-            .text(d => {
-                return d.text;
-            });
+        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
+            this.colorHsl(w, d);
 
-        enter
-            .append('text')
-            .style('font-size', d => d.size + 'px')
-            .style('stroke', d => settings.strokeColour) // stroke colour
-            .style('stroke-opacity', d => settings.strokeOpacity) //  stroke opacity
-            .style('stroke-width', d => {
-                let scale = ~~(d.size / settings.strokeScale);
-                scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
-                return scale + 'px';
-            }) // stroke size divider + min width
-            .style(
-                'font-family',
-                d => (d.fontFace = settings.fontFace) // font face
-            )
-            .style('fill', (d, i) => {
-                return 'hsl(' + d.color * 360 + ',100%, ' + settings.lightness + ')';
-            })
-            .attr('text-anchor', 'middle')
-            .attr('transform', d => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
-            .text(d => {
-                return d.text;
-            });
+            w.style('stroke', () => settings.strokeColour) // stroke colour
+                .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
+                .style('stroke-width', () => {
+                    let scale = ~~(d.size / settings.strokeScale);
+                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+                    return scale + 'px';
+                }); // stroke size divider + min width
+        });
     }
 }
