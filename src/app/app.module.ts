@@ -35,6 +35,9 @@ import { D3CloudFacade } from '../components/word-cloud/Style/D3CloudFacade';
 import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
 import { WaterMaskStyle } from '../components/word-cloud/Style/WaterMaskStyle';
 import { SnowMaskStyle } from '../components/word-cloud/Style/SnowMaskStyle';
+import { ShadowMaskStyle } from '../components/word-cloud/Style/ShadowMaskStyle';
+import { StyleFactory } from '../components/word-cloud/Style/StyleFactory';
+import { StrokedStyle } from '../components/word-cloud/Style/StrokedStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
@@ -65,7 +68,10 @@ import { SnowMaskStyle } from '../components/word-cloud/Style/SnowMaskStyle';
         D3CloudFacade,
         GlowingStyle,
         WaterMaskStyle,
-        SnowMaskStyle
+        SnowMaskStyle,
+        ShadowMaskStyle,
+        StyleFactory,
+        StrokedStyle
     ]
 })
 export class AppModule {}

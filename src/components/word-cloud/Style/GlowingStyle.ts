@@ -1,9 +1,9 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
-import { MaskStyleBaseClass } from './MaskStyleBaseClass';
+import { StyleBaseClass } from './StyleBaseClass';
 
 @Injectable()
-export class GlowingStyle extends MaskStyleBaseClass {
+export class GlowingStyle extends StyleBaseClass implements IStyle {
     constructor(configurationService: ConfigurationService) {
         super(configurationService);
     }

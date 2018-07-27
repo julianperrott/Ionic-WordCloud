@@ -2,7 +2,7 @@ import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class MaskStyleBaseClass {
+export class StyleBaseClass {
     constructor(public configurationService: ConfigurationService) {}
 
     protected svg: any;
@@ -29,7 +29,6 @@ export class MaskStyleBaseClass {
         this.svg.attr('mask', 'url(#wwwmask)');
     }
 
-    // .style('fill', () => (color ? color : 'hsl(' + d.color * 360 + ',100%,' + settings.lightnessGlow + ')'))
     protected colorWhite(word) {
         word.style('fill', 'white');
     }

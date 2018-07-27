@@ -4,8 +4,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService, Shape } from '../../services/configuration.service';
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './Style/D3CloudFacade';
-import { GlowingStyle } from './Style/GlowingStyle';
-import { SnowMaskStyle } from './Style/SnowMaskStyle';
+import { StyleFactory } from './Style/StyleFactory';
 
 import * as D3 from 'd3';
 
@@ -21,7 +20,7 @@ export class WordCloudComponent implements OnChanges {
     w;
     h;
     renderer: D3CloudFacade;
-    style: GlowingStyle;
+    style: IStyle;
 
     private svg; // SVG in which we will print our cloud on
     private margin: {
@@ -43,7 +42,8 @@ export class WordCloudComponent implements OnChanges {
         platform: Platform,
         private wordsToCountService: WordsToCountService,
         events: Events,
-        private injector: Injector
+        private injector: Injector,
+        private styleFactory: StyleFactory
     ) {
         this.renderer = this.injector.get(D3CloudFacade);
         this.width = window.innerWidth;
@@ -182,7 +182,7 @@ export class WordCloudComponent implements OnChanges {
 
         this.removeShapeBackground();
 
-        this.style = this.injector.get(GlowingStyle);
+        this.style = this.styleFactory.getStyle();
         this.style.initialise(this.svg, this.w, this.h);
 
         this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.drawWordCloud(words));

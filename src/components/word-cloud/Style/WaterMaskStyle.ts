@@ -3,44 +3,20 @@ import { Injectable } from '@angular/core';
 import { MaskStyleBaseClass } from './MaskStyleBaseClass';
 
 @Injectable()
-export class WaterMaskStyle extends MaskStyleBaseClass {
+export class WaterMaskStyle extends MaskStyleBaseClass implements IStyle {
     constructor(configurationService: ConfigurationService) {
         super(configurationService);
     }
 
     padding = 0;
-    drawWordsWithoutFilter = false;
 
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();
-        this.innerShadowFilter(this.filter);
-    }
-
-    public innerShadowFilter(filter) {
-        this.drawWordsWithoutFilter = false;
-        filter
-            .attr('height', '200%')
-            .attr('width', '200%')
-            .attr('x', '-50%')
-            .attr('y', '-50%');
-
-        filter
-            .append('feGaussianBlur')
-            .attr('in', 'SourceGraphic')
-            .attr('stdDeviation', '3')
-            .attr('result', 'blur');
-
-        filter
-            .append('feOffset')
-            .attr('in', 'blur')
-            .attr('dx', '2.5')
-            .attr('dy', '2.5');
+        this.waterFilter(this.filter);
     }
 
     public waterFilter(filter) {
-        this.drawWordsWithoutFilter = true;
-
         filter
             .append('feTurbulence')
             .attr('type', 'turbulence')
@@ -75,9 +51,7 @@ export class WaterMaskStyle extends MaskStyleBaseClass {
     public drawWordCloud(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
 
-        if (this.drawWordsWithoutFilter) {
-            this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));
-        }
+        this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
