@@ -1,6 +1,6 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
-import { StyleBaseClass } from './StyleBaseClass';
+import { StyleBaseClass } from '../StyleBaseClass';
 
 @Injectable()
 export class ShadowMaskStyle extends StyleBaseClass implements IStyle {
@@ -13,10 +13,10 @@ export class ShadowMaskStyle extends StyleBaseClass implements IStyle {
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();
-        this.innerShadowFilter(this.filter);
+        this.createFilter(this.filter);
     }
 
-    public innerShadowFilter(filter) {
+    public createFilter(filter) {
         filter
             .attr('height', '200%')
             .attr('width', '200%')
@@ -36,7 +36,7 @@ export class ShadowMaskStyle extends StyleBaseClass implements IStyle {
             .attr('dy', '2.5');
     }
 
-    public drawWordCloud(words) {
+    public render(words) {
         const settings = this.configurationService.settings;
 
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));

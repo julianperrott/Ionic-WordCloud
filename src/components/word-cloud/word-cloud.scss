@@ -140,3 +140,100 @@
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
 }
+
+
+$animation-colors:
+    yellowgreen,
+    deeppink,
+    royalblue,
+    gold,
+    orangered,
+    yellow,
+    lightseagreen,
+    orange,
+    darkviolet,
+    skyblue,
+    magenta,
+    mediumslateblue,
+    lightgreen,
+    tomato,
+    chartreuse;
+
+$animation-color-count: length($animation-colors);
+$animation-duration: 60s;
+$animation-step: $animation-duration/$animation-color-count;
+
+@keyframes anim-cells {
+
+  @for $item from 1 through $animation-color-count {
+      $perc: percentage(100/$animation-color-count*$item/100);
+      $fill-color: nth($animation-colors, $item);
+
+      #{$perc} {
+          fill: $fill-color;
+          stroke: $fill-color;
+      }
+  }
+}
+
+// DiscoStyle Animation
+
+.g-anim-cells rect {
+    fill: chartreuse;
+    animation: anim-cells $animation-duration infinite linear;
+
+    @for $item from 1 through $animation-color-count {
+        $fill-color: nth($animation-colors, $item);
+
+        &:nth-child(#{$item}) {
+          // fill: $fill-color;
+          animation-delay: -$animation-step*$item;
+          }
+    }
+}
+
+// CircleStyle Animation
+
+.g-anim-spots circle {
+  fill: chartreuse;
+  stroke: chartreuse;
+  stroke-width: 0;
+  stroke-dasharray: 0;
+  animation: anim-spots $animation-duration infinite linear;
+  animation-name: anim-cells, anim-spots-stroke;
+  animation-duration: $animation-duration, $animation-duration/5;
+
+  @for $item from 1 through $animation-color-count {
+      $fill-color: nth($animation-colors, $item);
+
+    &:nth-child(#{$animation-color-count}n + #{$item}) {
+        fill: $fill-color;
+        stroke: $fill-color;
+        animation-delay: -$animation-step*$item;
+        }
+  }
+}
+
+@keyframes anim-spots-stroke {
+50% { stroke-width: 18; }
+}
+
+// Line Style Animation
+$anim-line-time: 3s;
+.p-line {
+  stroke: gold;
+  stroke-width: 6;
+  animation: anim-spots-stroke $anim-line-time linear infinite;
+  
+  @for $item from 1 through $animation-color-count{
+    &:nth-child(#{$item}n + #{$item}) {
+      stroke: nth($animation-colors, $item);
+      }
+    }
+  &:nth-child(3n + 1) {
+    animation-delay: -$anim-line-time/3;
+    }
+  &:nth-child(3n) {
+    animation-delay: -$anim-line-time/3*2;
+    }
+  }

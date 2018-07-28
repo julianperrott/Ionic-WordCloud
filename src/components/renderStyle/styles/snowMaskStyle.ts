@@ -1,6 +1,6 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
-import { StyleBaseClass } from './StyleBaseClass';
+import { StyleBaseClass } from '../StyleBaseClass';
 
 @Injectable()
 export class SnowMaskStyle extends StyleBaseClass implements IStyle {
@@ -14,10 +14,10 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();
-        this.drawCircles();
+        this.createFilter();
     }
 
-    public drawCircles() {
+    public createFilter() {
         const jsonCircles = [];
         for (let i = 0; i < 2000; i++) {
             const cx = Math.floor(Math.random() * this.w - this.w / 2);
@@ -67,7 +67,7 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
         }
     }
 
-    public drawWordCloud(words) {
+    public render(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
         this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));
         this.animate();

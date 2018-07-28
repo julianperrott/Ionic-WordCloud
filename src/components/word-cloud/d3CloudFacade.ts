@@ -1,5 +1,5 @@
 import { Events } from 'ionic-angular';
-import { ConfigurationService } from '../../../services/configuration.service';
+import { ConfigurationService } from '../../services/configuration.service';
 import { Injectable, NgZone } from '@angular/core';
 
 declare var d3: any;

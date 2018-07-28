@@ -1,4 +1,4 @@
-import { ConfigurationService } from '../../../services/configuration.service';
+import { ConfigurationService } from '../../services/configuration.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -18,6 +18,8 @@ export class StyleBaseClass {
         this.w = w;
 
         this.defs = this.svg.append('defs');
+        this.defs.attr('id', 'wwwdefs');
+
         this.svg.append('g').attr('id', 'wwwwords');
         this.svg.append('g').attr('id', 'wwwwords2');
 
@@ -33,14 +35,28 @@ export class StyleBaseClass {
         word.style('fill', 'white');
     }
 
+    protected colorBlack(word) {
+        word.style('fill', 'black');
+    }
+
     protected colorHsl(word, d) {
         const settings = this.configurationService.settings;
         const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,' + settings.lightnessGlow + ')';
         word.style('fill', hsl);
     }
 
+    protected getColorHsl(d) {
+        const settings = this.configurationService.settings;
+        const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,' + settings.lightnessGlow + ')';
+        return hsl;
+    }
+
     protected setFilter(word, filterName) {
         word.attr('filter', 'url(#' + filterName + ')');
+    }
+
+    protected setFill(word, fillName) {
+        word.attr('fill', 'url(#' + fillName + ')');
     }
 
     protected drawWordsIn(words: any[], selector: string, wordCallback: Function) {

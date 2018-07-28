@@ -1,6 +1,6 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
-import { StyleBaseClass } from './StyleBaseClass';
+import { StyleBaseClass } from '../StyleBaseClass';
 
 @Injectable()
 export class StrokedStyle extends StyleBaseClass implements IStyle {
@@ -21,7 +21,7 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
         return scale + 'px';
     }
 
-    public drawWordCloud(words) {
+    public render(words) {
         const settings = this.configurationService.settings;
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {

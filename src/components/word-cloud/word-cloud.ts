@@ -3,8 +3,8 @@ import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ConfigurationService, Shape } from '../../services/configuration.service';
 import { WordsToCountService } from '../../services/wordsToCountService';
-import { D3CloudFacade } from './Style/D3CloudFacade';
-import { StyleFactory } from './Style/StyleFactory';
+import { D3CloudFacade } from './d3CloudFacade';
+import { StyleFactory } from '../renderStyle/styleFactory';
 
 import * as D3 from 'd3';
 
@@ -70,7 +70,7 @@ export class WordCloudComponent implements OnChanges {
                 .remove();
 
             if (this.style) {
-                this.style.drawWordCloud(this.data.filter(c => c.x !== undefined && c.y !== undefined));
+                this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
             }
         });
 
@@ -185,7 +185,7 @@ export class WordCloudComponent implements OnChanges {
         this.style = this.styleFactory.getStyle();
         this.style.initialise(this.svg, this.w, this.h);
 
-        this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.drawWordCloud(words));
+        this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.render(words));
 
         this.hideSplashScreen();
     }

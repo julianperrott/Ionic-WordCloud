@@ -1,9 +1,9 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
-import { MaskStyleBaseClass } from './MaskStyleBaseClass';
+import { StyleBaseClass } from '../StyleBaseClass';
 
 @Injectable()
-export class WaterMaskStyle extends MaskStyleBaseClass implements IStyle {
+export class WaterMaskStyle extends StyleBaseClass implements IStyle {
     constructor(configurationService: ConfigurationService) {
         super(configurationService);
     }
@@ -13,10 +13,10 @@ export class WaterMaskStyle extends MaskStyleBaseClass implements IStyle {
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();
-        this.waterFilter(this.filter);
+        this.createFilter(this.filter);
     }
 
-    public waterFilter(filter) {
+    public createFilter(filter) {
         filter
             .append('feTurbulence')
             .attr('type', 'turbulence')
@@ -48,7 +48,7 @@ export class WaterMaskStyle extends MaskStyleBaseClass implements IStyle {
             .attr('intercept', '0.0');
     }
 
-    public drawWordCloud(words) {
+    public render(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));

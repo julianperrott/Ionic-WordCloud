@@ -31,13 +31,24 @@ import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
 
-import { D3CloudFacade } from '../components/word-cloud/Style/D3CloudFacade';
-import { GlowingStyle } from '../components/word-cloud/Style/GlowingStyle';
-import { WaterMaskStyle } from '../components/word-cloud/Style/WaterMaskStyle';
-import { SnowMaskStyle } from '../components/word-cloud/Style/SnowMaskStyle';
-import { ShadowMaskStyle } from '../components/word-cloud/Style/ShadowMaskStyle';
-import { StyleFactory } from '../components/word-cloud/Style/StyleFactory';
-import { StrokedStyle } from '../components/word-cloud/Style/StrokedStyle';
+import { D3CloudFacade } from '../components/word-cloud/d3CloudFacade';
+import { GlowingStyle } from '../components/renderStyle/styles/glowingStyle';
+import { WaterMaskStyle } from '../components/renderStyle/styles/waterMaskStyle';
+import { SnowMaskStyle } from '../components/renderStyle/styles/snowMaskStyle';
+import { ShadowMaskStyle } from '../components/renderStyle/styles/shadowMaskStyle';
+import { StyleFactory } from '../components/renderStyle/styleFactory';
+import { StrokedStyle } from '../components/renderStyle/styles/strokedStyle';
+import { DropShadowStyle } from '../components/renderStyle/styles/dropShadowStyle';
+import { DistressedStyle } from '../components/renderStyle/styles/distressedStyle';
+import { SplashStyle } from '../components/renderStyle/styles/splashStyle';
+import { ScratchStyle } from '../components/renderStyle/styles/scratchStyle';
+import { Blop1Style } from '../components/renderStyle/styles/blop1Style';
+import { Blop2Style } from '../components/renderStyle/styles/blop2Style';
+import { Blop3Style } from '../components/renderStyle/styles/blop3Style';
+import { Blop4Style } from '../components/renderStyle/styles/blop4Style';
+import { PansenStyle } from '../components/renderStyle/styles/pansenStyle';
+import { ShadedStyle } from '../components/renderStyle/styles/shadedStyle';
+import { CircleStyle } from '../components/renderStyle/styles/circleStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
@@ -71,7 +82,18 @@ import { StrokedStyle } from '../components/word-cloud/Style/StrokedStyle';
         SnowMaskStyle,
         ShadowMaskStyle,
         StyleFactory,
-        StrokedStyle
+        StrokedStyle,
+        DropShadowStyle,
+        DistressedStyle,
+        SplashStyle,
+        ScratchStyle,
+        Blop1Style,
+        Blop2Style,
+        Blop3Style,
+        Blop4Style,
+        PansenStyle,
+        ShadedStyle,
+        CircleStyle
     ]
 })
 export class AppModule {}
