@@ -4,6 +4,7 @@ import { Events, Popover, PopoverController, ViewController } from 'ionic-angula
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { ShapePicker } from '../shape-picker/shape-picker';
+import { StylePicker } from '../renderStyle/stylePicker';
 
 @Component({
     selector: 'common-header',
@@ -15,6 +16,7 @@ export class CommonHeaderComponent {
     @Input() showMoreButton;
     @Input() showCloseButton;
     @Input() showShapeButton;
+    @Input() showStyleButton;
     @Input() showMore: Function;
 
     defaultTitle = '?';
@@ -80,5 +82,12 @@ export class CommonHeaderComponent {
 
     closePopover() {
         this.viewController.dismiss();
+    }
+
+    cloudStyle(myEvent) {
+        const popover = this.popoverCtrl.create(StylePicker, {});
+        popover.present({
+            ev: myEvent
+        });
     }
 }

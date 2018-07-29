@@ -37,8 +37,6 @@ export class ShadowMaskStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        const settings = this.configurationService.settings;
-
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {

@@ -29,6 +29,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
+import { StylePicker } from '../components/renderStyle/stylePicker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
 
 import { D3CloudFacade } from '../components/word-cloud/d3CloudFacade';
@@ -42,29 +43,23 @@ import { DropShadowStyle } from '../components/renderStyle/styles/dropShadowStyl
 import { DistressedStyle } from '../components/renderStyle/styles/distressedStyle';
 import { SplashStyle } from '../components/renderStyle/styles/splashStyle';
 import { ScratchStyle } from '../components/renderStyle/styles/scratchStyle';
-import { Blop1Style } from '../components/renderStyle/styles/blop1Style';
-import { Blop2Style } from '../components/renderStyle/styles/blop2Style';
-import { Blop3Style } from '../components/renderStyle/styles/blop3Style';
-import { Blop4Style } from '../components/renderStyle/styles/blop4Style';
+import { BlopStyle } from '../components/renderStyle/styles/blopStyle';
 import { PansenStyle } from '../components/renderStyle/styles/pansenStyle';
 import { ShadedStyle } from '../components/renderStyle/styles/shadedStyle';
-import { CircleStyle } from '../components/renderStyle/styles/circleStyle';
+import { AnimatedPatternStyle } from '../components/renderStyle/styles/animatedPatternStyle';
 
 @NgModule({
-    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, ShapePopoverPage],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, ShapePopoverPage],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
             menuType: 'push'
         }),
         IonicPageModule.forChild(AboutPage),
-        IonicPageModule.forChild(PopoverPage),
-        IonicPageModule.forChild(ShapePopoverPage),
-        IonicPageModule.forChild(ColorPicker),
-        IonicPageModule.forChild(ShapePicker)
+        IonicPageModule.forChild(PopoverPage)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage, StylePicker],
     providers: [
         StatusBar,
         SplashScreen,
@@ -87,13 +82,10 @@ import { CircleStyle } from '../components/renderStyle/styles/circleStyle';
         DistressedStyle,
         SplashStyle,
         ScratchStyle,
-        Blop1Style,
-        Blop2Style,
-        Blop3Style,
-        Blop4Style,
+        BlopStyle,
         PansenStyle,
         ShadedStyle,
-        CircleStyle
+        AnimatedPatternStyle
     ]
 })
 export class AppModule {}

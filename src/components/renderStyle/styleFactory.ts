@@ -1,4 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
+import { ConfigurationService } from '../../services/configuration.service';
+
 import { GlowingStyle } from './styles/glowingStyle';
 import { ShadowMaskStyle } from './styles/shadowMaskStyle';
 import { SnowMaskStyle } from './styles/snowMaskStyle';
@@ -8,70 +10,67 @@ import { DropShadowStyle } from './styles/dropShadowStyle';
 import { DistressedStyle } from './styles/distressedStyle';
 import { SplashStyle } from './styles/splashStyle';
 import { ScratchStyle } from './styles/scratchStyle';
-import { Blop1Style } from './styles/blop1Style';
-import { Blop2Style } from './styles/blop2Style';
-import { Blop3Style } from './styles/blop3Style';
-import { Blop4Style } from './styles/blop4Style';
+import { BlopStyle } from './styles/blopStyle';
 import { PansenStyle } from './styles/pansenStyle';
 import { ShadedStyle } from './styles/shadedStyle';
-import { CircleStyle } from './styles/circleStyle';
+import { AnimatedPatternStyle } from './styles/animatedPatternStyle';
+import { Type } from '../../../node_modules/@angular/compiler/src/core';
+
+export interface Style {
+    type?: Type;
+    key: string;
+    create?: Function;
+}
 
 @Injectable()
 export class StyleFactory {
-    constructor(private injector: Injector) {}
+    constructor(private injector: Injector, private configurationService: ConfigurationService) {}
 
-    public style = 'CircleStyle2';
+    public styles: Style[] = [
+        { type: GlowingStyle, key: 'Glow' },
+        { key: 'Circle Pattern 1 (Animated)', create: () => this.animatedPatternStyle(0) },
+        { key: 'Circle Pattern 2 (Animated)', create: () => this.animatedPatternStyle(1) },
+        { key: 'Circle Pattern 3 (Animated)', create: () => this.animatedPatternStyle(2) },
+        { key: 'Square Pattern (Animated)', create: () => this.animatedPatternStyle(3) },
+        { key: 'Stripe Pattern (Animated)', create: () => this.animatedPatternStyle(4) },
+        { type: SnowMaskStyle, key: 'Snow Mask' },
+        { type: StrokedStyle, key: 'Stroked' },
+        { type: DropShadowStyle, key: 'Drop Shadow' },
+        { type: SplashStyle, key: 'Splash' },
+        { type: ScratchStyle, key: 'Scratch' },
+        { key: 'Blop 1', create: () => this.blopStyle(0) },
+        { key: 'Blop 2', create: () => this.blopStyle(1) },
+        { key: 'Blop 3', create: () => this.blopStyle(2) },
+        { key: 'Blop 4', create: () => this.blopStyle(3) },
+        { type: PansenStyle, key: 'Pansen' },
+        { type: ShadedStyle, key: 'Shaded' },
+        { type: DistressedStyle, key: 'Distressed' },
+        { type: ShadowMaskStyle, key: 'Shadow Mask' },
+        { type: WaterMaskStyle, key: 'Water Mask' }
+    ];
 
     public getStyle(): IStyle {
-        switch (this.style) {
-            case 'GlowingStyle':
-                return this.injector.get(GlowingStyle);
-            case 'ShadowMaskStyle':
-                return this.injector.get(ShadowMaskStyle);
-            case 'SnowMaskStyle':
-                return this.injector.get(SnowMaskStyle);
-            case 'WaterMaskStyle':
-                return this.injector.get(WaterMaskStyle);
-            case 'StrokedStyle':
-                return this.injector.get(StrokedStyle);
-            case 'DropShadowStyle':
-                return this.injector.get(DropShadowStyle);
-            case 'DistressedStyle':
-                return this.injector.get(DistressedStyle);
-            case 'SplashStyle':
-                return this.injector.get(SplashStyle);
-            case 'ScratchStyle':
-                return this.injector.get(ScratchStyle);
-            case 'Blop1Style':
-                return this.injector.get(Blop1Style);
-            case 'Blop2Style':
-                return this.injector.get(Blop2Style);
-            case 'Blop3Style':
-                return this.injector.get(Blop3Style);
-            case 'Blop4Style':
-                return this.injector.get(Blop4Style);
-            case 'PansenStyle':
-                return this.injector.get(PansenStyle);
-            case 'ShadedStyle':
-                return this.injector.get(ShadedStyle);
-            case 'CircleStyle1':
-                return this.circleStyle(0);
-            case 'CircleStyle2':
-                return this.circleStyle(1);
-            case 'CircleStyle3':
-                return this.circleStyle(2);
-            case 'CircleStyle4':
-                return this.circleStyle(3);
-            case 'CircleStyle5':
-                return this.circleStyle(4);
+        let selectedStyles = this.styles.filter(s => s.key === this.configurationService.style);
+        if (selectedStyles.length === 0) {
+            selectedStyles = this.styles;
         }
 
-        return this.injector.get(GlowingStyle);
+        if (selectedStyles[0].create !== undefined) {
+            return selectedStyles[0].create();
+        }
+
+        return this.injector.get(selectedStyles[0].type);
     }
 
-    circleStyle(i: number): IStyle {
-        const style = this.injector.get(CircleStyle);
-        style.pattern = style.patternHtml[i];
+    animatedPatternStyle(i: number): IStyle {
+        const style = this.injector.get(AnimatedPatternStyle);
+        style.htmlIndex = i;
+        return style;
+    }
+
+    blopStyle(i: number): IStyle {
+        const style = this.injector.get(BlopStyle);
+        style.htmlIndex = i;
         return style;
     }
 }

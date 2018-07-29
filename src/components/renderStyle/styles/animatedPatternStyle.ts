@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
 
 @Injectable()
-export class CircleStyle extends StyleBaseClass implements IStyle {
+export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
     constructor(configurationService: ConfigurationService) {
         super(configurationService);
     }
 
-    pattern: string;
+    htmlIndex: number;
 
     patternHtml = [
         `
@@ -229,7 +229,7 @@ export class CircleStyle extends StyleBaseClass implements IStyle {
     }
 
     public createPattern() {
-        document.getElementById('wwwdefs').innerHTML = this.pattern;
+        document.getElementById('wwwdefs').innerHTML = this.patternHtml[this.htmlIndex];
     }
 
     public render(words) {

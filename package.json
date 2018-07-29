@@ -12,6 +12,7 @@
     "lint": "ionic-app-scripts lint",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
+    "serve": "call ./scripts/serve.bat",
     "typedoc": "./node_modules/.bin/typedoc src --exclude '**/*+(e2e|spec|index).ts'",
     "lf": "powershell ./scripts/*.ps1",
     "publishbuild": "call ./scripts/build.bat",

@@ -62,16 +62,11 @@ export class WordCloudComponent implements OnChanges {
             this.forceRedraw();
         });
 
-        configurationService.fontChanged$.subscribe(v => {
-            D3.select('div.word-cloud')
-                .select('svg')
-                .select('g')
-                .selectAll('text')
-                .remove();
-
-            if (this.style) {
-                this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
-            }
+        configurationService.styleChanged$.subscribe(v => {
+            this.buildSVG();
+            this.style = this.styleFactory.getStyle();
+            this.style.initialise(this.svg, this.w, this.h);
+            this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
         });
 
         events.subscribe('shapeBackgroundColour', color => {
@@ -238,6 +233,8 @@ export class WordCloudComponent implements OnChanges {
     }
 
     private createShape(): Shape {
+        this.removeShapeBackground();
+
         const shape = this.configurationService.getShape();
 
         // create a new image canvas

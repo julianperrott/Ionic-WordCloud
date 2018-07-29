@@ -12,6 +12,9 @@
     </ion-title>
 
     <ion-buttons end>
+        <button ion-button icon-only (click)="cloudStyle($event)" id="stylings" *ngIf="showStyleButton">
+            <ion-icon name="flask"></ion-icon>
+        </button>
         <button ion-button (click)="cloudShape($event)" id="shape" *ngIf="showShapeButton">
             <i *ngIf="shape && shape.length > 0" class="fa fa-2x fa-{{shape}}"></i>
             <ion-icon *ngIf="!shape || shape.length==0" name="easel" style="font-size: 25px;"></ion-icon>

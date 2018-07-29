@@ -79,8 +79,6 @@ export class ScratchStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        const settings = this.configurationService.settings;
-
         this.drawWordsIn(words, '#wwwwords2', (w, d) => {
             this.colorHsl(w, d);
             this.setFilter(w, 'wwwfilter');
