@@ -9,7 +9,7 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
     }
 
     filterHtml = `
-        <feFlood flood-color="red" result="COLOR-background"></feFlood>
+        <feFlood id="color1" flood-color="blue" result="COLOR-background"></feFlood>
         <!-- FRACTAL TEXTURE -->
         <feTurbulence baseFrequency=".05,.004" top="-50%" type="fractalNoise" numOctaves="4" seed="0" result="FRACTAL-TEXTURE_10"></feTurbulence>
         <feColorMatrix type="matrix" values="0 0 0 0 0,
@@ -46,14 +46,14 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
-            this.colorHsl(w, d);
-            this.setFilter(w, 'wwwfilter');
-        });
-
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,20%)';
             w.style('fill', hsl);
+        });
+
+        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
+            this.colorHsl(w, d);
+            this.setFilter(w, 'wwwfilter');
         });
     }
 }

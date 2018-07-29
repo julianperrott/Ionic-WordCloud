@@ -10,8 +10,8 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
 
     filterHtml = `
     <!-- COLORS -->
-    <feFlood flood-color="#663300" result="COLOR-red"></feFlood>‚
-    <feFlood flood-color="#D7A500" result="COLOR-y"></feFlood>
+    <feFlood id="color1" flood-color="#663300" result="COLOR-red"></feFlood>‚
+    <feFlood id="color2" flood-color="#D7A500" result="COLOR-y"></feFlood>
     <!-- COLORS END -->
 
     <!-- STRIPE FILL -->

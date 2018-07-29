@@ -10,8 +10,8 @@ export class ScratchStyle extends StyleBaseClass implements IStyle {
 
     filterHtml = `
     <!-- COLOR -->
-    <feFlood flood-color="red" flood-opacity="0.8" result="COLOR-blu"></feFlood>
-    <feFlood flood-color="yellow" flood-opacity="0.6" result="COLOR-red"></feFlood>
+    <feFlood id="color1" flood-color="red" flood-opacity="0.8" result="COLOR-blu"></feFlood>
+    <feFlood id="color2" flood-color="yellow" flood-opacity="0.6" result="COLOR-red"></feFlood>
     <!-- COLOR END -->
 
     <!-- Texture -->

@@ -10,8 +10,8 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
 
     filterHtml = `
     <!-- COLORS -->
-    <feFlood flood-color="white" result="COLOR-white"></feFlood>
-    <feFlood flood-color="black" result="COLOR-black"></feFlood>
+    <feFlood id="color1" flood-color="white" result="COLOR-white"></feFlood>
+    <feFlood id="color2" flood-color="black" result="COLOR-black"></feFlood>
     <!-- COLORS END -->
 
     <!-- FAT OUTLINE -->

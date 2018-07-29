@@ -12,4 +12,91 @@
     </ion-select>
   </div>
 
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <ion-label style="color: #999">Colour 1 Enabled</ion-label>
+    <ion-toggle [(ngModel)]="color1Enabled" (ionChange)="onToggleColor1Enabled()"></ion-toggle>
+  </div>
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Colour 1</div>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="selectColor1($event)" style="margin: 0px !important">
+                Colour
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <ion-label style="color: #999">Colour 2 Enabled</ion-label>
+    <ion-toggle [(ngModel)]="color2Enabled" (ionChange)="onToggleColor2Enabled()"></ion-toggle>
+  </div>
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Colour 2</div>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="selectColor2($event)" style="margin: 0px !important">
+                Colour
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <ion-label style="color: #999">Colour 3 Enabled</ion-label>
+    <ion-toggle [(ngModel)]="color3Enabled" (ionChange)="onToggleColor3Enabled()"></ion-toggle>
+  </div>
+
+  <div ion-item>
+    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
+    <div>
+      <ion-grid style="padding-left: 0px !important;">
+        <ion-row>
+          <ion-col style="padding-left: 0px !important">
+            <div style="color: #999">Colour 3</div>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col>
+            <ion-buttons end>
+              <button outline color="primary" round small ion-button (click)="selectColor3($event)" style="margin: 0px !important">
+                Colour
+              </button>
+            </ion-buttons>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
 </ion-content>

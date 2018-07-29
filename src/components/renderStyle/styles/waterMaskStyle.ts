@@ -51,7 +51,19 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
     public render(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
 
-        this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));
+        const settings = this.configurationService.settings;
+
+        this.drawWordsIn(words, '#wwwwords', (w, d) => {
+            this.colorHsl(w, d);
+
+            w.style('stroke', () => settings.strokeColour) // stroke colour
+                .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
+                .style('stroke-width', () => {
+                    let scale = ~~(d.size / settings.strokeScale);
+                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+                    return scale + 'px';
+                }); // stroke size divider + min width
+        });
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);

@@ -10,9 +10,9 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
 
     filterHtml = `
     <!-- COLORS -->
-    <feFlood flood-color="#16B5FF" result="COLOR-blue"></feFlood>â€š
-    <feFlood flood-color="#9800FF" result="COLOR-violet"></feFlood>
-    <feFlood flood-color="#A64DFF" result="COLOR-violet-light"></feFlood>
+    <feFlood id="color1" flood-color="#16B5FF" result="COLOR-blue"></feFlood>
+    <feFlood id="color2" flood-color="#9800FF" result="COLOR-violet"></feFlood>
+    <feFlood id="color3" flood-color="#A64DFF" result="COLOR-violet-light"></feFlood>
     <!-- COLORS END -->
 
     <!-- BOTTOM SPLASH -->

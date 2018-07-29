@@ -13,7 +13,7 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     filterHtml = [
         `
     <!-- COLORS -->
-    <feFlood flood-color="#222" result="COLOR-outline"></feFlood>
+    <feFlood id="color1" flood-color="#551C0B" result="COLOR-outline"></feFlood>
     <!-- COLORS END -->
 
     <!-- OUTLINE -->
@@ -38,9 +38,9 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     </feComponentTransfer>
 
     <feColorMatrix type="matrix" values="0.6 0.2 0 -0.3 0,
--0.5 1 0 -0.1 0,
--0.4 0.5 0.7 0 0,
-0 0 0 1 0" in="COLOR-EFFECTS_10" result="COLOR-EFFECTS_20"></feColorMatrix>
+    -0.5 1 0 -0.1 0,
+    -0.4 0.5 0.7 0 0,
+    0 0 0 1 0" in="COLOR-EFFECTS_10" result="COLOR-EFFECTS_20"></feColorMatrix>
     <!-- COLOR EFFECTS END-->
 
     <feMerge>
@@ -50,7 +50,7 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     `,
         `
     <!-- COLORS -->
-    <feFlood flood-color="#551C0B" result="COLOR-outline"></feFlood>
+    <feFlood id="color1" flood-color="#551C0B" result="COLOR-outline"></feFlood>
     <!-- COLORS END-->
 
     <!-- OUTLINE -->
@@ -82,7 +82,7 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     `,
         `
     <!-- COLORS -->
-    <feFlood flood-color="#551C0B" result="COLOR-outline"></feFlood>
+    <feFlood id="color1" flood-color="#551C0B" result="COLOR-outline"></feFlood>
     <!-- COLORS END-->
 
     <!-- OUTLINE -->
@@ -113,8 +113,8 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     `,
         `
     <!-- COLORS -->
-    <feFlood flood-color="#551C0B" result="COLOR-outline"></feFlood>
-    <feFlood flood-color="#551C0B" flood-opacity="0" result="TRANSPARENT"></feFlood>
+    <feFlood id="color1" flood-color="#551C0B" result="COLOR-outline"></feFlood>
+    <feFlood id="color2" flood-color="#551C0B" flood-opacity="0" result="TRANSPARENT"></feFlood>
     <!-- COLORS END-->
 
     <!-- OUTLINE -->

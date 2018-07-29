@@ -64,8 +64,7 @@ export class WordCloudComponent implements OnChanges {
 
         configurationService.styleChanged$.subscribe(v => {
             this.buildSVG();
-            this.style = this.styleFactory.getStyle();
-            this.style.initialise(this.svg, this.w, this.h);
+            this.createStyle();
             this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
         });
 
@@ -177,12 +176,19 @@ export class WordCloudComponent implements OnChanges {
 
         this.removeShapeBackground();
 
-        this.style = this.styleFactory.getStyle();
-        this.style.initialise(this.svg, this.w, this.h);
+        this.createStyle();
 
         this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.render(words));
 
         this.hideSplashScreen();
+    }
+
+    private createStyle() {
+        this.style = this.styleFactory.getStyle();
+        this.style.initialise(this.svg, this.w, this.h);
+        this.configurationService.setFloodColor('color1', this.configurationService.color1);
+        this.configurationService.setFloodColor('color2', this.configurationService.color2);
+        this.configurationService.setFloodColor('color3', this.configurationService.color3);
     }
 
     private hideSplashScreen() {
