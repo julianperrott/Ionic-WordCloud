@@ -10,6 +10,8 @@ export class GlowingStyle extends StyleBaseClass implements IStyle {
 
     padding = 2;
 
+    defaultColours = [];
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.createFilter();
@@ -46,6 +48,8 @@ export class GlowingStyle extends StyleBaseClass implements IStyle {
 
             w.style('stroke', () => settings.strokeColour) // stroke colour
                 .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
+                .style('stroke-linecap', 'round')
+                .style('stroke-linejoin', 'round')
                 .style('stroke-width', () => {
                     let scale = ~~(d.size / settings.strokeScale);
                     scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;

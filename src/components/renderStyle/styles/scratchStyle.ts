@@ -8,6 +8,8 @@ export class ScratchStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
+    defaultColours = ['red', 'yellow'];
+
     filterHtml = `
     <!-- COLOR -->
     <feFlood id="color1" flood-color="red" flood-opacity="0.8" result="COLOR-blu"></feFlood>

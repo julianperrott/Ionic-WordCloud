@@ -8,6 +8,8 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
+    defaultColours = ['blue'];
+
     filterHtml = `
         <feFlood id="color1" flood-color="blue" result="COLOR-background"></feFlood>
         <!-- FRACTAL TEXTURE -->

@@ -10,6 +10,8 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
 
     htmlIndex: number;
 
+    defaultColours = ['#551C0B', '551C0B'];
+
     filterHtml = [
         `
     <!-- COLORS -->

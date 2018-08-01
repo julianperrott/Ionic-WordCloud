@@ -9,6 +9,7 @@ export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
     }
 
     htmlIndex: number;
+    defaultColours = [];
 
     patternHtml = [
         `

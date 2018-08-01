@@ -10,6 +10,8 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
 
     padding = 2;
 
+    defaultColours = [];
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.createFilter();

@@ -8,6 +8,8 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
+    defaultColours = ['#663300', '#D7A500'];
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="#663300" result="COLOR-red"></feFlood>‚

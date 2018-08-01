@@ -17,9 +17,11 @@ export class StylePicker {
     public color1Enabled = false;
     public color2Enabled = false;
     public color3Enabled = false;
-    color1;
-    color2;
-    color3;
+    public color1;
+    public color2;
+    public color3;
+
+    colourCount = 0;
 
     constructor(
         public navCtrl: NavController,
@@ -30,13 +32,18 @@ export class StylePicker {
         public viewController: ViewController,
         public styleFactory: StyleFactory
     ) {
-        this.style = this.configurationService.style;
-        this.color1Enabled = this.configurationService.color1;
-        this.color2Enabled = this.configurationService.color2;
-        this.color3Enabled = this.configurationService.color3;
+        const selectedStyle = styleFactory.styles.filter(s => s.key === this.configurationService.style);
+        this.color1Enabled = this.configurationService.color1 !== undefined;
+        this.color2Enabled = this.configurationService.color2 !== undefined;
+        this.color3Enabled = this.configurationService.color3 !== undefined;
         this.color1 = this.configurationService.color1;
         this.color2 = this.configurationService.color2;
         this.color3 = this.configurationService.color3;
+
+        if (selectedStyle.length > 0) {
+            this.style = selectedStyle[0];
+            this.refreshForm();
+        }
 
         events.subscribe('color1Changed', color => {
             this.configurationService.color1 = color;
@@ -57,9 +64,36 @@ export class StylePicker {
         });
     }
 
+    refreshForm() {
+        const style = this.styleFactory.getStyle();
+        this.colourCount = style.defaultColours.length;
+
+        if (this.colourCount > 0 && !this.color1Enabled) {
+            this.color1 = style.defaultColours[0];
+        }
+
+        if (this.colourCount > 1 && !this.color2Enabled) {
+            this.color2 = style.defaultColours[1];
+        }
+
+        if (this.colourCount > 2 && !this.color3Enabled) {
+            this.color3 = style.defaultColours[2];
+        }
+    }
+
     styleChanged() {
         setTimeout(() => {
             this.configurationService.style = this.style.key;
+
+            this.color1Enabled = false;
+            this.color2Enabled = false;
+            this.color3Enabled = false;
+
+            this.configurationService.color1 = undefined;
+            this.configurationService.color2 = undefined;
+            this.configurationService.color3 = undefined;
+
+            this.refreshForm();
             this.configurationService.styleChanged('');
         }, 100);
     }

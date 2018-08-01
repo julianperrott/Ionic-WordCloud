@@ -10,6 +10,8 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
 
     padding = 4;
 
+    defaultColours = [];
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
     }

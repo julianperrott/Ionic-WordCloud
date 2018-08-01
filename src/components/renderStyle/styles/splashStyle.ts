@@ -8,6 +8,8 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
+    defaultColours = ['#16B5FF', '#9800FF', '#A64DFF'];
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="#16B5FF" result="COLOR-blue"></feFlood>

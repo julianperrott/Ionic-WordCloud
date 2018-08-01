@@ -11,6 +11,8 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
     circles: any;
     padding = 0;
 
+    defaultColours = [];
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();

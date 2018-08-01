@@ -27,7 +27,7 @@ export class StyleFactory {
     constructor(private injector: Injector, private configurationService: ConfigurationService) {}
 
     public styles: Style[] = [
-        { type: GlowingStyle, key: 'Glow' },
+        { type: GlowingStyle, key: 'Glowing' },
         { key: 'Circle Pattern 1 (Animated)', create: () => this.animatedPatternStyle(0) },
         { key: 'Circle Pattern 2 (Animated)', create: () => this.animatedPatternStyle(1) },
         { key: 'Circle Pattern 3 (Animated)', create: () => this.animatedPatternStyle(2) },

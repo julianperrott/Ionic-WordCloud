@@ -8,6 +8,8 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
+    defaultColours = ['white', 'black'];
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="white" result="COLOR-white"></feFlood>
