@@ -106,12 +106,14 @@
   <div [hidden]="!strokeStyleEnabled">
     <div ion-item>
       <ion-icon class="icon-control" name="brush" item-start color="primary"></ion-icon>
-      <ion-label>Word Stroke</ion-label>
+      <ion-label>Word Outline</ion-label>
       <ion-select [(ngModel)]="strokeStyle" interface="action-sheet" (ionChange)="strokeStyleChanged()">
-        <ion-option value='UNDEFINED'>No Strokes</ion-option>
-        <ion-option value='DEFAULT'>White Strokes</ion-option>
-        <ion-option value='RANDOM'>Same Colour as Word</ion-option>
-        <ion-option value='CUSTOM'>Custom</ion-option>
+        <ion-option value='UNDEFINED'>None</ion-option>
+        <ion-option value='RANDOM'>Random</ion-option>
+        <ion-option value='CUSTOM'>Custom Colour</ion-option>
+        <ion-option value='DEFAULT'>White</ion-option>
+        <ion-option value='black'>Black</ion-option>
+        <ion-option value='gray'>Gray</ion-option>
       </ion-select>
     </div>
 

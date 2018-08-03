@@ -11,8 +11,8 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
 
     padding = 4;
 
-    strokeStyle = this.strokeStyleRandom;
-    strokeStyleEnabled = true;
+    strokeStyle = 'UNDEFINED';
+    strokeStyleEnabled = false;
 
     defaultColours = [];
 

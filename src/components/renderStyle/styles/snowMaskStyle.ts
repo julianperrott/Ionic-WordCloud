@@ -69,7 +69,7 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
             });
 
         if (!this.configurationService.isBusy()) {
-            window.requestAnimationFrame(() => this.animate());
+            // window.requestAnimationFrame(() => this.animate());
         }
     }
 

@@ -9,6 +9,7 @@ export class StyleBaseClass {
     protected w: number;
     protected h: number;
     protected filter: any;
+    protected glowfilter: any;
     protected defs: any;
     protected masked = true;
 
@@ -31,6 +32,9 @@ export class StyleBaseClass {
         this.svg.append('g').attr('id', 'wwwwords2');
 
         this.filter = this.defs.append('filter').attr('id', 'wwwfilter');
+        this.glowfilter = this.defs.append('filter').attr('id', 'wwwglowfilter');
+
+        this.createGlowFilter();
     }
 
     protected addMask() {
@@ -55,6 +59,12 @@ export class StyleBaseClass {
     protected getColorHsl(d) {
         const settings = this.configurationService.settings;
         const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,' + settings.lightnessGlow + ')';
+        return hsl;
+    }
+
+    protected getRandomColorHsl() {
+        const settings = this.configurationService.settings;
+        const hsl = 'hsl(' + Math.floor(Math.random() * 360) + ',100%,' + settings.lightnessGlow + ')';
         return hsl;
     }
 
@@ -85,6 +95,25 @@ export class StyleBaseClass {
         });
     }
 
+    protected createGlowFilter() {
+        this.glowfilter
+            .attr('x', '-30%')
+            .attr('y', '-30%')
+            .attr('width', '160%')
+            .attr('height', '160%');
+
+        this.glowfilter
+            .append('feGaussianBlur')
+            .attr('stdDeviation', '10 10')
+            .attr('result', 'stage1Filter');
+
+        const feMerge = this.glowfilter.append('feMerge');
+        for (let i = 0; i < this.configurationService.settings.glowCount; i++) {
+            feMerge.append('feMergeNode').attr('in', 'stage1Filter');
+            feMerge.append('feMergeNode').attr('in', 'stage1Filter');
+        }
+    }
+
     protected applyStrokeStyle(word, d, divider) {
         if (this.strokeStyle === this.strokeStyleNone || !this.strokeStyleEnabled) {
             return;
@@ -99,7 +128,7 @@ export class StyleBaseClass {
                 colour = settings.strokeColour;
                 break;
             case this.strokeStyleRandom:
-                colour = this.getColorHsl(d);
+                colour = this.getRandomColorHsl();
                 break;
             default:
                 colour = this.strokeStyle;

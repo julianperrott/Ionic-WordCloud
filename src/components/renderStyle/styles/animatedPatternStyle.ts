@@ -22,10 +22,15 @@ export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
     }
 
     public createPattern() {
-        document.getElementById('wwwdefs').innerHTML = this.patternHtml[this.htmlIndex];
+        document.getElementById('wwwdefs').innerHTML += this.patternHtml[this.htmlIndex];
     }
 
     public render(words) {
+        this.drawWordsIn(words, '#wwwwords', (word, d) => {
+            this.colorHsl(word, d);
+            this.setFilter(word, 'wwwglowfilter');
+        });
+
         this.drawWordsIn(words, '#wwwwords', (word, d) => {
             this.colorWhite(word);
         });

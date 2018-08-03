@@ -13,9 +13,9 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
 
     filterHtml = `
     <!-- COLORS -->
-    <feFlood id="color1" flood-color="#16B5FF" result="COLOR-blue"></feFlood>
-    <feFlood id="color2" flood-color="#9800FF" result="COLOR-violet"></feFlood>
-    <feFlood id="color3" flood-color="#A64DFF" result="COLOR-violet-light"></feFlood>
+    <feFlood id="color1" flood-color="#805D8F" result="COLOR-blue"></feFlood>
+    <feFlood id="color2" flood-color="#4A2066" result="COLOR-violet"></feFlood>
+    <feFlood id="color3" flood-color="#755B8F" result="COLOR-violet-light"></feFlood>
     <!-- COLORS END -->
 
     <!-- BOTTOM SPLASH -->
@@ -50,7 +50,7 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
 0 0 0 0 0,
 0 0 0 1 0" in="LIGHT-EFFECTS_10" result="LIGHT-EFFECTS_20"></feColorMatrix>
     <feGaussianBlur stdDeviation="2" in="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_30"></feGaussianBlur>
-    <feSpecularLighting surfaceScale="5" specularConstant=".75" specularExponent="30" lighting-color="#white" in="LIGHT-EFFECTS_30" result="LIGHT-EFFECTS_40">
+    <feSpecularLighting surfaceScale="5" specularConstant=".75" specularExponent="30" lighting-color="white" in="LIGHT-EFFECTS_30" result="LIGHT-EFFECTS_40">
         <fePointLight x="-50" y="-100" z="400"></fePointLight>
     </feSpecularLighting>
     <feComposite operator="in" in="LIGHT-EFFECTS_40" in2="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_50"></feComposite>

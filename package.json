@@ -42,7 +42,6 @@
     "build": "0.1.4",
     "canvg": "^1.0.0",
     "com.darktalker.cordova.screenshot": "^0.1.6",
-    "cordova-android": "7.0.0",
     "cordova-ios": "^4.5.4",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
@@ -107,7 +106,6 @@
       "cordova-plugin-screen-orientation": {}
     },
     "platforms": [
-      "android",
       "ios"
     ]
   },

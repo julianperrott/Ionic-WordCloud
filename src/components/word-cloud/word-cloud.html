@@ -12,16 +12,39 @@
                         <feMergeNode in="glow"></feMergeNode>
                     </feMerge>
                 </filter>
+                <pattern id="p-anim-spots" width="50" height="30" viewBox="0 0 50 30" patternUnits="userSpaceOnUse">
+                    <g class="g-anim-cells">
+                        <rect width="10" height="10" x="0" y="0"></rect>
+                        <rect width="10" height="10" x="10" y="0"></rect>
+                        <rect width="10" height="10" x="20" y="0"></rect>
+                        <rect width="10" height="10" x="30" y="0"></rect>
+                        <rect width="10" height="10" x="40" y="0"></rect>
+
+                        <rect width="10" height="10" x="0" y="10"></rect>
+                        <rect width="10" height="10" x="10" y="10"></rect>
+                        <rect width="10" height="10" x="20" y="10"></rect>
+                        <rect width="10" height="10" x="30" y="10"></rect>
+                        <rect width="10" height="10" x="40" y="10"></rect>
+
+                        <rect width="10" height="10" x="0" y="20"></rect>
+                        <rect width="10" height="10" x="10" y="20"></rect>
+                        <rect width="10" height="10" x="20" y="20"></rect>
+                        <rect width="10" height="10" x="30" y="20"></rect>
+                        <rect width="10" height="10" x="40" y="20"></rect>
+                    </g>
+                </pattern>
             </defs>
-            <text text-anchor="middle" [attr.transform]="'translate(-'+width/5+',-'+height/4+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 0, 255);">web</text>
-            <text text-anchor="middle" [attr.transform]="'translate(-'+width/5+',-'+height/4+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 6px; font-family: Pacifico; fill: rgb(0, 0, 255);">web</text>
+            <g fill="url(#p-anim-spots)">
+                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 0, 255);">web</text>
+                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 6px; font-family: Pacifico;">web</text>
 
 
-            <text text-anchor="middle" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(255, 0, 0);">word</text>
-            <text text-anchor="middle" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico; fill: rgb(255, 0, 0);">word</text>
+                <text text-anchor="middle" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(255, 0, 0);">word</text>
+                <text text-anchor="middle" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">word</text>
 
-            <text text-anchor="middle" [attr.transform]="'translate('+width/5+','+height/4+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 192, 0);">cloud</text>
-            <text text-anchor="middle" [attr.transform]="'translate('+width/5+','+height/4+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico; fill: rgb(0, 192, 0);">cloud</text>
+                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 192, 0);">cloud</text>
+                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">cloud</text>
+            </g>
         </g>
     </svg>
 </div>

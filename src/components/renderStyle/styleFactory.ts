@@ -36,7 +36,7 @@ export class StyleFactory {
         { type: SnowMaskStyle, key: 'Snowy (Animated)' },
         { type: StrokedStyle, key: 'Stroked' },
         { type: DropShadowStyle, key: 'Drop Shadow' },
-        { type: SplashStyle, key: 'Splash' },
+        { type: SplashStyle, key: 'Moltern Metal' },
         { type: ScratchStyle, key: 'Scratch' },
         { key: 'Blop 1', create: () => this.blopStyle(0) },
         { key: 'Blop 2', create: () => this.blopStyle(1) },
