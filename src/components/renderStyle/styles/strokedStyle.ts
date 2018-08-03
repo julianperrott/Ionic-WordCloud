@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class StrokedStyle extends StyleBaseClass implements IStyle {
@@ -9,6 +10,9 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
     }
 
     padding = 4;
+
+    strokeStyle = this.strokeStyleRandom;
+    strokeStyleEnabled = true;
 
     defaultColours = [];
 

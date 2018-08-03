@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class ShadedStyle extends StyleBaseClass implements IStyle {
@@ -8,7 +9,7 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
-    defaultColours = ['white', 'black'];
+    defaultColours = ['white', 'black', 'yellow'];
 
     filterHtml = `
     <!-- COLORS -->
@@ -43,7 +44,7 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
 
     <!-- REFLECTION -->
     <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="REFLECTION_10"></feGaussianBlur>
-    <feSpecularLighting surfaceScale="5" specularConstant="5" specularExponent="20" lighting-color="#white" in="REFLECTION_10" result="REFLECTION_20">
+    <feSpecularLighting id="color3" surfaceScale="5" specularConstant="3" specularExponent="20" lighting-color="yellow" in="REFLECTION_10" result="REFLECTION_20">
         <fePointLight x="-100" y="-150" z="250">
         </fePointLight>
     </feSpecularLighting>

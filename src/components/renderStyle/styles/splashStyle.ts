@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class SplashStyle extends StyleBaseClass implements IStyle {

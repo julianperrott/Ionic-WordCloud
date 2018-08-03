@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class WaterMaskStyle extends StyleBaseClass implements IStyle {
@@ -11,6 +12,9 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
     padding = 0;
 
     defaultColours = [];
+
+    strokeStyle = this.strokeStyleDefault;
+    strokeStyleEnabled = true;
 
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);

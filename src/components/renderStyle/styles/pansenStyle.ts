@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class PansenStyle extends StyleBaseClass implements IStyle {
@@ -9,6 +10,8 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
     }
 
     defaultColours = ['#663300', '#D7A500'];
+    strokeStyle = 'UNDEFINED';
+    strokeStyleEnabled = true;
 
     filterHtml = `
     <!-- COLORS -->
@@ -66,9 +69,17 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
-            this.colorHsl(w, d);
-            this.setFilter(w, 'wwwfilter');
+        this.drawWordsIn(words, '#wwwwords2', (word, d) => {
+            this.colorHsl(word, d);
+            this.setFilter(word, 'wwwfilter');
+            this.applyStrokeStyle(word, d, 2);
         });
+
+        if (this.strokeStyle) {
+            this.drawWordsIn(words, '#wwwwords2', (w, d) => {
+                w.style('fill', 'none');
+                this.applyStrokeStyle(w, d, 100);
+            });
+        }
     }
 }

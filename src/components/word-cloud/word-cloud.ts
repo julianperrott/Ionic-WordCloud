@@ -5,6 +5,7 @@ import { ConfigurationService, Shape } from '../../services/configuration.servic
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './d3CloudFacade';
 import { StyleFactory } from '../renderStyle/styleFactory';
+import { IStyle } from '../renderStyle/iStyle';
 
 import * as D3 from 'd3';
 
@@ -185,6 +186,13 @@ export class WordCloudComponent implements OnChanges {
 
     private createStyle() {
         this.style = this.styleFactory.getStyle();
+
+        if (!this.configurationService.strokeStyle) {
+            this.configurationService.setStrokeStyle(this.style);
+        }
+
+        this.style.strokeStyle = this.configurationService.strokeStyle;
+
         this.style.initialise(this.svg, this.w, this.h);
         this.configurationService.setFloodColor('color1', this.configurationService.color1);
         this.configurationService.setFloodColor('color2', this.configurationService.color2);

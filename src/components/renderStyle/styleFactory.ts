@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { ConfigurationService } from '../../services/configuration.service';
-
+import { IStyle } from './iStyle';
 import { GlowingStyle } from './styles/glowingStyle';
 import { ShadowMaskStyle } from './styles/shadowMaskStyle';
 import { SnowMaskStyle } from './styles/snowMaskStyle';
@@ -33,7 +33,7 @@ export class StyleFactory {
         { key: 'Circle Pattern 3 (Animated)', create: () => this.animatedPatternStyle(2) },
         { key: 'Square Pattern (Animated)', create: () => this.animatedPatternStyle(3) },
         { key: 'Stripe Pattern (Animated)', create: () => this.animatedPatternStyle(4) },
-        { type: SnowMaskStyle, key: 'Snow Mask' },
+        { type: SnowMaskStyle, key: 'Snowy (Animated)' },
         { type: StrokedStyle, key: 'Stroked' },
         { type: DropShadowStyle, key: 'Drop Shadow' },
         { type: SplashStyle, key: 'Splash' },
@@ -45,8 +45,8 @@ export class StyleFactory {
         { type: PansenStyle, key: 'Pansen' },
         { type: ShadedStyle, key: 'Shaded' },
         { type: DistressedStyle, key: 'Distressed' },
-        { type: ShadowMaskStyle, key: 'Shadow Mask' },
-        { type: WaterMaskStyle, key: 'Water Mask' }
+        { type: ShadowMaskStyle, key: 'Sunken' },
+        { type: WaterMaskStyle, key: 'Grubby' }
     ];
 
     public getStyle(): IStyle {

@@ -21,14 +21,20 @@ export class StylePicker {
     public color2;
     public color3;
 
+    public strokeStyle;
+    public strokeStyleEnabled;
+
+    public strokeColor;
+
     colourCount = 0;
+    busy = false;
 
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
         private configurationService: ConfigurationService,
         public popoverCtrl: PopoverController,
-        private events: Events,
+        events: Events,
         public viewController: ViewController,
         public styleFactory: StyleFactory
     ) {
@@ -39,6 +45,7 @@ export class StylePicker {
         this.color1 = this.configurationService.color1;
         this.color2 = this.configurationService.color2;
         this.color3 = this.configurationService.color3;
+        this.strokeStyle = this.configurationService.strokeStyle;
 
         if (selectedStyle.length > 0) {
             this.style = selectedStyle[0];
@@ -62,10 +69,35 @@ export class StylePicker {
             this.color3 = color;
             this.configurationService.setFloodColor('color3', this.configurationService.color3);
         });
+
+        events.subscribe('strokeColorChanged', color => {
+            this.configurationService.color3 = color;
+            this.color3 = color;
+            this.configurationService.strokeStyle = color;
+            this.configurationService.styleChanged('');
+        });
     }
 
     refreshForm() {
+        this.busy = true;
         const style = this.styleFactory.getStyle();
+
+        this.configurationService.setStrokeStyle(style);
+        this.strokeStyleEnabled = style.strokeStyleEnabled;
+
+        if (this.strokeStyleEnabled) {
+            if (!this.strokeStyle) {
+                this.strokeStyle = style.strokeStyle;
+            }
+
+            if (this.strokeStyle.indexOf('#') > -1) {
+                this.strokeColor = this.strokeStyle;
+                this.strokeStyle = 'CUSTOM';
+            } else {
+                this.strokeColor = 'blue';
+            }
+        }
+
         this.colourCount = style.defaultColours.length;
 
         if (this.colourCount > 0 && !this.color1Enabled) {
@@ -79,6 +111,8 @@ export class StylePicker {
         if (this.colourCount > 2 && !this.color3Enabled) {
             this.color3 = style.defaultColours[2];
         }
+
+        this.busy = false;
     }
 
     styleChanged() {
@@ -93,7 +127,20 @@ export class StylePicker {
             this.configurationService.color2 = undefined;
             this.configurationService.color3 = undefined;
 
+            this.strokeStyle = undefined;
+
             this.refreshForm();
+            this.configurationService.styleChanged('');
+        }, 100);
+    }
+
+    strokeStyleChanged() {
+        if (this.busy) {
+            return;
+        }
+
+        setTimeout(() => {
+            this.configurationService.strokeStyle = this.strokeStyle === 'CUSTOM' ? this.strokeColor : this.strokeStyle;
             this.configurationService.styleChanged('');
         }, 100);
     }
@@ -123,6 +170,10 @@ export class StylePicker {
 
     selectColor3(myEvent) {
         this.selectColor(myEvent, 'color3Changed', this.configurationService.color3);
+    }
+
+    selectStrokeColor(myEvent) {
+        this.selectColor(myEvent, 'strokeColorChanged', this.strokeColor);
     }
 
     selectColor(myEvent, event, color) {

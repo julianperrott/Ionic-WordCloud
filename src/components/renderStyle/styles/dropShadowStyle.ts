@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class DropShadowStyle extends StyleBaseClass implements IStyle {
@@ -11,6 +12,9 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
     padding = 2;
 
     defaultColours = [];
+
+    strokeStyle = this.strokeStyleDefault;
+    strokeStyleEnabled = true;
 
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
@@ -40,16 +44,9 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
             this.setFilter(w, 'wwwfilter');
         });
 
-        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
-            this.colorHsl(w, d);
-
-            w.style('stroke', () => settings.strokeColour) // stroke colour
-                .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
-                .style('stroke-width', () => {
-                    let scale = ~~(d.size / settings.strokeScale);
-                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
-                    return scale + 'px';
-                }); // stroke size divider + min width
+        this.drawWordsIn(words, '#wwwwords2', (word, d) => {
+            this.colorHsl(word, d);
+            this.applyStrokeStyle(word, d, 2);
         });
     }
 }

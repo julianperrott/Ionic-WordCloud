@@ -12,6 +12,13 @@ export class StyleBaseClass {
     protected defs: any;
     protected masked = true;
 
+    public strokeStyleDefault = 'DEFAULT';
+    public strokeStyleRandom = 'RANDOM';
+    public strokeStyleNone = 'UNDEFINED';
+
+    strokeStyle: string = this.strokeStyleNone;
+    strokeStyleEnabled = false;
+
     protected initialise(svg: any, w: number, h: number) {
         this.svg = svg;
         this.h = h;
@@ -76,5 +83,37 @@ export class StyleBaseClass {
                     return d.text;
                 });
         });
+    }
+
+    protected applyStrokeStyle(word, d, divider) {
+        if (this.strokeStyle === this.strokeStyleNone || !this.strokeStyleEnabled) {
+            return;
+        }
+
+        const settings = this.configurationService.settings;
+
+        let colour = settings.strokeColour;
+
+        switch (this.strokeStyle) {
+            case this.strokeStyleDefault:
+                colour = settings.strokeColour;
+                break;
+            case this.strokeStyleRandom:
+                colour = this.getColorHsl(d);
+                break;
+            default:
+                colour = this.strokeStyle;
+                break;
+        }
+
+        word.style('stroke', () => colour)
+            .style('stroke-opacity', () => settings.strokeOpacity)
+            .style('stroke-linecap', 'round')
+            .style('stroke-linejoin', 'round')
+            .style('stroke-width', () => {
+                let scale = ~~(d.size / settings.strokeScale / divider);
+                scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+                return scale + 'px';
+            });
     }
 }

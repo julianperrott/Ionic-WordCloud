@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class DistressedStyle extends StyleBaseClass implements IStyle {
@@ -9,6 +10,9 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
     }
 
     defaultColours = ['blue'];
+
+    strokeStyle = this.strokeStyleDefault;
+    strokeStyleEnabled = true;
 
     filterHtml = `
         <feFlood id="color1" flood-color="blue" result="COLOR-background"></feFlood>
@@ -57,5 +61,12 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
             this.colorHsl(w, d);
             this.setFilter(w, 'wwwfilter');
         });
+
+        if (this.strokeStyle) {
+            this.drawWordsIn(words, '#wwwwords2', (w, d) => {
+                w.style('fill', 'none');
+                this.applyStrokeStyle(w, d, 100);
+            });
+        }
     }
 }

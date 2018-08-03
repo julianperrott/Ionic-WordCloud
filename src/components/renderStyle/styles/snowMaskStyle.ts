@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class SnowMaskStyle extends StyleBaseClass implements IStyle {
@@ -12,6 +13,9 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
     padding = 0;
 
     defaultColours = [];
+
+    strokeStyle = 'UNDEFINED';
+    strokeStyleEnabled = true;
 
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
@@ -60,18 +64,22 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
                 return x;
             })
             .attr('cy', d => {
-                d.cy = d.cy < -this.h / 2 ? this.h / 2 : d.cy - 2;
+                d.cy = d.cy > this.h / 2 ? -this.h / 2 : d.cy + 2;
                 return d.cy;
             });
 
         if (!this.configurationService.isBusy()) {
-            // window.requestAnimationFrame(() => this.animate());
+            window.requestAnimationFrame(() => this.animate());
         }
     }
 
     public render(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
-        this.drawWordsIn(words, '#wwwwords', (w, d) => this.colorHsl(w, d));
+        this.drawWordsIn(words, '#wwwwords', (w, d) => {
+            this.colorHsl(w, d);
+            this.applyStrokeStyle(w, d, 2);
+        });
+
         this.animate();
     }
 }

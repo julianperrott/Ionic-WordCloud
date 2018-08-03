@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
@@ -10,6 +11,30 @@ export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
 
     htmlIndex: number;
     defaultColours = [];
+    strokeStyle = this.strokeStyleRandom;
+    strokeStyleEnabled = true;
+
+    padding = 0;
+
+    public initialise(svg: any, w: number, h: number) {
+        super.initialise(svg, w, h);
+        this.createPattern();
+    }
+
+    public createPattern() {
+        document.getElementById('wwwdefs').innerHTML = this.patternHtml[this.htmlIndex];
+    }
+
+    public render(words) {
+        this.drawWordsIn(words, '#wwwwords', (word, d) => {
+            this.colorWhite(word);
+        });
+
+        this.drawWordsIn(words, '#wwwwords2', (word, d) => {
+            this.setFill(word, 'p-anim-spots');
+            this.applyStrokeStyle(word, d, 2);
+        });
+    }
 
     patternHtml = [
         `
@@ -171,35 +196,4 @@ export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
 </pattern>
 `
     ];
-
-    padding = 0;
-
-    public initialise(svg: any, w: number, h: number) {
-        super.initialise(svg, w, h);
-        this.createPattern();
-    }
-
-    public createPattern() {
-        document.getElementById('wwwdefs').innerHTML = this.patternHtml[this.htmlIndex];
-    }
-
-    public render(words) {
-        const settings = this.configurationService.settings;
-
-        this.drawWordsIn(words, '#wwwwords', (w, d) => {
-            this.colorWhite(w);
-        });
-
-        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
-            this.setFill(w, 'p-anim-spots');
-
-            w.style('stroke', () => this.getColorHsl(d))
-                .style('stroke-opacity', () => settings.strokeOpacity)
-                .style('stroke-width', () => {
-                    let scale = ~~(d.size / settings.strokeScale / 2);
-                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
-                    return scale + 'px';
-                }); // stroke size divider + min width
-        });
-    }
 }

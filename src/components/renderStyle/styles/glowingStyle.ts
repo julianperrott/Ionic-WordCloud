@@ -1,6 +1,7 @@
 import { ConfigurationService } from '../../../services/configuration.service';
 import { Injectable } from '@angular/core';
 import { StyleBaseClass } from '../StyleBaseClass';
+import { IStyle } from '../iStyle';
 
 @Injectable()
 export class GlowingStyle extends StyleBaseClass implements IStyle {
@@ -11,6 +12,9 @@ export class GlowingStyle extends StyleBaseClass implements IStyle {
     padding = 2;
 
     defaultColours = [];
+
+    strokeStyle = this.strokeStyleDefault;
+    strokeStyleEnabled = true;
 
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
@@ -36,25 +40,14 @@ export class GlowingStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        const settings = this.configurationService.settings;
-
-        this.drawWordsIn(words, '#wwwwords', (w, d) => {
-            this.colorHsl(w, d);
-            this.setFilter(w, 'wwwfilter');
+        this.drawWordsIn(words, '#wwwwords', (word, d) => {
+            this.colorHsl(word, d);
+            this.setFilter(word, 'wwwfilter');
         });
 
-        this.drawWordsIn(words, '#wwwwords2', (w, d) => {
-            this.colorHsl(w, d);
-
-            w.style('stroke', () => settings.strokeColour) // stroke colour
-                .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
-                .style('stroke-linecap', 'round')
-                .style('stroke-linejoin', 'round')
-                .style('stroke-width', () => {
-                    let scale = ~~(d.size / settings.strokeScale);
-                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
-                    return scale + 'px';
-                }); // stroke size divider + min width
+        this.drawWordsIn(words, '#wwwwords2', (word, d) => {
+            this.colorHsl(word, d);
+            this.applyStrokeStyle(word, d, 1);
         });
     }
 }
