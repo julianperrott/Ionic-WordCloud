@@ -9,4 +9,5 @@
 ![Screenshot](https://raw.githubusercontent.com/julianperrott/Ionic-WordCloud/master/Screenshot2.jpg "screenshot")
 ![Screenshot](https://raw.githubusercontent.com/julianperrott/Ionic-WordCloud/master/Screenshot3.jpg "screenshot")
 ![Screenshot](https://raw.githubusercontent.com/julianperrott/Ionic-WordCloud/master/Screenshot4.jpg "screenshot")
+![Screenshot](https://raw.githubusercontent.com/julianperrott/Ionic-WordCloud/master/Screenshot5.jpg "screenshot")
 
