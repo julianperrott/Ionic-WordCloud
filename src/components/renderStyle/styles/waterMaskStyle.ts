@@ -22,6 +22,10 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
         this.createFilter(this.filter);
     }
 
+    public getStyleHtml(): string{
+        return '<feTurbulence type="turbulence" baseFrequency="0.4" numOctaves="1"></feTurbulence><feColorMatrix type="luminanceToAlpha"></feColorMatrix><feColorMatrix matrix="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"></feFuncR><feFuncG type="table" tableValues="0 .15 .5 .9 1"></feFuncG><feFuncB type="table" tableValues="0 0 .6 .8 1"></feFuncB><feFuncA type="linear" slope="0.5" intercept="0.0"></feFuncA></feComponentTransfer>';
+    }
+
     public createFilter(filter) {
         filter
             .append('feTurbulence')

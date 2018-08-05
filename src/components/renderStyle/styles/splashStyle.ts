@@ -11,6 +11,10 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['#16B5FF', '#9800FF', '#A64DFF'];
 
+    public getStyleHtml(): string{
+        return this.filterHtml;
+    }
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="#805D8F" result="COLOR-blue"></feFlood>

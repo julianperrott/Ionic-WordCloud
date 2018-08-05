@@ -72,7 +72,7 @@ export class WordCloudComponent implements OnChanges {
         events.subscribe('shapeBackgroundColour', color => {
             this.removeShapeBackground();
             const shape = this.createShape();
-            shape.backgroundColour = color;
+            this.configurationService.shapeBackgroundColor=color;
             this.renderer.redrawBackground(shape);
         });
 
@@ -248,8 +248,11 @@ export class WordCloudComponent implements OnChanges {
 
     private createShape(): Shape {
         this.removeShapeBackground();
+// 0 9 10 11 12 13 14 17
 
-        const shape = this.configurationService.getShape();
+        const filter = this.styleFactory.getStyleByName(this.styleFactory.styles[9]).getStyleHtml();
+
+        const shape = this.configurationService.getShape(filter);
 
         // create a new image canvas
         if (shape.url.length > 0) {

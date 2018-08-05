@@ -16,6 +16,10 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['#551C0B', '551C0B'];
 
+    public getStyleHtml(): string{
+        return this.filterHtml[this.htmlIndex]
+    }
+
     filterHtml = [
         `
     <!-- COLORS -->

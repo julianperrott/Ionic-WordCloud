@@ -14,6 +14,11 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
     strokeStyle = this.strokeStyleDefault;
     strokeStyleEnabled = true;
 
+    public getStyleHtml(): string{
+        return this.filterHtml;
+    }
+
+
     filterHtml = `
         <feFlood id="color1" flood-color="blue" result="COLOR-background"></feFlood>
         <!-- FRACTAL TEXTURE -->

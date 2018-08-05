@@ -8,8 +8,9 @@ import { IStyle } from '../components/renderStyle/iStyle';
 export interface Shape {
     url: string;
     showBackground: boolean;
-    backgroundColour: string;
     canvas: HTMLCanvasElement;
+    defs: string,
+    attributes: string
 }
 
 @Injectable()
@@ -73,13 +74,20 @@ export class ConfigurationService {
         }
     }
 
-    getShape(): Shape {
+    getShape(filter): Shape {
+
+        //var glow = '<feGaussianBlur stdDeviation="2 2" result="stage1Filter"></feGaussianBlur><feMerge><feMergeNode in="stage1Filter"></feMergeNode><feMergeNode in="stage1Filter"></feMergeNode></feMerge>';
+
+        var filterHtml =  '<defs><filter id="wwwfilter2" x="-30%" y="-30%" width="160%" height="160%">' + filter +'</filter></defs>';
+
         return {
             url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
             showBackground: this.showShapeBackground,
-            backgroundColour: this.shapeBackgroundColor,
-            canvas: undefined
+            canvas: undefined,
+            defs: filterHtml ,
+            attributes: ' filter="url(#wwwfilter2)" fill="red" '
         };
+
     }
 
     fontChanged(name: string) {

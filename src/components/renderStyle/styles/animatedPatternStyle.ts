@@ -21,6 +21,10 @@ export class AnimatedPatternStyle extends StyleBaseClass implements IStyle {
         this.createPattern();
     }
 
+    public getStyleHtml(): string{
+        return '';
+    }
+
     public createPattern() {
         document.getElementById('wwwdefs').innerHTML += this.patternHtml[this.htmlIndex];
     }

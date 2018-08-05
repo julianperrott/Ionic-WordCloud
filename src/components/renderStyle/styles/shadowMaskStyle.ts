@@ -16,6 +16,11 @@ export class ShadowMaskStyle extends StyleBaseClass implements IStyle {
     strokeStyle = this.strokeStyleDefault;
     strokeStyleEnabled = true;
 
+    public getStyleHtml(): string{
+        return '<filter id="wwwfilter" height="200%" width="200%" x="-100%" y="-50%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"></feGaussianBlur><feOffset in="blur" dx="2.5" dy="2.5"></feOffset></filter>';
+    }
+
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();

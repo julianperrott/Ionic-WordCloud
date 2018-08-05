@@ -13,6 +13,10 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
     strokeStyle = 'UNDEFINED';
     strokeStyleEnabled = true;
 
+    public getStyleHtml(): string{
+        return this.filterHtml;
+    }
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="#663300" result="COLOR-red"></feFlood>‚

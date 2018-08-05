@@ -5,4 +5,5 @@ export interface IStyle {
     defaultColours: string[];
     strokeStyle: string;
     strokeStyleEnabled: boolean;
+    getStyleHtml(): string;
 }

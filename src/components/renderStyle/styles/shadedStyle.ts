@@ -11,6 +11,10 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['white', 'black', 'yellow'];
 
+    public getStyleHtml(): string{
+        return this.filterHtml;
+    }
+
     filterHtml = `
     <!-- COLORS -->
     <feFlood id="color1" flood-color="white" result="COLOR-white"></feFlood>

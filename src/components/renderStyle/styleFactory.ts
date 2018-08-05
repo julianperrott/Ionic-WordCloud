@@ -55,11 +55,16 @@ export class StyleFactory {
             selectedStyles = this.styles;
         }
 
-        if (selectedStyles[0].create !== undefined) {
-            return selectedStyles[0].create();
+        return this.getStyleByName(selectedStyles[0]);
+    }
+
+    public getStyleByName(selectedStyle): IStyle {
+        
+        if (selectedStyle.create !== undefined) {
+            return selectedStyle.create();
         }
 
-        return this.injector.get(selectedStyles[0].type);
+        return this.injector.get(selectedStyle.type);
     }
 
     animatedPatternStyle(i: number): IStyle {

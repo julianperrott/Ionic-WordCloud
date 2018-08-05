@@ -16,6 +16,10 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = [];
 
+    public getStyleHtml(): string{
+        return '';
+    }
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
     }

@@ -16,6 +16,10 @@ export class GlowingStyle extends StyleBaseClass implements IStyle {
     strokeStyle = this.strokeStyleDefault;
     strokeStyleEnabled = true;
 
+    public getStyleHtml(): string{
+        return '<feGaussianBlur stdDeviation="2 2" result="stage1Filter"></feGaussianBlur><feMerge><feMergeNode in="stage1Filter"></feMergeNode><feMergeNode in="stage1Filter"></feMergeNode></feMerge>';
+    }
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
     }

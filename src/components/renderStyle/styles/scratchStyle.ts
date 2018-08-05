@@ -11,6 +11,10 @@ export class ScratchStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['red', 'yellow'];
 
+    public getStyleHtml(): string{
+        return this.filterHtml;
+    }
+
     filterHtml = `
     <!-- COLOR -->
     <feFlood id="color1" flood-color="red" flood-opacity="0.8" result="COLOR-blu"></feFlood>

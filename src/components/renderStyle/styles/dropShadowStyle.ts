@@ -21,6 +21,10 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
         this.createFilter();
     }
 
+    public getStyleHtml(): string{
+        return '<feGaussianBlur stdDeviation="2 2"></feGaussianBlur><feOffset in="blur" dx="6" dy="6"></feOffset>';
+    }
+
     public createFilter() {
         this.filter
             .attr('x', '-30%')

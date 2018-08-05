@@ -120,7 +120,8 @@
               var request = new XMLHttpRequest();
               request.addEventListener('load', function(event) {
                 var response = event.target.responseText;
-                var svgshape = response.replace('<path ', '<path fill="' + shapeOb.backgroundColour + '" ');
+                var svgshape = response.replace('<path ', shapeOb.defs+'<g '+ shapeOb.attributes + '><path ').replace('</svg>','</g></svg>');
+                console.log(svgshape);
                 img.src = 'data:image/svg+xml;charset=utf-8,' + svgshape;
               });
               request.open('GET', shapeOb.url);

@@ -17,6 +17,10 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
     strokeStyle = 'UNDEFINED';
     strokeStyleEnabled = true;
 
+    public getStyleHtml(): string{
+        return '';
+    }
+
     public initialise(svg: any, w: number, h: number) {
         super.initialise(svg, w, h);
         this.addMask();
