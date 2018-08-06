@@ -32,4 +32,12 @@
     <ion-toggle [(ngModel)]="backgroundVisibility" (ionChange)="onToggleBackgroundVisibility()"></ion-toggle>
   </ion-item>
 
+  <div ion-item>
+      <ion-icon class="icon-control" name="flask" item-start color="primary"></ion-icon>
+      <ion-label>Style</ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="style" (ionChange)="styleChanged()" ngClass="mySelect">
+        <ion-option *ngFor="let th of styleFactory.backgroundStyles" [value]="th">{{th.key}}</ion-option>
+      </ion-select>
+    </div>
+
 </ion-content>

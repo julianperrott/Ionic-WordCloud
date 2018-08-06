@@ -1,0 +1,22 @@
+ <div ion-item>
+        <ion-icon name="build" item-start></ion-icon>
+        <div>
+          <ion-grid style="padding-left: 0px !important;">
+            <ion-row>
+              <ion-col style="padding-left: 0px !important">
+                <div style="color: #999">Font Size :)</div>
+              </ion-col>
+              <ion-col [ngStyle]="{ 'background-color': strokeColor?strokeColor:'none' }">
+    
+              </ion-col>
+              <ion-col>
+                  <ion-buttons end>
+                      <button outline color="primary" round small ion-button (click)="selectStrokeColor($event)" style="margin: 0px !important">
+                        Select Colour
+                      </button>
+                    </ion-buttons>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>

@@ -36,6 +36,7 @@ export class ConfigurationService {
     countStyle = 'BANDING';
     shape = 'truck-moving';
     style = 'Glowing';
+    shapeStyle;
     color1;
     color2;
     color3;
@@ -75,11 +76,6 @@ export class ConfigurationService {
     }
 
     getShape(filter): Shape {
-
-        //var glow = '<feGaussianBlur stdDeviation="2 2" result="stage1Filter"></feGaussianBlur><feMerge><feMergeNode in="stage1Filter"></feMergeNode><feMergeNode in="stage1Filter"></feMergeNode></feMerge>';
-
-        filter='';
-
         if (filter==='')
         {
             return {
@@ -92,13 +88,13 @@ export class ConfigurationService {
         }
         else{
 
-            var filterHtml =  '<defs><filter id="wwwfilter2" x="-30%" y="-30%" width="160%" height="160%">' + filter +'</filter></defs>';
+            var filterHtml =  '<defs><filter id="wwwfilterShape" x="-30%" y="-30%" width="160%" height="160%">' + filter +'</filter></defs>';
             return {
                 url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
                 showBackground: this.showShapeBackground,
                 canvas: undefined,
                 defs: filterHtml ,
-                attributes: ' filter="url(#wwwfilter2)" fill="'+this.shapeBackgroundColor+'" '
+                attributes: ' filter="url(#wwwfilterShape)" fill="'+this.shapeBackgroundColor+'" '
             };
         }
 

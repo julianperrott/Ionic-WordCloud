@@ -31,6 +31,7 @@ import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
 import { StylePicker } from '../components/renderStyle/stylePicker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
+import { ColorMenuItem } from '../components/colorMenuItem/colorMenuItem';
 
 import { D3CloudFacade } from '../components/word-cloud/d3CloudFacade';
 import { GlowingStyle } from '../components/renderStyle/styles/glowingStyle';
@@ -47,9 +48,11 @@ import { BlopStyle } from '../components/renderStyle/styles/blopStyle';
 import { PansenStyle } from '../components/renderStyle/styles/pansenStyle';
 import { ShadedStyle } from '../components/renderStyle/styles/shadedStyle';
 import { AnimatedPatternStyle } from '../components/renderStyle/styles/animatedPatternStyle';
+import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
+
 
 @NgModule({
-    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, ShapePopoverPage],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, ShapePopoverPage, ColorMenuItem],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
@@ -85,7 +88,8 @@ import { AnimatedPatternStyle } from '../components/renderStyle/styles/animatedP
         BlopStyle,
         PansenStyle,
         ShadedStyle,
-        AnimatedPatternStyle
+        AnimatedPatternStyle,
+        ErosionStyle
     ]
 })
 export class AppModule {}

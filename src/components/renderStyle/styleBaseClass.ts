@@ -32,6 +32,7 @@ export class StyleBaseClass {
         this.svg.append('g').attr('id', 'wwwwords2');
 
         this.filter = this.defs.append('filter').attr('id', 'wwwfilter');
+        this.filter = this.defs.append('filter').attr('id', 'wwwfilter2');
         this.glowfilter = this.defs.append('filter').attr('id', 'wwwglowfilter');
 
         this.createGlowFilter();

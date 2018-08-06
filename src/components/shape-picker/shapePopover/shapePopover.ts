@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
-
 import { ConfigurationService } from '../../../services/configuration.service';
 import { ColorPicker } from '../../color-picker/color-picker';
 import { Events } from 'ionic-angular';
+import { StyleFactory } from '../../renderStyle/styleFactory';
 
 @Component({
     selector: 'page-popover',
@@ -12,6 +12,7 @@ import { Events } from 'ionic-angular';
 export class ShapePopoverPage {
     themeChangeInProgress = false;
     backgroundVisibility = true;
+    public style;
 
     constructor(
         public navCtrl: NavController,
@@ -19,7 +20,8 @@ export class ShapePopoverPage {
         private configurationService: ConfigurationService,
         public popoverCtrl: PopoverController,
         private events: Events,
-        public viewController: ViewController
+        public viewController: ViewController,
+        public styleFactory: StyleFactory
     ) {
         events.subscribe('shapeBackgroundColour', color => {
             this.configurationService.shapeBackgroundColor = color;
@@ -51,5 +53,12 @@ export class ShapePopoverPage {
         popover.present({
             ev: myEvent
         });
+    }
+
+    styleChanged() {
+        setTimeout(() => {
+            this.configurationService.shapeStyle = this.style.key;
+            this.events.publish('shapeChanged', this.configurationService.shape);
+        }, 100);
     }
 }

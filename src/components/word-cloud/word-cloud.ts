@@ -250,7 +250,10 @@ export class WordCloudComponent implements OnChanges {
         this.removeShapeBackground();
 // 0 9 10 11 12 13 14 17
 
-        const filter = this.styleFactory.getStyleByName(this.styleFactory.styles[0]).getStyleHtml();
+        let filter='';
+        if (this.configurationService.shapeStyle){
+            filter=this.styleFactory.getStyleByKey(this.configurationService.shapeStyle).getStyleHtml();
+        }
 
         const shape = this.configurationService.getShape(filter);
 

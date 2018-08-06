@@ -14,6 +14,7 @@ import { BlopStyle } from './styles/blopStyle';
 import { PansenStyle } from './styles/pansenStyle';
 import { ShadedStyle } from './styles/shadedStyle';
 import { AnimatedPatternStyle } from './styles/animatedPatternStyle';
+import { ErosionStyle } from './styles/erosionStyle';
 import { Type } from '../../../node_modules/@angular/compiler/src/core';
 
 export interface Style {
@@ -46,19 +47,37 @@ export class StyleFactory {
         { type: ShadedStyle, key: 'Shaded' },
         { type: DistressedStyle, key: 'Distressed' },
         { type: ShadowMaskStyle, key: 'Sunken' },
-        { type: WaterMaskStyle, key: 'Grubby' }
+        { type: WaterMaskStyle, key: 'Grubby' },
+        { type: ErosionStyle, key: 'Erosion' }
+    ];
+
+    public backgroundStyles: Style[] = [
+        { type: GlowingStyle, key: 'Glowing' },
+        { type: SplashStyle, key: 'Moltern Metal' },
+        { type: ScratchStyle, key: 'Scratch' },
+        { key: 'Blop 1', create: () => this.blopStyle(0) },
+        { key: 'Blop 2', create: () => this.blopStyle(1) },
+        { key: 'Blop 3', create: () => this.blopStyle(2) },
+        { key: 'Blop 4', create: () => this.blopStyle(3) },
+        { type: DistressedStyle, key: 'Distressed' },
+        { type: ErosionStyle, key: 'Erosion' }
     ];
 
     public getStyle(): IStyle {
-        let selectedStyles = this.styles.filter(s => s.key === this.configurationService.style);
+        return this.getStyleByKey( this.configurationService.style);
+    }
+
+    public getStyleByKey(key: string): IStyle {
+        let selectedStyles = this.styles.filter(s => s.key === key);
+
         if (selectedStyles.length === 0) {
             selectedStyles = this.styles;
         }
 
-        return this.getStyleByName(selectedStyles[0]);
+        return this.createStyle(selectedStyles[0]);
     }
 
-    public getStyleByName(selectedStyle): IStyle {
+    public createStyle(selectedStyle): IStyle {
         
         if (selectedStyle.create !== undefined) {
             return selectedStyle.create();
