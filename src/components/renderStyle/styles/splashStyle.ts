@@ -11,7 +11,7 @@ export class SplashStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['#805D8F', '#4A2066', '#755B8F'];
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
 

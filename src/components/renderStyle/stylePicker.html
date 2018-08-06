@@ -12,96 +12,12 @@
     </ion-select>
   </div>
 
-  <div [hidden]="colourCount<1">
-    <div ion-item>
-      <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
-      <ion-label style="color: #999">Customise Colour 1</ion-label>
-      <ion-toggle [(ngModel)]="color1Enabled" (ionChange)="onToggleColor1Enabled()"></ion-toggle>
-    </div>
-
-    <div>
-      <div ion-item>
-        <div>
-          <ion-grid style="padding-left: 0px !important;">
-            <ion-row>
-              <ion-col [ngStyle]="{ 'background-color': color1?color1:'none' }">
-              </ion-col>
-              <ion-col>
-                <ion-buttons end [hidden]="!color1Enabled">
-                  <button outline color="primary" round small ion-button (click)="selectColor1($event)" style="margin: 0px !important">
-                    Select Colour
-                  </button>
-                </ion-buttons>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div [hidden]="colourCount<2">
-    <div ion-item>
-      <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
-      <ion-label style="color: #999 ">Customise Colour 2</ion-label>
-      <ion-toggle [(ngModel)]="color2Enabled" (ionChange)="onToggleColor2Enabled()"></ion-toggle>
-    </div>
-
-    <div>
-      <div ion-item>
-        <div>
-          <ion-grid style="padding-left: 0px !important;">
-            <ion-row>
-              <ion-col [ngStyle]="{ 'background-color': color2?color2:'none' }">
-              </ion-col>
-              <ion-col>
-                <ion-buttons end [hidden]="!color2Enabled">
-                  <button outline color="primary" round small ion-button (click)="selectColor2($event)" style="margin: 0px !important">
-                    Select Colour
-                  </button>
-                </ion-buttons>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <div [hidden]="colourCount<3">
-
-    <div ion-item>
-      <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
-      <ion-label style="color: #999">Customise Colour 3</ion-label>
-      <ion-toggle [(ngModel)]="color3Enabled" (ionChange)="onToggleColor3Enabled()"></ion-toggle>
-    </div>
-
-    <div>
-      <div ion-item>
-
-        <ion-grid style="padding-left: 0px !important;">
-          <ion-row>
-            <ion-col [ngStyle]="{ 'background-color': color3?color3:'none' }">
-            </ion-col>
-            <ion-col>
-              <ion-buttons end [hidden]="!color3Enabled">
-                <button outline color="primary" round small ion-button (click)="selectColor3($event)" style="margin: 0px !important">
-                  Select Colour
-                </button>
-              </ion-buttons>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-
-      </div>
-    </div>
-
-  </div>
-
+  <colorMenuItem [hidden]="configurationService.wordColors.length<1" [description]="'Customise Colour 1'" [color]="configurationService.wordColors[0]?configurationService.wordColors[0].color:'red'"
+    [eventName]="'color1Changed'"></colorMenuItem>
+  <colorMenuItem [hidden]="configurationService.wordColors.length<2" [description]="'Customise Colour 2'" [color]="configurationService.wordColors[1]?configurationService.wordColors[1].color:'red'"
+    [eventName]="'color2Changed'"></colorMenuItem>
+  <colorMenuItem [hidden]="configurationService.wordColors.length<3" [description]="'Customise Colour 3'" [color]="configurationService.wordColors[2]?configurationService.wordColors[2].color:'red'"
+    [eventName]="'color3Changed'"></colorMenuItem>
 
   <div [hidden]="!strokeStyleEnabled">
     <div ion-item>
@@ -117,49 +33,6 @@
       </ion-select>
     </div>
 
-    <div ion-item [hidden]="strokeStyle!=='CUSTOM'">
-      <ion-grid style="padding-left: 0px !important;">
-        <ion-row>
-          <ion-col [ngStyle]="{ 'background-color': strokeColor?strokeColor:'none' }">
-          </ion-col>
-          <ion-col>
-            <ion-buttons end>
-              <button outline color="primary" round small ion-button (click)="selectStrokeColor($event)" style="margin: 0px !important">
-                Select Colour
-              </button>
-            </ion-buttons>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+    <colorMenuItem [hidden]="strokeStyle!=='CUSTOM'" [description]="'Stroke Colour'" [color]="strokeColor" [eventName]="'strokeColorChanged'"></colorMenuItem>
   </div>
-
-
-  
-  <div ion-item>
-      <ion-icon name="build" item-start></ion-icon>
-      <div>
-        <ion-grid style="padding-left: 0px !important;">
-          <ion-row>
-            <ion-col style="padding-left: 0px !important">
-              <div style="color: #999">Font Size</div>
-            </ion-col>
-            <ion-col [ngStyle]="{ 'background-color': strokeColor?strokeColor:'none' }">
-  
-            </ion-col>
-            <ion-col>
-                <ion-buttons end>
-                    <button outline color="primary" round small ion-button (click)="selectStrokeColor($event)" style="margin: 0px !important">
-                      Select Colour
-                    </button>
-                  </ion-buttons>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </div>
-    </div>
-  
-
-    <colorMenuItem></colorMenuItem>
-
 </ion-content>

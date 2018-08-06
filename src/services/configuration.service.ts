@@ -36,10 +36,9 @@ export class ConfigurationService {
     countStyle = 'BANDING';
     shape = 'truck-moving';
     style = 'Glowing';
-    shapeStyle;
-    color1;
-    color2;
-    color3;
+    shapeStyle = 'Flat';
+    wordColors = [];
+    shapeColors = [];
     strokeStyle;
 
     defaultData =
@@ -76,25 +75,24 @@ export class ConfigurationService {
     }
 
     getShape(filter): Shape {
-        if (filter==='')
-        {
+        if (filter === '') {
             return {
                 url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
                 showBackground: this.showShapeBackground,
                 canvas: undefined,
-                defs: '' ,
-                attributes: '  fill="'+this.shapeBackgroundColor+'" '
+                defs: '',
+                attributes: '  fill="' + this.shapeBackgroundColor + '" '
             };
         }
-        else{
+        else {
 
-            var filterHtml =  '<defs><filter id="wwwfilterShape" x="-30%" y="-30%" width="160%" height="160%">' + filter +'</filter></defs>';
+            var filterHtml = '<defs><filter id="wwwfilterShape" x="-30%" y="-30%" width="160%" height="160%">' + filter + '</filter></defs>';
             return {
                 url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
                 showBackground: this.showShapeBackground,
                 canvas: undefined,
-                defs: filterHtml ,
-                attributes: ' filter="url(#wwwfilterShape)" fill="'+this.shapeBackgroundColor+'" '
+                defs: filterHtml,
+                attributes: ' filter="url(#wwwfilterShape)" fill="' + this.shapeBackgroundColor + '" '
             };
         }
 

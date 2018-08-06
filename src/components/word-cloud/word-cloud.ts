@@ -72,7 +72,7 @@ export class WordCloudComponent implements OnChanges {
         events.subscribe('shapeBackgroundColour', color => {
             this.removeShapeBackground();
             const shape = this.createShape();
-            this.configurationService.shapeBackgroundColor=color;
+            this.configurationService.shapeBackgroundColor = color;
             this.renderer.redrawBackground(shape);
         });
 
@@ -151,7 +151,7 @@ export class WordCloudComponent implements OnChanges {
                     color: Math.random()
                 };
             })
-            .sort(function(a, b) {
+            .sort(function (a, b) {
                 return a.size === b.size ? 0 : a.size > b.size ? -1 : 1;
             });
 
@@ -170,7 +170,7 @@ export class WordCloudComponent implements OnChanges {
         }
 
         this.words = this.data
-            .map(function(v) {
+            .map(function (v) {
                 return v.text;
             })
             .join(',');
@@ -194,9 +194,10 @@ export class WordCloudComponent implements OnChanges {
         this.style.strokeStyle = this.configurationService.strokeStyle;
 
         this.style.initialise(this.svg, this.w, this.h);
-        this.configurationService.setFloodColor('color1', this.configurationService.color1);
-        this.configurationService.setFloodColor('color2', this.configurationService.color2);
-        this.configurationService.setFloodColor('color3', this.configurationService.color3);
+
+        if (this.configurationService.wordColors) {
+            this.configurationService.wordColors.forEach((c, i) => this.configurationService.setFloodColor('color' + (i + 1), c.color));
+        }
     }
 
     private hideSplashScreen() {
@@ -248,11 +249,12 @@ export class WordCloudComponent implements OnChanges {
 
     private createShape(): Shape {
         this.removeShapeBackground();
-// 0 9 10 11 12 13 14 17
 
-        let filter='';
-        if (this.configurationService.shapeStyle){
-            filter=this.styleFactory.getStyleByKey(this.configurationService.shapeStyle).getStyleHtml();
+        let filter = '';
+        if (this.configurationService.shapeStyle) {
+            const style = this.styleFactory.getStyleByKey(this.configurationService.shapeStyle);
+            filter = style.getStyleHtml();
+            this.configurationService.shapeColors.forEach((c, i) => filter = filter.replace(style.defaultColours[i], c.color));
         }
 
         const shape = this.configurationService.getShape(filter);

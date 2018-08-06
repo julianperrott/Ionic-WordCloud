@@ -4,14 +4,14 @@
           <ion-grid style="padding-left: 0px !important;">
             <ion-row>
               <ion-col style="padding-left: 0px !important">
-                <div style="color: #999">Font Size :)</div>
+                <div style="color: #999">{{ description }}</div>
               </ion-col>
-              <ion-col [ngStyle]="{ 'background-color': strokeColor?strokeColor:'none' }">
+              <ion-col [ngStyle]="{ 'background-color': color?color:'none' }">
     
               </ion-col>
               <ion-col>
                   <ion-buttons end>
-                      <button outline color="primary" round small ion-button (click)="selectStrokeColor($event)" style="margin: 0px !important">
+                      <button outline color="primary" round small ion-button (click)="selectColor($event)" style="margin: 0px !important">
                         Select Colour
                       </button>
                     </ion-buttons>

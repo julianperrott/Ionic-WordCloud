@@ -15,6 +15,7 @@ import { PansenStyle } from './styles/pansenStyle';
 import { ShadedStyle } from './styles/shadedStyle';
 import { AnimatedPatternStyle } from './styles/animatedPatternStyle';
 import { ErosionStyle } from './styles/erosionStyle';
+import { FlatStyle } from './styles/flatStyle';
 import { Type } from '../../../node_modules/@angular/compiler/src/core';
 
 export interface Style {
@@ -25,7 +26,7 @@ export interface Style {
 
 @Injectable()
 export class StyleFactory {
-    constructor(private injector: Injector, private configurationService: ConfigurationService) {}
+    constructor(private injector: Injector, private configurationService: ConfigurationService) { }
 
     public styles: Style[] = [
         { type: GlowingStyle, key: 'Glowing' },
@@ -52,6 +53,7 @@ export class StyleFactory {
     ];
 
     public backgroundStyles: Style[] = [
+        { type: FlatStyle, key: 'Flat' },
         { type: GlowingStyle, key: 'Glowing' },
         { type: SplashStyle, key: 'Moltern Metal' },
         { type: ScratchStyle, key: 'Scratch' },
@@ -64,7 +66,7 @@ export class StyleFactory {
     ];
 
     public getStyle(): IStyle {
-        return this.getStyleByKey( this.configurationService.style);
+        return this.getStyleByKey(this.configurationService.style);
     }
 
     public getStyleByKey(key: string): IStyle {
@@ -78,7 +80,7 @@ export class StyleFactory {
     }
 
     public createStyle(selectedStyle): IStyle {
-        
+
         if (selectedStyle.create !== undefined) {
             return selectedStyle.create();
         }

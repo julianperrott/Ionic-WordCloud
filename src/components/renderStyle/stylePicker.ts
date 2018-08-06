@@ -14,19 +14,11 @@ import { ColorPicker } from '../color-picker/color-picker';
 export class StylePicker {
     public style;
 
-    public color1Enabled = false;
-    public color2Enabled = false;
-    public color3Enabled = false;
-    public color1;
-    public color2;
-    public color3;
-
     public strokeStyle;
     public strokeStyleEnabled;
 
     public strokeColor;
 
-    colourCount = 0;
     busy = false;
 
     constructor(
@@ -39,12 +31,7 @@ export class StylePicker {
         public styleFactory: StyleFactory
     ) {
         const selectedStyle = styleFactory.styles.filter(s => s.key === this.configurationService.style);
-        this.color1Enabled = this.configurationService.color1 !== undefined;
-        this.color2Enabled = this.configurationService.color2 !== undefined;
-        this.color3Enabled = this.configurationService.color3 !== undefined;
-        this.color1 = this.configurationService.color1;
-        this.color2 = this.configurationService.color2;
-        this.color3 = this.configurationService.color3;
+
         this.strokeStyle = this.configurationService.strokeStyle;
 
         if (selectedStyle.length > 0) {
@@ -52,30 +39,24 @@ export class StylePicker {
             this.refreshForm();
         }
 
-        events.subscribe('color1Changed', color => {
-            this.configurationService.color1 = color;
-            this.color1 = color;
-            this.configurationService.setFloodColor('color1', this.configurationService.color1);
-        });
+        if (!this.configurationService.wordColors) {
+            this.styleChanged();
+        }
 
-        events.subscribe('color2Changed', color => {
-            this.configurationService.color2 = color;
-            this.color2 = color;
-            this.configurationService.setFloodColor('color2', this.configurationService.color2);
-        });
-
-        events.subscribe('color3Changed', color => {
-            this.configurationService.color3 = color;
-            this.color3 = color;
-            this.configurationService.setFloodColor('color3', this.configurationService.color3);
-        });
+        events.subscribe('color1Changed', color => { this.setWordColor(0, color); });
+        events.subscribe('color2Changed', color => { this.setWordColor(1, color); });
+        events.subscribe('color3Changed', color => { this.setWordColor(2, color); });
 
         events.subscribe('strokeColorChanged', color => {
-            this.configurationService.color3 = color;
-            this.color3 = color;
+            this.strokeColor = color;
             this.configurationService.strokeStyle = color;
             this.configurationService.styleChanged('');
         });
+    }
+
+    setWordColor(i: number, color: string) {
+        this.configurationService.wordColors[i].color = color;
+        this.configurationService.setFloodColor('color' + (i + 1), color);
     }
 
     refreshForm() {
@@ -97,35 +78,16 @@ export class StylePicker {
                 this.strokeColor = 'blue';
             }
         }
-
-        this.colourCount = style.defaultColours.length;
-
-        if (this.colourCount > 0 && !this.color1Enabled) {
-            this.color1 = style.defaultColours[0];
-        }
-
-        if (this.colourCount > 1 && !this.color2Enabled) {
-            this.color2 = style.defaultColours[1];
-        }
-
-        if (this.colourCount > 2 && !this.color3Enabled) {
-            this.color3 = style.defaultColours[2];
-        }
-
         this.busy = false;
     }
 
     styleChanged() {
         setTimeout(() => {
             this.configurationService.style = this.style.key;
+            const style = this.styleFactory.getStyle();
 
-            this.color1Enabled = false;
-            this.color2Enabled = false;
-            this.color3Enabled = false;
-
-            this.configurationService.color1 = undefined;
-            this.configurationService.color2 = undefined;
-            this.configurationService.color3 = undefined;
+            this.configurationService.wordColors = [];
+            style.defaultColours.forEach((c, i) => this.configurationService.wordColors.push({ color: c, index: i }));
 
             this.strokeStyle = undefined;
 
@@ -143,46 +105,5 @@ export class StylePicker {
             this.configurationService.strokeStyle = this.strokeStyle === 'CUSTOM' ? this.strokeColor : this.strokeStyle;
             this.configurationService.styleChanged('');
         }, 100);
-    }
-
-    onToggleColor1Enabled() {
-        this.configurationService.color1 = this.color1Enabled ? this.color1 : undefined;
-        this.configurationService.styleChanged('');
-    }
-
-    onToggleColor2Enabled() {
-        this.configurationService.color2 = this.color2Enabled ? this.color2 : undefined;
-        this.configurationService.styleChanged('');
-    }
-
-    onToggleColor3Enabled() {
-        this.configurationService.color3 = this.color3Enabled ? this.color3 : undefined;
-        this.configurationService.styleChanged('');
-    }
-
-    selectColor1(myEvent) {
-        this.selectColor(myEvent, 'color1Changed', this.configurationService.color1);
-    }
-
-    selectColor2(myEvent) {
-        this.selectColor(myEvent, 'color2Changed', this.configurationService.color2);
-    }
-
-    selectColor3(myEvent) {
-        this.selectColor(myEvent, 'color3Changed', this.configurationService.color3);
-    }
-
-    selectStrokeColor(myEvent) {
-        this.selectColor(myEvent, 'strokeColorChanged', this.strokeColor);
-    }
-
-    selectColor(myEvent, event, color) {
-        const popover = this.popoverCtrl.create(ColorPicker, {
-            eventName: event,
-            color: color
-        });
-        popover.present({
-            ev: myEvent
-        });
     }
 }

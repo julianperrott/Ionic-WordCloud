@@ -27,7 +27,16 @@ export class ShapePopoverPage {
             this.configurationService.shapeBackgroundColor = color;
         });
 
+        events.subscribe('shapeColor1Changed', color => { this.setShapeColor(0, color); });
+        events.subscribe('shapeColor2Changed', color => { this.setShapeColor(1, color); });
+        events.subscribe('shapeColor3Changed', color => { this.setShapeColor(2, color); });
+
         this.backgroundVisibility = this.configurationService.showShapeBackground;
+    }
+
+    setShapeColor(i: number, color: string) {
+        this.configurationService.shapeColors[i].color = color;
+        this.events.publish('shapeBackgroundColour', this.configurationService.shape);
     }
 
     update() {
@@ -58,6 +67,11 @@ export class ShapePopoverPage {
     styleChanged() {
         setTimeout(() => {
             this.configurationService.shapeStyle = this.style.key;
+
+            const style = this.styleFactory.getStyleByKey(this.style.key);
+            this.configurationService.shapeColors = [];
+            style.defaultColours.forEach((c, i) => this.configurationService.shapeColors.push({ color: c, index: i }));
+
             this.events.publish('shapeChanged', this.configurationService.shape);
         }, 100);
     }

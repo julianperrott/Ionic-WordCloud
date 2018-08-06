@@ -49,7 +49,7 @@ import { PansenStyle } from '../components/renderStyle/styles/pansenStyle';
 import { ShadedStyle } from '../components/renderStyle/styles/shadedStyle';
 import { AnimatedPatternStyle } from '../components/renderStyle/styles/animatedPatternStyle';
 import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
-
+import { FlatStyle } from '../components/renderStyle/styles/flatStyle';
 
 @NgModule({
     declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, ShapePopoverPage, ColorMenuItem],
@@ -89,7 +89,8 @@ import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
         PansenStyle,
         ShadedStyle,
         AnimatedPatternStyle,
-        ErosionStyle
+        ErosionStyle,
+        FlatStyle
     ]
 })
-export class AppModule {}
+export class AppModule { }
