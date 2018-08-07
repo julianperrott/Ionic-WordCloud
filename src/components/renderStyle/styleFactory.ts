@@ -49,21 +49,11 @@ export class StyleFactory {
         { type: DistressedStyle, key: 'Distressed' },
         { type: ShadowMaskStyle, key: 'Sunken' },
         { type: WaterMaskStyle, key: 'Grubby' },
-        { type: ErosionStyle, key: 'Erosion' }
+        { type: ErosionStyle, key: 'Erosion' },
+        { type: FlatStyle, key: 'Flat' }
     ];
 
-    public backgroundStyles: Style[] = [
-        { type: FlatStyle, key: 'Flat' },
-        { type: GlowingStyle, key: 'Glowing' },
-        { type: SplashStyle, key: 'Moltern Metal' },
-        { type: ScratchStyle, key: 'Scratch' },
-        { key: 'Blop 1', create: () => this.blopStyle(0) },
-        { key: 'Blop 2', create: () => this.blopStyle(1) },
-        { key: 'Blop 3', create: () => this.blopStyle(2) },
-        { key: 'Blop 4', create: () => this.blopStyle(3) },
-        { type: DistressedStyle, key: 'Distressed' },
-        { type: ErosionStyle, key: 'Erosion' }
-    ];
+    public backgroundStyles: string[] = ['None', 'Flat', 'Glowing', 'Moltern Metal', 'Scratch', 'Blop 1', 'Blop 2', 'Blop 3', 'Blop 4', 'Distressed', 'Erosion'];
 
     public getStyle(): IStyle {
         return this.getStyleByKey(this.configurationService.style);

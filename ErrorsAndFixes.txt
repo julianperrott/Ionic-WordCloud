@@ -166,3 +166,9 @@ Error: The Angular AoT build failed. See the issues above
     at Object.next (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:13:53)
     at fulfilled (F:\GitHub\wc\node_modules\@ionic\app-scripts\dist\aot\aot-compiler.js:4:58)
 ---------------------------------------------------------------------------------------------   
+cannot be loaded because running scripts is disabled on this system. For more information, see about_Execution_Policies at
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+
+>powershell
+>set-executionpolicy remotesigned
+---------------------------------------------------------------------------------------------     

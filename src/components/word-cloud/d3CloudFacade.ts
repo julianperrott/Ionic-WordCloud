@@ -8,13 +8,24 @@ declare var d3: any;
 export class D3CloudFacade {
     d3cloud: any;
 
-    constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
+    constructor(
+        private configurationService: ConfigurationService,
+        private zone: NgZone,
+        private events: Events
+    ) {
         this.d3cloud = d3.layout.cloud();
     }
 
-    public populate(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
-        const fontWeight: string = this.configurationService.settings.fontWeight == null ? 'normal' : this.configurationService.settings.fontWeight;
-        const spiralType: string = this.configurationService.settings.spiralType == null ? 'archimedean' : this.configurationService.settings.spiralType;
+    public populate(
+        w,
+        h,
+        padding,
+        data: any[],
+        createShape: Function,
+        drawWordCloud: Function
+    ) {
+        const fontWeight = 'bolder';
+        const spiralType = 'archimedean';
 
         data.forEach(d => (d.drawn = false));
 
@@ -35,7 +46,7 @@ export class D3CloudFacade {
             .shape(createShape)
             .padding(padding)
             .rotate(() => (~~(Math.random() * 6) - 3) * 30)
-            .font(this.configurationService.settings.fontFace)
+            .font(this.configurationService.fontFace)
             .fontWeight(fontWeight)
             .fontSize(d => d.size)
             .spiral(spiralType)
@@ -50,7 +61,9 @@ export class D3CloudFacade {
                     }
 
                     const refreshSeconds = 1;
-                    const refreshNow = performance.now() - startTime > refreshSeconds * 1000 || newProgress - lastProgress > 5;
+                    const refreshNow =
+                        performance.now() - startTime > refreshSeconds * 1000 ||
+                        newProgress - lastProgress > 5;
 
                     // refresh if more than n seconds have elapsed
                     if (refreshNow) {
@@ -76,7 +89,12 @@ export class D3CloudFacade {
                     // console.log('Duration: ' + (performance.now() - startTime) / 1000);
                     this.events.publish('progressUpdate', 100);
 
-                    const todo = data.filter(c => (c.drawn === false || c.drawn === undefined) && c.x !== undefined && c.y !== undefined);
+                    const todo = data.filter(
+                        c =>
+                            (c.drawn === false || c.drawn === undefined) &&
+                            c.x !== undefined &&
+                            c.y !== undefined
+                    );
 
                     console.log('End todo: ' + todo.length);
 

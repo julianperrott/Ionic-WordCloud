@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 
-import { Events, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import {
+    Events,
+    NavParams,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { ShapePopoverPage } from './shapePopover/shapePopover';
 
@@ -12,7 +17,12 @@ export class ShapePicker {
     shape: string;
     dismissed = false;
 
-    constructor(public events: Events, public navParams: NavParams, public viewController: ViewController, public popoverCtrl: PopoverController) {
+    constructor(
+        public events: Events,
+        public navParams: NavParams,
+        public viewController: ViewController,
+        public popoverCtrl: PopoverController
+    ) {
         this.shape = this.navParams.get('shape');
     }
 

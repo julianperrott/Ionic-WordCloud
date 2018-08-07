@@ -13,7 +13,7 @@ export class PansenStyle extends StyleBaseClass implements IStyle {
     strokeStyle = 'UNDEFINED';
     strokeStyleEnabled = true;
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
 

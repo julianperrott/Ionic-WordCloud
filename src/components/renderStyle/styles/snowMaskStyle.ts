@@ -17,7 +17,7 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
     strokeStyle = 'UNDEFINED';
     strokeStyleEnabled = true;
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return '';
     }
 
@@ -37,7 +37,8 @@ export class SnowMaskStyle extends StyleBaseClass implements IStyle {
                 cy: cy,
                 xOffset: cx,
                 yOffset: cy,
-                radius: Math.random() * (this.h > this.w ? this.w : this.h) * 0.03,
+                radius:
+                    Math.random() * (this.h > this.w ? this.w : this.h) * 0.03,
                 opacity: Math.random() + 0.1,
                 color: 'white',
                 counter: Math.random() * 360

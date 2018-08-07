@@ -9,11 +9,14 @@ import { ColorPicker } from '../color-picker/color-picker';
 export class ColorMenuItem {
     @Input() color: string;
     @Input() description: string;
-    @Input() eventName: string
+    @Input() eventName: string;
 
     subscribed = false;
 
-    constructor(private popoverCtrl: PopoverController, private events: Events) { }
+    constructor(
+        private popoverCtrl: PopoverController,
+        private events: Events
+    ) {}
 
     selectColor(myEvent) {
         if (!this.subscribed) {

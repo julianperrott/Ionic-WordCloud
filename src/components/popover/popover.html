@@ -5,18 +5,10 @@
 <ion-content>
 
   <div ion-item>
-    <ion-icon class="icon-control" name="color-fill" item-start color="primary"></ion-icon>
-    <ion-label>Theme</ion-label>
-    <ion-select interface="action-sheet" [(ngModel)]="theme" (ionChange)="themeChanged()" ngClass="mySelect" [selectOptions]="{ cssClass: 'themeSelect'}">
-      <ion-option *ngFor="let th of themes" [value]="th">{{th.name}}</ion-option>
-    </ion-select>
-  </div>
-
-  <div ion-item>
     <ion-icon class="icon-control" name="brush" item-start color="primary"></ion-icon>
 
     <ion-label>Font</ion-label>
-    <ion-select [(ngModel)]="localTheme.fontFace" interface="action-sheet" (ionChange)="fontChanged()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
+    <ion-select [(ngModel)]="configurationService.fontFace" interface="action-sheet" (ionChange)="fontChanged()" class="test" [selectOptions]="{ cssClass: 'fontFaceSelect'}">
       <!-- <ion-option  value='AbrilFatFace'>Abril Fat Face</ion-option> -->
       <ion-option value='Arvo'>Arvo</ion-option>
       <ion-option value='HennyPenny'>Henny Penny</ion-option>
@@ -278,7 +270,7 @@
 
   <div ion-item>
     <ion-icon class="icon-control" class="icon-control" name="brush" item-start></ion-icon>
-    <ion-range min="0" max="300" pin="true" [(ngModel)]="scale" (ionChange)="scaleChanged()" color="secondary">
+    <ion-range min="0" max="300" pin="true" [(ngModel)]="configurationService.fontScale" (ionChange)="scaleChanged()" color="secondary">
       <ion-label style="color: #999" range-left>Font Scale: {{scale}}%</ion-label>
       <ion-label range-left>&nbsp;&nbsp;&nbsp;0%</ion-label>
       <ion-label range-right>+300%</ion-label>
@@ -295,27 +287,24 @@
   </div>
 
   <div ion-item>
-    <ion-icon class="icon-control" name="color-palette" item-start></ion-icon>
-    <div>
-      <ion-grid style="padding-left: 0px !important;">
-        <ion-row>
-          <ion-col style="padding-left: 0px !important">
-            <div style="color: #999">Background</div>
-          </ion-col>
-          <ion-col>
-
-          </ion-col>
-          <ion-col>
-            <ion-buttons end>
-              <button outline color="primary" round small ion-button (click)="selectBackgroundColour($event)" style="margin: 0px !important">
-                Colour
-              </button>
-            </ion-buttons>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+    <ion-icon class="icon-control" class="icon-control" name="brush" item-start></ion-icon>
+    <ion-range min="0" max="100" pin="true" [(ngModel)]="configurationService.saturation" (ionChange)="lightnessChanged()" color="secondary">
+      <ion-label style="color: #999" range-left>Saturation: {{configurationService.saturation}}%</ion-label>
+      <ion-label range-left>&nbsp;&nbsp;&nbsp;0%</ion-label>
+      <ion-label range-right>+100%</ion-label>
+    </ion-range>
   </div>
+
+  <div ion-item>
+    <ion-icon class="icon-control" class="icon-control" name="brush" item-start></ion-icon>
+    <ion-range min="0" max="100" pin="true" [(ngModel)]="configurationService.lightness" (ionChange)="lightnessChanged()" color="secondary">
+      <ion-label style="color: #999" range-left>Lightness: {{configurationService.lightness}}%</ion-label>
+      <ion-label range-left>&nbsp;&nbsp;&nbsp;0%</ion-label>
+      <ion-label range-right>+100%</ion-label>
+    </ion-range>
+  </div>
+
+  <colorMenuItem [description]="'Background'" [color]="configurationService.backgroundColor" [eventName]="'backgroundColour'"></colorMenuItem>
 
   <div ion-item [hidden]="!isApp">
     <ion-icon class="icon-control" name="images" item-start></ion-icon>

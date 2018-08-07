@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class StyleBaseClass {
-    constructor(public configurationService: ConfigurationService) {}
+    constructor(public configurationService: ConfigurationService) { }
 
     protected svg: any;
     protected w: number;
@@ -13,12 +13,16 @@ export class StyleBaseClass {
     protected defs: any;
     protected masked = true;
 
-    public strokeStyleDefault = 'DEFAULT';
-    public strokeStyleRandom = 'RANDOM';
-    public strokeStyleNone = 'UNDEFINED';
+    readonly  strokeStyleDefault = 'DEFAULT';
+    readonly  strokeStyleRandom = 'RANDOM';
+    readonly strokeStyleNone = 'UNDEFINED';
 
     strokeStyle: string = this.strokeStyleNone;
     strokeStyleEnabled = false;
+    readonly strokeMinWidth = 1;
+    readonly strokeScale = 20;
+    readonly strokeDefaultColor = 'white';
+    readonly strokeOpacity = 1;
 
     protected initialise(svg: any, w: number, h: number) {
         this.svg = svg;
@@ -52,20 +56,17 @@ export class StyleBaseClass {
     }
 
     protected colorHsl(word, d) {
-        const settings = this.configurationService.settings;
-        const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,' + settings.lightnessGlow + ')';
+        const hsl = 'hsl(' + Math.floor(d.color * 360) + ',' + this.configurationService.saturation + '%,' + this.configurationService.lightness + '%)';
         word.style('fill', hsl);
     }
 
     protected getColorHsl(d) {
-        const settings = this.configurationService.settings;
-        const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,' + settings.lightnessGlow + ')';
+        const hsl = 'hsl(' + Math.floor(d.color * 360) + ',' + this.configurationService.saturation + '%,' + this.configurationService.lightness + '%)';
         return hsl;
     }
 
     protected getRandomColorHsl() {
-        const settings = this.configurationService.settings;
-        const hsl = 'hsl(' + Math.floor(Math.random() * 360) + ',100%,' + settings.lightnessGlow + ')';
+        const hsl = 'hsl(' + Math.floor(Math.random() * 360) + ',' + this.configurationService.saturation + '%,' + this.configurationService.lightness + '%)';
         return hsl;
     }
 
@@ -78,8 +79,6 @@ export class StyleBaseClass {
     }
 
     protected drawWordsIn(words: any[], selector: string, wordCallback: Function) {
-        const settings = this.configurationService.settings;
-
         const filter = this.svg.select(selector);
         words.forEach(d => {
             const word = filter.append('text');
@@ -87,7 +86,7 @@ export class StyleBaseClass {
             wordCallback(word, d);
 
             word.style('font-size', () => d.size + 'px')
-                .style('font-family', () => (d.fontFace = settings.fontFace))
+                .style('font-family', () => (d.fontFace = this.configurationService.fontFace))
                 .attr('text-anchor', 'middle')
                 .attr('transform', () => 'translate(' + [d.x, d.y] + ')rotate(' + d.rotate + ')')
                 .text(() => {
@@ -108,8 +107,10 @@ export class StyleBaseClass {
             .attr('stdDeviation', '10 10')
             .attr('result', 'stage1Filter');
 
+        const glowCount = 2;
+
         const feMerge = this.glowfilter.append('feMerge');
-        for (let i = 0; i < this.configurationService.settings.glowCount; i++) {
+        for (let i = 0; i < glowCount; i++) {
             feMerge.append('feMergeNode').attr('in', 'stage1Filter');
             feMerge.append('feMergeNode').attr('in', 'stage1Filter');
         }
@@ -120,13 +121,11 @@ export class StyleBaseClass {
             return;
         }
 
-        const settings = this.configurationService.settings;
-
-        let colour = settings.strokeColour;
+        let colour = this.strokeDefaultColor;
 
         switch (this.strokeStyle) {
             case this.strokeStyleDefault:
-                colour = settings.strokeColour;
+                colour = 'white';
                 break;
             case this.strokeStyleRandom:
                 colour = this.getRandomColorHsl();
@@ -137,12 +136,12 @@ export class StyleBaseClass {
         }
 
         word.style('stroke', () => colour)
-            .style('stroke-opacity', () => settings.strokeOpacity)
+            .style('stroke-opacity', () => this.strokeOpacity)
             .style('stroke-linecap', 'round')
             .style('stroke-linejoin', 'round')
             .style('stroke-width', () => {
-                let scale = ~~(d.size / settings.strokeScale / divider);
-                scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+                let scale = ~~(d.size / this.strokeScale / divider);
+                scale = scale < this.strokeMinWidth ? this.strokeMinWidth : scale;
                 return scale + 'px';
             });
     }

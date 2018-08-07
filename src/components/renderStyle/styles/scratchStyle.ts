@@ -11,7 +11,7 @@ export class ScratchStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['red', 'yellow'];
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
 

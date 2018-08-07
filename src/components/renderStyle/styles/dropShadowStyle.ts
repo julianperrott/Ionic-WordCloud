@@ -21,7 +21,7 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
         this.createFilter();
     }
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return '<feGaussianBlur stdDeviation="2 2"></feGaussianBlur><feOffset in="blur" dx="6" dy="6"></feOffset>';
     }
 
@@ -41,8 +41,6 @@ export class DropShadowStyle extends StyleBaseClass implements IStyle {
     }
 
     public render(words) {
-        const settings = this.configurationService.settings;
-
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorBlack(w);
             this.setFilter(w, 'wwwfilter');

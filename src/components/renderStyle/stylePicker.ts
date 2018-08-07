@@ -5,8 +5,6 @@ import { ConfigurationService } from '../../services/configuration.service';
 import { Events } from 'ionic-angular';
 import { StyleFactory } from '../renderStyle/styleFactory';
 
-import { ColorPicker } from '../color-picker/color-picker';
-
 @Component({
     selector: 'page-popover',
     templateUrl: 'stylePicker.html'

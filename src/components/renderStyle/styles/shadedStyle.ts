@@ -11,7 +11,7 @@ export class ShadedStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = ['white', 'black', 'yellow'];
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
 

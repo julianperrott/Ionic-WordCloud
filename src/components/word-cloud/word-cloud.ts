@@ -142,12 +142,11 @@ export class WordCloudComponent implements OnChanges {
 
         const shortestAxis = this.width > this.height ? this.height : this.width;
 
-        // console.log(this.configurationService.settings.fontScale / 100);
         this.data = counts
             .map(item => {
                 return {
                     text: item.text,
-                    size: item.size * scale * (shortestAxis / 70) * (this.configurationService.settings.fontScale / 100),
+                    size: item.size * scale * (shortestAxis / 70) * (this.configurationService.fontScale / 100),
                     color: Math.random()
                 };
             })
@@ -162,7 +161,7 @@ export class WordCloudComponent implements OnChanges {
                     this.data.push({
                         isPadding: true,
                         text: d.text,
-                        size: 1 * scale * (shortestAxis / this.configurationService.settings.fontScale),
+                        size: scale * (shortestAxis / this.configurationService.fontScale),
                         color: d.color
                     });
                 }
@@ -250,9 +249,10 @@ export class WordCloudComponent implements OnChanges {
     private createShape(): Shape {
         this.removeShapeBackground();
 
+
         let filter = '';
-        if (this.configurationService.shapeStyle) {
-            const style = this.styleFactory.getStyleByKey(this.configurationService.shapeStyle);
+        if (this.configurationService.shapeStyleKey && this.configurationService.shapeStyleKey !== 'None') {
+            const style = this.styleFactory.getStyleByKey(this.configurationService.shapeStyleKey);
             filter = style.getStyleHtml();
             this.configurationService.shapeColors.forEach((c, i) => filter = filter.replace(style.defaultColours[i], c.color));
         }
@@ -262,8 +262,7 @@ export class WordCloudComponent implements OnChanges {
         // create a new image canvas
         if (shape.url.length > 0) {
             shape.canvas = document.createElement('canvas');
-            shape.canvas.className = shape.showBackground ? 'behind' : 'notShown';
-            // alert(shape.canvas.className);
+            shape.canvas.className = this.configurationService.shapeStyleKey !== 'None' ? 'behind' : 'notShown';
             shape.canvas.id = 'backgroundCanvas';
             document.getElementById('word-cloud').appendChild(shape.canvas);
         }

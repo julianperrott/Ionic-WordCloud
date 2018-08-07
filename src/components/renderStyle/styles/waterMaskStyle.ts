@@ -22,7 +22,7 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
         this.createFilter(this.filter);
     }
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return '<feTurbulence type="turbulence" baseFrequency="0.4" numOctaves="1"></feTurbulence><feColorMatrix type="luminanceToAlpha"></feColorMatrix><feColorMatrix matrix="0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1"></feColorMatrix><feComponentTransfer><feFuncR type="table" tableValues="0 0 0 .4 1"></feFuncR><feFuncG type="table" tableValues="0 .15 .5 .9 1"></feFuncG><feFuncB type="table" tableValues="0 0 .6 .8 1"></feFuncB><feFuncA type="linear" slope="0.5" intercept="0.0"></feFuncA></feComponentTransfer>';
     }
 
@@ -34,7 +34,9 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
             .attr('numOctaves', '1');
 
         filter.append('feColorMatrix').attr('type', 'luminanceToAlpha');
-        filter.append('feColorMatrix').attr('matrix', '0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1');
+        filter
+            .append('feColorMatrix')
+            .attr('matrix', '0 0 0 -1 1 0 0 0 -1 1 0 0 0 -1 1 0 0 0 0 1');
 
         const transfer = filter.append('feComponentTransfer');
 
@@ -61,18 +63,9 @@ export class WaterMaskStyle extends StyleBaseClass implements IStyle {
     public render(words) {
         this.drawWordsIn(words, '#wwwmask', w => this.colorWhite(w));
 
-        const settings = this.configurationService.settings;
-
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
-
-            w.style('stroke', () => settings.strokeColour) // stroke colour
-                .style('stroke-opacity', () => settings.strokeOpacity) //  stroke opacity
-                .style('stroke-width', () => {
-                    let scale = ~~(d.size / settings.strokeScale);
-                    scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
-                    return scale + 'px';
-                }); // stroke size divider + min width
+            this.applyStrokeStyle(w, d, 1);
         });
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {

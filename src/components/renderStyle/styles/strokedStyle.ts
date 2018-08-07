@@ -16,7 +16,7 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
 
     defaultColours = [];
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return '';
     }
 
@@ -25,29 +25,37 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
     }
 
     public calculateStrokeSize(d, multiplier: number) {
-        const settings = this.configurationService.settings;
-        let scale = ~~(d.size / settings.strokeScale) * multiplier;
-        scale = scale < settings.strokeMinWidth ? settings.strokeMinWidth : scale;
+        let scale = ~~(d.size / this.strokeScale) * multiplier;
+        scale = scale < this.strokeMinWidth ? this.strokeMinWidth : scale;
         return scale + 'px';
     }
 
     public render(words) {
-        const settings = this.configurationService.settings;
-
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
-            const hsl = 'hsl(' + (Math.floor(d.color * 360 + 180) % 360) + ',100%,' + settings.lightnessGlow + ')';
-            w.style('stroke', () => hsl).style('stroke-width', () => this.calculateStrokeSize(d, 3.5));
+            const hsl = 
+                'hsl(' +
+                (Math.floor(d.color * 360 + 180) % 360) +
+                ',' + this.configurationService.saturation + '%,' +
+                this.configurationService.lightness +
+                '%)';
+            w.style('stroke', () => hsl).style('stroke-width', () =>
+                this.calculateStrokeSize(d, 3.5)
+            );
         });
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
-            w.style('stroke', () => 'black').style('stroke-width', () => this.calculateStrokeSize(d, 2));
+            w.style('stroke', () => 'black').style('stroke-width', () =>
+                this.calculateStrokeSize(d, 2)
+            );
         });
 
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
-            w.style('stroke', () => 'white').style('stroke-width', () => this.calculateStrokeSize(d, 0.5));
+            w.style('stroke', () => 'white').style('stroke-width', () =>
+                this.calculateStrokeSize(d, 0.5)
+            );
         });
     }
 }

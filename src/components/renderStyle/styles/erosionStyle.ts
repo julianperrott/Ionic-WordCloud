@@ -9,13 +9,13 @@ export class ErosionStyle extends StyleBaseClass implements IStyle {
         super(configurationService);
     }
 
-    defaultColours = ['red', 'yellow'];
+    defaultColours = [];
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
 
-    strokeStyle = "black";
+    strokeStyle = 'black';
     strokeStyleEnabled = true;
 
     filterHtml = `
@@ -31,7 +31,8 @@ export class ErosionStyle extends StyleBaseClass implements IStyle {
 
     public createFilter() {
         document.getElementById('wwwfilter').innerHTML = this.filterHtml;
-        document.getElementById('wwwfilter2').innerHTML = '<feGaussianBlur stdDeviation="3 3"></feGaussianBlur><feOffset in="blur" dx="10" dy="10"></feOffset>';
+        document.getElementById('wwwfilter2').innerHTML =
+            '<feGaussianBlur stdDeviation="3 3"></feGaussianBlur><feOffset in="blur" dx="10" dy="10"></feOffset>';
     }
 
     public render(words) {
@@ -40,10 +41,9 @@ export class ErosionStyle extends StyleBaseClass implements IStyle {
             this.setFilter(w, 'wwwfilter2');
         });
 
-
         this.drawWordsIn(words, '#wwwwords2', (w, d) => {
             this.colorHsl(w, d);
-            this.applyStrokeStyle(w,d,100);
+            this.applyStrokeStyle(w, d, 100);
             this.setFilter(w, 'wwwfilter');
         });
     }

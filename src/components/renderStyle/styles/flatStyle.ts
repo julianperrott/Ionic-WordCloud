@@ -10,16 +10,23 @@ export class FlatStyle extends StyleBaseClass implements IStyle {
     }
 
     padding = 2;
-
     defaultColours = [];
+
+    strokeStyle = this.strokeStyleNone;
+    strokeStyleEnabled = true;
 
     public getStyleHtml(): string {
         return '';
     }
 
     public initialise(svg: any, w: number, h: number) {
+        super.initialise(svg, w, h);
     }
 
     public render(words) {
+        this.drawWordsIn(words, '#wwwwords', (w, d) => {
+            this.colorHsl(w, d);
+            this.applyStrokeStyle(w, d, 2);
+        });
     }
 }

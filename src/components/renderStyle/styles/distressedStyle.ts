@@ -14,10 +14,9 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
     strokeStyle = this.strokeStyleDefault;
     strokeStyleEnabled = true;
 
-    public getStyleHtml(): string{
+    public getStyleHtml(): string {
         return this.filterHtml;
     }
-
 
     filterHtml = `
         <feFlood id="color1" flood-color="blue" result="COLOR-background"></feFlood>
@@ -58,7 +57,7 @@ export class DistressedStyle extends StyleBaseClass implements IStyle {
 
     public render(words) {
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
-            const hsl = 'hsl(' + Math.floor(d.color * 360) + ',100%,20%)';
+            const hsl = 'hsl(' + Math.floor(d.color * 360) + ',' + this.configurationService.saturation + '%,20%)';
             w.style('fill', hsl);
         });
 

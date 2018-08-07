@@ -14,10 +14,10 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     strokeStyle = this.strokeStyleDefault;
     strokeStyleEnabled = true;
 
-    defaultColours = ['#551C0B', '551C0B'];
+    defaultColours = ['#551C0B', '#551C0B'];
 
-    public getStyleHtml(): string{
-        return this.filterHtml[this.htmlIndex]
+    public getStyleHtml(): string {
+        return this.filterHtml[this.htmlIndex];
     }
 
     filterHtml = [
@@ -168,7 +168,9 @@ export class BlopStyle extends StyleBaseClass implements IStyle {
     }
 
     public createFilter() {
-        document.getElementById('wwwfilter').innerHTML = this.filterHtml[this.htmlIndex];
+        document.getElementById('wwwfilter').innerHTML = this.filterHtml[
+            this.htmlIndex
+        ];
     }
 
     public render(words) {
