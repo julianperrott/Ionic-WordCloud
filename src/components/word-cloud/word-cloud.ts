@@ -1,11 +1,21 @@
-import { Component, HostListener, Injector, Input, OnChanges } from '@angular/core';
+import {
+    Component,
+    HostListener,
+    Injector,
+    Input,
+    OnChanges
+} from '@angular/core';
 import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ConfigurationService, Shape } from '../../services/configuration.service';
+import {
+    ConfigurationService,
+    Shape
+} from '../../services/configuration.service';
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './d3CloudFacade';
 import { StyleFactory } from '../renderStyle/styleFactory';
 import { IStyle } from '../renderStyle/iStyle';
+import { Event } from '../../services/event';
 
 import * as D3 from 'd3';
 
@@ -57,38 +67,46 @@ export class WordCloudComponent implements OnChanges {
             }
         });
 
-        configurationService.configurationChanged$.subscribe(v => {
+        events.subscribe(Event.CONFIG_CHANGED, v => {
             this.width = window.innerWidth;
             this.height = window.innerHeight;
             this.forceRedraw();
         });
 
-        configurationService.styleChanged$.subscribe(v => {
+        events.subscribe(Event.STYLE_CHANGED, v => {
             this.buildSVG();
             this.createStyle();
-            this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
+            this.style.render(
+                this.data.filter(c => c.x !== undefined && c.y !== undefined)
+            );
         });
 
-        events.subscribe('shapeBackgroundColour', color => {
+        events.subscribe(Event.SHAPE_BACKGROUND_COLOR, color => {
             this.removeShapeBackground();
             const shape = this.createShape();
             this.configurationService.shapeBackgroundColor = color;
             this.renderer.redrawBackground(shape);
         });
 
-        events.subscribe('progressUpdate', p => {
+        events.subscribe(Event.PROGRESS_UPDATE, p => {
             this.progress = p;
         });
 
-        events.subscribe('redrawWordCloud', description => {
+        events.subscribe(Event.REDRAW_WORDCLOUD, description => {
             console.log(description);
             this.ngOnChanges();
         });
 
-        events.subscribe('shapeBackgroundVisibility', visibility => {
-            document.getElementById('backgroundCanvas').classList.remove('behind');
-            document.getElementById('backgroundCanvas').classList.remove('notShown');
-            document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
+        events.subscribe(Event.SHAPE_BACKGROUND_VISIBILITY, visibility => {
+            document
+                .getElementById('backgroundCanvas')
+                .classList.remove('behind');
+            document
+                .getElementById('backgroundCanvas')
+                .classList.remove('notShown');
+            document
+                .getElementById('backgroundCanvas')
+                .classList.add(visibility ? 'behind' : 'notShown');
         });
     }
 
@@ -105,7 +123,9 @@ export class WordCloudComponent implements OnChanges {
 
     downloadAsSvg() {
         const link = document.createElement('a');
-        link.href = 'data:application/octet-stream;base64,' + btoa(D3.select('div.word-cloud').html());
+        link.href =
+            'data:application/octet-stream;base64,' +
+            btoa(D3.select('div.word-cloud').html());
         link.download = 'viz.svg';
         document.body.appendChild(link);
         link.click();
@@ -140,17 +160,22 @@ export class WordCloudComponent implements OnChanges {
 
         const scale = 12 / Math.max.apply(0, counts.map(key => key.size));
 
-        const shortestAxis = this.width > this.height ? this.height : this.width;
+        const shortestAxis =
+            this.width > this.height ? this.height : this.width;
 
         this.data = counts
             .map(item => {
                 return {
                     text: item.text,
-                    size: item.size * scale * (shortestAxis / 70) * (this.configurationService.fontScale / 100),
+                    size:
+                        item.size *
+                        scale *
+                        (shortestAxis / 70) *
+                        (this.configurationService.fontScale / 100),
                     color: Math.random()
                 };
             })
-            .sort(function (a, b) {
+            .sort(function(a, b) {
                 return a.size === b.size ? 0 : a.size > b.size ? -1 : 1;
             });
 
@@ -161,7 +186,10 @@ export class WordCloudComponent implements OnChanges {
                     this.data.push({
                         isPadding: true,
                         text: d.text,
-                        size: scale * (shortestAxis / this.configurationService.fontScale),
+                        size:
+                            scale *
+                            (shortestAxis /
+                                this.configurationService.fontScale),
                         color: d.color
                     });
                 }
@@ -169,7 +197,7 @@ export class WordCloudComponent implements OnChanges {
         }
 
         this.words = this.data
-            .map(function (v) {
+            .map(function(v) {
                 return v.text;
             })
             .join(',');
@@ -178,7 +206,14 @@ export class WordCloudComponent implements OnChanges {
 
         this.createStyle();
 
-        this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.render(words));
+        this.renderer.populate(
+            this.w,
+            this.h,
+            this.style.padding,
+            this.data,
+            () => this.createShape(),
+            words => this.style.render(words)
+        );
 
         this.hideSplashScreen();
     }
@@ -195,7 +230,12 @@ export class WordCloudComponent implements OnChanges {
         this.style.initialise(this.svg, this.w, this.h);
 
         if (this.configurationService.wordColors) {
-            this.configurationService.wordColors.forEach((c, i) => this.configurationService.setFloodColor('color' + (i + 1), c.color));
+            this.configurationService.wordColors.forEach((c, i) =>
+                this.configurationService.setFloodColor(
+                    'color' + (i + 1),
+                    c.color
+                )
+            );
         }
     }
 
@@ -235,7 +275,10 @@ export class WordCloudComponent implements OnChanges {
             .attr('width', this.w)
             .attr('height', this.h)
             .append('g')
-            .attr('transform', 'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')');
+            .attr(
+                'transform',
+                'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')'
+            );
     }
 
     private removeShapeBackground() {
@@ -249,12 +292,19 @@ export class WordCloudComponent implements OnChanges {
     private createShape(): Shape {
         this.removeShapeBackground();
 
-
         let filter = '';
-        if (this.configurationService.shapeStyleKey && this.configurationService.shapeStyleKey !== 'None') {
-            const style = this.styleFactory.getStyleByKey(this.configurationService.shapeStyleKey);
+        if (
+            this.configurationService.shapeStyleKey &&
+            this.configurationService.shapeStyleKey !== 'None'
+        ) {
+            const style = this.styleFactory.getStyleByKey(
+                this.configurationService.shapeStyleKey
+            );
             filter = style.getStyleHtml();
-            this.configurationService.shapeColors.forEach((c, i) => filter = filter.replace(style.defaultColours[i], c.color));
+            this.configurationService.shapeColors.forEach(
+                (c, i) =>
+                    (filter = filter.replace(style.defaultColours[i], c.color))
+            );
         }
 
         const shape = this.configurationService.getShape(filter);
@@ -262,7 +312,10 @@ export class WordCloudComponent implements OnChanges {
         // create a new image canvas
         if (shape.url.length > 0) {
             shape.canvas = document.createElement('canvas');
-            shape.canvas.className = this.configurationService.shapeStyleKey !== 'None' ? 'behind' : 'notShown';
+            shape.canvas.className =
+                this.configurationService.shapeStyleKey !== 'None'
+                    ? 'behind'
+                    : 'notShown';
             shape.canvas.id = 'backgroundCanvas';
             document.getElementById('word-cloud').appendChild(shape.canvas);
         }

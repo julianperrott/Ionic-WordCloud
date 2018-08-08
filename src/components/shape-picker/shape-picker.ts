@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Event } from '../../services/event';
 
 import {
     Events,
@@ -28,7 +29,7 @@ export class ShapePicker {
 
     select(icon) {
         this.shape = icon;
-        this.events.publish('shapeChanged', this.shape);
+        this.events.publish(Event.SHAPE_CHANGED, this.shape);
         this.ok();
     }
 

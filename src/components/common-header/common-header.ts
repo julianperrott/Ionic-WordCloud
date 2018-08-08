@@ -1,10 +1,16 @@
 import { Component, Input, NgZone, Renderer2, ViewChild } from '@angular/core';
 
-import { Events, Popover, PopoverController, ViewController } from 'ionic-angular';
+import {
+    Events,
+    Popover,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { ShapePicker } from '../shape-picker/shape-picker';
 import { StylePicker } from '../renderStyle/stylePicker';
+import { Event } from '../../services/event';
 
 @Component({
     selector: 'common-header',
@@ -34,7 +40,7 @@ export class CommonHeaderComponent {
         events: Events,
         public viewController: ViewController
     ) {
-        configurationService.busyChanged$.subscribe(v => {
+        events.subscribe(Event.BUSY_CHANGED, v => {
             // console.log('Busy is now ' + configurationService.busy);
             zone.run(() => {
                 this.busy = configurationService.busy;
@@ -42,7 +48,7 @@ export class CommonHeaderComponent {
             });
         });
 
-        configurationService.takeScreenshot$.subscribe(v => {
+        events.subscribe(Event.TAKE_SCREENSHOT, v => {
             try {
                 this.popover.dismiss();
             } catch (err) {
@@ -52,15 +58,20 @@ export class CommonHeaderComponent {
 
         this.shape = configurationService.shape;
 
-        events.subscribe('shapeChanged', shape => {
+        events.subscribe(Event.SHAPE_CHANGED, shape => {
             this.shape = shape;
         });
     }
 
     ngAfterViewInit() {
-        const titleEl = this.refIonTitle.getElementRef().nativeElement.querySelector('.toolbar-title');
+        const titleEl = this.refIonTitle
+            .getElementRef()
+            .nativeElement.querySelector('.toolbar-title');
         if (titleEl.childNodes.length === 0) {
-            this.renderer.appendChild(titleEl, this.renderer.createText(this.defaultTitle));
+            this.renderer.appendChild(
+                titleEl,
+                this.renderer.createText(this.defaultTitle)
+            );
         }
     }
 

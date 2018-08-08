@@ -13,11 +13,11 @@
   </div>
 
   <colorMenuItem [hidden]="configurationService.wordColors.length<1" [description]="'Customise Colour 1'" [color]="configurationService.wordColors[0]?configurationService.wordColors[0].color:'red'"
-    [eventName]="'color1Changed'"></colorMenuItem>
+    [eventName]="COLOR1_CHANGED"></colorMenuItem>
   <colorMenuItem [hidden]="configurationService.wordColors.length<2" [description]="'Customise Colour 2'" [color]="configurationService.wordColors[1]?configurationService.wordColors[1].color:'red'"
-    [eventName]="'color2Changed'"></colorMenuItem>
+    [eventName]="COLOR2_CHANGED"></colorMenuItem>
   <colorMenuItem [hidden]="configurationService.wordColors.length<3" [description]="'Customise Colour 3'" [color]="configurationService.wordColors[2]?configurationService.wordColors[2].color:'red'"
-    [eventName]="'color3Changed'"></colorMenuItem>
+    [eventName]="COLOR3_CHANGED"></colorMenuItem>
 
   <div [hidden]="!strokeStyleEnabled">
     <div ion-item>
@@ -33,6 +33,6 @@
       </ion-select>
     </div>
 
-    <colorMenuItem [hidden]="strokeStyle!=='CUSTOM'" [description]="'Outline Colour'" [color]="strokeColor" [eventName]="'strokeColorChanged'"></colorMenuItem>
+    <colorMenuItem [hidden]="strokeStyle!=='CUSTOM'" [description]="'Outline Colour'" [color]="strokeColor" [eventName]="STROKE_COLOR_CHANGED"></colorMenuItem>
   </div>
 </ion-content>

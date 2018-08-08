@@ -1,6 +1,7 @@
 import { Events } from 'ionic-angular';
 import { ConfigurationService } from '../../services/configuration.service';
 import { Injectable, NgZone } from '@angular/core';
+import { Event } from '../../services/event';
 
 declare var d3: any;
 
@@ -35,7 +36,7 @@ export class D3CloudFacade {
             this.configurationService.setBusy(false);
         }
 
-        this.events.publish('progressUpdate', 0);
+        this.events.publish(Event.PROGRESS_UPDATE, 0);
         let lastProgress = 0;
 
         let startTime = performance.now();
@@ -72,7 +73,7 @@ export class D3CloudFacade {
 
                         this.zone.run(() => {
                             lastProgress = newProgress;
-                            this.events.publish('progressUpdate', newProgress);
+                            this.events.publish(Event.PROGRESS_UPDATE, newProgress);
                             if (cacheCopy.length > 0) {
                                 drawWordCloud(cacheCopy);
                             }
@@ -87,7 +88,7 @@ export class D3CloudFacade {
             .on('end', () => {
                 if (!this.d3cloud.cancelled) {
                     // console.log('Duration: ' + (performance.now() - startTime) / 1000);
-                    this.events.publish('progressUpdate', 100);
+                    this.events.publish(Event.PROGRESS_UPDATE, 100);
 
                     const todo = data.filter(
                         c =>
@@ -106,7 +107,7 @@ export class D3CloudFacade {
                         this.configurationService.setBusy(false);
                     }, 100);
                 } else {
-                    this.events.publish('redrawWordCloud', 'd3cloud cancelled');
+                    this.events.publish(Event.REDRAW_WORDCLOUD, 'd3cloud cancelled');
                 }
             })
             .start();

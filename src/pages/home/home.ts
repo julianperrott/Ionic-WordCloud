@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Content, Events, PopoverController, ToastController } from 'ionic-angular';
+import {
+    Content,
+    Events,
+    PopoverController,
+    ToastController
+} from 'ionic-angular';
 
 import * as unfluff from 'unfluff';
 
@@ -13,6 +18,7 @@ import { ScreenshotService } from '../../services/screenshot.service';
 import { HomeIntro } from './HomeIntro';
 
 import { PopoverPage } from '../../components/popover/popover';
+import { Event } from '../../services/event';
 
 @Component({
     selector: 'page-home',
@@ -45,7 +51,7 @@ export class HomePage {
     ) {
         this.links = configurationService.defaultLinks;
 
-        configurationService.UrlChangeSource$.subscribe(v => {
+        events.subscribe(Event.URL_CHANGED, v => {
             this.refreshLinks = true;
             this.url = configurationService.url;
             if (this.content != null) {
@@ -55,7 +61,7 @@ export class HomePage {
             this.refresh();
         });
 
-        configurationService.takeScreenshot$.subscribe(v => {
+        events.subscribe(Event.TAKE_SCREENSHOT, v => {
             this.showOnlyWordCloud = true;
             screenshot.takeScreenshot();
 
@@ -123,7 +129,8 @@ export class HomePage {
         this.configurationService.setBusy(true);
 
         const proxyurl = 'https://corsproxywebwordcloud.azurewebsites.net/';
-        const corsUrl = proxyurl + this.url.replace('http://', '').replace('https://', '');
+        const corsUrl =
+            proxyurl + this.url.replace('http://', '').replace('https://', '');
         console.log('fetch: ' + corsUrl);
 
         this.toastCtrl
@@ -169,7 +176,8 @@ export class HomePage {
 
             this.toastCtrl
                 .create({
-                    message: 'Using all ' + words.length + ' words on the page.',
+                    message:
+                        'Using all ' + words.length + ' words on the page.',
                     duration: 10000,
                     position: 'bottom',
                     cssClass: 'toastSuccess'

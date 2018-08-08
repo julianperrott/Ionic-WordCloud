@@ -6,9 +6,9 @@ import {
     ViewController
 } from 'ionic-angular';
 import { ConfigurationService } from '../../../services/configuration.service';
-import { ColorPicker } from '../../color-picker/color-picker';
 import { Events } from 'ionic-angular';
 import { StyleFactory } from '../../renderStyle/styleFactory';
+import { Event } from '../../../services/event';
 
 @Component({
     selector: 'page-popover',
@@ -16,6 +16,10 @@ import { StyleFactory } from '../../renderStyle/styleFactory';
 })
 export class ShapePopoverPage {
     themeChangeInProgress = false;
+    readonly SHAPE_BACKGROUND_COLOR = Event.SHAPE_BACKGROUND_COLOR;
+    readonly SHAPE_COLOR1_CHANGED = Event.SHAPE_COLOR1_CHANGED;
+    readonly SHAPE_COLOR2_CHANGED = Event.SHAPE_COLOR2_CHANGED;
+    readonly SHAPE_COLOR3_CHANGED = Event.SHAPE_COLOR3_CHANGED;
 
     constructor(
         public navCtrl: NavController,
@@ -26,17 +30,17 @@ export class ShapePopoverPage {
         public viewController: ViewController,
         public styleFactory: StyleFactory
     ) {
-        events.subscribe('shapeBackgroundColour', color => {
+        events.subscribe(Event.SHAPE_BACKGROUND_COLOR, color => {
             this.configurationService.shapeBackgroundColor = color;
         });
 
-        events.subscribe('shapeColor1Changed', color => {
+        events.subscribe(Event.SHAPE_COLOR1_CHANGED, color => {
             this.setShapeColor(0, color);
         });
-        events.subscribe('shapeColor2Changed', color => {
+        events.subscribe(Event.SHAPE_COLOR2_CHANGED, color => {
             this.setShapeColor(1, color);
         });
-        events.subscribe('shapeColor3Changed', color => {
+        events.subscribe(Event.SHAPE_COLOR3_CHANGED, color => {
             this.setShapeColor(2, color);
         });
     }
@@ -45,27 +49,13 @@ export class ShapePopoverPage {
         console.log('setShapeColor ' + i + ' ' + color);
         this.configurationService.shapeColors[i].color = color;
         this.events.publish(
-            'shapeBackgroundColour',
+            Event.SHAPE_BACKGROUND_COLOR,
             this.configurationService.shapeBackgroundColor
         );
     }
 
     update() {
         this.configurationService.configurationChanged('');
-    }
-
-    selectBackgroundColour(myEvent) {
-        if (this.themeChangeInProgress) {
-            return;
-        }
-
-        const popover = this.popoverCtrl.create(ColorPicker, {
-            eventName: 'shapeBackgroundColour',
-            color: this.configurationService.shapeBackgroundColor
-        });
-        popover.present({
-            ev: myEvent
-        });
     }
 
     styleChanged() {
@@ -82,7 +72,7 @@ export class ShapePopoverPage {
             );
 
             this.events.publish(
-                'shapeBackgroundColour',
+                Event.SHAPE_BACKGROUND_COLOR,
                 this.configurationService.shapeBackgroundColor
             );
         }, 100);

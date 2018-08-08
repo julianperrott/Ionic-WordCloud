@@ -12,12 +12,12 @@
     </ion-select>
   </div>
 
-  <colorMenuItem [description]="'Fill Colour'" [color]="configurationService.shapeBackgroundColor" [eventName]="'shapeBackgroundColour'"></colorMenuItem>
+  <colorMenuItem [description]="'Fill Colour'" [color]="configurationService.shapeBackgroundColor" [eventName]="SHAPE_BACKGROUND_COLOR"></colorMenuItem>
   <colorMenuItem [hidden]="configurationService.shapeColors.length<1" [description]="'Flood Colour 1'" [color]="configurationService.shapeColors[0]?configurationService.shapeColors[0].color:'red'"
-    [eventName]="'shapeColor1Changed'"></colorMenuItem>
+    [eventName]="SHAPE_COLOR1_CHANGED"></colorMenuItem>
   <colorMenuItem [hidden]="configurationService.shapeColors.length<2" [description]="'Flood Colour 2'" [color]="configurationService.shapeColors[1]?configurationService.shapeColors[1].color:'red'"
-    [eventName]="'shapeColor2Changed'"></colorMenuItem>
+    [eventName]="SHAPE_COLOR2_CHANGED"></colorMenuItem>
   <colorMenuItem [hidden]="configurationService.shapeColors.length<3" [description]="'Flood Colour 3'" [color]="configurationService.shapeColors[2]?configurationService.shapeColors[2].color:'red'"
-    [eventName]="'shapeColor3Changed'"></colorMenuItem>
+    [eventName]="SHAPE_COLOR3_CHANGED"></colorMenuItem>
 
 </ion-content>

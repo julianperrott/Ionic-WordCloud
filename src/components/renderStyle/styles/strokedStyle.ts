@@ -33,10 +33,12 @@ export class StrokedStyle extends StyleBaseClass implements IStyle {
     public render(words) {
         this.drawWordsIn(words, '#wwwwords', (w, d) => {
             this.colorHsl(w, d);
-            const hsl = 
+            const hsl =
                 'hsl(' +
                 (Math.floor(d.color * 360 + 180) % 360) +
-                ',' + this.configurationService.saturation + '%,' +
+                ',' +
+                this.configurationService.saturation +
+                '%,' +
                 this.configurationService.lightness +
                 '%)';
             w.style('stroke', () => hsl).style('stroke-width', () =>

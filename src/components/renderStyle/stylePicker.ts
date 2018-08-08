@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, PopoverController, ViewController } from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
 import { Events } from 'ionic-angular';
 import { StyleFactory } from '../renderStyle/styleFactory';
+import { Event } from '../../services/event';
 
 @Component({
     selector: 'page-popover',
@@ -19,6 +25,11 @@ export class StylePicker {
 
     busy = false;
 
+    readonly COLOR1_CHANGED = Event.COLOR1_CHANGED;
+    readonly COLOR2_CHANGED = Event.COLOR2_CHANGED;
+    readonly COLOR3_CHANGED = Event.COLOR3_CHANGED;
+    readonly STROKE_COLOR_CHANGED = Event.STROKE_COLOR_CHANGED;
+
     constructor(
         public navCtrl: NavController,
         public navParams: NavParams,
@@ -28,7 +39,9 @@ export class StylePicker {
         public viewController: ViewController,
         public styleFactory: StyleFactory
     ) {
-        const selectedStyle = styleFactory.styles.filter(s => s.key === this.configurationService.style);
+        const selectedStyle = styleFactory.styles.filter(
+            s => s.key === this.configurationService.style
+        );
 
         this.strokeStyle = this.configurationService.strokeStyle;
 
@@ -41,11 +54,17 @@ export class StylePicker {
             this.styleChanged();
         }
 
-        events.subscribe('color1Changed', color => { this.setWordColor(0, color); });
-        events.subscribe('color2Changed', color => { this.setWordColor(1, color); });
-        events.subscribe('color3Changed', color => { this.setWordColor(2, color); });
+        events.subscribe(Event.COLOR1_CHANGED, color => {
+            this.setWordColor(0, color);
+        });
+        events.subscribe(Event.COLOR2_CHANGED, color => {
+            this.setWordColor(1, color);
+        });
+        events.subscribe(Event.COLOR3_CHANGED, color => {
+            this.setWordColor(2, color);
+        });
 
-        events.subscribe('strokeColorChanged', color => {
+        events.subscribe(Event.STROKE_COLOR_CHANGED, color => {
             this.strokeColor = color;
             this.configurationService.strokeStyle = color;
             this.configurationService.styleChanged('');
@@ -85,7 +104,12 @@ export class StylePicker {
             const style = this.styleFactory.getStyle();
 
             this.configurationService.wordColors = [];
-            style.defaultColours.forEach((c, i) => this.configurationService.wordColors.push({ color: c, index: i }));
+            style.defaultColours.forEach((c, i) =>
+                this.configurationService.wordColors.push({
+                    color: c,
+                    index: i
+                })
+            );
 
             this.strokeStyle = undefined;
 
@@ -100,7 +124,10 @@ export class StylePicker {
         }
 
         setTimeout(() => {
-            this.configurationService.strokeStyle = this.strokeStyle === 'CUSTOM' ? this.strokeColor : this.strokeStyle;
+            this.configurationService.strokeStyle =
+                this.strokeStyle === 'CUSTOM'
+                    ? this.strokeColor
+                    : this.strokeStyle;
             this.configurationService.styleChanged('');
         }, 100);
     }

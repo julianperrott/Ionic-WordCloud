@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, PopoverController, ViewController } from 'ionic-angular';
+import {
+    NavController,
+    NavParams,
+    Platform,
+    PopoverController,
+    ViewController
+} from 'ionic-angular';
 
 import { ConfigurationService } from '../../services/configuration.service';
-import { ColorPicker } from '../color-picker/color-picker';
 import { Events } from 'ionic-angular';
+import { Event } from '../../services/event';
 
 @Component({
     selector: 'page-popover',
@@ -12,6 +18,7 @@ import { Events } from 'ionic-angular';
 export class PopoverPage {
     countStyle = '';
     isApp = false;
+    BACKGROUND_COLOR = Event.BACKGROUND_COLOR;
 
     constructor(
         public navCtrl: NavController,
@@ -24,11 +31,12 @@ export class PopoverPage {
     ) {
         this.countStyle = configurationService.countStyle;
 
-        events.subscribe('backgroundColour', color => {
+        events.subscribe(Event.BACKGROUND_COLOR, color => {
             this.configurationService.backgroundColor = color;
         });
 
-        this.isApp = platform.is('core') || platform.is('mobileweb') ? false : true;
+        this.isApp =
+            platform.is('core') || platform.is('mobileweb') ? false : true;
     }
 
     fontChanged() {
@@ -59,7 +67,7 @@ export class PopoverPage {
         this.configurationService.takeScreenshot('');
     }
 
-    lightnessChanged(){
+    lightnessChanged() {
         this.configurationService.styleChanged('');
     }
 }

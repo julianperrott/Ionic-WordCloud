@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { Link } from './htmlToLinks.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Events } from 'ionic-angular';
 import { IStyle } from '../components/renderStyle/iStyle';
+import { Event } from './event';
 
 export interface Shape {
     url: string;
@@ -14,18 +14,6 @@ export interface Shape {
 
 @Injectable()
 export class ConfigurationService {
-    configurationChangeSource = new Subject<any>();
-    configurationBusySource = new Subject<any>();
-    urlChangeSource = new Subject<any>();
-    screenshotSource = new Subject<any>();
-    styleChangedSource = new Subject<any>();
-
-    configurationChanged$ = this.configurationChangeSource.asObservable();
-    UrlChangeSource$ = this.urlChangeSource.asObservable();
-    busyChanged$ = this.configurationBusySource.asObservable();
-    takeScreenshot$ = this.screenshotSource.asObservable();
-    styleChanged$ = this.styleChangedSource.asObservable();
-
     busy = true;
     error = false;
     url = '';
@@ -40,7 +28,7 @@ export class ConfigurationService {
     strokeStyle;
 
     saturation = '100';
-    lightness= '50';
+    lightness = '50';
     fontFace = 'Pacifico';
     fontScale = 100;
 
@@ -57,14 +45,14 @@ export class ConfigurationService {
         { href: 'https://edition.cnn.com/', text: 'CNN' } as Link
     ];
 
-    constructor(screenOrientation: ScreenOrientation, events: Events) {
+    constructor(screenOrientation: ScreenOrientation, private events: Events) {
         screenOrientation.onChange().subscribe(() => {
             setTimeout(() => {
                 this.configurationChanged('');
             }, 1000);
         });
 
-        events.subscribe('shapeChanged', shape => {
+        events.subscribe(Event.SHAPE_CHANGED, shape => {
             this.shape = shape;
             this.configurationChanged('');
         });
@@ -114,13 +102,13 @@ export class ConfigurationService {
 
     fontChanged(name: string) {
         setTimeout(() => {
-            this.configurationChangeSource.next(name);
+            this.events.publish(Event.CONFIG_CHANGED);
         }, 100);
     }
 
     styleChanged(name: string) {
         setTimeout(() => {
-            this.styleChangedSource.next(name);
+            this.events.publish(Event.STYLE_CHANGED);
         }, 100);
     }
 
@@ -128,13 +116,13 @@ export class ConfigurationService {
         this.setBusy(true);
 
         setTimeout(() => {
-            this.configurationChangeSource.next(name);
+            this.events.publish(Event.CONFIG_CHANGED);
         }, 100);
     }
 
     takeScreenshot(name: string) {
         setTimeout(() => {
-            this.screenshotSource.next(name);
+            this.events.publish(Event.TAKE_SCREENSHOT);
         }, 100);
     }
 
@@ -144,27 +132,27 @@ export class ConfigurationService {
     setBusy(state: boolean): void {
         // console.log('busy ' + state);
         this.busy = state;
-        this.configurationBusySource.next(name);
+        this.events.publish(Event.BUSY_CHANGED);
     }
 
     setError() {
         this.error = true;
         setTimeout(() => {
-            this.configurationBusySource.next(name);
+            this.events.publish(Event.BUSY_CHANGED);
         }, 100);
     }
 
     setUrl(url: string) {
         this.url = url;
         setTimeout(() => {
-            this.urlChangeSource.next(name);
+            this.events.publish(Event.URL_CHANGED);
         }, 100);
     }
 
     clearError() {
         this.error = false;
         setTimeout(() => {
-            this.configurationBusySource.next(name);
+            this.events.publish(Event.BUSY_CHANGED);
         }, 100);
     }
 
