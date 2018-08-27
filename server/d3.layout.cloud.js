@@ -22,6 +22,7 @@
         timeInterval = Infinity,
         event = dispatch("word", "end"),
         timer = null,
+        drawMask = cloudDrawMask,
         random = Math.random,
         cloud = {},
         canvas = cloudCanvas;
@@ -30,7 +31,7 @@
       return arguments.length ? (canvas = functor(_), cloud) : canvas;
     };
   
-    cloud.start = function() {
+    cloud.start = async function() {
       var contextAndRatio = getContext(canvas()),
           board = zeroArray((size[0] >> 5) * size[1]),
           bounds = null,
@@ -47,6 +48,9 @@
             d.padding = padding.call(this, d, i);
             return d;
           }).sort(function(a, b) { return b.size - a.size; });
+  
+     
+      await drawMask.call(this, board, size).catch(function(e){ console.log(e);});
   
       if (timer) clearInterval(timer);
       timer = setInterval(step, 0);
@@ -177,6 +181,10 @@
       return arguments.length ? (rotate = functor(_), cloud) : rotate;
     };
   
+    cloud.drawMask = function(_) {
+      return arguments.length ? (drawMask = functor(_), cloud) : drawMask;
+    };
+  
     cloud.text = function(_) {
       return arguments.length ? (text = functor(_), cloud) : text;
     };
@@ -223,6 +231,10 @@
   
   function cloudRotate() {
     return (~~(Math.random() * 6) - 3) * 30;
+  }
+  
+  function cloudDrawMask() {
+    console.log("cloudDrawMask");
   }
   
   function cloudPadding() {
