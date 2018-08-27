@@ -9,34 +9,88 @@ declare var d3: any;
 export class D3CloudFacade {
     d3cloud: any;
 
-    constructor(
-        private configurationService: ConfigurationService,
-        private zone: NgZone,
-        private events: Events
-    ) {
+    constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
         this.d3cloud = d3.layout.cloud();
     }
 
-    public populate(
-        w,
-        h,
-        padding,
-        data: any[],
-        createShape: Function,
-        drawWordCloud: Function
-    ) {
-        const fontWeight = 'bolder';
-        const spiralType = 'archimedean';
+    error(err) {
+        if (err) {
+            if (err.message) {
+                console.log('error: ' + err.message);
+                alert(err.message);
+            } else {
+                console.log('error: ' + err);
+            }
+        }
+        this.configurationService.setError();
+    }
 
+    public populate(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
         data.forEach(d => (d.drawn = false));
-
-        let cache = [];
 
         if (data.length === 0) {
             this.configurationService.setBusy(false);
         }
 
         this.events.publish(Event.PROGRESS_UPDATE, 0);
+
+        this.renderUsingServer(w, h, padding, data, createShape, drawWordCloud);
+    }
+
+    renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
+        var wordsPayload = {
+            size: [w, h],
+            padding: padding,
+            font: this.configurationService.fontFace,
+            words: data
+        };
+
+        (async () => {
+            const rawResponse = await fetch('http://localhost:3000/CreateCloud', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(wordsPayload)
+            });
+            const content = await rawResponse.json();
+
+            console.log(content);
+
+            content.forEach(w => {
+                if (w.i || w.i === 0) {
+                    var word = data[w.i];
+                    if (word) {
+                        word.x = w.x;
+                        word.y = w.y;
+                        word.rotate = w.rotate;
+                    }
+                }
+            });
+
+            console.log('End web call: ' + content.length);
+            this.end(data, [], drawWordCloud);
+            
+ this.d3cloud
+            .size([w, h])
+            .words(data)
+            .shape(createShape)
+            .padding(padding)
+            .rotate(() => (~~(Math.random() * 6) - 3) * 30)
+            .font(this.configurationService.fontFace)
+            .fontSize(d => d.size)
+            .start();
+
+
+
+        })();
+    }
+
+    renderUsingClient(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
+        const fontWeight = 'bolder';
+        const spiralType = 'archimedean';
+        let cache = [];
         let lastProgress = 0;
 
         let startTime = performance.now();
@@ -62,9 +116,7 @@ export class D3CloudFacade {
                     }
 
                     const refreshSeconds = 1;
-                    const refreshNow =
-                        performance.now() - startTime > refreshSeconds * 1000 ||
-                        newProgress - lastProgress > 5;
+                    const refreshNow = performance.now() - startTime > refreshSeconds * 1000 || newProgress - lastProgress > 5;
 
                     // refresh if more than n seconds have elapsed
                     if (refreshNow) {
@@ -86,32 +138,33 @@ export class D3CloudFacade {
                 }
             })
             .on('end', () => {
-                if (!this.d3cloud.cancelled) {
-                    // console.log('Duration: ' + (performance.now() - startTime) / 1000);
-                    this.events.publish(Event.PROGRESS_UPDATE, 100);
-
-                    const todo = data.filter(
-                        c =>
-                            (c.drawn === false || c.drawn === undefined) &&
-                            c.x !== undefined &&
-                            c.y !== undefined
-                    );
-
-                    console.log('End todo: ' + todo.length);
-
-                    drawWordCloud(todo);
-                    drawWordCloud(cache);
-                    cache = [];
-
-                    setTimeout(() => {
-                        this.configurationService.setBusy(false);
-                    }, 100);
-                } else {
-                    this.events.publish(Event.REDRAW_WORDCLOUD, 'd3cloud cancelled');
-                }
+                this.end(data, cache, drawWordCloud);
             })
             .start();
     }
+
+    public end(data: any[], cache: any[], drawWordCloud: Function) {
+        if (!this.d3cloud.cancelled) {
+            // console.log('Duration: ' + (performance.now() - startTime) / 1000);
+            this.events.publish(Event.PROGRESS_UPDATE, 100);
+
+            const todo = data.filter(c => (c.drawn === false || c.drawn === undefined) && c.x !== undefined && c.y !== undefined);
+
+            console.log('End todo: ' + todo.length);
+
+            drawWordCloud(todo);
+            drawWordCloud(cache);
+            cache = [];
+
+            setTimeout(() => {
+                this.configurationService.setBusy(false);
+                this.setBusy(false);
+            }, 100);
+        } else {
+            this.events.publish(Event.REDRAW_WORDCLOUD, 'd3cloud cancelled');
+        }
+    }
+
     public redrawBackground(shape) {
         this.d3cloud.shape(() => shape).redrawBackground();
     }

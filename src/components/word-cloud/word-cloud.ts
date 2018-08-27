@@ -206,6 +206,8 @@ export class WordCloudComponent implements OnChanges {
 
         this.createStyle();
 
+        this.data.forEach((ww,i)=> ww.i=i ); // add index
+
         this.renderer.populate(
             this.w,
             this.h,
