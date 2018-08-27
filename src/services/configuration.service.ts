@@ -10,6 +10,7 @@ export interface Shape {
     canvas: HTMLCanvasElement;
     defs: string;
     attributes: string;
+    filename: string;
 }
 
 @Injectable()
@@ -74,6 +75,7 @@ export class ConfigurationService {
                           this.shape +
                           '.svg'
                         : '',
+                filename:  this.shape && this.shape.length > 0? this.shape +'.svg': '',
                 canvas: undefined,
                 defs: '',
                 attributes: '  fill="' + this.shapeBackgroundColor + '" '
@@ -90,6 +92,7 @@ export class ConfigurationService {
                           this.shape +
                           '.svg'
                         : '',
+                filename:  this.shape && this.shape.length > 0? this.shape +'.svg': '',
                 canvas: undefined,
                 defs: filterHtml,
                 attributes:

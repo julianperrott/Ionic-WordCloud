@@ -27,7 +27,7 @@ module.exports = {
         .fontSize(d => d.size)
         .spiral('archimedean')
         .drawMask(async (board, size) => {
-          return svgMask.drawMaskAsync(board, size);
+          return svgMask.drawMaskAsync(board, size, config.shapeFilename);
         })
         .on('end', words =>
           resolve(

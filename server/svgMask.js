@@ -5,11 +5,20 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
-  drawMaskAsync: async function(board, size) {
+  drawMaskAsync: async function(board, size, shapeFilename) {
     var cWidth = size[0];
     var cHeight = size[1];
 
     return new Promise(resolve => {
+
+      if (!shapeFilename || shapeFilename.length===0){
+        console.log('(drawMaskAsync) no shape to mask');
+        resolve();
+        return;
+      }
+
+      console.log('(drawMaskAsync) reading shape '+shapeFilename);
+
       var svg = new Rsvg();
 
       svg.on('finish', function() {
@@ -39,7 +48,7 @@ module.exports = {
         resolve();
       });
 
-      var filename = path.join(__dirname, 'svg', 'truck-moving.svg');
+      var filename = path.join(__dirname, 'svg/fontawesome/svgs/solid', shapeFilename);
       rs = fs.createReadStream(filename);
       rs.on('error', e => {
         console.log('(svgMask) - Failed to read file: ' + filename + '. ' + e);

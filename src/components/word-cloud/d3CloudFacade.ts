@@ -1,5 +1,5 @@
 import { Events } from 'ionic-angular';
-import { ConfigurationService } from '../../services/configuration.service';
+import { ConfigurationService,Shape } from '../../services/configuration.service';
 import { Injectable, NgZone } from '@angular/core';
 import { Event } from '../../services/event';
 
@@ -45,11 +45,15 @@ export class D3CloudFacade {
     }
 
     renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
+
+        var shapeOb = <Shape> createShape();
+
         var wordsPayload = {
             size: [w, h],
             padding: padding,
             font: this.configurationService.fontFace,
-            words: data
+            words: data,
+            shapeFilename: shapeOb.filename
         };
 
         (async () => {
