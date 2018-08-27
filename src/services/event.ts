@@ -20,4 +20,5 @@ export class Event {
     public static readonly BUSY_CHANGED = 'busychanged';
     public static readonly URL_CHANGED = 'urlchanged';
     public static readonly CONFIG_CHANGED = 'configchanged';
+    public static readonly SHAPE_BACKGROUND_RENDER = 'shapebackgroundrender';
 }

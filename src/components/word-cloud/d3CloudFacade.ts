@@ -9,6 +9,8 @@ declare var d3: any;
 export class D3CloudFacade {
     d3cloud: any;
 
+    useServer=true;
+
     constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
         this.d3cloud = d3.layout.cloud();
     }
@@ -34,7 +36,12 @@ export class D3CloudFacade {
 
         this.events.publish(Event.PROGRESS_UPDATE, 0);
 
-        this.renderUsingServer(w, h, padding, data, createShape, drawWordCloud);
+        if (this.useServer){
+            this.renderUsingServer(w, h, padding, data, createShape, drawWordCloud);
+        }
+        else{
+            this.renderUsingClient(w, h, padding, data, createShape, drawWordCloud);
+        }
     }
 
     renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
@@ -72,20 +79,28 @@ export class D3CloudFacade {
             console.log('End web call: ' + content.length);
             this.end(data, [], drawWordCloud);
             
- this.d3cloud
-            .size([w, h])
-            .words(data)
-            .shape(createShape)
-            .padding(padding)
-            .rotate(() => (~~(Math.random() * 6) - 3) * 30)
-            .font(this.configurationService.fontFace)
-            .fontSize(d => d.size)
-            .start();
-
-
-
+            this.drawBackgroundAsSvg(createShape);
         })();
     }
+
+    drawBackgroundAsSvg(createShape: Function) {
+        var shapeOb = createShape();
+
+        // read svg file and set colour
+        var request = new XMLHttpRequest();
+        request.addEventListener('load', (event:ProgressEvent) => {
+        const target = <XMLHttpRequest> event.target;
+          var response = target.responseText;
+          var svgshape = response.replace('<path ', shapeOb.defs+'<g '+ shapeOb.attributes + '><path ').replace('</svg>','</g></svg>');
+          console.log(svgshape);
+          this.events.publish(Event.SHAPE_BACKGROUND_RENDER, svgshape);
+        });
+
+        // load svg from url
+        request.open('GET', shapeOb.url);
+        request.setRequestHeader('Content-Type', 'image/svg+xml');
+        request.send();
+      };
 
     renderUsingClient(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
         const fontWeight = 'bolder';
@@ -166,7 +181,13 @@ export class D3CloudFacade {
     }
 
     public redrawBackground(shape) {
-        this.d3cloud.shape(() => shape).redrawBackground();
+        
+        if (this.useServer){
+            this.drawBackgroundAsSvg(() => shape);
+        }
+        else{
+            this.d3cloud.shape(() => shape).redrawBackground();
+        }
     }
 
     public isBusy(): boolean {

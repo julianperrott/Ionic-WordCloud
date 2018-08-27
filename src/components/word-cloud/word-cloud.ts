@@ -1,16 +1,7 @@
-import {
-    Component,
-    HostListener,
-    Injector,
-    Input,
-    OnChanges
-} from '@angular/core';
+import { Component, HostListener, Injector, Input, OnChanges } from '@angular/core';
 import { Events, Platform } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {
-    ConfigurationService,
-    Shape
-} from '../../services/configuration.service';
+import { ConfigurationService, Shape } from '../../services/configuration.service';
 import { WordsToCountService } from '../../services/wordsToCountService';
 import { D3CloudFacade } from './d3CloudFacade';
 import { StyleFactory } from '../renderStyle/styleFactory';
@@ -76,9 +67,7 @@ export class WordCloudComponent implements OnChanges {
         events.subscribe(Event.STYLE_CHANGED, v => {
             this.buildSVG();
             this.createStyle();
-            this.style.render(
-                this.data.filter(c => c.x !== undefined && c.y !== undefined)
-            );
+            this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
         });
 
         events.subscribe(Event.SHAPE_BACKGROUND_COLOR, color => {
@@ -97,16 +86,26 @@ export class WordCloudComponent implements OnChanges {
             this.ngOnChanges();
         });
 
+        events.subscribe(Event.SHAPE_BACKGROUND_RENDER, svg => {
+            document.getElementById('backgroundSvg').innerHTML = svg;
+
+            /*
+            let element = document.getElementById('backgroundSvg');
+            while (element) {
+                element.remove();
+                element = document.getElementById('backgroundSvg');
+            }
+*/
+        });
+
         events.subscribe(Event.SHAPE_BACKGROUND_VISIBILITY, visibility => {
-            document
-                .getElementById('backgroundCanvas')
-                .classList.remove('behind');
-            document
-                .getElementById('backgroundCanvas')
-                .classList.remove('notShown');
-            document
-                .getElementById('backgroundCanvas')
-                .classList.add(visibility ? 'behind' : 'notShown');
+            document.getElementById('backgroundCanvas').classList.remove('behind');
+            document.getElementById('backgroundCanvas').classList.remove('notShown');
+            document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
+
+            document.getElementById('backgroundSvg').classList.remove('behind');
+            document.getElementById('backgroundSvg').classList.remove('notShown');
+            document.getElementById('backgroundSvg').classList.add(visibility ? 'behind' : 'notShown');
         });
     }
 
@@ -123,9 +122,7 @@ export class WordCloudComponent implements OnChanges {
 
     downloadAsSvg() {
         const link = document.createElement('a');
-        link.href =
-            'data:application/octet-stream;base64,' +
-            btoa(D3.select('div.word-cloud').html());
+        link.href = 'data:application/octet-stream;base64,' + btoa(D3.select('div.word-cloud').html());
         link.download = 'viz.svg';
         document.body.appendChild(link);
         link.click();
@@ -160,18 +157,13 @@ export class WordCloudComponent implements OnChanges {
 
         const scale = 12 / Math.max.apply(0, counts.map(key => key.size));
 
-        const shortestAxis =
-            this.width > this.height ? this.height : this.width;
+        const shortestAxis = this.width > this.height ? this.height : this.width;
 
         this.data = counts
             .map(item => {
                 return {
                     text: item.text,
-                    size:
-                        item.size *
-                        scale *
-                        (shortestAxis / 70) *
-                        (this.configurationService.fontScale / 100),
+                    size: item.size * scale * (shortestAxis / 70) * (this.configurationService.fontScale / 100),
                     color: Math.random()
                 };
             })
@@ -186,10 +178,7 @@ export class WordCloudComponent implements OnChanges {
                     this.data.push({
                         isPadding: true,
                         text: d.text,
-                        size:
-                            scale *
-                            (shortestAxis /
-                                this.configurationService.fontScale),
+                        size: scale * (shortestAxis / this.configurationService.fontScale),
                         color: d.color
                     });
                 }
@@ -206,16 +195,9 @@ export class WordCloudComponent implements OnChanges {
 
         this.createStyle();
 
-        this.data.forEach((ww,i)=> ww.i=i ); // add index
+        this.data.forEach((ww, i) => (ww.i = i)); // add index
 
-        this.renderer.populate(
-            this.w,
-            this.h,
-            this.style.padding,
-            this.data,
-            () => this.createShape(),
-            words => this.style.render(words)
-        );
+        this.renderer.populate(this.w, this.h, this.style.padding, this.data, () => this.createShape(), words => this.style.render(words));
 
         this.hideSplashScreen();
     }
@@ -232,12 +214,7 @@ export class WordCloudComponent implements OnChanges {
         this.style.initialise(this.svg, this.w, this.h);
 
         if (this.configurationService.wordColors) {
-            this.configurationService.wordColors.forEach((c, i) =>
-                this.configurationService.setFloodColor(
-                    'color' + (i + 1),
-                    c.color
-                )
-            );
+            this.configurationService.wordColors.forEach((c, i) => this.configurationService.setFloodColor('color' + (i + 1), c.color));
         }
     }
 
@@ -271,16 +248,15 @@ export class WordCloudComponent implements OnChanges {
         this.w = this.width - this.margin.left - this.margin.right;
         this.h = this.height - this.margin.top - this.margin.bottom;
 
-        this.svg = D3.select('div.word-cloud')
+        const s = D3.select('div.word-cloud')
             .append('svg')
             .attr('xmlns', 'http://www.w3.org/2000/svg')
             .attr('width', this.w)
-            .attr('height', this.h)
-            .append('g')
-            .attr(
-                'transform',
-                'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')'
-            );
+            .attr('height', this.h);
+
+        s.append('g').attr('id', 'backgroundSvg');
+
+        this.svg = s.append('g').attr('transform', 'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')');
     }
 
     private removeShapeBackground() {
@@ -295,18 +271,10 @@ export class WordCloudComponent implements OnChanges {
         this.removeShapeBackground();
 
         let filter = '';
-        if (
-            this.configurationService.shapeStyleKey &&
-            this.configurationService.shapeStyleKey !== 'None'
-        ) {
-            const style = this.styleFactory.getStyleByKey(
-                this.configurationService.shapeStyleKey
-            );
+        if (this.configurationService.shapeStyleKey && this.configurationService.shapeStyleKey !== 'None') {
+            const style = this.styleFactory.getStyleByKey(this.configurationService.shapeStyleKey);
             filter = style.getStyleHtml();
-            this.configurationService.shapeColors.forEach(
-                (c, i) =>
-                    (filter = filter.replace(style.defaultColours[i], c.color))
-            );
+            this.configurationService.shapeColors.forEach((c, i) => (filter = filter.replace(style.defaultColours[i], c.color)));
         }
 
         const shape = this.configurationService.getShape(filter);
@@ -314,10 +282,7 @@ export class WordCloudComponent implements OnChanges {
         // create a new image canvas
         if (shape.url.length > 0) {
             shape.canvas = document.createElement('canvas');
-            shape.canvas.className =
-                this.configurationService.shapeStyleKey !== 'None'
-                    ? 'behind'
-                    : 'notShown';
+            shape.canvas.className = this.configurationService.shapeStyleKey !== 'None' ? 'behind' : 'notShown';
             shape.canvas.id = 'backgroundCanvas';
             document.getElementById('word-cloud').appendChild(shape.canvas);
         }
