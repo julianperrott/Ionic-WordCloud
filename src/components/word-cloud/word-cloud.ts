@@ -240,23 +240,21 @@ export class WordCloudComponent implements OnChanges {
 
     private buildSVG() {
         if (this.svg) {
-            D3.select('div.word-cloud')
-                .select('svg')
-                .remove();
+            document.getElementById('foregroundSvg').innerHTML = "";
+        }else{
+            this.w = this.width - this.margin.left - this.margin.right;
+            this.h = this.height - this.margin.top - this.margin.bottom;
+    
+            const s = D3.select('div.word-cloud')
+                .append('svg')
+                .attr('xmlns', 'http://www.w3.org/2000/svg')
+                .attr('width', this.w)
+                .attr('height', this.h);
+    
+            s.append('g').attr('id', 'backgroundSvg');    
+
+            this.svg = s.append('g').attr('id', 'foregroundSvg').attr('transform', 'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')');
         }
-
-        this.w = this.width - this.margin.left - this.margin.right;
-        this.h = this.height - this.margin.top - this.margin.bottom;
-
-        const s = D3.select('div.word-cloud')
-            .append('svg')
-            .attr('xmlns', 'http://www.w3.org/2000/svg')
-            .attr('width', this.w)
-            .attr('height', this.h);
-
-        s.append('g').attr('id', 'backgroundSvg');
-
-        this.svg = s.append('g').attr('transform', 'translate(' + ~~(this.w / 2) + ',' + ~~(this.h / 2) + ')');
     }
 
     private removeShapeBackground() {
