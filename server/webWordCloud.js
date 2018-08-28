@@ -6,11 +6,9 @@ var Canvas = require('canvas'); // npm install canvas@next.
 var cloud = require('./d3.layout.cloud.js');
 
 module.exports = {
-  createWordCloud: function(config) {
+  createWordCloud: function (config) {
     try {
-      Canvas.registerFont('fonts/AbrilFatFace.ttf', { family: 'Comic Sans' });
-      Canvas.registerFont('fonts/Pacifico-Regular.ttf', { family: 'Pacifico' });
-      Canvas.registerFont('fonts/HoltwoodOneSC.ttf', { family: 'HoltwoodOneSC' });
+      Canvas.registerFont('fonts/' + config.font + '.ttf', { family: config.font });
     } catch (e) {
       console.log('(webWordCloud) Failed to load font. ' + e);
     }
@@ -36,13 +34,13 @@ module.exports = {
             })
           )
         );
-        
-        try{
-          c.start();
-        }catch (e) {
-          console.log('(webWordCloud) Failed to load font. ' + e);
-          resolve([]);
-        }
+
+      try {
+        c.start();
+      } catch (e) {
+        console.log('(webWordCloud) Failed to load font. ' + e);
+        resolve([]);
+      }
     });
   }
 };

@@ -127,7 +127,7 @@
         if (tag.x + tag.x0 < 0 || tag.y + tag.y0 < 0 ||
             tag.x + tag.x1 > size[0] || tag.y + tag.y1 > size[1]) continue;
         // TODO only check for collisions within current bounds.
-        if (!bounds || !cloudCollide(tag, board, size[0])) {
+        if (!cloudCollide(tag, board, size[0])) {
           if (!bounds || collideRects(tag, bounds)) {
             var sprite = tag.sprite,
                 w = tag.width >> 5,
