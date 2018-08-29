@@ -1,14 +1,21 @@
 {
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "canvas": "^2.0.0-alpha.13",
-    "d3-dispatch": "^1.0.3",
     "express": "^4.16.3",
     "fs": "0.0.1-security",
     "librsvg-prebuilt": "^0.7.8",
     "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "browserify": "^11.2.0"
   }
 }

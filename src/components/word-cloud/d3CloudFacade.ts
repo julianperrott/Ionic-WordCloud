@@ -57,7 +57,10 @@ export class D3CloudFacade {
         };
 
         (async () => {
-            const rawResponse = await fetch('http://localhost:3000/CreateCloud', {
+
+            var url="https://webwordcloudcontainer.azurewebsites.net/";
+            var localUrl = "http://localhost:3000/";
+            const rawResponse = await fetch(url+'CreateCloud', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
