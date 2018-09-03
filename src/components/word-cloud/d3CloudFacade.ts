@@ -47,6 +47,7 @@ export class D3CloudFacade {
     renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
 
         var shapeOb = <Shape> createShape();
+        this.drawBackgroundAsSvg(createShape);
 
         var wordsPayload = {
             size: [w, h],
@@ -58,9 +59,9 @@ export class D3CloudFacade {
 
         (async () => {
 
-            var url="https://webwordcloudcontainer.azurewebsites.net/";
+            var containerUrl="https://webwordcloudcontainer.azurewebsites.net/";
             var localUrl = "http://localhost:3000/";
-            const rawResponse = await fetch(url+'CreateCloud', {
+            const rawResponse = await fetch(containerUrl+'CreateCloud', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -68,10 +69,12 @@ export class D3CloudFacade {
                 },
                 body: JSON.stringify(wordsPayload)
             });
-            const content = await rawResponse.json();
+            const result = await rawResponse.json();
 
-            console.log(content);
+            const content = result.wordCloud;
 
+            console.log(result);
+            
             content.forEach(w => {
                 if (w.i || w.i === 0) {
                     var word = data[w.i];
@@ -85,8 +88,6 @@ export class D3CloudFacade {
 
             console.log('End web call: ' + content.length);
             this.end(data, [], drawWordCloud);
-            
-            this.drawBackgroundAsSvg(createShape);
         })();
     }
 
