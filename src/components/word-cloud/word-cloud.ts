@@ -53,62 +53,64 @@ export class WordCloudComponent implements OnChanges {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
 
-        platform.ready().then(() => {
-            this.platformReady = true;
-            if (this.data.length > 0) {
+        if (window.fetch !== undefined) {
+            platform.ready().then(() => {
+                this.platformReady = true;
+                if (this.data.length > 0) {
+                    this.forceRedraw();
+                }
+            });
+
+            events.subscribe(Event.CONFIG_CHANGED, v => {
+                this.width = window.innerWidth;
+                this.height = window.innerHeight;
                 this.forceRedraw();
-            }
-        });
+            });
 
-        events.subscribe(Event.CONFIG_CHANGED, v => {
-            this.width = window.innerWidth;
-            this.height = window.innerHeight;
-            this.forceRedraw();
-        });
+            events.subscribe(Event.STYLE_CHANGED, v => {
+                this.buildSVG();
+                this.createStyle();
+                this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
+            });
 
-        events.subscribe(Event.STYLE_CHANGED, v => {
-            this.buildSVG();
-            this.createStyle();
-            this.style.render(this.data.filter(c => c.x !== undefined && c.y !== undefined));
-        });
+            events.subscribe(Event.SHAPE_BACKGROUND_COLOR, color => {
+                this.removeShapeBackground();
+                const shape = this.createShape();
+                this.configurationService.shapeBackgroundColor = color;
+                this.renderer.redrawBackground(shape);
+            });
 
-        events.subscribe(Event.SHAPE_BACKGROUND_COLOR, color => {
-            this.removeShapeBackground();
-            const shape = this.createShape();
-            this.configurationService.shapeBackgroundColor = color;
-            this.renderer.redrawBackground(shape);
-        });
+            events.subscribe(Event.PROGRESS_UPDATE, p => {
+                this.progress = p;
+            });
 
-        events.subscribe(Event.PROGRESS_UPDATE, p => {
-            this.progress = p;
-        });
+            events.subscribe(Event.REDRAW_WORDCLOUD, description => {
+                console.log(description);
+                this.ngOnChanges();
+            });
 
-        events.subscribe(Event.REDRAW_WORDCLOUD, description => {
-            console.log(description);
-            this.ngOnChanges();
-        });
+            events.subscribe(Event.SHAPE_BACKGROUND_RENDER, svg => {
+                document.getElementById('backgroundSvg').innerHTML = svg;
 
-        events.subscribe(Event.SHAPE_BACKGROUND_RENDER, svg => {
-            document.getElementById('backgroundSvg').innerHTML = svg;
-
-            /*
+                /*
             let element = document.getElementById('backgroundSvg');
             while (element) {
                 element.remove();
                 element = document.getElementById('backgroundSvg');
             }
 */
-        });
+            });
 
-        events.subscribe(Event.SHAPE_BACKGROUND_VISIBILITY, visibility => {
-            document.getElementById('backgroundCanvas').classList.remove('behind');
-            document.getElementById('backgroundCanvas').classList.remove('notShown');
-            document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
+            events.subscribe(Event.SHAPE_BACKGROUND_VISIBILITY, visibility => {
+                document.getElementById('backgroundCanvas').classList.remove('behind');
+                document.getElementById('backgroundCanvas').classList.remove('notShown');
+                document.getElementById('backgroundCanvas').classList.add(visibility ? 'behind' : 'notShown');
 
-            document.getElementById('backgroundSvg').classList.remove('behind');
-            document.getElementById('backgroundSvg').classList.remove('notShown');
-            document.getElementById('backgroundSvg').classList.add(visibility ? 'behind' : 'notShown');
-        });
+                document.getElementById('backgroundSvg').classList.remove('behind');
+                document.getElementById('backgroundSvg').classList.remove('notShown');
+                document.getElementById('backgroundSvg').classList.add(visibility ? 'behind' : 'notShown');
+            });
+        }
     }
 
     @HostListener('window:resize', ['$event'])

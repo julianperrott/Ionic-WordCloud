@@ -12,6 +12,16 @@ export class HomeIntro {
             optionsInfo += '<hr/>You can also take a screenshot which will appear in your pictures folder.';
         }
 
+        if (window.fetch === undefined) {
+            return {
+                steps: [
+                    {
+                        element: '#cloud',
+                        intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/><div style="color:red">Sorry, your browser is <b>not currently supported.</b> Web Word Cloud works best on Chrome, Firefox, Edge and Safari.<div>',
+                        position: 'centre'
+                    }]};
+        }
+
         return {
             steps: [
                 {

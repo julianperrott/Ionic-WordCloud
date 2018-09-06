@@ -34,7 +34,7 @@ export class HomePage {
 
     url = '';
     lastUrl = '';
-    showOnlyWordCloud = false;
+    showOnlyWordCloud =  window.fetch === undefined;
     redrawOn = true;
     backgroundColor = '#000000';
 
