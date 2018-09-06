@@ -1,6 +1,6 @@
 <div *ngIf="!data.length">
 
-    <svg class="animated rubberBand infinite" xmlns="http://www.w3.org/2000/svg" [style.width]="width" [style.height]="height">
+    <svg class="animated rubberBand infinite" xmlns="http://www.w3.org/2000/svg" [style.width]="width+'px'" [style.height]="height+'px'">
         <g [attr.transform]="'translate('+width/2+','+height/2+')'">
             <defs>
                 <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
@@ -35,24 +35,67 @@
                 </pattern>
             </defs>
             <g fill="url(#p-anim-spots)">
-                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 0, 255);">web</text>
-                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 6px; font-family: Pacifico;">web</text>
+                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" filter="url(#glow)" [style.font-size]="(width+height)/10+'px'" style="font-family: Pacifico; fill: rgb(0, 0, 255);">web</text>
+                <text text-anchor="middle" [attr.transform]="'translate(-'+width/7+',-'+height/6+')'" [style.font-size]="(width+height)/10+'px'" style="stroke: white; stroke-opacity: 1; stroke-width: 6px; font-family: Pacifico;">web</text>
 
 
-                <text text-anchor="middle" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(255, 0, 0);">word</text>
-                <text text-anchor="middle" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">word</text>
+                <text text-anchor="middle" filter="url(#glow)" [style.font-size]="(width+height)/10+'px'" style="font-family: Pacifico; fill: rgb(255, 0, 0);">word</text>
+                <text text-anchor="middle" [style.font-size]="(width+height)/10+'px'" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">word</text>
 
-                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" filter="url(#glow)" [style.font-size]="(width+height)/10" style="font-family: Pacifico; fill: rgb(0, 192, 0);">cloud</text>
-                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" [style.font-size]="(width+height)/10" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">cloud</text>
+                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" filter="url(#glow)" [style.font-size]="(width+height)/10+'px'" style="font-family: Pacifico; fill: rgb(0, 192, 0);">cloud</text>
+                <text text-anchor="middle" [attr.transform]="'translate('+width/7+','+height/3.5+')'" [style.font-size]="(width+height)/10+'px'" style="stroke: white; stroke-opacity: 1; stroke-width: 4px; font-family: Pacifico;">cloud</text>
             </g>
         </g>
     </svg>
 </div>
 
 <div [hidden]="!data.length" class="word-cloud" id="word-cloud">
-    <div class="progress-outer" [hidden]="progress==100">
-        <div class="progress-inner" [style.width]="progress + '%'">
-            {{progress}}%
+        <div class="progress-outer" [hidden]="progress==100">
+            <div>
+                <svg class="animated-fast pulse infinite" xmlns="http://www.w3.org/2000/svg" [style.width]="width+'px'" [style.height]="height+'px'">
+                    <g [attr.transform]="'translate('+width/2+','+height/2+')'">
+                        <defs>
+                            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur stdDeviation="10 10" result="glow"></feGaussianBlur>
+                                <feMerge>
+                                    <feMergeNode in="glow"></feMergeNode>
+                                    <feMergeNode in="glow"></feMergeNode>
+                                    <feMergeNode in="glow"></feMergeNode>
+                                    <feMergeNode in="glow"></feMergeNode>
+                                </feMerge>
+                            </filter>
+                            <pattern id="p-loading" width="50" height="30" viewBox="0 0 50 30" patternUnits="userSpaceOnUse">
+                                <g class="g-cells">
+                                    <rect width="10" height="10" x="0" y="0"></rect>
+                                    <rect width="10" height="10" x="10" y="0"></rect>
+                                    <rect width="10" height="10" x="20" y="0"></rect>
+                                    <rect width="10" height="10" x="30" y="0"></rect>
+                                    <rect width="10" height="10" x="40" y="0"></rect>
+            
+                                    <rect width="10" height="10" x="0" y="10"></rect>
+                                    <rect width="10" height="10" x="10" y="10"></rect>
+                                    <rect width="10" height="10" x="20" y="10"></rect>
+                                    <rect width="10" height="10" x="30" y="10"></rect>
+                                    <rect width="10" height="10" x="40" y="10"></rect>
+            
+                                    <rect width="10" height="10" x="0" y="20"></rect>
+                                    <rect width="10" height="10" x="10" y="20"></rect>
+                                    <rect width="10" height="10" x="20" y="20"></rect>
+                                    <rect width="10" height="10" x="30" y="20"></rect>
+                                    <rect width="10" height="10" x="40" y="20"></rect>
+                                </g>
+                            </pattern>
+                        </defs>
+                        <g fill="url(#p-loading)">
+    
+                            <text text-anchor="middle" filter="url(#glow)" [style.font-size]="(width+height)/20 +'px'" style="fill: rgb(0, 0, 0);" [style.font-family]="fontFace">Please wait...</text>
+                            <text text-anchor="middle" [style.font-size]="(width+height)/20 +'px'" style="stroke: white; stroke-opacity: 1; stroke-width: 4px;" [style.font-family]="fontFace">Please wait...</text>
+        
+                        </g>
+                    </g>
+                </svg>
+
+
         </div>
     </div>
 </div>

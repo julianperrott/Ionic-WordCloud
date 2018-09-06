@@ -3,7 +3,6 @@
 
 var svgMask = require('./svgMask');
 var Canvas = require('canvas'); // npm install canvas@next.
-var cloud = require('./d3.layout.cloud.js');
 
 module.exports = {
   createWordCloud: function (config) {

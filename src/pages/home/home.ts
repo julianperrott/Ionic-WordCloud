@@ -54,7 +54,7 @@ export class HomePage {
         events.subscribe(Event.URL_CHANGED, v => {
             this.refreshLinks = true;
             this.url = configurationService.url;
-            if (this.content != null) {
+            if (this.content != null && this.content.scrollToTop) {
                 this.content.scrollToTop();
             }
             this.redrawOn = false;

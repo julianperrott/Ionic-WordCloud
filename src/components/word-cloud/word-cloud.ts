@@ -38,6 +38,7 @@ export class WordCloudComponent implements OnChanges {
     tempData = [];
     platformReady = false;
     progress = 0;
+    public fontFace = 'Pacifico';
 
     constructor(
         private configurationService: ConfigurationService,
@@ -139,14 +140,7 @@ export class WordCloudComponent implements OnChanges {
             return;
         }
 
-        if (this.renderer.isBusy()) {
-            this.renderer.abort();
-            console.log('d3cloud is busy');
-            return;
-        }
-
         console.log('drawCloud()');
-        this.renderer.setBusy(true);
         this.configurationService.setBusy(true);
 
         this.setup();
@@ -217,6 +211,8 @@ export class WordCloudComponent implements OnChanges {
         if (this.configurationService.wordColors) {
             this.configurationService.wordColors.forEach((c, i) => this.configurationService.setFloodColor('color' + (i + 1), c.color));
         }
+
+        this.fontFace = this.configurationService.fontFace;
     }
 
     private hideSplashScreen() {
@@ -264,7 +260,7 @@ export class WordCloudComponent implements OnChanges {
     private removeShapeBackground() {
         let lastCanvas = document.getElementById('backgroundCanvas');
         while (lastCanvas) {
-            lastCanvas.remove();
+            lastCanvas.parentNode.removeChild(lastCanvas);
             lastCanvas = document.getElementById('backgroundCanvas');
         }
     }

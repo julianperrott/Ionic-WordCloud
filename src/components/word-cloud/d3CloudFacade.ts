@@ -1,19 +1,11 @@
 import { Events } from 'ionic-angular';
 import { ConfigurationService, Shape } from '../../services/configuration.service';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Event } from '../../services/event';
-
-declare var d3: any;
 
 @Injectable()
 export class D3CloudFacade {
-    d3cloud: any;
-
-    useServer = true;
-
-    constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
-        this.d3cloud = d3.layout.cloud();
-    }
+    constructor(private configurationService: ConfigurationService, private events: Events) {}
 
     error(err) {
         if (err) {
@@ -36,14 +28,6 @@ export class D3CloudFacade {
 
         this.events.publish(Event.PROGRESS_UPDATE, 0);
 
-        if (this.useServer) {
-            this.renderUsingServer(w, h, padding, data, createShape, drawWordCloud);
-        } else {
-            this.renderUsingClient(w, h, padding, data, createShape, drawWordCloud);
-        }
-    }
-
-    renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
         const shapeOb = <Shape>createShape();
         this.drawBackgroundAsSvg(createShape);
 
@@ -108,101 +92,23 @@ export class D3CloudFacade {
         request.send();
     }
 
-    renderUsingClient(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
-        const fontWeight = 'bolder';
-        const spiralType = 'archimedean';
-        let cache = [];
-        let lastProgress = 0;
-
-        let startTime = performance.now();
-
-        this.d3cloud
-            .size([w, h])
-            .words(data)
-            .shape(createShape)
-            .padding(padding)
-            .rotate(() => (~~(Math.random() * 6) - 3) * 30)
-            .font(this.configurationService.fontFace)
-            .fontWeight(fontWeight)
-            .fontSize(d => d.size)
-            .spiral(spiralType)
-            .on('word', (c, i) => {
-                if (!this.d3cloud.cancelled) {
-                    const newProgress = Math.floor((i * 100) / data.length);
-
-                    if (c) {
-                        if (c.x !== undefined && c.y !== undefined) {
-                            cache.push(c);
-                        }
-                    }
-
-                    const refreshSeconds = 1;
-                    const refreshNow = performance.now() - startTime > refreshSeconds * 1000 || newProgress - lastProgress > 5;
-
-                    // refresh if more than n seconds have elapsed
-                    if (refreshNow) {
-                        const cacheCopy = cache;
-                        cache = [];
-
-                        this.zone.run(() => {
-                            lastProgress = newProgress;
-                            this.events.publish(Event.PROGRESS_UPDATE, newProgress);
-                            if (cacheCopy.length > 0) {
-                                drawWordCloud(cacheCopy);
-                            }
-                        });
-
-                        startTime = performance.now();
-                    }
-
-                    c.drawn = true;
-                }
-            })
-            .on('end', () => {
-                this.end(data, cache, drawWordCloud);
-            })
-            .start();
-    }
-
     public end(data: any[], cache: any[], drawWordCloud: Function) {
-        if (!this.d3cloud.cancelled) {
-            // console.log('Duration: ' + (performance.now() - startTime) / 1000);
-            this.events.publish(Event.PROGRESS_UPDATE, 100);
+        this.events.publish(Event.PROGRESS_UPDATE, 100);
 
-            const todo = data.filter(c => (c.drawn === false || c.drawn === undefined) && c.x !== undefined && c.y !== undefined);
+        const todo = data.filter(c => (c.drawn === false || c.drawn === undefined) && c.x !== undefined && c.y !== undefined);
 
-            console.log('End todo: ' + todo.length);
+        console.log('End todo: ' + todo.length);
 
-            drawWordCloud(todo);
-            drawWordCloud(cache);
-            cache = [];
+        drawWordCloud(todo);
+        drawWordCloud(cache);
+        cache = [];
 
-            setTimeout(() => {
-                this.configurationService.setBusy(false);
-                this.setBusy(false);
-            }, 100);
-        } else {
-            this.events.publish(Event.REDRAW_WORDCLOUD, 'd3cloud cancelled');
-        }
+        setTimeout(() => {
+            this.configurationService.setBusy(false);
+        }, 100);
     }
 
     public redrawBackground(shape) {
-        if (this.useServer) {
-            this.drawBackgroundAsSvg(() => shape);
-        } else {
-            this.d3cloud.shape(() => shape).redrawBackground();
-        }
-    }
-
-    public isBusy(): boolean {
-        return this.d3cloud.busy;
-    }
-
-    public setBusy(value: boolean) {
-        this.d3cloud.busy = value;
-    }
-
-    public abort() {
-        this.d3cloud.abort();
+        this.drawBackgroundAsSvg(() => shape);
     }
 }

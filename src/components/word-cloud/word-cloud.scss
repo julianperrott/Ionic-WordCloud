@@ -1,24 +1,17 @@
 .progress-outer {
-    width: 96%;
-    margin: 10px 2%;
-    padding: 3px;
+  background: transparent;
     text-align: center;
-    background-color: #f4f4f4;
-    border: 1px solid #dcdcdc;
-    color: #fff;
     border-radius: 20px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    z-index: 500;
     position: absolute;
   }
 
-  .progress-inner {
-    min-width: 15%;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 5px;
-    border-radius: 20px;
-    background-color: map-get($colors, primary);
-  }
 
 .behind{
   position: absolute;
@@ -45,7 +38,19 @@
   animation-delay: 2s;
 }
 
+.animated-fast {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
 .animated.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.infinite {
   -webkit-animation-iteration-count: infinite;
   animation-iteration-count: infinite;
 }
@@ -192,6 +197,14 @@ $animation-step: $animation-duration/$animation-color-count;
     }
 }
 
+.g-cells rect {
+  @for $item from 1 through $animation-color-count {
+      &:nth-child(#{$item}) {
+         fill: nth($animation-colors, $item);
+        }
+  }
+}
+
 // CircleStyle Animation
 
 .g-anim-spots circle {
@@ -236,4 +249,44 @@ $anim-line-time: 3s;
   &:nth-child(3n) {
     animation-delay: -$anim-line-time/3*2;
     }
+  }
+
+
+  @-webkit-keyframes pulse {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.05, 1.05, 1.05);
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+  
+    to {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  @keyframes pulse {
+    from {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.05, 1.05, 1.05);
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+  
+    to {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  .pulse {
+    -webkit-animation-name: pulse;
+    animation-name: pulse;
   }
