@@ -1,5 +1,5 @@
 import { Events } from 'ionic-angular';
-import { ConfigurationService,Shape } from '../../services/configuration.service';
+import { ConfigurationService, Shape } from '../../services/configuration.service';
 import { Injectable, NgZone } from '@angular/core';
 import { Event } from '../../services/event';
 
@@ -9,7 +9,7 @@ declare var d3: any;
 export class D3CloudFacade {
     d3cloud: any;
 
-    useServer=true;
+    useServer = true;
 
     constructor(private configurationService: ConfigurationService, private zone: NgZone, private events: Events) {
         this.d3cloud = d3.layout.cloud();
@@ -36,20 +36,18 @@ export class D3CloudFacade {
 
         this.events.publish(Event.PROGRESS_UPDATE, 0);
 
-        if (this.useServer){
+        if (this.useServer) {
             this.renderUsingServer(w, h, padding, data, createShape, drawWordCloud);
-        }
-        else{
+        } else {
             this.renderUsingClient(w, h, padding, data, createShape, drawWordCloud);
         }
     }
 
     renderUsingServer(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
-
-        var shapeOb = <Shape> createShape();
+        const shapeOb = <Shape>createShape();
         this.drawBackgroundAsSvg(createShape);
 
-        var wordsPayload = {
+        const wordsPayload = {
             size: [w, h],
             padding: padding,
             font: this.configurationService.fontFace,
@@ -58,10 +56,10 @@ export class D3CloudFacade {
         };
 
         (async () => {
-
-            var containerUrl="https://webwordcloudcontainer.azurewebsites.net/";
-            var localUrl = "http://localhost:3000/";
-            const rawResponse = await fetch(containerUrl+'CreateCloud', {
+            // var containerUrl = 'https://webwordcloudcontainer.azurewebsites.net/';
+            const googleUrl = 'http://35.197.199.55/';
+            // var localUrl = 'http://localhost:3000/';
+            const rawResponse = await fetch(googleUrl + 'CreateCloud', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -74,10 +72,10 @@ export class D3CloudFacade {
             const content = result.wordCloud;
 
             console.log(result);
-            
+
             content.forEach(w => {
                 if (w.i || w.i === 0) {
-                    var word = data[w.i];
+                    const word = data[w.i];
                     if (word) {
                         word.x = w.x;
                         word.y = w.y;
@@ -92,23 +90,23 @@ export class D3CloudFacade {
     }
 
     drawBackgroundAsSvg(createShape: Function) {
-        var shapeOb = createShape();
+        const shapeOb = createShape();
 
         // read svg file and set colour
-        var request = new XMLHttpRequest();
-        request.addEventListener('load', (event:ProgressEvent) => {
-        const target = <XMLHttpRequest> event.target;
-          var response = target.responseText;
-          var svgshape = response.replace('<path ', shapeOb.defs+'<g '+ shapeOb.attributes + '><path ').replace('</svg>','</g></svg>');
-          console.log(svgshape);
-          this.events.publish(Event.SHAPE_BACKGROUND_RENDER, svgshape);
+        const request = new XMLHttpRequest();
+        request.addEventListener('load', (event: ProgressEvent) => {
+            const target = <XMLHttpRequest>event.target;
+            const response = target.responseText;
+            const svgshape = response.replace('<path ', shapeOb.defs + '<g ' + shapeOb.attributes + '><path ').replace('</svg>', '</g></svg>');
+            console.log(svgshape);
+            this.events.publish(Event.SHAPE_BACKGROUND_RENDER, svgshape);
         });
 
         // load svg from url
         request.open('GET', shapeOb.url);
         request.setRequestHeader('Content-Type', 'image/svg+xml');
         request.send();
-      };
+    }
 
     renderUsingClient(w, h, padding, data: any[], createShape: Function, drawWordCloud: Function) {
         const fontWeight = 'bolder';
@@ -189,11 +187,9 @@ export class D3CloudFacade {
     }
 
     public redrawBackground(shape) {
-        
-        if (this.useServer){
+        if (this.useServer) {
             this.drawBackgroundAsSvg(() => shape);
-        }
-        else{
+        } else {
             this.d3cloud.shape(() => shape).redrawBackground();
         }
     }

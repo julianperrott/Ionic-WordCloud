@@ -1,0 +1,15 @@
+gcloud config set project webwordcloud-215420
+gcloud config set compute/zone europe-west2-a
+
+gcloud container clusters create wwc-cluster --num-nodes=1
+gcloud compute instances list
+gcloud container clusters get-credentials wwc-cluster
+
+kubectl run webwordcloud-web --image=gcr.io/webwordcloud-215420/webwordcloud:v1 --port 80
+kubectl get pods
+kubectl expose deployment webwordcloud-web --type=LoadBalancer --port 80 --target-port 80
+kubectl get service
+
+docker run --rm -p 8080:80 gcr.io/webwordcloud-215420/webwordcloud:v1
+
+

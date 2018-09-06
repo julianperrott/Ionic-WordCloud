@@ -69,36 +69,20 @@ export class ConfigurationService {
     getShape(filter): Shape {
         if (filter === '') {
             return {
-                url:
-                    this.shape && this.shape.length > 0
-                        ? './assets/vendor/fontawesome/svgs/solid/' +
-                          this.shape +
-                          '.svg'
-                        : '',
-                filename:  this.shape && this.shape.length > 0? this.shape +'.svg': '',
+                url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
+                filename: this.shape && this.shape.length > 0 ? this.shape + '.svg' : '',
                 canvas: undefined,
                 defs: '',
                 attributes: '  fill="' + this.shapeBackgroundColor + '" '
             };
         } else {
-            const filterHtml =
-                '<defs><filter id="wwwfilterShape" x="-30%" y="-30%" width="160%" height="160%">' +
-                filter +
-                '</filter></defs>';
+            const filterHtml = '<defs><filter id="wwwfilterShape" x="-30%" y="-30%" width="160%" height="160%">' + filter + '</filter></defs>';
             return {
-                url:
-                    this.shape && this.shape.length > 0
-                        ? './assets/vendor/fontawesome/svgs/solid/' +
-                          this.shape +
-                          '.svg'
-                        : '',
-                filename:  this.shape && this.shape.length > 0? this.shape +'.svg': '',
+                url: this.shape && this.shape.length > 0 ? './assets/vendor/fontawesome/svgs/solid/' + this.shape + '.svg' : '',
+                filename: this.shape && this.shape.length > 0 ? this.shape + '.svg' : '',
                 canvas: undefined,
                 defs: filterHtml,
-                attributes:
-                    ' filter="url(#wwwfilterShape)" fill="' +
-                    this.shapeBackgroundColor +
-                    '" '
+                attributes: ' filter="url(#wwwfilterShape)" fill="' + this.shapeBackgroundColor + '" '
             };
         }
     }
