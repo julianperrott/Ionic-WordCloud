@@ -1,6 +1,9 @@
 import introJs from 'intro.js';
 import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
+import { TypedOptions } from 'typed.js';
+
+import Typed from 'typed.js';
 
 @Injectable()
 export class HomeIntro {
@@ -71,10 +74,35 @@ export class HomeIntro {
     constructor(private platform: Platform) {}
 
     showIntro(onComplete: Function) {
+
+        const options: TypedOptions = {
+            strings: ['url', 'www.bbc.co.uk/news^1000', 'en.wikipedia.org/wiki/Cheese^1000', 'www.vogue.co.uk/topic/fashion^1000', 'www.ferrari.com/en-EN/articles/ferrari-488-pista-spider^1000'],
+            typeSpeed: 50,
+            backSpeed: 0,
+            attr: 'placeholder',
+            bindInputFocusEvents: true,
+            loop: true
+        };
+
+
+        let typed = new Typed('input', options );
+
+        const complete = () => {
+            typed.stop();
+            typed.destroy();
+
+            options.strings = ['Enter or paste a URL here ! ^5000'];
+            typed = new Typed('input', options);
+            typed.start();
+            
+
+            onComplete();
+        };
+
         const intro = introJs.introJs();
-        intro.oncomplete(() => onComplete());
-        intro.onskip(() => onComplete());
-        intro.onbeforeexit(() => onComplete());
+        intro.oncomplete(() => complete());
+        intro.onskip(() => complete());
+        intro.onbeforeexit(() => complete());
 
         intro.setOptions(this.createOptions());
 

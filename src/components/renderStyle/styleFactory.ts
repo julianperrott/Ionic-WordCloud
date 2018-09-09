@@ -30,12 +30,12 @@ export class StyleFactory {
 
     public styles: Style[] = [
         { type: GlowingStyle, key: 'Glowing' },
-        { key: 'Circle Pattern 1 (Animated)', create: () => this.animatedPatternStyle(0) },
-        { key: 'Circle Pattern 2 (Animated)', create: () => this.animatedPatternStyle(1) },
-        { key: 'Circle Pattern 3 (Animated)', create: () => this.animatedPatternStyle(2) },
-        { key: 'Square Pattern (Animated)', create: () => this.animatedPatternStyle(3) },
-        { key: 'Stripe Pattern (Animated)', create: () => this.animatedPatternStyle(4) },
-        { type: SnowMaskStyle, key: 'Snowy (Animated)' },
+        { key: 'Circle Pattern 1', create: () => this.animatedPatternStyle(0) },
+        { key: 'Circle Pattern 2', create: () => this.animatedPatternStyle(1) },
+        { key: 'Circle Pattern 3', create: () => this.animatedPatternStyle(2) },
+        { key: 'Square Pattern', create: () => this.animatedPatternStyle(3) },
+        { key: 'Stripe Pattern', create: () => this.animatedPatternStyle(4) },
+        { type: SnowMaskStyle, key: 'Snowy' },
         { type: StrokedStyle, key: 'Stroked' },
         { type: DropShadowStyle, key: 'Drop Shadow' },
         { type: SplashStyle, key: 'Moltern Metal' },

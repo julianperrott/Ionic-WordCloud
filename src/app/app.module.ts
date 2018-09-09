@@ -30,6 +30,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { ColorPicker } from '../components/color-picker/color-picker';
 import { ShapePicker } from '../components/shape-picker/shape-picker';
 import { StylePicker } from '../components/renderStyle/stylePicker';
+import { FontPicker } from '../components/fontPicker/fontPicker';
 import { ShapePopoverPage } from '../components/shape-picker/shapePopover/shapePopover';
 import { ColorMenuItem } from '../components/colorMenuItem/colorMenuItem';
 
@@ -52,7 +53,7 @@ import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
 import { FlatStyle } from '../components/renderStyle/styles/flatStyle';
 
 @NgModule({
-    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, ShapePopoverPage, ColorMenuItem],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, FontPicker, ShapePopoverPage, ColorMenuItem],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
@@ -62,7 +63,7 @@ import { FlatStyle } from '../components/renderStyle/styles/flatStyle';
         IonicPageModule.forChild(PopoverPage)
     ],
     bootstrap: [IonicApp],
-    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage, StylePicker],
+    entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage, StylePicker, FontPicker],
     providers: [
         StatusBar,
         SplashScreen,

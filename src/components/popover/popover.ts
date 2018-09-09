@@ -39,10 +39,6 @@ export class PopoverPage {
             platform.is('core') || platform.is('mobileweb') ? false : true;
     }
 
-    fontChanged() {
-        this.configurationService.fontChanged('');
-    }
-
     countStyleChanged() {
         this.configurationService.countStyle = this.countStyle;
         this.configurationService.configurationChanged('');

@@ -1,0 +1,12 @@
+<ion-header>
+  <common-header>Word Style</common-header>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let font of fonts" [style.font-family]="font[0]" (click)="fontSelected(font[0])">
+      {{ font[1] }}
+      <ion-icon class="icon-control" name="checkmark" item-end color="success" style="font-weight:bold" *ngIf="fontFace===font[0]"></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>

@@ -12,19 +12,26 @@
     </ion-title>
 
     <ion-buttons end>
-        <button ion-button icon-only (click)="cloudStyle($event)" id="stylings" *ngIf="showStyleButton">
-            <ion-icon name="flask"></ion-icon>
-        </button>
-        <button ion-button (click)="cloudShape($event)" id="shape" *ngIf="showShapeButton">
-            <i *ngIf="shape && shape.length > 0" class="fa fa-2x fa-{{shape}}"></i>
-            <ion-icon *ngIf="!shape || shape.length==0" name="easel" style="font-size: 25px;"></ion-icon>
-        </button>
-        <button ion-button icon-only (click)="presentPopover($event)" id="otherstyles" *ngIf="showMoreButton">
-            <ion-icon name="cog"></ion-icon>
-        </button>
-        <button ion-button icon-only (click)="closePopover()" *ngIf="showCloseButton">
-            <ion-icon name="close"></ion-icon>
-        </button>
+      <button  [style.font-family]="fontFace" style="font-weight:bold" ion-button (click)="chooseFont($event)" id="stylings" *ngIf="showStyleButton">
+        {{fontFace}}&nbsp;
+        <ion-icon name="arrow-dropdown"></ion-icon>
+      </button>             
+      <button ion-button icon-only (click)="cloudStyle($event)" id="stylings" *ngIf="showStyleButton">
+        <ion-icon name="flask"></ion-icon>
+      </button>
+      <button ion-button (click)="cloudShape($event)" id="shape" *ngIf="showShapeButton">
+        <i *ngIf="shape && shape.length > 0" class="fa fa-2x fa-{{shape}}"></i>
+        <ion-icon *ngIf="!shape || shape.length==0" name="easel" style="font-size: 25px;"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentPopover($event)" id="otherstyles" *ngIf="showMoreButton">
+        <ion-icon name="construct"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="help()" color="secondary" id="help">
+        <ion-icon name="help-circle"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="closePopover()" *ngIf="showCloseButton">
+        <ion-icon name="close"></ion-icon>
+      </button>
     </ion-buttons>
 
 </ion-navbar>

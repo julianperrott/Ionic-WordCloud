@@ -65,8 +65,9 @@
     "librsvg-prebuilt": "^0.7.8",
     "rxjs": "^5.5.6",
     "sw-toolbox": "^3.6.0",
+    "typed.js": "^2.0.9",
     "unfluff": "^3.0.0",
-    "webpack": "^4.14.0",
+    "webpack": "^4.17.2",
     "zone.js": "^0.8.20"
   },
   "devDependencies": {

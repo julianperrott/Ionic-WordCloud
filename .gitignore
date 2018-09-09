@@ -21,6 +21,8 @@ platforms
 plugins
 www/
 $RECYCLE.BIN/
+.vs
+slnx.sqlite
 
 .DS_Store
 Thumbs.db
@@ -31,3 +33,8 @@ _readme.txt
 proustibat-d3jsionic.keystore
 psd
 documentation
+.vs/slnx.sqlite
+.vs/wc/v15/.suo
+*.sqlite
+.vs/slnx.sqlite
+.vs/slnx.sqlite

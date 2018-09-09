@@ -31,7 +31,7 @@
 
 
 .animated {
-  -webkit-animation-duration: 25s;
+  -webkit-animation-duration: 250s;
   animation-duration: 25s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
@@ -165,7 +165,7 @@ $animation-colors:
     chartreuse;
 
 $animation-color-count: length($animation-colors);
-$animation-duration: 60s;
+$animation-duration: 240s;
 $animation-step: $animation-duration/$animation-color-count;
 
 @keyframes anim-cells {

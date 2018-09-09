@@ -10,6 +10,7 @@ import {
 import { ConfigurationService } from '../../services/configuration.service';
 import { ShapePicker } from '../shape-picker/shape-picker';
 import { StylePicker } from '../renderStyle/stylePicker';
+import { FontPicker } from '../fontPicker/fontPicker';
 import { Event } from '../../services/event';
 
 @Component({
@@ -31,6 +32,7 @@ export class CommonHeaderComponent {
     error = false;
     popover: Popover;
     shape = '';
+    fontFace = '';
 
     constructor(
         private renderer: Renderer2,
@@ -57,9 +59,14 @@ export class CommonHeaderComponent {
         });
 
         this.shape = configurationService.shape;
+        this.fontFace = configurationService.fontFace;
 
         events.subscribe(Event.SHAPE_CHANGED, shape => {
             this.shape = shape;
+        });
+
+        events.subscribe(Event.CONFIG_CHANGED, shape => {
+            this.fontFace = configurationService.fontFace;
         });
     }
 
@@ -97,6 +104,13 @@ export class CommonHeaderComponent {
 
     cloudStyle(myEvent) {
         const popover = this.popoverCtrl.create(StylePicker, {});
+        popover.present({
+            ev: myEvent
+        });
+    }
+
+    chooseFont(myEvent) {
+        const popover = this.popoverCtrl.create(FontPicker, {});
         popover.present({
             ev: myEvent
         });
