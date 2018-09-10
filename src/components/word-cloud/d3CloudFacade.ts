@@ -40,10 +40,10 @@ export class D3CloudFacade {
         };
 
         (async () => {
-            // var containerUrl = 'https://webwordcloudcontainer.azurewebsites.net/';
-            const googleUrl = 'http://35.242.174.200:31560/';
+            var containerUrl = 'https://webwordcloudcontainer.azurewebsites.net/';
+            //const googleUrl = 'http://35.242.174.200:31560/';
             // var localUrl = 'http://localhost:3000/';
-            const rawResponse = await fetch(googleUrl + 'CreateCloud', {
+            const rawResponse = await fetch(containerUrl + 'CreateCloud', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

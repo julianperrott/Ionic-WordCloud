@@ -1,7 +1,8 @@
 import introJs from 'intro.js';
 import { Injectable } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Events, Platform } from 'ionic-angular';
 import { TypedOptions } from 'typed.js';
+import { Event } from '../../services/event';
 
 import Typed from 'typed.js';
 
@@ -19,7 +20,6 @@ export class HomeIntro {
             return {
                 steps: [
                     {
-                        element: '#cloud',
                         intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/><div style="color:red">Sorry, your browser is <b>not currently supported.</b> Web Word Cloud works best on Chrome, Firefox, Edge and Safari.<div>',
                         position: 'centre'
                     }]};
@@ -28,7 +28,7 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    element: '#cloud',
+                    
                     intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/>Click <b><i>Next</i></b> to see how it works...',
                     position: 'left'
                 },
@@ -38,7 +38,6 @@ export class HomeIntro {
                     position: 'right'
                 },
                 {
-                    element: '#cloud',
                     intro:
                         '<b>The Word Cloud ...</b><hr/>The text will be extracted from the web page and a word cloud will be shown here.<hr/>If there is not a lot of text on the page, perhaps navigate to one of the links on the page. ',
                     position: 'centre'
@@ -71,7 +70,90 @@ export class HomeIntro {
         };
     }
 
-    constructor(private platform: Platform) {}
+    constructor(private platform: Platform, events: Events) {
+
+        const intro = introJs.introJs();
+
+        events.subscribe(Event.HELP_SHOW_MAIN, v => {
+            switch (v) {
+                case 'HOME':
+                    this.showIntro(() => { });
+                    return;
+                case 'COLOR_PICKER':
+                    intro.setOptions(this.showColorPickerHelp());
+                    break;
+                case 'STYLE_PICKER':
+                    intro.setOptions(this.showStylePickerHelp());
+                    break;
+                case 'SHAPE_PICKER':
+                    intro.setOptions(this.showShapePickerHelp());
+                    break;
+                case 'SHAPE_POPOVER':
+                    intro.setOptions(this.showShapePopoverHelp());
+                    break;
+                case 'OPTIONS_ACTIONS':
+                    intro.setOptions(this.showOptionsActionsHelp());
+                    break;
+            };
+
+            intro.start();
+        });
+    }
+
+    showColorPickerHelp() {
+        return {
+            steps: [
+                {
+                    //element: '#cloud',
+                    intro: '<b>Colour Choice ...</b> <hr/> Select the colour from the bottom bar. Choose the shade from the main bar.',
+                    position: 'left'
+                }]
+        };
+    }
+
+    showStylePickerHelp() {
+        return {
+            steps: [
+                {
+                    //element: '#cloud',
+                    intro: '<b>Word Style ...</b> <hr/> ...',
+                    position: 'left'
+                }]
+        };
+    }
+
+    showShapePickerHelp() {
+        return {
+            steps: [
+                {
+                    //element: '#cloud',
+                    intro: '<b>Shape Picker ...</b> <hr/> ...',
+                    position: 'left'
+                }]
+        };
+    }
+
+    showShapePopoverHelp() {
+        return {
+            steps: [
+                {
+                    //element: '#cloud',
+                    intro: '<b>Shape Options ...</b> <hr/> ...',
+                    position: 'left'
+                }]
+        };
+    }
+
+    showOptionsActionsHelp() {
+        return {
+            steps: [
+                {
+                    //element: '#cloud',
+                    intro: '<b>Options / Actions ...</b> <hr/> ...',
+                    position: 'left'
+                }]
+        };
+    }
 
     showIntro(onComplete: Function) {
 

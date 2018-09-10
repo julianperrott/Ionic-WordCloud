@@ -1,32 +1,14 @@
 import { Component } from '@angular/core';
-import {
-    NavController,
-    NavParams,
-    PopoverController,
-    ViewController
-} from 'ionic-angular';
-
 import { ConfigurationService } from '../../services/configuration.service';
-import { Events } from 'ionic-angular';
-import { StyleFactory } from '../renderStyle/styleFactory';
-import { Event } from '../../services/event';
 
 @Component({
     selector: 'page-popover',
     templateUrl: 'fontPicker.html'
 })
 export class FontPicker {
-
     fontFace = '';
 
-    constructor(
-        public navCtrl: NavController,
-        public navParams: NavParams,
-        private configurationService: ConfigurationService,
-        public popoverCtrl: PopoverController,
-        events: Events,
-        public viewController: ViewController,
-        public styleFactory: StyleFactory
+    constructor(private configurationService: ConfigurationService,
     ) {
         this.fontFace = configurationService.fontFace;
     }

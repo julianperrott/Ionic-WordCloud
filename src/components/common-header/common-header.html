@@ -26,7 +26,7 @@
       <button ion-button icon-only (click)="presentPopover($event)" id="otherstyles" *ngIf="showMoreButton">
         <ion-icon name="construct"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="help()" color="secondary" id="help">
+      <button ion-button icon-only (click)="showhelp()" color="secondary" id="help"  *ngIf="showHelpEvent">
         <ion-icon name="help-circle"></ion-icon>
       </button>
       <button ion-button icon-only (click)="closePopover()" *ngIf="showCloseButton">

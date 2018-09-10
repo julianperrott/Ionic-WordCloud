@@ -24,6 +24,7 @@ export class CommonHeaderComponent {
     @Input() showCloseButton;
     @Input() showShapeButton;
     @Input() showStyleButton;
+    @Input() showHelpEvent;
     @Input() showMore: Function;
 
     defaultTitle = '?';
@@ -39,7 +40,7 @@ export class CommonHeaderComponent {
         public popoverCtrl: PopoverController,
         configurationService: ConfigurationService,
         zone: NgZone,
-        events: Events,
+        private events: Events,
         public viewController: ViewController
     ) {
         events.subscribe(Event.BUSY_CHANGED, v => {
@@ -114,5 +115,9 @@ export class CommonHeaderComponent {
         popover.present({
             ev: myEvent
         });
+    }
+
+    showhelp() {
+        this.events.publish(Event.HELP_SHOW_MAIN, this.showHelpEvent);
     }
 }
