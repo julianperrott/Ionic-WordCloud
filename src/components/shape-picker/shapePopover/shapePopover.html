@@ -4,7 +4,7 @@
 
 <ion-content>
 
-  <div ion-item>
+  <div ion-item id="wordStyle">
     <ion-icon class="icon-control" name="flask" item-start color="primary"></ion-icon>
     <ion-label>Style</ion-label>
     <ion-select interface="action-sheet" [(ngModel)]="configurationService.shapeStyleKey" (ionChange)="styleChanged()" ngClass="mySelect">

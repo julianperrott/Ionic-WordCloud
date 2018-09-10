@@ -25,6 +25,7 @@ export class CommonHeaderComponent {
     @Input() showShapeButton;
     @Input() showStyleButton;
     @Input() showHelpEvent;
+    @Input() constructId;
     @Input() showMore: Function;
 
     defaultTitle = '?';

@@ -90,15 +90,12 @@ export class WordCloudComponent implements OnChanges {
             });
 
             events.subscribe(Event.SHAPE_BACKGROUND_RENDER, svg => {
-                document.getElementById('backgroundSvg').innerHTML = svg;
 
-                /*
-            let element = document.getElementById('backgroundSvg');
-            while (element) {
-                element.remove();
-                element = document.getElementById('backgroundSvg');
-            }
-*/
+                if (this.configurationService.shapeStyleKey === 'None') {
+                    svg = '';
+                }
+
+                document.getElementById('backgroundSvg').innerHTML = svg;
             });
 
             events.subscribe(Event.SHAPE_BACKGROUND_VISIBILITY, visibility => {
@@ -278,14 +275,6 @@ export class WordCloudComponent implements OnChanges {
         }
 
         const shape = this.configurationService.getShape(filter);
-
-        // create a new image canvas
-        if (shape.url.length > 0) {
-            shape.canvas = document.createElement('canvas');
-            shape.canvas.className = this.configurationService.shapeStyleKey !== 'None' ? 'behind' : 'notShown';
-            shape.canvas.id = 'backgroundCanvas';
-            document.getElementById('word-cloud').appendChild(shape.canvas);
-        }
 
         return shape;
     }

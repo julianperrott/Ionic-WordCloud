@@ -11,7 +11,7 @@ export class HomeIntro {
     createOptions() {
         const isApp = this.platform.is('core') || this.platform.is('mobileweb') ? false : true;
 
-        let optionsInfo = '<b>Options & Actions ...</b><hr/> This button allows you to change the font of the word cloud, plus some other properties.';
+        let optionsInfo = '<b>Options & Actions ...</b><hr/> This button allows you to change some other properties of the word cloud.';
         if (isApp) {
             optionsInfo += '<hr/>You can also take a screenshot which will appear in your pictures folder.';
         }
@@ -34,36 +34,41 @@ export class HomeIntro {
                 },
                 {
                     element: '.text-input',
-                    intro: '<b>Web Page address ...</b><hr/>Simply type or paste a web page address in this text box !',
+                    intro: '<b>Web Page address</b><hr/>Simply type or paste a web page address in this text box !',
                     position: 'right'
                 },
                 {
                     intro:
-                        '<b>The Word Cloud ...</b><hr/>The text will be extracted from the web page and a word cloud will be shown here.<hr/>If there is not a lot of text on the page, perhaps navigate to one of the links on the page. ',
+                        '<b>The Word Cloud</b><hr/>The text will be extracted from the web page and a word cloud will be shown here.<hr/>If there is not a lot of text on the page, perhaps navigate to one of the links on the page. ',
                     position: 'centre'
                 },
                 {
                     element: '#step2',
-                    intro: '<b>Page Links ...</b><hr/>Some web pages contain lots of links !<hr/>Click here to see them and choose one to navigate to.',
+                    intro: '<b>Page Links</b><hr/>Some web pages contain lots of links !<hr/>Click here to see them and choose one to navigate to.',
                     position: 'left'
                 },
                 {
-                    element: '#shape',
-                    intro: '<b>Cloud shape ...</b><hr/> This button allows you to change the shape, colour and style of the word cloud. ',
+                    element: '#fontFace',
+                    intro: '<b>Font</b><hr/> This button allows you to select the font of the words in the word cloud. ',
                     position: 'left'
                 },
                 {
                     element: '#stylings',
-                    intro: '<b>Word Style ...</b><hr/> This button allows you to change the style of the words in the word cloud.<hr/>',
+                    intro: '<b>Word Style</b><hr/> This button allows you to change the style of the words in the word cloud.<hr/>',
                     position: 'left'
                 },
                 {
-                    element: '#otherstyles',
+                    element: '#shape',
+                    intro: '<b>Cloud shape</b><hr/> This button allows you to change the shape, colour and style of the word cloud. ',
+                    position: 'left'
+                },
+                {
+                    element: '#otherStyles',
                     intro: optionsInfo,
                     position: 'left'
                 },
                 {
-                    intro: '<b>Enjoy...</b> let me know what you think in the comments !',
+                    intro: '<b>Enjoy.</b> let me know what you think in the comments !',
                     position: 'centre'
                 }
             ]
@@ -94,6 +99,9 @@ export class HomeIntro {
                 case 'OPTIONS_ACTIONS':
                     intro.setOptions(this.showOptionsActionsHelp());
                     break;
+                case 'FONT_PICKER':
+                    intro.setOptions(this.showFontPickerHelp());
+                    break;
             };
 
             intro.start();
@@ -104,10 +112,15 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    //element: '#cloud',
-                    intro: '<b>Colour Choice ...</b> <hr/> Select the colour from the bottom bar. Choose the shade from the main bar.',
+                    element: '#canvaschooser',
+                    intro: '<b>Colour Choice</b> <hr/> Select the colour from the bottom bar. ',
                     position: 'left'
-                }]
+                },
+                {
+                    element: '#canvaspalette',
+                    intro: '<b>Colour Shade</b> <hr/> Choose the shade from the main bar.',
+                    position: 'left'
+                }] 
         };
     }
 
@@ -115,10 +128,19 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    //element: '#cloud',
-                    intro: '<b>Word Style ...</b> <hr/> ...',
+                    element: '#wordStyle',
+                    intro: '<b>Word Style</b> <hr/> A number of styles for the words in your word cloud are available. Choose each one in turn to learn what it looks like.',
                     position: 'left'
-                }]
+                },
+                {
+                    element: '#wordOutline',
+                    intro: '<b>Word Outline</b> <hr/> A lot of the word styles have an outline, the colour of the outline can also be selected.',
+                    position: 'left'
+                },
+                {
+                    intro: '<b>Word Style Colours</b> <hr/> Some styles also have colours which can also be chosen on the menu. The colours selectors will appear when available after selecting a style.',
+                    position: 'left'
+                }            ]
         };
     }
 
@@ -126,10 +148,13 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    //element: '#cloud',
-                    intro: '<b>Shape Picker ...</b> <hr/> ...',
+                    intro: '<b>Cloud Shape Picker</b> <hr/> If you would like your cloud to be a particular shape then choose from this menu of shapes.',
                     position: 'left'
-                }]
+                }, {
+                    element: '#shapeStyles',
+                    intro: '<b>Cloud Shape Options</b> <hr/> Click to select options related to the shape you have chosen.',
+                    position: 'left'
+                },]
         };
     }
 
@@ -137,8 +162,12 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    //element: '#cloud',
-                    intro: '<b>Shape Options ...</b> <hr/> ...',
+                    element: '#wordStyle',
+                    intro: '<b>Shape Options</b> <hr/> A number of styles for the shape of your word cloud are available. Choose each one in turn to learn what it looks like.',
+                    position: 'left'
+                },
+                {
+                    intro: '<b>Shape Style Colours</b> <hr/> The colour of your shape can also be chosen.',
                     position: 'left'
                 }]
         };
@@ -148,8 +177,40 @@ export class HomeIntro {
         return {
             steps: [
                 {
-                    //element: '#cloud',
-                    intro: '<b>Options / Actions ...</b> <hr/> ...',
+                    element: '#fontScale',
+                    intro: '<b>Font Scale</b> <hr/> Changing the scale of the font makes it easier for the words to fill a shape.',
+                    position: 'left'
+                },
+                {
+                    element: '#wordCount',
+                    intro: '<b>Word Counting</b> <hr/> This alters how the word frequency affects the size of the words.',
+                    position: 'left'
+                },
+                {
+                    element: '#saturation',
+                    intro: '<b>Saturation</b> <hr/> This control changes the colour Saturation of the words.',
+                    position: 'left'
+                }
+                ,
+                {
+                    element: '#lightness',
+                    intro: '<b>Lightness</b> <hr/> This control changes the colour lightness of the words.',
+                    position: 'left'
+                },
+                {
+                    element: '#background',
+                    intro: '<b>Background</b> <hr/> Select the main background colour here.',
+                    position: 'left'
+                }
+            ]
+        };
+    }
+
+    showFontPickerHelp() {
+        return {
+            steps: [
+                {
+                    intro: '<b>Font Picker</b> <hr/> The font you choose in this menu will be used when drawing the word cloud.',
                     position: 'left'
                 }]
         };

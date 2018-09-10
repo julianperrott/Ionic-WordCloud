@@ -2,8 +2,8 @@
     <common-header [showCloseButton]="true" [showHelpEvent]="'COLOR_PICKER'">Colour Chooser</common-header>
 </ion-header>
 <ion-content id="colorPicker" style="width: 100%">
-    <canvas #palette style="background:white;" class='center'></canvas>
-    <canvas #chooser style="background:white; margin-top: 20px; margin-bottom: 20px;" class='center'>
+    <canvas id="canvaspalette" #palette style="background:white;" class='center'></canvas>
+    <canvas id="canvaschooser" #chooser style="background:white; margin-top: 20px; margin-bottom: 20px;" class='center'>
     </canvas>
 
     <ion-row style="margin-bottom: 10px;">

@@ -12,7 +12,7 @@
     </ion-title>
 
     <ion-buttons end>
-      <button  [style.font-family]="fontFace" style="font-weight:bold" ion-button (click)="chooseFont($event)" id="stylings" *ngIf="showStyleButton">
+      <button  [style.font-family]="fontFace" style="font-weight:bold" ion-button (click)="chooseFont($event)" id="fontFace" *ngIf="showStyleButton">
         {{fontFace}}&nbsp;
         <ion-icon name="arrow-dropdown"></ion-icon>
       </button>             
@@ -23,7 +23,7 @@
         <i *ngIf="shape && shape.length > 0" class="fa fa-2x fa-{{shape}}"></i>
         <ion-icon *ngIf="!shape || shape.length==0" name="easel" style="font-size: 25px;"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="presentPopover($event)" id="otherstyles" *ngIf="showMoreButton">
+      <button ion-button icon-only (click)="presentPopover($event)" [attr.id]="constructId" *ngIf="showMoreButton">
         <ion-icon name="construct"></ion-icon>
       </button>
       <button ion-button icon-only (click)="showhelp()" color="secondary" id="help"  *ngIf="showHelpEvent">

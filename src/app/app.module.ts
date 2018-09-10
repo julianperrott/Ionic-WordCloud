@@ -11,6 +11,7 @@ import { Pages } from '../pages';
 import { PopoverPage } from '../components/popover/popover';
 
 import { AboutPage } from '../pages/about/about';
+import { DiscusPage } from '../pages/discus/discus';
 
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
@@ -53,13 +54,14 @@ import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
 import { FlatStyle } from '../components/renderStyle/styles/flatStyle';
 
 @NgModule({
-    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, ColorPicker, ShapePicker, StylePicker, FontPicker, ShapePopoverPage, ColorMenuItem],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, DiscusPage, ColorPicker, ShapePicker, StylePicker, FontPicker, ShapePopoverPage, ColorMenuItem],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
             menuType: 'push'
         }),
         IonicPageModule.forChild(AboutPage),
+        IonicPageModule.forChild(DiscusPage),
         IonicPageModule.forChild(PopoverPage)
     ],
     bootstrap: [IonicApp],

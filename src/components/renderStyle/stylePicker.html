@@ -4,7 +4,7 @@
 
 <ion-content>
 
-  <div ion-item>
+  <div ion-item id="wordStyle">     
     <ion-icon class="icon-control" name="flask" item-start color="primary"></ion-icon>
     <ion-label>Style</ion-label>
     <ion-select interface="action-sheet" [(ngModel)]="style" (ionChange)="styleChanged()" ngClass="mySelect">
@@ -19,7 +19,7 @@
   <colorMenuItem [hidden]="configurationService.wordColors.length<3" [description]="'Customise Colour 3'" [color]="configurationService.wordColors[2]?configurationService.wordColors[2].color:'red'"
     [eventName]="COLOR3_CHANGED"></colorMenuItem>
 
-  <div [hidden]="!strokeStyleEnabled">
+  <div [hidden]="!strokeStyleEnabled" id="wordOutline">
     <div ion-item>
       <ion-icon class="icon-control" name="brush" item-start color="primary"></ion-icon>
       <ion-label>Word Outline</ion-label>

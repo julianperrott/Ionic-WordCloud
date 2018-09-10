@@ -109,6 +109,6 @@ export class D3CloudFacade {
     }
 
     public redrawBackground(shape) {
-        this.drawBackgroundAsSvg(() => shape);
+            this.drawBackgroundAsSvg(() => shape);
     }
 }
