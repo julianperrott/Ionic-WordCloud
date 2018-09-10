@@ -18,13 +18,13 @@ export const Menu: MenuOptionModel[] = [
         iconName: 'information-circle',
         component: AboutPage,
         selected: true
-    },
-    {
-        displayName: 'Comment on the App',
-        iconName: 'chatbubbles',
-        component: DiscusPage,
-        selected: true
     }
+    //{
+    //    displayName: 'Comment on the App',
+    //    iconName: 'chatbubbles',
+    //    component: DiscusPage,
+    //    selected: true
+    //}
 ];
 
 export const RootPage = HomePage;
