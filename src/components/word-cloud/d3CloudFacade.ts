@@ -5,7 +5,10 @@ import { Event } from '../../services/event';
 
 @Injectable()
 export class D3CloudFacade {
-    constructor(private configurationService: ConfigurationService, private events: Events) {}
+
+    static urls = ['http://35.242.174.200:31560/', 'https://webwordcloudcontainer.azurewebsites.net/'];
+
+    constructor(private configurationService: ConfigurationService, private events: Events) { }
 
     error(err) {
         if (err) {
@@ -39,38 +42,54 @@ export class D3CloudFacade {
             shapeFilename: shapeOb.filename
         };
 
+        const request: RequestInit = {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(wordsPayload)
+        };
+
         (async () => {
-            var containerUrl = 'https://webwordcloudcontainer.azurewebsites.net/';
-            //const googleUrl = 'http://35.242.174.200:31560/';
-            // var localUrl = 'http://localhost:3000/';
-            const rawResponse = await fetch(containerUrl + 'CreateCloud', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(wordsPayload)
-            });
-            const result = await rawResponse.json();
+            for (let i = 0; i < D3CloudFacade.urls.length; i++) {
+                try {
+                    const rawResponse = await fetch(D3CloudFacade.urls[i] + 'CreateCloud', request);
+                    const result = await rawResponse.json();
+                    this.endRequest(result, data, drawWordCloud);
 
-            const content = result.wordCloud;
-
-            console.log(result);
-
-            content.forEach(w => {
-                if (w.i || w.i === 0) {
-                    const word = data[w.i];
-                    if (word) {
-                        word.x = w.x;
-                        word.y = w.y;
-                        word.rotate = w.rotate;
+                    if (i > 0) {
+                        // move the successful url to position 0
+                        const url = D3CloudFacade.urls[i];
+                        D3CloudFacade.urls.splice(i, 1);
+                        D3CloudFacade.urls.unshift(url);
+                        console.log('Url move to front: ' + D3CloudFacade.urls[0]);
                     }
+                    break;
+                } catch (error) {
+                    console.log('Url failed: ' + D3CloudFacade.urls[i]);
+                    console.log(error);
                 }
-            });
-
-            console.log('End web call: ' + content.length);
-            this.end(data, [], drawWordCloud);
+            }
         })();
+    }
+
+    endRequest(result, data: any[], drawWordCloud: Function) {
+        const content = result.wordCloud;
+        console.log(result);
+        content.forEach(w => {
+            if (w.i || w.i === 0) {
+                const word = data[w.i];
+                if (word) {
+                    word.x = w.x;
+                    word.y = w.y;
+                    word.rotate = w.rotate;
+                }
+            }
+        });
+
+        console.log('End web call: ' + content.length);
+        this.end(data, [], drawWordCloud);
     }
 
     drawBackgroundAsSvg(createShape: Function) {
@@ -109,6 +128,6 @@ export class D3CloudFacade {
     }
 
     public redrawBackground(shape) {
-            this.drawBackgroundAsSvg(() => shape);
+        this.drawBackgroundAsSvg(() => shape);
     }
 }

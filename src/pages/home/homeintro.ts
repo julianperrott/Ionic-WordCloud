@@ -22,13 +22,14 @@ export class HomeIntro {
                     {
                         intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/><div style="color:red">Sorry, your browser is <b>not currently supported.</b> Web Word Cloud works best on Chrome, Firefox, Edge and Safari.<div>',
                         position: 'centre'
-                    }]};
+                    }]
+            };
         }
 
         return {
             steps: [
                 {
-                    
+
                     intro: '<b>Web Word Cloud ...</b> <hr/> Turn web pages into word clouds with ease !<hr/>Click <b><i>Next</i></b> to see how it works...',
                     position: 'left'
                 },
@@ -82,7 +83,7 @@ export class HomeIntro {
         events.subscribe(Event.HELP_SHOW_MAIN, v => {
             switch (v) {
                 case 'HOME':
-                    this.showIntro(() => { });
+                    this.showIntro(() => { console.log(); });
                     return;
                 case 'COLOR_PICKER':
                     intro.setOptions(this.showColorPickerHelp());
@@ -102,7 +103,7 @@ export class HomeIntro {
                 case 'FONT_PICKER':
                     intro.setOptions(this.showFontPickerHelp());
                     break;
-            };
+            }
 
             intro.start();
         });
@@ -120,7 +121,7 @@ export class HomeIntro {
                     element: '#canvaspalette',
                     intro: '<b>Colour Shade</b> <hr/> Choose the shade from the main bar.',
                     position: 'left'
-                }] 
+                }]
         };
     }
 
@@ -140,7 +141,7 @@ export class HomeIntro {
                 {
                     intro: '<b>Word Style Colours</b> <hr/> Some styles also have colours which can also be chosen on the menu. The colours selectors will appear when available after selecting a style.',
                     position: 'left'
-                }            ]
+                }]
         };
     }
 
@@ -154,7 +155,7 @@ export class HomeIntro {
                     element: '#shapeStyles',
                     intro: '<b>Cloud Shape Options</b> <hr/> Click to select options related to the shape you have chosen.',
                     position: 'left'
-                },]
+                }]
         };
     }
 
@@ -228,7 +229,7 @@ export class HomeIntro {
         };
 
 
-        let typed = new Typed('input', options );
+        let typed = new Typed('input', options);
 
         const complete = () => {
             typed.stop();
@@ -237,7 +238,7 @@ export class HomeIntro {
             options.strings = ['Enter or paste a URL here ! ^5000'];
             typed = new Typed('input', options);
             typed.start();
-            
+
 
             onComplete();
         };

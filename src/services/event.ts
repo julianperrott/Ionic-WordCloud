@@ -23,4 +23,4 @@ export class Event {
     public static readonly SHAPE_BACKGROUND_RENDER = 'shapebackgroundrender';
 
     public static readonly HELP_SHOW_MAIN = 'helpsshowmain';
-} 
+}
