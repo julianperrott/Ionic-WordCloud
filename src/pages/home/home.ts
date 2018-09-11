@@ -99,16 +99,22 @@ export class HomePage {
 
     sequence = 0;
 
+    updateKey(key) {
+        if (key === 13) {
+            this.sequence++;
+            this.refresh();
+        }
+    }
+
     update() {
         this.sequence++;
         setTimeout(
             cn => {
-                // console.log(cn);
                 if (cn === this.sequence) {
                     this.refresh();
                 }
             },
-            1000,
+            5000,
             this.sequence
         );
     }

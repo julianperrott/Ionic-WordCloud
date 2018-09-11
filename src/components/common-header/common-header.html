@@ -12,8 +12,8 @@
     </ion-title>
 
     <ion-buttons end>
-      <button  [style.font-family]="fontFace" style="font-weight:bold" ion-button (click)="chooseFont($event)" id="fontFace" *ngIf="showStyleButton">
-        {{fontFace}}&nbsp;
+      <button [style.font-family]="fontFace" style="font-weight:bold" ion-button (click)="chooseFont($event)" id="fontFace" *ngIf="showStyleButton">
+        {{fontFaceName}}&nbsp;
         <ion-icon name="arrow-dropdown"></ion-icon>
       </button>             
       <button ion-button icon-only (click)="cloudStyle($event)" id="stylings" *ngIf="showStyleButton">

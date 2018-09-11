@@ -35,6 +35,7 @@ export class CommonHeaderComponent {
     popover: Popover;
     shape = '';
     fontFace = '';
+    fontFaceName = '';
 
     constructor(
         private renderer: Renderer2,
@@ -62,6 +63,7 @@ export class CommonHeaderComponent {
 
         this.shape = configurationService.shape;
         this.fontFace = configurationService.fontFace;
+        this.fontFaceName = configurationService.fontFaceName;
 
         events.subscribe(Event.SHAPE_CHANGED, shape => {
             this.shape = shape;
@@ -69,6 +71,7 @@ export class CommonHeaderComponent {
 
         events.subscribe(Event.CONFIG_CHANGED, shape => {
             this.fontFace = configurationService.fontFace;
+            this.fontFaceName = configurationService.fontFaceName;
         });
     }
 

@@ -31,6 +31,7 @@ export class ConfigurationService {
     saturation = '100';
     lightness = '50';
     fontFace = 'Pacifico';
+    fontFaceName = 'Pacifico';
     fontScale = 100;
 
     defaultData =

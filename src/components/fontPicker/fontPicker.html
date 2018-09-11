@@ -4,7 +4,7 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let font of fonts" [style.font-family]="font[0]" (click)="fontSelected(font[0])">
+    <button ion-item *ngFor="let font of fonts" [style.font-family]="font[0]" (click)="fontSelected(font)">
       {{ font[1] }}
       <ion-icon class="icon-control" name="checkmark" item-end color="success" style="font-weight:bold" *ngIf="fontFace===font[0]"></ion-icon>
     </button>

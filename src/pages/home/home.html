@@ -5,7 +5,7 @@
 <ion-content no-padding no-margin [style.background-color]="backgroundColor">
     <ion-navbar [hidden]="showOnlyWordCloud">
         <ion-item [hidden]="showOnlyWordCloud">
-            <ion-input clearInput type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()" id="step1"></ion-input>
+            <ion-input (keypress)="updateKey($event.keyCode)" clearInput type="text" [(ngModel)]="url" placeholder="Enter URL here" (ionChange)="update()" id="step1"></ion-input>
         </ion-item>
         <ion-buttons end id="step2" [hidden]="showOnlyWordCloud">
             <link-cloud [links]="links"></link-cloud>

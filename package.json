@@ -17,7 +17,8 @@
     "lf": "powershell ./scripts/*.ps1",
     "publishbuild": "call ./scripts/build.bat",
     "publish": "call ./scripts/publish.bat",
-    "releasebuild": "ionic cordova build --prod --release android"
+    "releasebuild": "ionic cordova build --prod --release android",
+    "install": "xcopy /s modules node_modules /y"
   },
   "dependencies": {
     "@angular/animations": "^5.1.3",
