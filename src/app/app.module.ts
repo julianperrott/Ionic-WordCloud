@@ -11,7 +11,7 @@ import { Pages } from '../pages';
 import { PopoverPage } from '../components/popover/popover';
 
 import { AboutPage } from '../pages/about/about';
-import { DiscusPage } from '../pages/discus/discus';
+import { DisqusPage } from '../pages/disqus/disqus';
 
 import { WordCloudComponent } from '../components/word-cloud/word-cloud';
 import { LinkCloudComponent } from '../components/link-cloud/link-cloud';
@@ -52,17 +52,19 @@ import { ShadedStyle } from '../components/renderStyle/styles/shadedStyle';
 import { AnimatedPatternStyle } from '../components/renderStyle/styles/animatedPatternStyle';
 import { ErosionStyle } from '../components/renderStyle/styles/erosionStyle';
 import { FlatStyle } from '../components/renderStyle/styles/flatStyle';
+import { DisqusModule } from 'ngx-disqus';
 
 @NgModule({
-    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, DiscusPage, ColorPicker, ShapePicker, StylePicker, FontPicker, ShapePopoverPage, ColorMenuItem],
+    declarations: [MyApp, Pages, Components, WordCloudComponent, LinkCloudComponent, PopoverPage, AboutPage, DisqusPage, ColorPicker, ShapePicker, StylePicker, FontPicker, ShapePopoverPage, ColorMenuItem],
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp, {
             menuType: 'push'
         }),
         IonicPageModule.forChild(AboutPage),
-        IonicPageModule.forChild(DiscusPage),
-        IonicPageModule.forChild(PopoverPage)
+        IonicPageModule.forChild(DisqusPage),
+        IonicPageModule.forChild(PopoverPage),
+        DisqusModule.forRoot('www.webwordcloud.com')
     ],
     bootstrap: [IonicApp],
     entryComponents: [MyApp, Pages, PopoverPage, ColorPicker, ShapePicker, ShapePopoverPage, StylePicker, FontPicker],

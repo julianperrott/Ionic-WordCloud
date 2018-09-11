@@ -3,8 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
     selector: 'page-about',
-    templateUrl: 'discus.html'
+    templateUrl: 'disqus.html'
 })
-export class DiscusPage {
+export class DisqusPage {
     constructor(public navCtrl: NavController, public navParams: NavParams) { }
 }

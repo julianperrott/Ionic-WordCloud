@@ -69,7 +69,8 @@ export class HomeIntro {
                     position: 'left'
                 },
                 {
-                    intro: '<b>Enjoy.</b> let me know what you think in the comments !',
+                    element: '#menuButton',
+                    intro: '<b>Enjoy.</b><hr/> Click this button and select "Discus the application" to let me know what you think !',
                     position: 'centre'
                 }
             ]
