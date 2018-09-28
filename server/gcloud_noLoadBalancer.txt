@@ -1,16 +1,19 @@
 gcloud config set project webwordcloud-215420
 gcloud config set compute/zone europe-west2-a
 
-gcloud container clusters create wwc-noloadbalancer --num-nodes=1 --machine-type f1-micro
-gcloud container clusters get-credentials wwc-noloadbalancer
+gcloud container clusters create wwc-small --num-nodes=1 --machine-type g1-small
+gcloud container clusters get-credentials wwc-small
 
-kubectl run wwc-noloadbalancer --image=gcr.io/webwordcloud-215420/webwordcloud:v1 --port 80
+kubectl run wwc-small --image=gcr.io/webwordcloud-215420/webwordcloud:v1 --port 80
 kubectl get pods
-kubectl expose deployment wwc-noloadbalancer --type=NodePort --port 80 --target-port 80
+kubectl expose deployment wwc-small --type=NodePort --port 80 --target-port 80
 kubectl get service
-kubectl describe services wwc-noloadbalancer
-gcloud compute firewall-rules create wwc-noloadbalancer --allow tcp:31560
+kubectl describe services wwc-small
 
+gcloud compute firewall-rules list
+gcloud compute firewall-rules delete wwc-small
+gcloud compute firewall-rules create wwc-small --allow tcp:32367
+10.43.241.246
 
 gcloud compute instances list
 

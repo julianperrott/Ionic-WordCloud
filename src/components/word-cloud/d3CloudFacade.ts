@@ -6,7 +6,8 @@ import { Event } from '../../services/event';
 @Injectable()
 export class D3CloudFacade {
 
-    static urls = ['http://35.242.174.200:31560/', 'https://webwordcloudcontainer.azurewebsites.net/'];
+    // 'http://35.242.174.200:31560/',
+    static urls = ['https://webwordcloudcontainer.azurewebsites.net/'];
 
     constructor(private configurationService: ConfigurationService, private events: Events) { }
 
